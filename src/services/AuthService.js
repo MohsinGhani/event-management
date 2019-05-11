@@ -1,13 +1,15 @@
 import { Auth } from 'aws-amplify'
 
 export const signup = (user) => {
-    const { userEmail, userPass, userName } = user;
+    const { userEmail, userPass, firstName, lastName } = user;
     return new Promise((resolve, reject) => {
         Auth.signUp({
             username: userEmail,
+            firstname: firstName,
+            lastname: lastName,
             password: userPass
         })
-            .then(u => resolve({ email: u.user.username, user_id: u.userSub, verified: u.userConfirmed, userName }))
+            .then(u => resolve({ email: u.user.username, firstname: u.user.firstname, lastname: u.user.lastname, user_id: u.userSub, verified: u.userConfirmed }))
             .catch(error => reject(error));
     });
 }

@@ -1,6 +1,6 @@
 import React from "react";
-import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -24,7 +24,7 @@ import loginPageStyle from "assets/jss/material-kit-react/views/loginPage.jsx";
 import image from "assets/img/bg7.jpg";
 
 // actions
-import {authAction} from "./../../store/actions";
+import { authAction } from "./../../store/actions";
 
 class RegisterPage extends React.Component {
   constructor(props) {
@@ -32,12 +32,15 @@ class RegisterPage extends React.Component {
     // we use this to make the card to appear after the page has been rendered
     this.state = {
       cardAnimaton: "cardHidden",
-      userName: null,
+      firstName: null,
+      lastName: null,
       userEmail: null,
       userPass: null,
+      showPass: false,
       isSignupButtonDisabled: true,
       error: {
-        userName: null,
+        firstName: null,
+        lastName: null,
         userEmail: null,
         userPass: null,
       }
@@ -62,10 +65,21 @@ class RegisterPage extends React.Component {
       }.bind(this),
       700
     );
+
+    this.props.isLoggedInAction();
+    if (this.props.isLoggedIn) {
+      this.goto('/')
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.isLoggedIn) {
+      this.goto('/')
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.userName !== this.state.userName || prevState.userEmail !== this.state.userEmail || prevState.userPass !== this.state.userPass) {
+    if (prevState.firstName !== this.state.firstName || prevState.lastName !== this.state.lastName || prevState.userEmail !== this.state.userEmail || prevState.userPass !== this.state.userPass) {
       this.validateSignupForm()
     }
 
@@ -75,9 +89,9 @@ class RegisterPage extends React.Component {
   }
 
   validateSignupForm = () => {
-    let { userName, userEmail, userPass, error } = this.state
-    if ((userName && userName.length >= 3) && (userPass && userPass.length >= 8) && userEmail) {
-      error = { userName: null, userEmail: null, userPass: null }
+    let { firstName, lastName, userEmail, userPass, error } = this.state
+    if ((firstName && firstName.length >= 3) && (lastName && lastName.length >= 3) && (userPass && userPass.length >= 8) && userEmail) {
+      error = { firstName: null, lastName: null, userEmail: null, userPass: null }
       this.setState({ isSignupButtonDisabled: false, error })
     }
     else if (userPass && userPass.length < 8) {
@@ -85,19 +99,23 @@ class RegisterPage extends React.Component {
       this.setState({ isSignupButtonDisabled: true, error })
     }
     else {
-      error = { userName: null, userEmail: null, userPass: null }
+      error = { firstName: null, lastName: null, userEmail: null, userPass: null }
       this.setState({ isSignupButtonDisabled: true, error })
     }
   }
 
   handleSignUp = () => {
-    let { userName, userEmail, userPass } = this.state
-    this.props.signUpAction({ userName, userEmail, userPass })
+    let { firstName, lastName, userEmail, userPass } = this.state
+    this.props.signUpAction({ firstName, lastName, userEmail, userPass })
+  }
+
+  toggleShowPass = () => {
+    this.setState({ showPass: !this.state.showPass })
   }
 
   render() {
     const { classes, authLoader, authError, ...rest } = this.props;
-    const {userName, userEmail, userPass, isSignupButtonDisabled} = this.state;
+    const { firstName, lastName, userEmail, userPass, isSignupButtonDisabled, showPass } = this.state;
 
     return (
       <div>
@@ -123,18 +141,35 @@ class RegisterPage extends React.Component {
                     <CardHeader color="primary" className={classes.cardHeader}>
                       <h4>Register</h4>
                     </CardHeader>
-                    <p className={classes.divider} style={{width: "80%", color: "red", margin: "0 auto"}}>{authError}</p>
+                    <p className={classes.divider} style={{ width: "80%", color: "red", margin: "0 auto" }}>{authError}</p>
                     <CardBody>
                       <CustomInput
-                        labelText="User Name"
+                        labelText="First Name"
                         formControlProps={{
                           fullWidth: true
                         }}
                         inputProps={{
                           type: "text",
-                          id: "userName",
+                          id: "firstName",
                           onChange: (ev) => this.handleInput(ev),
-                          value: userName ? userName : "",
+                          value: firstName ? firstName : "",
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <People className={classes.inputIconsColor} />
+                            </InputAdornment>
+                          )
+                        }}
+                      />
+                      <CustomInput
+                        labelText="Last Name"
+                        formControlProps={{
+                          fullWidth: true
+                        }}
+                        inputProps={{
+                          type: "text",
+                          id: "lastName",
+                          onChange: (ev) => this.handleInput(ev),
+                          value: lastName ? lastName : "",
                           endAdornment: (
                             <InputAdornment position="end">
                               <People className={classes.inputIconsColor} />
@@ -165,14 +200,18 @@ class RegisterPage extends React.Component {
                           fullWidth: true
                         }}
                         inputProps={{
-                          type: "password",
+                          type: showPass ? "text" : "password",
                           id: "userPass",
                           onChange: (ev) => this.handleInput(ev),
                           value: userPass ? userPass : "",
                           endAdornment: (
                             <InputAdornment position="end">
-                              <Icon className={classes.inputIconsColor}>
-                                lock_outline
+                              <Icon
+                                className={classes.inputIconsColor}
+                                style={{ cursor: "pointer" }}
+                                onClick={this.toggleShowPass}
+                              >
+                                {showPass ? "visibility" : "visibility_off"}
                               </Icon>
                             </InputAdornment>
                           )
@@ -180,14 +219,24 @@ class RegisterPage extends React.Component {
                       />
                     </CardBody>
                     <CardFooter className={classes.cardFooter}>
-                      <Button 
-                        simple 
-                        color="primary" 
-                        size="lg" 
+                      <Button
+                        simple
+                        style={{ cursor: "pointer" }}
+                        color="primary"
+                        size="lg"
+                        onClick={() => this.goto('/login')}
+                      >
+                        I Already Have Account
+                      </Button>
+                      <Button
+                        simple
+                        style={{ cursor: "pointer" }}
+                        color="primary"
+                        size="lg"
                         disabled={isSignupButtonDisabled || authLoader}
                         onClick={this.handleSignUp}
                       >
-                        Get started
+                        Next
                       </Button>
                     </CardFooter>
                   </form>

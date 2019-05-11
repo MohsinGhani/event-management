@@ -19,8 +19,8 @@ export default class authEpic {
     static signIn = (action$) =>
         action$.ofType(SIGNIN)
             .switchMap(({ payload }) => {
-                const { email, password } = payload
-                return Observable.fromPromise(login(email, password))
+                const { userEmail, userPass } = payload
+                return Observable.fromPromise(login(userEmail, userPass))
                     .catch((err) => {
                         return Observable.of(
                             authAction.signInFailure(err)

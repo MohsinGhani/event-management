@@ -1,4 +1,6 @@
 import React from "react";
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -21,25 +23,93 @@ import loginPageStyle from "assets/jss/material-kit-react/views/loginPage.jsx";
 
 import image from "assets/img/bg7.jpg";
 
+// actions
+import { authAction } from "./../../store/actions";
+
 class LoginPage extends React.Component {
   constructor(props) {
     super(props);
     // we use this to make the card to appear after the page has been rendered
     this.state = {
-      cardAnimaton: "cardHidden"
+      cardAnimaton: "cardHidden",
+      userEmail: null,
+      userPass: null,
+      showPass: false,
+      isSigninButtonDisabled: true,
+      error: {
+        userEmail: null,
+        userPass: null,
+      }
     };
   }
+
+  goto = path => {
+    this.props.history.push(path);
+  };
+
+  handleInput = (e) => {
+    this.setState({
+      [e.target.id]: e.target.value
+    })
+  }
+
   componentDidMount() {
     // we add a hidden class to the card and after 700 ms we delete it and the transition appears
     setTimeout(
-      function() {
+      function () {
         this.setState({ cardAnimaton: "" });
       }.bind(this),
       700
     );
+
+    this.props.isLoggedInAction();
+    if (this.props.isLoggedIn) {
+      this.goto('/')
+    }
   }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.isLoggedIn) {
+      this.goto('/')
+    }
+  }
+  
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.userEmail !== this.state.userEmail || prevState.userPass !== this.state.userPass) {
+      this.validateSignupForm()
+    }
+  }
+
+
+  validateSignupForm = () => {
+    let { userEmail, userPass, error } = this.state
+    if ((userPass && userPass.length >= 8) && userEmail) {
+      error = { userEmail: null, userPass: null }
+      this.setState({ isSigninButtonDisabled: false, error })
+    }
+    else if (userPass && userPass.length < 8) {
+      error.userPass = "password does not meet the requirements"
+      this.setState({ isSigninButtonDisabled: true, error })
+    }
+    else {
+      error = { userEmail: null, userPass: null }
+      this.setState({ isSigninButtonDisabled: true, error })
+    }
+  }
+
+  handleSignIn = () => {
+    let { userEmail, userPass } = this.state
+    this.props.signInAction({ userEmail, userPass })
+  }
+
+  toggleShowPass = () => {
+    this.setState({ showPass: !this.state.showPass })
+  }
+
   render() {
-    const { classes, ...rest } = this.props;
+    const { classes, authError, authLoader, ...rest } = this.props;
+    const { userEmail, userPass, isSigninButtonDisabled, showPass } = this.state;
+
     return (
       <div>
         <Header
@@ -64,31 +134,18 @@ class LoginPage extends React.Component {
                     <CardHeader color="primary" className={classes.cardHeader}>
                       <h4>Login</h4>
                     </CardHeader>
-                    <p className={classes.divider}>[ Area for error messages ]</p>
+                    <p className={classes.divider} style={{ width: "80%", color: "red", margin: "0 auto" }}>{authError}</p>
                     <CardBody>
-                      {/* <CustomInput
-                        labelText="First Name..."
-                        id="first"
-                        formControlProps={{
-                          fullWidth: true
-                        }}
-                        inputProps={{
-                          type: "text",
-                          endAdornment: (
-                            <InputAdornment position="end">
-                              <People className={classes.inputIconsColor} />
-                            </InputAdornment>
-                          )
-                        }}
-                      /> */}
                       <CustomInput
-                        labelText="Email..."
-                        id="email"
+                        labelText="Email"
                         formControlProps={{
                           fullWidth: true
                         }}
                         inputProps={{
                           type: "email",
+                          id: "userEmail",
+                          onChange: (ev) => this.handleInput(ev),
+                          value: userEmail ? userEmail : "",
                           endAdornment: (
                             <InputAdornment position="end">
                               <Email className={classes.inputIconsColor} />
@@ -98,16 +155,22 @@ class LoginPage extends React.Component {
                       />
                       <CustomInput
                         labelText="Password"
-                        id="pass"
                         formControlProps={{
                           fullWidth: true
                         }}
                         inputProps={{
-                          type: "password",
+                          type: showPass ? "text" : "password",
+                          id: "userPass",
+                          onChange: (ev) => this.handleInput(ev),
+                          value: userPass ? userPass : "",
                           endAdornment: (
                             <InputAdornment position="end">
-                              <Icon className={classes.inputIconsColor}>
-                                lock_outline
+                              <Icon 
+                                className={classes.inputIconsColor} 
+                                style={{cursor: "pointer"}}
+                                onClick={this.toggleShowPass}
+                              >
+                                { showPass ? "visibility" : "visibility_off"}
                               </Icon>
                             </InputAdornment>
                           )
@@ -115,7 +178,23 @@ class LoginPage extends React.Component {
                       />
                     </CardBody>
                     <CardFooter className={classes.cardFooter}>
-                      <Button simple color="primary" size="lg">
+                      <Button
+                        simple
+                        style={{cursor: "pointer"}}
+                        color="primary"
+                        size="lg"
+                        onClick={() => this.goto('/')}
+                      >
+                        I want to Register
+                      </Button>
+                      <Button
+                        simple
+                        style={{cursor: "pointer"}}
+                        color="primary"
+                        size="lg"
+                        disabled={isSigninButtonDisabled || authLoader}
+                        onClick={this.handleSignIn}
+                      >
                         Login
                       </Button>
                     </CardFooter>
@@ -130,4 +209,20 @@ class LoginPage extends React.Component {
   }
 }
 
-export default withStyles(loginPageStyle)(LoginPage);
+const mapStateToProps = (state) => {
+  const { authReducer: { user, authLoader, authError, isLoggedIn } } = state;
+  return {
+    user, authLoader, authError, isLoggedIn
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signInAction: (payload) => dispatch(authAction.signIn(payload)),
+    isLoggedInAction: (payload) => dispatch(authAction.isLoggedIn(payload)),
+  };
+};
+
+export default connect(
+  mapStateToProps, mapDispatchToProps
+)(withRouter(withStyles(loginPageStyle)(LoginPage)));
