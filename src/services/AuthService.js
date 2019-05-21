@@ -17,8 +17,9 @@ export const signup = (user) => {
 
 export const confirm = (user, confirmationCode) => {
     return new Promise(async (resolve, reject) => {
-        Auth.confirmSignUp(user.user_id, confirmationCode)
-            .then(confirmedUser => resolve({ confirmedUser, user_id: user.user_id }))
+        const { user_id } = user
+        Auth.confirmSignUp(user_id, confirmationCode)
+            .then(confirmedUser => resolve({ confirmedUser, user_id }))
             .catch(error => reject(error.message));
     });
 }

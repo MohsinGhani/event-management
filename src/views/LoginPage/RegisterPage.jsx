@@ -32,10 +32,10 @@ class RegisterPage extends React.Component {
     // we use this to make the card to appear after the page has been rendered
     this.state = {
       cardAnimaton: "cardHidden",
-      firstName: null,
-      lastName: null,
-      userEmail: null,
-      userPass: null,
+      firstName: 'Mohsin',
+      lastName: 'Ghani',
+      userEmail: 'linopab@mail-finder.net',
+      userPass: 'Mohsin1!',
       showPass: false,
       isSignupButtonDisabled: true,
       error: {
