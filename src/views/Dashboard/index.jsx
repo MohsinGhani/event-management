@@ -1,15 +1,17 @@
 import React from "react";
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-// @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
-// core components
 import Header from "components/Header/Header.jsx";
-
 import loginPageStyle from "assets/jss/material-kit-react/views/loginPage.jsx";
-
-// actions
 import { authAction } from "./../../store/actions";
+import ReactMapboxGl from "react-mapbox-gl";
+import { Marker } from "react-mapbox-gl";
+import credentials from '../../config/credentials'
+
+const Map = ReactMapboxGl({
+    accessToken: credentials.MAP_ACCESS_TOCKEN
+});
 
 class Dashboard extends React.Component {
     constructor(props) {
@@ -29,18 +31,21 @@ class Dashboard extends React.Component {
             <div>
                 <Header
                     absolute
-                    color="transparent"
+                    color="rose"
                     brand="Event Management"
                     {...rest}
                 />
-
-                <div>
-                    {
-                        user ? (
-                            <h2>Welcome {user.firstname + " " + user.lastname}</h2>
-                        ) : null
-                    }
-                </div>
+                <Map
+                    style="mapbox://styles/mapbox/streets-v9"
+                    containerStyle={{
+                        height: "100vh",
+                        width: "100vw"
+                    }}
+                    movingMethod={'jumpTo'}
+                    // center={[longitude, latitude]}
+                    zoom={[12]}
+                // onClick={(map, e) => { this.props.reverseGeoCodingAction(e.lngLat) }}
+                ></Map>
             </div>
         );
     }
