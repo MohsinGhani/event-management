@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import withStyles from "@material-ui/core/styles/withStyles";
 import Header from "components/Header/Header.jsx";
+import Button from "components/CustomButtons/Button.jsx";
 import loginPageStyle from "assets/jss/material-kit-react/views/loginPage.jsx";
 import { authAction } from "./../../store/actions";
 import ReactMapboxGl from "react-mapbox-gl";
@@ -39,6 +40,7 @@ class Dashboard extends React.Component {
                     color="rose"
                     brand="Event Management"
                     {...rest}
+                    rightLinks={<Button onClick={()=>this.goto('/list-view')} color={'white'}>List View</Button>}
                 />
                 <Map
                     style="mapbox://styles/mapbox/streets-v9"
