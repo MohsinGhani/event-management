@@ -59,9 +59,8 @@ class LoginPage extends React.Component {
       function () {
         this.setState({ cardAnimaton: "" });
       }.bind(this),
-      700
+      500
     );
-
     this.props.isLoggedInAction();
     if (this.props.isLoggedIn) {
       this.goto('/')
@@ -183,7 +182,7 @@ class LoginPage extends React.Component {
                         style={{cursor: "pointer"}}
                         color="primary"
                         size="lg"
-                        onClick={() => this.goto('/')}
+                        onClick={() => this.goto('/register')}
                       >
                         I want to Register
                       </Button>

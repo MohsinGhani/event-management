@@ -13,6 +13,7 @@ import { authAction } from "./../../store/actions";
 
 class Dashboard extends React.Component {
     constructor(props) {
+        debugger
         super(props);
         // we use this to make the card to appear after the page has been rendered
         this.state = {

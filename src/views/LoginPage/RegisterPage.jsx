@@ -63,9 +63,8 @@ class RegisterPage extends React.Component {
       function () {
         this.setState({ cardAnimaton: "" });
       }.bind(this),
-      700
+      500
     );
-
     this.props.isLoggedInAction();
     if (this.props.isLoggedIn) {
       this.goto('/')
