@@ -24,6 +24,11 @@ class Dashboard extends React.Component {
         this.props.history.push(path);
     };
 
+    test = (clickedPosition) => {
+        this.setState({ clickedPosition })
+        console.log('clickedPosition', clickedPosition)
+    }
+
     render() {
         const { classes, user, ...rest } = this.props;
 
@@ -44,7 +49,8 @@ class Dashboard extends React.Component {
                     movingMethod={'jumpTo'}
                     // center={[longitude, latitude]}
                     zoom={[12]}
-                // onClick={(map, e) => { this.props.reverseGeoCodingAction(e.lngLat) }}
+                    // onClick={(map, e) => { this.props.reverseGeoCodingAction(e.lngLat) }}
+                    onClick={(map, e) => { this.test(e.lngLat) }}
                 ></Map>
             </div>
         );
