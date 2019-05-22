@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -33,6 +33,11 @@ class Dashboard extends React.Component {
         console.log('clickedPosition', clickedPosition)
     }
 
+    logout = () => {
+        this.props.logout();
+        this.goto('/login');
+    }
+
     render() {
         const { classes, user, ...rest } = this.props;
         const { longitude, latitude } = this.state
@@ -43,7 +48,12 @@ class Dashboard extends React.Component {
                     color="rose"
                     brand="Event Management"
                     {...rest}
-                    rightLinks={<Button onClick={() => this.goto('/list-view')} color={'white'}>List View</Button>}
+                    rightLinks={
+                        <Fragment>
+                            <Button onClick={() => this.goto('/list-view')} color={'white'}>List View</Button>
+                            <Button onClick={this.logout} color={'white'}>Logout</Button>
+                        </Fragment>
+                    }
                 />
                 <Map
                     style="mapbox://styles/mapbox/streets-v9"
@@ -72,6 +82,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         isLoggedInAction: (payload) => dispatch(authAction.isLoggedIn(payload)),
+        logout: () => dispatch(authAction.logout()),
     };
 };
 
