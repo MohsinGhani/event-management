@@ -11,6 +11,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Button from "@material-ui/core/Button";
 import Hidden from "@material-ui/core/Hidden";
 import Drawer from "@material-ui/core/Drawer";
+import { withRouter } from 'react-router-dom';
 // @material-ui/icons
 import Menu from "@material-ui/icons/Menu";
 // core components
@@ -65,7 +66,8 @@ class Header extends React.Component {
       leftLinks,
       brand,
       fixed,
-      absolute
+      absolute,
+      history
     } = this.props;
     const appBarClasses = classNames({
       [classes.appBar]: true,
@@ -73,7 +75,7 @@ class Header extends React.Component {
       [classes.absolute]: absolute,
       [classes.fixed]: fixed
     });
-    const brandComponent = <Button className={classes.title}>{brand}</Button>;
+    const brandComponent = <Button onClick={() => history.push('/')} className={classes.title}>{brand}</Button>;
     return (
       <AppBar className={appBarClasses}>
         <Toolbar className={classes.container}>
@@ -84,8 +86,8 @@ class Header extends React.Component {
                 {leftLinks}
               </Hidden>
             ) : (
-              brandComponent
-            )}
+                brandComponent
+              )}
           </div>
           <Hidden smDown implementation="css">
             {rightLinks}
@@ -165,4 +167,4 @@ Header.propTypes = {
   })
 };
 
-export default withStyles(headerStyle)(Header);
+export default withRouter(withStyles(headerStyle)(Header));
