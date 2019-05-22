@@ -18,7 +18,10 @@ class Dashboard extends React.Component {
     constructor(props) {
         super(props);
         // we use this to make the card to appear after the page has been rendered
-        this.state = {};
+        this.state = {
+            longitude: 67.005615,
+            latitude: 24.946218
+        };
     }
 
     goto = path => {
@@ -32,7 +35,7 @@ class Dashboard extends React.Component {
 
     render() {
         const { classes, user, ...rest } = this.props;
-
+        const { longitude, latitude } = this.state
         return (
             <div>
                 <Header
@@ -40,7 +43,7 @@ class Dashboard extends React.Component {
                     color="rose"
                     brand="Event Management"
                     {...rest}
-                    rightLinks={<Button onClick={()=>this.goto('/list-view')} color={'white'}>List View</Button>}
+                    rightLinks={<Button onClick={() => this.goto('/list-view')} color={'white'}>List View</Button>}
                 />
                 <Map
                     style="mapbox://styles/mapbox/streets-v9"
@@ -49,7 +52,7 @@ class Dashboard extends React.Component {
                         width: "100vw"
                     }}
                     movingMethod={'jumpTo'}
-                    // center={[longitude, latitude]}
+                    center={[longitude, latitude]}
                     zoom={[12]}
                     // onClick={(map, e) => { this.props.reverseGeoCodingAction(e.lngLat) }}
                     onClick={(map, e) => { this.test(e.lngLat) }}
