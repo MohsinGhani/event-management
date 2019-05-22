@@ -14,13 +14,14 @@ import CardBody from 'components/Card/CardBody'
 import CardFooter from 'components/Card/CardFooter'
 import GridContainer from 'components/Grid/GridContainer'
 import GridItem from 'components/Grid/GridItem'
+import Pagination from 'components/Pagination/Pagination.jsx'
 
 class ListView extends React.Component {
     constructor(props) {
         super(props);
         // we use this to make the card to appear after the page has been rendered
         this.state = {
-            venues: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
+            venues: [{}, {}, {}, {}, {}, {}, {}, {}, {}]
         };
     }
 
@@ -54,6 +55,20 @@ class ListView extends React.Component {
                             )
                         })
                     }
+                    <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+                        <Pagination
+                            pages={[
+                                { active: false, disabled: false, text: 'PREV', onClick: () => { } },
+                                { active: false, disabled: false, text: '...', onClick: () => { } },
+                                { active: false, disabled: false, text: 3, onClick: () => { } },
+                                { active: true, disabled: false, text: 4, onClick: () => { } },
+                                { active: false, disabled: false, text: 5, onClick: () => { } },
+                                { active: false, disabled: false, text: '...', onClick: () => { } },
+                                { active: false, disabled: false, text: 'NEXT', onClick: () => { } },
+                            ]}
+                            color={'danger'}
+                        />
+                    </div>
                 </GridContainer>
             </div>
         );
