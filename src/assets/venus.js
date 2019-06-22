@@ -1,4 +1,4 @@
-const venue = [
+const venues = [
     {
         vid: '0001',
         name: 'Lagent Plaza',
@@ -23,8 +23,8 @@ const venue = [
         city: 'Karachi',
         address: '38C Bukhari Commercial, Lane 8, D.H.A Phase 6 Ittehad Commercial Area Phase 6 Defence Housing Authority, Karachi, Karachi City, Sindh 75500',
         location: {
-            lat: 0000,
-            log: 0000
+            lat: 1,
+            log: 1
         },
         capacity: 300,
         mainPic: 'http://www.somethingperfectclt.com/wp-content/uploads/2018/08/Charlotte-Wedding-Planner-NC-wedding-Planner_0055.jpg',
@@ -44,13 +44,13 @@ const venue = [
             'Booking of venue will be confirmed on receiving of 30% advance payment at the time of booking'
         ],
         feature: [
-            { atrName: 'AC Availability', type: featureTypes.BOOLEAN, price: 5000 },
-            { atrName: 'Food Availability', type: featureTypes.BOOLEAN, price: 20000 },
-            { atrName: 'DJ Availability', type: featureTypes.BOOLEAN, price: 6000 },
-            { atrName: 'Ramp Walk Availability', type: featureTypes.BOOLEAN, price: 3000 },
-            { atrName: 'Speacial Decoration', type: featureTypes.BOOLEAN, price: 4000 },
+            { atrName: 'AC Availability', type: 0, price: 5000 },
+            { atrName: 'Food Availability', type: 0, price: 20000 },
+            { atrName: 'DJ Availability', type: 0, price: 6000 },
+            { atrName: 'Ramp Walk Availability', type: 0, price: 3000 },
+            { atrName: 'Speacial Decoration', type: 0, price: 4000 },
             {
-                atrName: 'Speacial Lighting', type: featureTypes.LIST, option: [
+                atrName: 'Speacial Lighting', type: 1, option: [
                     { title: 'category one', price: 1000 },
                     { title: 'category two', price: 2000 },
                     { title: 'category three', price: 3000 },
@@ -62,9 +62,9 @@ const venue = [
             'Fashion Show',
             'Music / Gig'
         ],
-        venueTypes: venueTypes.banquetHall,
+        venueTypes: 2,
         basicCost: 30000,
-        totatCost: 0000 //this should be generate by accoring to features and basicCost
+        totatCost: 1 //this should be generate by accoring to features and basicCost
     },
     {
         vid: '0002',
@@ -90,8 +90,8 @@ const venue = [
         city: 'Karachi',
         address: 'PL# 35-A, Block 6, P.E.C.H.S Shara-e-faisal, Karachi, Pakistan',
         location: {
-            lat: 0000,
-            log: 0000
+            lat: 1,
+            log: 1
         },
         capacity: 500,
         mainPic: 'http://www.somethingperfectclt.com/wp-content/uploads/2018/08/Charlotte-Wedding-Planner-NC-wedding-Planner_0055.jpg',
@@ -113,13 +113,13 @@ const venue = [
             'Booking of venue will be confirmed on receiving of 30% advance payment at the time of booking'
         ],
         feature: [
-            { atrName: 'AC Availability', type: featureTypes.BOOLEAN, price: 5000 },
-            { atrName: 'Food Availability', type: featureTypes.BOOLEAN, price: 20000 },
-            { atrName: 'DJ Availability', type: featureTypes.BOOLEAN, price: 6000 },
-            { atrName: 'Ramp Walk Availability', type: featureTypes.BOOLEAN, price: 3000 },
-            { atrName: 'Speacial Decoration', type: featureTypes.BOOLEAN, price: 4000 },
+            { atrName: 'AC Availability', type: 0, price: 5000 },
+            { atrName: 'Food Availability', type: 0, price: 20000 },
+            { atrName: 'DJ Availability', type: 0, price: 6000 },
+            { atrName: 'Ramp Walk Availability', type: 0, price: 3000 },
+            { atrName: 'Speacial Decoration', type: 0, price: 4000 },
             {
-                atrName: 'Speacial Lighting', type: featureTypes.LIST, option: [
+                atrName: 'Speacial Lighting', type: 1, option: [
                     { title: 'category one', price: 1000 },
                     { title: 'category two', price: 2000 },
                     { title: 'category three', price: 3000 },
@@ -131,9 +131,9 @@ const venue = [
             'Fashion Show',
             'Music / Gig'
         ],
-        venueTypes: venueTypes.banquetHall,
+        venueTypes: 2,
         basicCost: 30000,
-        totatCost: 0000 //this should be generate by accoring to features and basicCost
+        totatCost: 1 //this should be generate by accoring to features and basicCost
     }
 ]
 
@@ -151,3 +151,5 @@ const venueTypes = {
     beachHouse: 4,
     sportGround: 5,
 }
+
+module.exports = { venues, featureTypes }

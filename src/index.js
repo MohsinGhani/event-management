@@ -17,6 +17,7 @@ import RegisterPage from "views/LoginPage/RegisterPage.jsx";
 import LoginPage from "views/LoginPage/LoginPage.jsx";
 import ConfirmEmail from "views/LoginPage/ConfirmEmail.jsx";
 
+
 Amplify.configure(awsConfig);
 var hist = createBrowserHistory();
 
