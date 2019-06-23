@@ -5,13 +5,10 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Header from "components/Header/Header.jsx";
 import loginPageStyle from "assets/jss/material-kit-react/views/loginPage.jsx";
 import { authAction } from "./../../store/actions";
-import ReactMapboxGl from "react-mapbox-gl";
-import { Marker } from "react-mapbox-gl";
-import credentials from '../../config/credentials'
 import Card from 'components/Card/Card'
 import CardHeader from 'components/Card/CardHeader'
 import CardBody from 'components/Card/CardBody'
-import CardFooter from 'components/Card/CardFooter'
+// import CardFooter from 'components/Card/CardFooter'
 import GridContainer from 'components/Grid/GridContainer'
 import GridItem from 'components/Grid/GridItem'
 import Pagination from 'components/Pagination/Pagination.jsx'
@@ -45,7 +42,7 @@ class ListView extends React.Component {
                 ? Array(stars)
                     .fill(null)
                     .map((item) => {
-                        return <i class="fa fa-star" aria-hidden="true"></i>
+                        return <i className="fa fa-star" aria-hidden="true"></i>
                     })
                 : ''
         }
@@ -59,14 +56,14 @@ class ListView extends React.Component {
                 />
                 <GridContainer style={{ padding: '0 15px', maxWidth: '1024px', margin: '0 auto', marginTop: '80px' }}>
                     {
-                        venues.map((vanue) => {
+                        venues.map((vanue, i) => {
                             return (
-                                <GridItem md={4}>
+                                <GridItem md={4} key={i}>
                                     <Card children={
                                         <Fragment>
-                                            <CardHeader color={'primary'}>{vanue.name}</CardHeader>
+                                            <CardHeader style={{ position: 'inherit', opacity: 0.9 }} color={'primary'}>{vanue.name}</CardHeader>
                                             <CardBody className="card-body">
-                                                <img src={vanue.mainPic} width="100%" style={{ display: 'block' }} />
+                                                <img src={vanue.mainPic} alt='some-img' width="100%" style={{ marginTop: '-36px', borderTopLeftRadius: 5, borderTopRightRadius: 5 }} />
                                                 <div className="card-body-info">
                                                     <div>
                                                         <div className="star-ratting">
@@ -74,15 +71,15 @@ class ListView extends React.Component {
                                                             <p style={{ display: "inline", fontSize: "80%", color: 'grey' }}>Ratting</p>
                                                         </div>
                                                         <div className="city">
-                                                            <img src={Location} width="8%" />
+                                                            <img alt='some-img' src={Location} width="8%" />
                                                             <p style={{ display: "inline", fontSize: "80%", color: 'grey' }}>Karachi,Pakistan</p>
                                                         </div>
                                                         <div className="type">
-                                                            <img src={Layout_style} width="8%" />
+                                                            <img alt='some-img' src={Layout_style} width="8%" />
                                                             <p style={{ display: "inline", fontSize: "80%", color: 'grey' }}>Farm House</p>
                                                         </div>
                                                         <div className="type">
-                                                            <img src={Venue_type} width="8%" />
+                                                            <img alt='some-img' src={Venue_type} width="8%" />
                                                             <p style={{ display: "inline", fontSize: "80%", color: 'grey' }}>Sitting 150</p>
                                                         </div>
                                                     </div>
@@ -101,7 +98,7 @@ class ListView extends React.Component {
                                                         </div>
 
                                                         <div className="dtl-btn-wrapper">
-                                                            <button className="dtl-btn"><img src={view_profile} width="20%" /><span style={{ fontSize: "70%" }}>View Profile</span></button>
+                                                            <button className="dtl-btn"><img alt='some-img' src={view_profile} width="20%" /><span style={{ fontSize: "70%" }}>View Profile</span></button>
                                                         </div>
                                                     </div>
                                                 </div>

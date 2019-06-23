@@ -7,14 +7,14 @@ import Button from "components/CustomButtons/Button.jsx";
 import loginPageStyle from "assets/jss/material-kit-react/views/loginPage.jsx";
 import { authAction } from "./../../store/actions";
 import ReactMapboxGl from "react-mapbox-gl";
-import { Marker } from "react-mapbox-gl";
+// import { Marker } from "react-mapbox-gl";
 import credentials from '../../config/credentials'
 
 const Map = ReactMapboxGl({
     accessToken: credentials.MAP_ACCESS_TOCKEN
 });
 
-class Dashboard extends React.Component {
+class Home extends React.Component {
     constructor(props) {
         super(props);
         // we use this to make the card to appear after the page has been rendered
@@ -56,7 +56,7 @@ class Dashboard extends React.Component {
                     }
                 />
                 <Map
-                    style="mapbox://styles/mapbox/streets-v9"
+                    style={"mapbox://styles/mapbox/streets-v9"}
                     containerStyle={{
                         height: "100vh",
                         width: "100vw"
@@ -88,4 +88,4 @@ const mapDispatchToProps = (dispatch) => {
 
 export default connect(
     mapStateToProps, mapDispatchToProps
-)(withRouter(withStyles(loginPageStyle)(Dashboard)));
+)(withRouter(withStyles(loginPageStyle)(Home)));

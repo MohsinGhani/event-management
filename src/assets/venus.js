@@ -152,4 +152,4 @@ const venueTypes = {
     sportGround: 5,
 }
 
-module.exports = { venues, featureTypes }
+module.exports = { venues, featureTypes, venueTypes }

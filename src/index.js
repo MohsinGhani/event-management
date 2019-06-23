@@ -11,8 +11,8 @@ import PrivateRoute from './components/common/PrivateRoute';
 import "assets/scss/material-kit-react.scss?v=1.4.0";
 
 // pages for this product
-import Dashboard from "views/Dashboard";
-import ListView from "views/Dashboard/ListView.jsx";
+import Home from "views/Home";
+import ListView from "views/Home/ListView.jsx";
 import RegisterPage from "views/LoginPage/RegisterPage.jsx";
 import LoginPage from "views/LoginPage/LoginPage.jsx";
 import ConfirmEmail from "views/LoginPage/ConfirmEmail.jsx";
@@ -26,7 +26,7 @@ ReactDOM.render(
     <Router history={hist}>
       <React.Fragment>
         <Switch>
-          <PrivateRoute exact path="/" component={Dashboard} />
+          <PrivateRoute exact path="/" component={Home} />
           <PrivateRoute exact path="/list-view" component={ListView} />
           <Route path="/register" exact component={RegisterPage} />
           <Route path="/login" exact component={LoginPage} />
