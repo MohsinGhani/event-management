@@ -16,8 +16,8 @@ import ListView from "views/Home/ListView.jsx";
 import RegisterPage from "views/LoginPage/RegisterPage.jsx";
 import LoginPage from "views/LoginPage/LoginPage.jsx";
 import ConfirmEmail from "views/LoginPage/ConfirmEmail.jsx";
-
-
+import Dashboard from 'views/Dashboard/Dashboard.jsx'
+import Admin from "layouts/Admin.jsx";
 Amplify.configure(awsConfig);
 var hist = createBrowserHistory();
 
@@ -31,6 +31,7 @@ ReactDOM.render(
           <Route path="/register" exact component={RegisterPage} />
           <Route path="/login" exact component={LoginPage} />
           <Route path="/verify-email" exact component={ConfirmEmail} />
+          <Route path="/admin" component={Admin} />
         </Switch>
       </React.Fragment>
     </Router>
