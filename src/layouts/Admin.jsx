@@ -12,14 +12,11 @@ import Navbar from "dashboard-components/Navbars/Navbar.jsx";
 import Footer from "dashboard-components/Footer/Footer.jsx";
 import Sidebar from "dashboard-components/Sidebar/Sidebar.jsx";
 import FixedPlugin from "dashboard-components/FixedPlugin/FixedPlugin.jsx";
-
 import routes from "routes.js";
-
 import dashboardStyle from "dashboard-assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
-
-import image from "dashboard-assets/img/sidebar-2.jpg";
+import image from "dashboard-assets/img/sliderbg.jpg";
 import logo from "dashboard-assets/img/reactlogo.png";
-
+import AuthenticatedNavbar from './../components/common/AuthenticatedNavbar'
 const switchRoutes = (
   <Switch>
     {routes.map((prop, key) => {
@@ -41,18 +38,21 @@ class Dashboard extends React.Component {
     super(props);
     this.state = {
       image: image,
-      color: "blue",
+      color: "red",
       hasImage: true,
       fixedClasses: "dropdown show",
       mobileOpen: false
     };
   }
+
   handleImageClick = image => {
     this.setState({ image: image });
   };
+
   handleColorClick = color => {
     this.setState({ color: color });
   };
+
   handleFixedClick = () => {
     if (this.state.fixedClasses === "dropdown") {
       this.setState({ fixedClasses: "dropdown show" });
@@ -60,6 +60,7 @@ class Dashboard extends React.Component {
       this.setState({ fixedClasses: "dropdown" });
     }
   };
+
   handleDrawerToggle = () => {
     this.setState({ mobileOpen: !this.state.mobileOpen });
   };
@@ -102,20 +103,21 @@ class Dashboard extends React.Component {
           color={this.state.color}
           {...rest}
         />
-        <div className={classes.mainPanel} ref="mainPanel">
-          <Navbar
+        <div className={classes.mainPanel} style={{ margin: '-70px 0' }} ref="mainPanel">
+          {/* <Navbar
             routes={routes}
             handleDrawerToggle={this.handleDrawerToggle}
             {...rest}
-          />
+          /> */}
+          <AuthenticatedNavbar />
           {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
           {this.getRoute() ? (
             <div className={classes.content}>
               <div className={classes.container}>{switchRoutes}</div>
             </div>
           ) : (
-            <div className={classes.map}>{switchRoutes}</div>
-          )}
+              <div className={classes.map}>{switchRoutes}</div>
+            )}
           {this.getRoute() ? <Footer /> : null}
           {/* <FixedPlugin
             handleImageClick={this.handleImageClick}

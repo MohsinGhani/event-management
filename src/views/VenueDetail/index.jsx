@@ -16,7 +16,7 @@ class VenueDetail extends React.Component {
         const { ...rest } = this.props;
         return (
             <div>
-                <Header
+                {/* <Header
                     absolute
                     color="rose"
                     brand="Event Management"
@@ -27,7 +27,7 @@ class VenueDetail extends React.Component {
                             <Button onClick={this.logout} color={'white'}>Logout</Button>
                         </Fragment>
                     }
-                />
+                /> */}
                 {/* here you can start your work */}
                 <br/>
                 <br/>

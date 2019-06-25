@@ -18,6 +18,8 @@ import Venue_type from '../../assets/icons/Venue_type.svg'
 import Layout_style from '../../assets/icons/Layout_style.svg'
 import view_profile from '../../assets/icons/view_profile.svg'
 import './ListView.css'
+import AuthenticatedNavbar from './../../components/common/AuthenticatedNavbar'
+
 class ListView extends React.Component {
     constructor(props) {
         super(props);
@@ -48,13 +50,8 @@ class ListView extends React.Component {
         }
         return (
             <div>
-                <Header
-                    absolute
-                    color="rose"
-                    brand="Event Management"
-                    {...rest}
-                />
-                <GridContainer style={{ padding: '0 15px', maxWidth: '1024px', margin: '0 auto', marginTop: '80px' }}>
+                <AuthenticatedNavbar />
+                <GridContainer style={{ padding: '0 15px', maxWidth: '1024px', margin: '0 auto', marginTop: '15px' }}>
                     {
                         venues.map((vanue, i) => {
                             return (
@@ -68,35 +65,23 @@ class ListView extends React.Component {
                                                     <div>
                                                         <div className="star-ratting">
                                                             {renderFullStars()}
-                                                            <p style={{ display: "inline", fontSize: "80%", color: 'grey' }}>Ratting</p>
+                                                            <p style={{ display: "inline", fontSize: "80%", color: 'grey' }}> Ratting</p>
                                                         </div>
                                                         <div className="city">
                                                             <img alt='some-img' src={Location} width="8%" />
-                                                            <p style={{ display: "inline", fontSize: "80%", color: 'grey' }}>Karachi,Pakistan</p>
+                                                            <p style={{ display: "inline", fontSize: "80%", color: 'grey' }}> {vanue.address}</p>
                                                         </div>
                                                         <div className="type">
                                                             <img alt='some-img' src={Layout_style} width="8%" />
-                                                            <p style={{ display: "inline", fontSize: "80%", color: 'grey' }}>Farm House</p>
+                                                            <p style={{ display: "inline", fontSize: "80%", color: 'grey' }}> {vanue.venueTypes}</p>
                                                         </div>
                                                         <div className="type">
                                                             <img alt='some-img' src={Venue_type} width="8%" />
-                                                            <p style={{ display: "inline", fontSize: "80%", color: 'grey' }}>Sitting 150</p>
+                                                            <p style={{ display: "inline", fontSize: "80%", color: 'grey' }}> Sitting {vanue.capacity}</p>
                                                         </div>
                                                     </div>
 
                                                     <div className="right-panel">
-
-                                                        <div className="link">
-                                                            <div>
-                                                                <div
-                                                                    className="icon"
-                                                                >+</div>
-                                                                <div
-                                                                    className="text"
-                                                                >Add to Compare</div>
-                                                            </div>
-                                                        </div>
-
                                                         <div className="dtl-btn-wrapper">
                                                             <button className="dtl-btn"><img alt='some-img' src={view_profile} width="20%" /><span style={{ fontSize: "70%" }}>View Profile</span></button>
                                                         </div>

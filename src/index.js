@@ -7,7 +7,7 @@ import awsConfig from './config/awsConfig'
 import { Provider } from "react-redux";
 import store from './store/store'
 import PrivateRoute from './components/common/PrivateRoute';
-
+import './index.css'
 import "assets/scss/material-kit-react.scss?v=1.4.0";
 
 // pages for this product
@@ -19,7 +19,6 @@ import ConfirmEmail from "views/LoginPage/ConfirmEmail.jsx";
 import Dashboard from 'views/Dashboard/Dashboard.jsx'
 import Admin from "layouts/Admin.jsx";
 import VenueDetail from "./views/VenueDetail"
-
 Amplify.configure(awsConfig);
 var hist = createBrowserHistory();
 
@@ -28,7 +27,7 @@ ReactDOM.render(
     <Router history={hist}>
       <React.Fragment>
         <Switch>
-          <PrivateRoute exact path="/" component={VenueDetail} />
+          <PrivateRoute exact path="/" component={Home} />
           <PrivateRoute exact path="/list-view" component={ListView} />
           <Route path="/register" exact component={RegisterPage} />
           <Route path="/login" exact component={LoginPage} />

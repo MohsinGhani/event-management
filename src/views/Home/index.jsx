@@ -7,8 +7,9 @@ import Button from "components/CustomButtons/Button.jsx";
 import loginPageStyle from "assets/jss/material-kit-react/views/loginPage.jsx";
 import { authAction } from "./../../store/actions";
 import ReactMapboxGl from "react-mapbox-gl";
-// import { Marker } from "react-mapbox-gl";
+import { Marker } from "react-mapbox-gl";
 import credentials from '../../config/credentials'
+import AuthenticatedNavbar from './../../components/common/AuthenticatedNavbar'
 
 const Map = ReactMapboxGl({
     accessToken: credentials.MAP_ACCESS_TOCKEN
@@ -19,8 +20,8 @@ class Home extends React.Component {
         super(props);
         // we use this to make the card to appear after the page has been rendered
         this.state = {
-            longitude: 67.005615,
-            latitude: 24.946218
+            longitude: 67.06985544,
+            latitude: 24.86053553
         };
     }
 
@@ -43,18 +44,7 @@ class Home extends React.Component {
         const { longitude, latitude } = this.state
         return (
             <div>
-                <Header
-                    absolute
-                    color="rose"
-                    brand="Event Management"
-                    {...rest}
-                    rightLinks={
-                        <Fragment>
-                            <Button onClick={() => this.goto('/list-view')} color={'white'}>List View</Button>
-                            <Button onClick={this.logout} color={'white'}>Logout</Button>
-                        </Fragment>
-                    }
-                />
+                <AuthenticatedNavbar />
                 <Map
                     style={"mapbox://styles/mapbox/streets-v9"}
                     containerStyle={{
@@ -63,10 +53,16 @@ class Home extends React.Component {
                     }}
                     movingMethod={'jumpTo'}
                     center={[longitude, latitude]}
-                    zoom={[12]}
+                    zoom={[18]}
                     // onClick={(map, e) => { this.props.reverseGeoCodingAction(e.lngLat) }}
                     onClick={(map, e) => { this.test(e.lngLat) }}
-                ></Map>
+                >
+                    <Marker
+                        coordinates={[longitude, latitude]}
+                    >
+                        <img style={{ height: 20, width: 15 }} src={require('./../../assets/icons/current-location.png')} alt={'current location'} />
+                    </Marker>
+                </Map>
             </div>
         );
     }

@@ -74,8 +74,8 @@ class FixedPlugin extends Component {
                   <span
                     className={
                       this.props.bgColor === "red"
-                        ? "badge filter badge-red active"
-                        : "badge filter badge-red"
+                        ? "badge filter badge-rose active"
+                        : "badge filter badge-rose"
                     }
                     data-color="red"
                     onClick={() => {
