@@ -17,6 +17,7 @@ import Location from '../../assets/icons/Location.svg'
 import Venue_type from '../../assets/icons/Venue_type.svg'
 import Layout_style from '../../assets/icons/Layout_style.svg'
 import view_profile from '../../assets/icons/view_profile.svg'
+import Button from "components/CustomButtons/Button.jsx"
 import './ListView.css'
 import AuthenticatedNavbar from './../../components/common/AuthenticatedNavbar'
 
@@ -33,8 +34,6 @@ class ListView extends React.Component {
         this.props.history.push(path);
     };
 
-
-
     render() {
         const { classes, user, ...rest } = this.props;
         const { venues } = this.state
@@ -43,8 +42,8 @@ class ListView extends React.Component {
             return stars !== 0
                 ? Array(stars)
                     .fill(null)
-                    .map((item) => {
-                        return <i className="fa fa-star" aria-hidden="true"></i>
+                    .map((item, i) => {
+                        return <i className="fa fa-star" aria-hidden="true" key={i}></i>
                     })
                 : ''
         }
@@ -83,7 +82,7 @@ class ListView extends React.Component {
 
                                                     <div className="right-panel">
                                                         <div className="dtl-btn-wrapper">
-                                                            <button className="dtl-btn"><img alt='some-img' src={view_profile} width="20%" /><span style={{ fontSize: "70%" }}>View Profile</span></button>
+                                                            <Button color="warning" size="sm" round onClick={()=>this.goto('/venue-detail')}>Detail</Button>
                                                         </div>
                                                     </div>
                                                 </div>

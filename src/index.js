@@ -29,6 +29,7 @@ ReactDOM.render(
         <Switch>
           <PrivateRoute exact path="/" component={Home} />
           <PrivateRoute exact path="/list-view" component={ListView} />
+          <PrivateRoute exact path="/venue-detail" component={VenueDetail} />
           <Route path="/register" exact component={RegisterPage} />
           <Route path="/login" exact component={LoginPage} />
           <Route path="/verify-email" exact component={ConfirmEmail} />

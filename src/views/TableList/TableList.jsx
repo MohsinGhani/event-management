@@ -8,7 +8,7 @@ import Table from "dashboard-components/Table/Table.jsx";
 import Card from "dashboard-components/Card/Card.jsx";
 import CardHeader from "dashboard-components/Card/CardHeader.jsx";
 import CardBody from "dashboard-components/Card/CardBody.jsx";
-
+import Button from "components/CustomButtons/Button.jsx"
 const styles = {
   cardCategoryWhite: {
     "&,& a,& a:hover,& a:focus": {
@@ -46,60 +46,22 @@ function TableList(props) {
       <GridItem xs={12} sm={12} md={12}>
         <Card>
           <CardHeader color="primary">
-            <h4 className={classes.cardTitleWhite}>Simple Table</h4>
+            <h4 className={classes.cardTitleWhite}>Your Venue Order</h4>
             <p className={classes.cardCategoryWhite}>
-              Here is a subtitle for this table
+              Here You can manage your Venue Orders
             </p>
           </CardHeader>
           <CardBody>
             <Table
               tableHeaderColor="primary"
-              tableHead={["Name", "Country", "City", "Salary"]}
+              tableHead={["Venue Name", "Date", "Time Slot", "Package", ""]}
               tableData={[
-                ["Dakota Rice", "Niger", "Oud-Turnhout", "$36,738"],
-                ["Minerva Hooper", "Curaçao", "Sinaai-Waas", "$23,789"],
-                ["Sage Rodriguez", "Netherlands", "Baileux", "$56,142"],
-                ["Philip Chaney", "Korea, South", "Overland Park", "$38,735"],
-                ["Doris Greene", "Malawi", "Feldkirchen in Kärnten", "$63,542"],
-                ["Mason Porter", "Chile", "Gloucester", "$78,615"]
-              ]}
-            />
-          </CardBody>
-        </Card>
-      </GridItem>
-      <GridItem xs={12} sm={12} md={12}>
-        <Card plain>
-          <CardHeader plain color="primary">
-            <h4 className={classes.cardTitleWhite}>
-              Table on Plain Background
-            </h4>
-            <p className={classes.cardCategoryWhite}>
-              Here is a subtitle for this table
-            </p>
-          </CardHeader>
-          <CardBody>
-            <Table
-              tableHeaderColor="primary"
-              tableHead={["ID", "Name", "Country", "City", "Salary"]}
-              tableData={[
-                ["1", "Dakota Rice", "$36,738", "Niger", "Oud-Turnhout"],
-                ["2", "Minerva Hooper", "$23,789", "Curaçao", "Sinaai-Waas"],
-                ["3", "Sage Rodriguez", "$56,142", "Netherlands", "Baileux"],
-                [
-                  "4",
-                  "Philip Chaney",
-                  "$38,735",
-                  "Korea, South",
-                  "Overland Park"
-                ],
-                [
-                  "5",
-                  "Doris Greene",
-                  "$63,542",
-                  "Malawi",
-                  "Feldkirchen in Kärnten"
-                ],
-                ["6", "Mason Porter", "$78,615", "Chile", "Gloucester"]
+                ["Saba Banquet Hall", "Tue Jun 25 2019 ", "8-12", "1", <Button color="rose" size="sm" onClick={()=>this.goto('/venue-detail')}>Detail</Button>],
+                ["Global Marque", "Tue Jun 25 2019 ", "8-12", "2", <Button color="rose" size="sm" onClick={()=>this.goto('/venue-detail')}>Detail</Button>],
+                ["Royal Place", "Tue Jun 25 2019 ", "8-12", "4", <Button color="rose" size="sm" onClick={()=>this.goto('/venue-detail')}>Detail</Button>],
+                ["Saba Banquet Hall", "Tue Jun 25 2019" , "8-12", "8", <Button color="rose" size="sm" onClick={()=>this.goto('/venue-detail')}>Detail</Button>],
+                ["Doris Greene", "Tue Jun 25 2019 ", "8-12", "2", <Button color="rose" size="sm" onClick={()=>this.goto('/venue-detail')}>Detail</Button>],
+                ["Mason Porter", "Tue Jun 25 2019 ", "8-12", "3", <Button color="rose" size="sm" onClick={()=>this.goto('/venue-detail')}>Detail</Button>]
               ]}
             />
           </CardBody>

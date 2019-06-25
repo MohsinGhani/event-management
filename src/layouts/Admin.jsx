@@ -92,7 +92,7 @@ class Dashboard extends React.Component {
   render() {
     const { classes, ...rest } = this.props;
     return (
-      <div className={classes.wrapper}>
+      <div className={classes.wrapper} style={{ height: 'auto' }}>
         <Sidebar
           routes={routes}
           logoText={"Creative Tim"}
