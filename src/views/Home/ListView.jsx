@@ -26,7 +26,7 @@ class ListView extends React.Component {
         super(props);
         // we use this to make the card to appear after the page has been rendered
         this.state = {
-            venues: venues
+            venues: this.props.venues
         };
     }
 
@@ -82,7 +82,7 @@ class ListView extends React.Component {
 
                                                     <div className="right-panel">
                                                         <div className="dtl-btn-wrapper">
-                                                            <Button color="warning" size="sm" round onClick={()=>this.goto('/venue-detail')}>Detail</Button>
+                                                            <Button color="warning" size="sm" round onClick={() => this.goto('/venue-detail')}>Detail</Button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -114,9 +114,9 @@ class ListView extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    const { authReducer: { user, isLoggedIn } } = state;
+    const { authReducer: { user, isLoggedIn }, venueReducer: { venues } } = state;
     return {
-        user, isLoggedIn
+        user, isLoggedIn, venues
     }
 }
 
