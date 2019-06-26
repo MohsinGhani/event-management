@@ -1,5 +1,7 @@
 import { authAction } from './authAction'
+import { venueAction } from './venueAction'
 
 export {
-    authAction
+    authAction,
+    venueAction
 }
