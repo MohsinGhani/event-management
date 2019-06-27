@@ -62,9 +62,9 @@ class Dashboard extends React.Component {
                 <CardIcon color="warning">
                   <Icon>content_copy</Icon>
                 </CardIcon>
-                <p className={classes.cardCategory}>Used Space</p>
+                <p className={classes.cardCategory}>Rating</p>
                 <h3 className={classes.cardTitle}>
-                  49/50 <small>GB</small>
+                  4.5/5 <small>star</small>
                 </h3>
               </CardHeader>
               <CardFooter stats>
@@ -102,7 +102,7 @@ class Dashboard extends React.Component {
                 <CardIcon color="danger">
                   <Icon>info_outline</Icon>
                 </CardIcon>
-                <p className={classes.cardCategory}>Fixed Issues</p>
+                <p className={classes.cardCategory}>Number Of Events Hosted</p>
                 <h3 className={classes.cardTitle}>75</h3>
               </CardHeader>
               <CardFooter stats>
@@ -172,9 +172,9 @@ class Dashboard extends React.Component {
                 />
               </CardHeader>
               <CardBody>
-                <h4 className={classes.cardTitle}>Email Subscriptions</h4>
+                <h4 className={classes.cardTitle}>Monthly Sales</h4>
                 <p className={classes.cardCategory}>
-                  Last Campaign Performance
+                  
                 </p>
               </CardBody>
               <CardFooter chart>
@@ -196,9 +196,9 @@ class Dashboard extends React.Component {
                 />
               </CardHeader>
               <CardBody>
-                <h4 className={classes.cardTitle}>Completed Tasks</h4>
+                <h4 className={classes.cardTitle}>Monthly Ratings</h4>
                 <p className={classes.cardCategory}>
-                  Last Campaign Performance
+                 Performance
                 </p>
               </CardBody>
               <CardFooter chart>
@@ -216,18 +216,18 @@ class Dashboard extends React.Component {
               headerColor="primary"
               tabs={[
                 {
-                  tabName: "Bugs",
+                  tabName: "Catering",
                   tabIcon: BugReport,
                   tabContent: (
                     <Tasks
                       checkedIndexes={[0, 3]}
-                      tasksIndexes={[0, 1, 2, 3]}
+                      tasksIndexes={[0,1]}
                       tasks={bugs}
                     />
                   )
                 },
                 {
-                  tabName: "Website",
+                  tabName: "Service",
                   tabIcon: Code,
                   tabContent: (
                     <Tasks
@@ -238,12 +238,12 @@ class Dashboard extends React.Component {
                   )
                 },
                 {
-                  tabName: "Server",
+                  tabName: "Decoration",
                   tabIcon: Cloud,
                   tabContent: (
                     <Tasks
                       checkedIndexes={[1]}
-                      tasksIndexes={[0, 1, 2]}
+                      tasksIndexes={[0]}
                       tasks={server}
                     />
                   )
@@ -254,20 +254,20 @@ class Dashboard extends React.Component {
           <GridItem xs={12} sm={12} md={6}>
             <Card>
               <CardHeader color="warning">
-                <h4 className={classes.cardTitleWhite}>Employees Stats</h4>
+                <h4 className={classes.cardTitleWhite}>Previous Orders</h4>
                 <p className={classes.cardCategoryWhite}>
-                  New employees on 15th September, 2016
+                  Recenlty Completed Orders
                 </p>
               </CardHeader>
               <CardBody>
                 <Table
                   tableHeaderColor="warning"
-                  tableHead={["ID", "Name", "Salary", "Country"]}
+                  tableHead={["ID", "Name", "Price", "Venue"]}
                   tableData={[
-                    ["1", "Dakota Rice", "Rs.15,000", "Pakistan"],
-                    ["2", "Minerva Hooper", "Rs.15,000", "Pakistan"],
-                    ["3", "Sage Rodriguez", "Rs.15,000", "Pakistan"],
-                    ["4", "Philip Chaney", "Rs.15,000", "Pakistan"]
+                    ["1", "Mr Ali", "15,000 $", "shadi qila"],
+                    ["2", "Mr Alisha", "20,000 $", "stylish"],
+                    ["3", "Mr Taimoor gul", "30,000 $", "Regent Plaza"],
+                    ["4", "Mr Faran", "40,000 $", "Mehran Hotel"]
                   ]}
                 />
               </CardBody>

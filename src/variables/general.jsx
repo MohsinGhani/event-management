@@ -3,19 +3,17 @@
 // #############################
 
 var bugs = [
-  'Sign contract for "What are conference organizers afraid of?"',
-  "Lines From Great Russian Literature? Or E-mails From My Boss?",
-  "Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit",
-  "Create 4 Invisible User Experiences you Never Knew About"
+  'Do ypu guys provide continental food?"',
+  "Do yoou guys have a juice bar facility",
+
 ];
 var website = [
-  "Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit",
-  'Sign contract for "What are conference organizers afraid of?"'
+  "Perfomance of your AC's were poor",
+  'Do you have seating arrangment theme for hindu wedding?"'
 ];
 var server = [
-  "Lines From Great Russian Literature? Or E-mails From My Boss?",
-  "Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit",
-  'Sign contract for "What are conference organizers afraid of?"'
+  "Do you guys have royal western wedding thme",
+  
 ];
 
 module.exports = {

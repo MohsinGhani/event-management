@@ -8,8 +8,8 @@ const PrivateRoute = ({ component: Component, isAuthenticated, ...rest }) => {
         <Route
             {...rest}
             render={props =>
-                // isAuthenticated ? (
-                true ? (
+                 isAuthenticated ? (
+ //               true ? (
                     <div>
                         <Component {...props} />
                     </div>
