@@ -10,6 +10,13 @@ import ReactMapboxGl from "react-mapbox-gl";
 import { Marker, Popup } from "react-mapbox-gl";
 import credentials from '../../config/credentials'
 import AuthenticatedNavbar from './../../components/common/AuthenticatedNavbar'
+import Card from 'components/Card/Card'
+import CardHeader from 'components/Card/CardHeader'
+import CardBody from 'components/Card/CardBody'
+import Layout_style from '../../assets/icons/Layout_style.svg'
+import Venue_type from '../../assets/icons/Venue_type.svg'
+import GridItem from 'components/Grid/GridItem'
+import Location from '../../assets/icons/Location.svg'
 
 const Map = ReactMapboxGl({
     accessToken: credentials.MAP_ACCESS_TOCKEN
@@ -76,20 +83,58 @@ class Home extends React.Component {
                     closeOnClick={false}
                     onClose={() => this.setState({ popupInfo: null })}
                 >
-                    <div>
-                        <div>
-                            {popupInfo.name} | {' '}
-                            <a onClick={() => { this.setState({ popupInfo: null }) }}>
-                                Close
-                            </a>
-                        </div>
-                        <img width={240} src={popupInfo.mainPic} />
+                    <div style={{width: '250px'}}>
+                        {/* <Card children={ */}
+                            <Fragment>
+                                {/* <CardHeader style={{ position: 'inherit', opacity: 0.9 }} color={'primary'}>{popupInfo.name}</CardHeader> */}
+                                <CardBody className="card-body">
+                                    <img src={popupInfo.mainPic} alt='venue-image' width="100%" style={{ borderTopLeftRadius: 5, borderTopRightRadius: 5 }} />
+                                    <div className="card-body-info">
+                                        <div>
+                                            <div className="star-ratting">
+                                                {this._renderFullStars()}
+                                                <p style={{ display: "inline", fontSize: "80%", color: 'grey' }}> Ratting</p>
+                                            </div>
+                                            <div className="city">
+                                                <img alt='some-img' src={Location} width="8%" />
+                                                <p style={{ display: "inline", fontSize: "80%", color: 'grey' }}> {popupInfo.address}</p>
+                                            </div>
+                                            <div className="type">
+                                                <img alt='some-img' src={Layout_style} width="8%" />
+                                                <p style={{ display: "inline", fontSize: "80%", color: 'grey' }}> {popupInfo.venueTypes}</p>
+                                            </div>
+                                            <div className="type">
+                                                <img alt='some-img' src={Venue_type} width="8%" />
+                                                <p style={{ display: "inline", fontSize: "80%", color: 'grey' }}> Sitting {popupInfo.capacity}</p>
+                                            </div>
+                                        </div>
+
+                                        <div className="right-panel">
+                                            <div className="dtl-btn-wrapper">
+                                                <Button color="warning" size="sm" round onClick={() => this.goto('/venue-detail')}>Detail</Button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </CardBody>
+                            </Fragment>
+                        {/* } /> */}
                     </div>
                 </Popup>
             )
         );
     }
 
+
+    _renderFullStars = () => {
+        const stars = Math.ceil(this.state.venues[0].rating.overall)
+        return stars !== 0
+            ? Array(stars)
+                .fill(null)
+                .map((item, i) => {
+                    return <i className="fa fa-star" aria-hidden="true" key={i}></i>
+                })
+            : ''
+    }
     render() {
         const { classes, user, ...rest } = this.props;
         const { longitude, latitude, venues, center } = this.state
@@ -104,7 +149,7 @@ class Home extends React.Component {
                     }}
                     movingMethod={'jumpTo'}
                     center={[center.longitude, center.latitude]}
-                    zoom={[15]}
+                    // zoom={[15]}
                     // onClick={(map, e) => { this.props.reverseGeoCodingAction(e.lngLat) }}
                     onClick={this.test}
                 >
