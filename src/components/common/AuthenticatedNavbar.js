@@ -6,6 +6,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Icon from "@material-ui/core/Icon";
 // @material-ui/icons
+import { Apps, CloudDownload } from "@material-ui/icons";
 import Search from "@material-ui/icons/Search";
 import Email from "@material-ui/icons/Email";
 import Face from "@material-ui/icons/Face";
@@ -58,14 +59,41 @@ class AuthenticatedNavbar extends React.Component {
                         rightLinks={
                             <List className={classes.list}>
                                 <ListItem className={classes.listItem}>
-                                    <Button
-                                        className={classes.navLink}
-                                        // className={classes.navLink + " " + classes.navLinkActive}
-                                        onClick={e => this.goto('/list-view')}
-                                        color="transparent"
-                                    >
-                                        <Icon className={classes.icons}>list</Icon> List View
-                                </Button>
+                                    <CustomDropdown
+                                        noLiPadding
+                                        buttonText="Venue"
+                                        buttonProps={{
+                                            className: classes.navLink,
+                                            color: "transparent"
+                                        }}
+                                        buttonIcon={Apps}
+                                        dropdownList={[
+                                            <Button
+                                                className={classes.navLink}
+                                                // className={classes.navLink + " " + classes.navLinkActive}
+                                                onClick={e => this.goto('/add-venue')}
+                                                color="transparent"
+                                            >
+                                                <Icon className={classes.icons}>add_rounded</Icon>Create
+                                            </Button>,
+                                            <Button
+                                                className={classes.navLink}
+                                                // className={classes.navLink + " " + classes.navLinkActive}
+                                                onClick={e => this.goto('/list-view')}
+                                                color="transparent"
+                                            >
+                                                <Icon className={classes.icons}>list</Icon> List View
+                                            </Button>,
+                                            <Button
+                                                className={classes.navLink}
+                                                // className={classes.navLink + " " + classes.navLinkActive}
+                                                onClick={e => this.goto('/')}
+                                                color="transparent"
+                                            >
+                                                <Icon className={classes.icons}>map</Icon> Map View
+                                            </Button>
+                                        ]}
+                                    />
                                 </ListItem>
                                 <ListItem className={classes.listItem}>
                                     <Button
