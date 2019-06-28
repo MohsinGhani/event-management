@@ -47,6 +47,7 @@ class SnackbarContent extends React.Component {
     this.state = {
       alert: (
         <Snack
+          style={{ width: '100%' }}
           message={
             <div>
               {snackIcon}
