@@ -151,7 +151,7 @@ class Home extends React.Component {
                     center={[center.longitude, center.latitude]}
                     // zoom={[15]}
                     // onClick={(map, e) => { this.props.reverseGeoCodingAction(e.lngLat) }}
-                    onClick={this.test}
+                    // onClick={this.test}
                 >
                     <Marker
                         coordinates={[longitude, latitude]}
