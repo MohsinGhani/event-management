@@ -1,17 +1,47 @@
 import {
     GET_VENUES, GET_VENUES_SUCCESS, GET_VENUES_FAILURE,
     SAVE_VENUES, SAVE_VENUES_SUCCESS, SAVE_VENUES_FAILURE,
+    REVERSE_GEOCODING, REVERSE_GEOCODING_SUCCESS, REVERSE_GEOCODING_FAILURE,    
 } from './../constants'
 import { venues } from './../../assets/venus'
 
 const initialState = {
     venues,
     getVenuesLoader: false,
-    getVenuesError: null
+    getVenuesError: null,
+
+    reversedGeoCoding: null,
+    reverseGeoCodingLoader: false,
+    reverseGeoCodingError: null,
 }
 
 export default function venueReducer(state = initialState, action) {
     switch (action.type) {
+        ///////////////////////
+        case REVERSE_GEOCODING:
+            return {
+                ...state,
+                reversedGeoCoding: null,
+                reverseGeoCodingLoader: true,
+                reverseGeoCodingError: null,
+            }
+
+        case REVERSE_GEOCODING_SUCCESS:
+            return {
+                ...state,
+                reversedGeoCoding: action.payload,
+                reverseGeoCodingLoader: false,
+                reverseGeoCodingError: null,
+            }
+
+        case REVERSE_GEOCODING_FAILURE:
+            return {
+                ...state,
+                reversedGeoCoding: null,
+                reverseGeoCodingLoader: false,
+                reverseGeoCodingError: action.error,
+            }
+        //////////////
         case GET_VENUES:
             return {
                 ...state,

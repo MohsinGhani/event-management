@@ -194,7 +194,7 @@ class LoginPage extends React.Component {
                         disabled={isSigninButtonDisabled || authLoader}
                         onClick={this.handleSignIn}
                       >
-                        Login
+                        { authLoader ? '...' : 'Login'}
                       </Button>
                     </CardFooter>
                   </form>

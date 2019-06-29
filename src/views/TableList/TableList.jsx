@@ -56,12 +56,12 @@ function TableList(props) {
               tableHeaderColor="primary"
               tableHead={["Venue Name", "Date", "Time Slot", "Package", ""]}
               tableData={[
-                ["Saba Banquet Hall", "Tue Jun 25 2019 ", "8-12", "1", <Button color="rose" size="sm" onClick={()=>this.goto('/venue-detail')}>Detail</Button>],
-                ["Global Marque", "Tue Jun 25 2019 ", "8-12", "2", <Button color="rose" size="sm" onClick={()=>this.goto('/venue-detail')}>Detail</Button>],
-                ["Royal Place", "Tue Jun 25 2019 ", "8-12", "4", <Button color="rose" size="sm" onClick={()=>this.goto('/venue-detail')}>Detail</Button>],
-                ["Saba Banquet Hall", "Tue Jun 25 2019" , "8-12", "8", <Button color="rose" size="sm" onClick={()=>this.goto('/venue-detail')}>Detail</Button>],
-                ["Doris Greene", "Tue Jun 25 2019 ", "8-12", "2", <Button color="rose" size="sm" onClick={()=>this.goto('/venue-detail')}>Detail</Button>],
-                ["Mason Porter", "Tue Jun 25 2019 ", "8-12", "3", <Button color="rose" size="sm" onClick={()=>this.goto('/venue-detail')}>Detail</Button>]
+                ["Saba Banquet Hall", "Tue Jun 25 2019 ", "8-12", "1", <Button color="rose" size="sm">Detail</Button>],
+                ["Global Marque", "Tue Jun 25 2019 ", "8-12", "2", <Button color="rose" size="sm">Detail</Button>],
+                ["Royal Place", "Tue Jun 25 2019 ", "8-12", "4", <Button color="rose" size="sm">Detail</Button>],
+                ["Saba Banquet Hall", "Tue Jun 25 2019" , "8-12", "8", <Button color="rose" size="sm">Detail</Button>],
+                ["Doris Greene", "Tue Jun 25 2019 ", "8-12", "2", <Button color="rose" size="sm">Detail</Button>],
+                ["Mason Porter", "Tue Jun 25 2019 ", "8-12", "3", <Button color="rose" size="sm">Detail</Button>]
               ]}
             />
           </CardBody>

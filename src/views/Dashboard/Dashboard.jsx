@@ -64,17 +64,15 @@ class Dashboard extends React.Component {
                 </CardIcon>
                 <p className={classes.cardCategory}>Rating</p>
                 <h3 className={classes.cardTitle}>
-                  4.5/5 <small>star</small>
+                  4.5/5 <small><Icon className={classes.icons}>star</Icon></small>
                 </h3>
               </CardHeader>
               <CardFooter stats>
                 <div className={classes.stats}>
                   <Danger>
-                    <Warning />
+                    <Icon>content_copy</Icon>
                   </Danger>
-                  <a href="#pablo" onClick={e => e.preventDefault()}>
-                    Get more space
-                  </a>
+
                 </div>
               </CardFooter>
             </Card>
@@ -108,7 +106,7 @@ class Dashboard extends React.Component {
               <CardFooter stats>
                 <div className={classes.stats}>
                   <LocalOffer />
-                  Tracked from Github
+
                 </div>
               </CardFooter>
             </Card>
@@ -174,7 +172,7 @@ class Dashboard extends React.Component {
               <CardBody>
                 <h4 className={classes.cardTitle}>Monthly Sales</h4>
                 <p className={classes.cardCategory}>
-                  
+
                 </p>
               </CardBody>
               <CardFooter chart>
@@ -198,7 +196,7 @@ class Dashboard extends React.Component {
               <CardBody>
                 <h4 className={classes.cardTitle}>Monthly Ratings</h4>
                 <p className={classes.cardCategory}>
-                 Performance
+                  Performance
                 </p>
               </CardBody>
               <CardFooter chart>
@@ -217,18 +215,18 @@ class Dashboard extends React.Component {
               tabs={[
                 {
                   tabName: "Catering",
-                  tabIcon: BugReport,
+                  // tabIcon: BugReport,
                   tabContent: (
                     <Tasks
                       checkedIndexes={[0, 3]}
-                      tasksIndexes={[0,1]}
+                      tasksIndexes={[0, 1]}
                       tasks={bugs}
                     />
                   )
                 },
                 {
                   tabName: "Service",
-                  tabIcon: Code,
+                  // tabIcon: Code,
                   tabContent: (
                     <Tasks
                       checkedIndexes={[0]}
@@ -239,7 +237,7 @@ class Dashboard extends React.Component {
                 },
                 {
                   tabName: "Decoration",
-                  tabIcon: Cloud,
+                  // tabIcon: Cloud,
                   tabContent: (
                     <Tasks
                       checkedIndexes={[1]}

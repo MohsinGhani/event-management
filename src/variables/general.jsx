@@ -3,16 +3,16 @@
 // #############################
 
 var bugs = [
-  'Do ypu guys provide continental food?"',
-  "Do yoou guys have a juice bar facility",
+  'Do you guys serve continental food?"',
+  "Do you guys have a juice bar facility",
 
 ];
 var website = [
   "Perfomance of your AC's were poor",
-  'Do you have seating arrangment theme for hindu wedding?"'
+  'Do you have seating arrangment theme for hindu tradition wedding?"'
 ];
 var server = [
-  "Do you guys have royal western wedding thme",
+  "Do you guys have royal western wedding theme?",
   
 ];
 

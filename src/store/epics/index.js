@@ -1,5 +1,6 @@
 import { combineEpics } from "redux-observable";
 import authEpic from "./authEpic";
+import venueEpic from "./venueEpic";
 
 const rootEpic = combineEpics(
   authEpic.signIn,
@@ -11,6 +12,8 @@ const rootEpic = combineEpics(
   authEpic.isLoggedIn,
   authEpic.getUserById,
   authEpic.logout,
+
+  venueEpic.reverseGeoCoding
 );
 
 export default rootEpic;

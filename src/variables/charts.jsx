@@ -154,7 +154,7 @@ const completedTasksChart = {
     lineSmooth: Chartist.Interpolation.cardinal({
       tension: 0
     }),
-    low: 0,
+    low: 1,
     high: 6, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
     chartPadding: {
       top: 0,
