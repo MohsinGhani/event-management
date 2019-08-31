@@ -236,7 +236,7 @@ class VenueForm extends React.Component {
           )}
           <Card style={{ padding: "15px", margin: 0 }}>
             <CardHeader color="success">
-              <h4 className={classes.cardTitleWhite}>Photographers</h4>
+              <h4 className={classes.cardTitleWhite}>Photographers Details</h4>
             </CardHeader>
             <CardBody>
               <GridContainer>
