@@ -8,7 +8,8 @@ const carouselStyle = {
   marginAuto: {
     marginLeft: "auto !important",
     marginRight: "auto !important"
-  }
+  },
+  interval: '3000',	
 };
 
 export default carouselStyle;

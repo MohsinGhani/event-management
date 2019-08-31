@@ -6,12 +6,12 @@ import Amplify from 'aws-amplify';
 import awsConfig from './config/awsConfig'
 import { Provider } from "react-redux";
 import store from './store/store'
-import PrivateRoute from './components/common/PrivateRoute';
-import './index.css'
+// import PrivateRoute from './components/common/PrivateRoute';
+// import './index.css'
 import "assets/scss/material-kit-react.scss?v=1.4.0";
 
 // pages for this product
-import Home from "views/Home";
+// import Home from "views/Home";
 import ListView from "views/Home/ListView.jsx";
 import RegisterPage from "views/LoginPage/RegisterPage.jsx";
 import LoginPage from "views/LoginPage/LoginPage.jsx";
@@ -31,10 +31,12 @@ ReactDOM.render(
       <React.Fragment>
         <Switch>
           {/* <PrivateRoute exact path="/" component={Components} /> */}
-          <PrivateRoute exact path="/" component={Home} />
+          <Route exact path="/" component={Components} />
+
+          {/* <PrivateRoute exact path="/" component={Home} />
           <PrivateRoute exact path="/list-view" component={ListView} />
-          <PrivateRoute exact path="/venue-detail" component={VenueDetail} />
-          <PrivateRoute exact path="/add-venue" component={AddVenue} />
+          <PrivateRoute exact path="/venue-detail" component={VenueDetail} /> */}
+          <Route exact path="/add-venue" component={AddVenue} />
           <Route path="/register" exact component={RegisterPage} />
           <Route path="/login" exact component={LoginPage} />
           <Route path="/verify-email" exact component={ConfirmEmail} />
