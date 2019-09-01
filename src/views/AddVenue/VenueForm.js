@@ -393,7 +393,7 @@ class VenueForm extends React.Component {
                 <Grid
                   container
                   direction="row"
-                  justify="flex-start"
+                  justify="space-between"
                   alignItems="flex-start"
                   className={
                     classes.checkboxAndRadio +
@@ -402,7 +402,7 @@ class VenueForm extends React.Component {
                   }
                   style={{ display: "flex" }}
                 >
-                  <GridItem xs={12} sm={2} md={2} lg={2}>
+                  <GridItem xs={12} sm={1} md={1} lg={1}>
                     <FormControlLabel
                       control={
                         <Checkbox
@@ -419,7 +419,7 @@ class VenueForm extends React.Component {
                       label="Food"
                     />
                   </GridItem>
-                  <GridItem xs={12} sm={2} md={2} lg={2}>
+                  <GridItem xs={12} sm={1} md={1} lg={1}>
                     <FormControlLabel
                       control={
                         <Checkbox
@@ -436,7 +436,7 @@ class VenueForm extends React.Component {
                       label="Refreshments"
                     />
                   </GridItem>
-                  <GridItem xs={12} sm={2} md={2} lg={2}>
+                  <GridItem xs={12} sm={1} md={1} lg={1}>
                     <FormControlLabel
                       control={
                         <Checkbox
@@ -453,7 +453,8 @@ class VenueForm extends React.Component {
                       label="DJ / Musics"
                     />
                   </GridItem>
-                  <GridItem xs={12} sm={2} md={2} lg={2}>
+                  <GridItem xs={12} sm={1} md={1} lg={1}>
+                  
                     <FormControlLabel
                       control={
                         <Checkbox
@@ -471,7 +472,8 @@ class VenueForm extends React.Component {
                     />
                   </GridItem>
 
-                  <GridItem xs={12} sm={2} md={2} lg={2}>
+                  <GridItem xs={12} sm={1} md={1} lg={1}>
+                  
                     <FormControlLabel
                       control={
                         <Checkbox
@@ -488,7 +490,8 @@ class VenueForm extends React.Component {
                       label="WiFi"
                     />
                   </GridItem>
-                  <GridItem xs={12} sm={2} md={2} lg={2}>
+                  <GridItem xs={12} sm={1} md={1} lg={1}>
+                  
                     <FormControlLabel
                       control={
                         <Checkbox
@@ -505,7 +508,8 @@ class VenueForm extends React.Component {
                       label="Projector"
                     />
                   </GridItem>
-                  <GridItem xs={12} sm={2} md={2} lg={2}>
+                  <GridItem xs={12} sm={1} md={1} lg={1}>
+                  
                     <FormControlLabel
                       control={
                         <Checkbox
