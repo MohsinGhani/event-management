@@ -10,7 +10,6 @@ import basicsStyle from "assets/jss/material-kit-react/views/componentsSections/
 import CustomInput from "components/CustomInput/CustomInput.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import Grid from "@material-ui/core/Grid";
-
 import InputAdornment from "@material-ui/core/InputAdornment";
 import PickLocationModal from "./PickLocationModal";
 import Button from "components/CustomButtons/Button.jsx";
@@ -22,19 +21,8 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
-// import GridItem from "dashboard-components/Grid/GridItem.jsx";
-// import GridContainer from "dashboard-components/Grid/GridContainer.jsx";
-import Table from "dashboard-components/Table/Table.jsx";
-import Tasks from "dashboard-components/Tasks/Tasks.jsx";
-import CustomTabs from "dashboard-components/CustomTabs/CustomTabs.jsx";
-import Danger from "dashboard-components/Typography/Danger.jsx";
-// import Card from "dashboard-components/Card/Card.jsx";
 import CardHeader from "dashboard-components/Card/CardHeader.jsx";
-import CardIcon from "dashboard-components/Card/CardIcon.jsx";
 import CardBody from "dashboard-components/Card/CardBody.jsx";
-import CardFooter from "dashboard-components/Card/CardFooter.jsx";
-
-import dashboardStyle from "dashboard-assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 
 const styles = theme => ({
   root: {
