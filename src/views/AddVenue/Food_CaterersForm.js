@@ -31,6 +31,7 @@ import CardHeader from "dashboard-components/Card/CardHeader.jsx";
 import CardIcon from "dashboard-components/Card/CardIcon.jsx";
 import CardBody from "dashboard-components/Card/CardBody.jsx";
 import CardFooter from "dashboard-components/Card/CardFooter.jsx";
+import Grid from "@material-ui/core/Grid";
 
 import dashboardStyle from "dashboard-assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 
@@ -58,7 +59,7 @@ class VenueForm extends React.Component {
     saveVenueLoader: false,
     saveVenueSuccess: false,
     type: "",
-    foodItem: '',
+    foodItem: "",
     file: "",
     packages: ""
   };
@@ -214,7 +215,7 @@ class VenueForm extends React.Component {
       packages,
       file,
       saveVenueLoader,
-      saveVenueSuccess,
+      saveVenueSuccess
     } = this.state;
     return (
       <div>
@@ -238,7 +239,9 @@ class VenueForm extends React.Component {
           )}
           <Card style={{ padding: "15px", margin: 0 }}>
             <CardHeader color="danger">
-              <h4 className={classes.cardTitleWhite}>Food and Caterers Details</h4>
+              <h4 className={classes.cardTitleWhite}>
+                Food and Caterers Details
+              </h4>
             </CardHeader>
             <CardBody>
               <GridContainer>
@@ -288,6 +291,21 @@ class VenueForm extends React.Component {
                           <i class="material-icons">location_on</i>
                         </InputAdornment>
                       )
+                    }}
+                  />
+                </GridItem>
+                <GridItem xs={12} sm={6} md={6} lg={6}>
+                  <CustomInput
+                    labelText="Price of each Food item"
+                    id="float"
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    inputProps={{
+                      type: "number",
+                      name: "price",
+                      value: price,
+                      onChange: this.inputHandler
                     }}
                   />
                 </GridItem>
@@ -356,69 +374,92 @@ class VenueForm extends React.Component {
                     />
                   </GridItem>
                 )}
+                <div className={classes.title}>
+                  <h3>Food Items</h3>
+                </div>
 
-                <GridItem xs={12} sm={6} md={6} lg={6}>
-                  <FormControl
-                    style={{ marginTop: "8px", display: "flex" }}
-                    fullWidth
-                  >
-                    <InputLabel htmlFor="age-simple">Decoration Theme Type</InputLabel>
-                    <Select
-                      value={foodItem}
-                      onChange={this.inputHandler}
-                      inputProps={{
-                        name: "foodItem",
-                        id: "age-simple"
-                      }}
-                    >
-                      <MenuItem value={10}>Biryani Mutton/Beef/Chicken</MenuItem>
-                      <MenuItem value={20}>White Biryani Mutton/Beef/Chicken</MenuItem>
-                      <MenuItem value={30}>Polau Mutton/Beef/Chicken</MenuItem>
-                      <MenuItem value={40}>samos</MenuItem>
-                      <MenuItem value={50}>Conferences</MenuItem>
-                      <MenuItem value={60}>Birthdays</MenuItem>
-                      <MenuItem value={70}>Parties</MenuItem>
-                      <MenuItem value={80}>Weddings</MenuItem>
-                      <MenuItem value={90}>Meetings</MenuItem>
-                      <MenuItem value={100}>Conferences</MenuItem>
-                      <MenuItem value={10}>Birthdays</MenuItem>
-                      <MenuItem value={20}>Parties</MenuItem>
-                      <MenuItem value={30}>Weddings</MenuItem>
-                      <MenuItem value={40}>Meetings</MenuItem>
-                      <MenuItem value={50}>Conferences</MenuItem>
-                    </Select>
-                  </FormControl>
-                </GridItem>
-                <GridItem xs={12} sm={6} md={6} lg={6}>
-                  <CustomInput
-                    labelText="Price of each Food item"
-                    id="float"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    inputProps={{
-                      type: "number",
-                      name: "price",
-                      value: price,
-                      onChange: this.inputHandler
-                    }}
-                  />
-                </GridItem>
-                <GridItem xs={12} sm={6} md={6} lg={6}>
-                  <CustomInput
-                    // labelText="Pictures of venue"
-                    id="float"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    inputProps={{
-                      type: "file",
-                      name: "file",
-                      value: file,
-                      onChange: this.inputHandler
-                    }}
-                  />
-                </GridItem>
+                <Grid
+                  container
+                  direction="row"
+                  justify="space-between"
+                  alignItems="flex-start"
+                  className={
+                    classes.checkboxAndRadio +
+                    " " +
+                    classes.checkboxAndRadioHorizontal
+                  }
+                  style={{ display: "flex", paddingRight: "10px", marginRight: '20px' }}
+                >
+                  <GridItem xs={12} sm={1} md={1} lg={1}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          tabIndex={-1}
+                          onClick={() => this.handleToggle(21)}
+                          checkedIcon={
+                            <Check className={classes.checkedIcon} />
+                          }
+                          icon={<Check className={classes.uncheckedIcon} />}
+                          classes={{ checked: classes.checked }}
+                        />
+                      }
+                      classes={{ label: classes.label }}
+                      label="PAkistani"
+                    />
+                  </GridItem>
+                  <GridItem xs={12} sm={1} md={1} lg={1}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          tabIndex={-1}
+                          onClick={() => this.handleToggle(21)}
+                          checkedIcon={
+                            <Check className={classes.checkedIcon} />
+                          }
+                          icon={<Check className={classes.uncheckedIcon} />}
+                          classes={{ checked: classes.checked }}
+                        />
+                      }
+                      classes={{ label: classes.label }}
+                      label="Italian"
+                    />
+                  </GridItem>
+                  <GridItem xs={12} sm={1} md={1} lg={1}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          tabIndex={-1}
+                          onClick={() => this.handleToggle(21)}
+                          checkedIcon={
+                            <Check className={classes.checkedIcon} />
+                          }
+                          icon={<Check className={classes.uncheckedIcon} />}
+                          classes={{ checked: classes.checked }}
+                        />
+                      }
+                      classes={{ label: classes.label }}
+                      label="Chainies"
+                    />
+                  </GridItem>
+                  <GridItem xs={12} sm={1} md={1} lg={1}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          tabIndex={-1}
+                          onClick={() => this.handleToggle(21)}
+                          checkedIcon={
+                            <Check className={classes.checkedIcon} />
+                          }
+                          icon={<Check className={classes.uncheckedIcon} />}
+                          classes={{ checked: classes.checked }}
+                        />
+                      }
+                      classes={{ label: classes.label }}
+                      label="Continatial"
+                    />
+                  </GridItem>
+                </Grid>
+
                 <GridItem xs={12} sm={6} md={6} lg={6}>
                   <FormControl
                     style={{ marginTop: "8px", display: "flex" }}
@@ -441,6 +482,21 @@ class VenueForm extends React.Component {
                   </FormControl>
                 </GridItem>
 
+                <GridItem xs={12} sm={6} md={6} lg={6}>
+                  <CustomInput
+                    // labelText="Pictures of venue"
+                    id="float"
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    inputProps={{
+                      type: "file",
+                      name: "file",
+                      value: file,
+                      onChange: this.inputHandler
+                    }}
+                  />
+                </GridItem>
                 {
                   <GridItem
                     xs={12}

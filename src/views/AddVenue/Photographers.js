@@ -59,7 +59,7 @@ class VenueForm extends React.Component {
     saveVenueLoader: false,
     saveVenueSuccess: false,
     packages: "",
-    contactNumber: ''
+    contactNumber: ""
   };
 
   handleClickOpen = modal => {
@@ -212,7 +212,7 @@ class VenueForm extends React.Component {
       saveVenueLoader,
       saveVenueSuccess,
       packages,
-      contactNumber,
+      contactNumber
     } = this.state;
     return (
       <div>
@@ -256,16 +256,21 @@ class VenueForm extends React.Component {
                 </GridItem>
                 <GridItem xs={12} sm={6} md={6} lg={6}>
                   <CustomInput
-                    labelText="Album Price"
+                    labelText="Contact Number"
                     id="float"
                     formControlProps={{
                       fullWidth: true
                     }}
                     inputProps={{
                       type: "number",
-                      name: "albumPrice",
-                      value: albumPrice,
-                      onChange: this.inputHandler
+                      name: "contactNumber",
+                      value: contactNumber,
+                      onChange: this.inputHandler,
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <i class="material-icons">call</i>
+                        </InputAdornment>
+                      )
                     }}
                   />
                 </GridItem>
@@ -287,28 +292,23 @@ class VenueForm extends React.Component {
                       )
                     }}
                   />
-                  </GridItem>
-                  <GridItem xs={12} sm={6} md={6} lg={6}>
+                </GridItem>
+
+                <GridItem xs={12} sm={6} md={6} lg={6}>
                   <CustomInput
-                    labelText="Contact Number"
+                    labelText="Album Price"
                     id="float"
                     formControlProps={{
                       fullWidth: true
                     }}
                     inputProps={{
                       type: "number",
-                      name: "contactNumber",
-                      value: contactNumber,
-                      onChange: this.inputHandler,
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          <i class="material-icons">call</i>
-                        </InputAdornment>
-                      )
+                      name: "albumPrice",
+                      value: albumPrice,
+                      onChange: this.inputHandler
                     }}
                   />
                 </GridItem>
-                
                 {!picked && (
                   <GridItem
                     xs={12}
@@ -375,7 +375,6 @@ class VenueForm extends React.Component {
                   </GridItem>
                 )}
 
-                
                 <GridItem xs={12} sm={6} md={6} lg={6}>
                   <CustomInput
                     labelText="VUnlimited Album Price"
@@ -424,8 +423,13 @@ class VenueForm extends React.Component {
                     <Button
                       color="success"
                       disabled={
-                        !(title && albumPrice && address && contactNumber && picked) ||
-                        saveVenueLoader
+                        !(
+                          title &&
+                          albumPrice &&
+                          address &&
+                          contactNumber &&
+                          picked
+                        ) || saveVenueLoader
                       }
                       onClick={this.saveVenue}
                     >
