@@ -296,6 +296,44 @@ class VenueForm extends React.Component {
                     }}
                   />
                 </GridItem>
+               
+
+                <GridItem xs={12} sm={6} md={6} lg={6}>
+                  <CustomInput
+                    labelText="Unlimited Album Price"
+                    id="float"
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    inputProps={{
+                      type: "number",
+                      name: "unlimitedAlbumPrice",
+                      value: unlimitedAlbumPrice,
+                      onChange: this.inputHandler
+                    }}
+                  />
+                </GridItem>
+                <GridItem xs={12} sm={6} md={6} lg={6}>
+                  <FormControl
+                    style={{ marginTop: "8px", display: "flex" }}
+                    fullWidth
+                  >
+                    <InputLabel htmlFor="age-simple">Packages</InputLabel>
+                    <Select
+                      value={packages}
+                      onChange={this.inputHandler}
+                      inputProps={{
+                        name: "packages",
+                        id: "age-simple"
+                      }}
+                    >
+                      <MenuItem value={10}>Platinum</MenuItem>
+                      <MenuItem value={20}>Gold</MenuItem>
+                      <MenuItem value={30}>Sliver</MenuItem>
+                      <MenuItem value={40}>Bronz</MenuItem>
+                    </Select>
+                  </FormControl>
+                </GridItem>
                 {!picked && (
                   <GridItem
                     xs={12}
@@ -361,43 +399,6 @@ class VenueForm extends React.Component {
                     />
                   </GridItem>
                 )}
-
-                <GridItem xs={12} sm={6} md={6} lg={6}>
-                  <CustomInput
-                    labelText="VUnlimited Album Price"
-                    id="float"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    inputProps={{
-                      type: "number",
-                      name: "unlimitedAlbumPrice",
-                      value: unlimitedAlbumPrice,
-                      onChange: this.inputHandler
-                    }}
-                  />
-                </GridItem>
-                <GridItem xs={12} sm={6} md={6} lg={6}>
-                  <FormControl
-                    style={{ marginTop: "8px", display: "flex" }}
-                    fullWidth
-                  >
-                    <InputLabel htmlFor="age-simple">Packages</InputLabel>
-                    <Select
-                      value={packages}
-                      onChange={this.inputHandler}
-                      inputProps={{
-                        name: "packages",
-                        id: "age-simple"
-                      }}
-                    >
-                      <MenuItem value={10}>Platinum</MenuItem>
-                      <MenuItem value={20}>Gold</MenuItem>
-                      <MenuItem value={30}>Sliver</MenuItem>
-                      <MenuItem value={40}>Bronz</MenuItem>
-                    </Select>
-                  </FormControl>
-                </GridItem>
 
                 {
                   <GridItem

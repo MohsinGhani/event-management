@@ -20,7 +20,7 @@ import "assets/scss/material-kit-react.scss?v=1.4.0";
 // import Admin from "layouts/Admin.jsx";
 // import VenueDetail from "./views/VenueDetail"
 import AddVenue from "./views/AddVenue"
-// import Components from "./views/Components/Components"
+import Components from "./views/Components/Components"
 
 Amplify.configure(awsConfig);
 var hist = createBrowserHistory();
@@ -31,7 +31,7 @@ ReactDOM.render(
       <React.Fragment>
         <Switch>
           {/* <PrivateRoute exact path="/" component={Components} /> */}
-          {/* <Route exact path="/" component={Components} /> */}
+          <Route exact path="/" component={Components} />
 
           {/* <PrivateRoute exact path="/" component={Home} />
           <PrivateRoute exact path="/list-view" component={ListView} />

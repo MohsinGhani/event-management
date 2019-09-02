@@ -3,6 +3,7 @@ import VenueForm from "./VenueForm";
 import Photographers from "./Photographers";
 import DecoratorsFrom from "./DecoratorsForm";
 import Food_CaterersForm from "./Food_CaterersForm";
+import DropDowm from './DropDown'
 
 class AddVenue extends Component {
   render() {
@@ -12,6 +13,7 @@ class AddVenue extends Component {
         <Photographers />
         <DecoratorsFrom />
         <Food_CaterersForm />
+        
       </div>
     );
   }
