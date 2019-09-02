@@ -1,31 +1,85 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import withStyles from "@material-ui/core/styles/withStyles";
+import { withRouter } from "react-router-dom";
+import { authAction, venueAction } from "./../../store/actions";
+import AuthenticatedNavbar from "./../../components/common/AuthenticatedNavbar";
+import basicsStyle from "assets/jss/material-kit-react/views/componentsSections/basicsStyle.jsx";
 import VenueForm from "./VenueForm";
 import Photographers from "./Photographers";
 import DecoratorsFrom from "./DecoratorsForm";
 import Food_CaterersForm from "./Food_CaterersForm";
-import DropDowm from './DropDown'
+import Selectbar from "./Selectbar";
 
 class AddVenue extends Component {
+  state = {
+    categorySelect: "",
+    venueDetails: {
+      title: ""
+    }
+  };
+
+  categoryHandler = event => {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  };
+
   render() {
+    const { categorySelect } = this.state;
     return (
       <div>
-        <VenueForm />
+        <AuthenticatedNavbar />
+        <br />
+        <Selectbar
+          categorySelect={categorySelect}
+          categoryHandler={this.categoryHandler}
+        />
+
+        {(() => {
+          if (categorySelect === "venue_form") {
+            return <VenueForm />;
+          } else if (categorySelect === "food_caterers") {
+            return <Food_CaterersForm />;
+          } else if (categorySelect === "decorators_form") {
+            return <DecoratorsFrom />;
+          } else if (categorySelect === "photographer") {
+            return <Photographers />;
+          }
+        })()}
+        {/* <VenueForm />
         <Photographers />
         <DecoratorsFrom />
-        <Food_CaterersForm />
-        
+        <Food_CaterersForm /> */}
       </div>
     );
   }
 }
-export default AddVenue;
+const mapStateToProps = state => {
+  const {
+    authReducer: { user, isLoggedIn },
+    venueReducer: { venues }
+  } = state;
+  return {
+    user,
+    isLoggedIn,
+    venues
+  };
+};
 
+const mapDispatchToProps = dispatch => {
+  return {
+    isLoggedInAction: payload => dispatch(authAction.isLoggedIn(payload)),
+    saveVenueAction: payload => dispatch(venueAction.saveVenue(payload)),
+    logout: () => dispatch(authAction.logout())
+  };
+};
 
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(withStyles(basicsStyle)(AddVenue)));
 
-
-
-
-// import React, { Fragment } from "react";
 // import { connect } from 'react-redux';
 // import withStyles from "@material-ui/core/styles/withStyles";
 // import { withRouter } from 'react-router-dom';
@@ -347,21 +401,27 @@ export default AddVenue;
 //     }
 // }
 
-// const mapStateToProps = (state) => {
-//     const { authReducer: { user, isLoggedIn }, venueReducer: { venues } } = state;
-//     return {
-//         user, isLoggedIn, venues
-//     }
-// }
+// const mapStateToProps = state => {
+//   const {
+//     authReducer: { user, isLoggedIn },
+//     venueReducer: { venues }
+//   } = state;
+//   return {
+//     user,
+//     isLoggedIn,
+//     venues
+//   };
+// };
 
-// const mapDispatchToProps = (dispatch) => {
-//     return {
-//         isLoggedInAction: (payload) => dispatch(authAction.isLoggedIn(payload)),
-//         saveVenueAction: (payload) => dispatch(venueAction.saveVenue(payload)),
-//         logout: () => dispatch(authAction.logout()),
-//     };
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     isLoggedInAction: payload => dispatch(authAction.isLoggedIn(payload)),
+//     saveVenueAction: payload => dispatch(venueAction.saveVenue(payload)),
+//     logout: () => dispatch(authAction.logout())
+//   };
 // };
 
 // export default connect(
-//     mapStateToProps, mapDispatchToProps
+//   mapStateToProps,
+//   mapDispatchToProps
 // )(withRouter(withStyles(basicsStyle)(AddVenue)));

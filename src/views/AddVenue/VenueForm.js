@@ -218,7 +218,6 @@ class VenueForm extends React.Component {
     } = this.state;
     return (
       <div>
-        <AuthenticatedNavbar />
         <br />
         <GridContainer
           style={{ padding: "0", maxWidth: "1024px", margin: "0 auto" }}

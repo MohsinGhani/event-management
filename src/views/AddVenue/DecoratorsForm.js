@@ -38,7 +38,7 @@ const styles = theme => ({
   }
 });
 
-class VenueForm extends React.Component {
+class DecorationsForm extends React.Component {
   state = {
     classicModal: false,
     picked: null,
@@ -211,7 +211,6 @@ class VenueForm extends React.Component {
     } = this.state;
     return (
       <div>
-        <AuthenticatedNavbar />
         <br />
         <GridContainer
           style={{ padding: "0", maxWidth: "1024px", margin: "0 auto" }}
@@ -626,4 +625,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(withStyles(basicsStyle)(VenueForm)));
+)(withRouter(withStyles(basicsStyle)(DecorationsForm)));
