@@ -14,9 +14,138 @@ import Selectbar from "./Selectbar";
 class AddVenue extends Component {
   state = {
     categorySelect: "",
+    temp: true,
     venueDetails: {
-      title: ""
+      title: "",
+      perHead: "",
+      file: "",
+      packages: "",
+      contactNumber: "",
+      checked: [24, 22],
+      lenght: "",
+      width: "",
+      price: "",
+      capacity: "",
+      address: "",
+      classicModal: false,
+      picked: null,
+      eventType: "",
+      saveVenueLoader: false,
+      saveVenueSuccess: false
+    },
+    decoratorDetails: {
+      classicModal: false,
+      picked: null,
+      title: "",
+      price: "",
+      address: "",
+      decorationThemeType: "",
+      perHead: "",
+      file: "",
+      packages: "",
+      contactNumber: "",
+      saveVenueLoader: false,
+      saveVenueSuccess: false
+    },
+    photographerDetails: {
+      classicModal: false,
+      picked: null,
+      title: "",
+      albumPrice: "",
+      unlimitedAlbumPrice: "",
+      address: "",
+      saveVenueLoader: false,
+      saveVenueSuccess: false,
+      packages: "",
+      contactNumber: ""
+    },
+    food_caterersDetails: {
+      classicModal: false,
+      picked: null,
+      title: "",
+      price: "",
+      address: "",
+      saveVenueLoader: false,
+      saveVenueSuccess: false,
+      type: "",
+      foodItem: "",
+      file: "",
+      packages: ""
+    },
+    abc: ""
+  };
+
+  handleClickOpen = modal => {
+    var x = [];
+    x[modal] = true;
+    this.setState(x);
+  };
+
+  handleClose = modal => {
+    var x = [];
+    x[modal] = false;
+    this.setState(x);
+  };
+
+  pickedLocation = picked => {
+    this.setState(
+      {
+        picked
+      },
+      this.handleClose("classicModal")
+    );
+  };
+
+  handleToggle = value => {
+    const { checked } = this.state;
+    const currentIndex = checked.indexOf(value);
+    const newChecked = [...checked];
+
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
     }
+
+    this.setState({
+      checked: newChecked
+    });
+  };
+
+  venueDetailHandler = event => {
+    let { venueDetails } = this.state;
+    venueDetails[event.target.name] = event.target.value;
+    this.setState({
+      venueDetails,
+      temp: !this.state.temp
+    });
+  };
+
+  decoratorDetailsHandler = event => {
+    let { decoratorDetails } = this.state;
+    decoratorDetails[event.target.name] = event.target.value;
+    this.setState({
+      decoratorDetails,
+      temp: !this.state.temp
+    });
+  };
+
+  food_caterersDetailsHandler = event => {
+    let { food_caterersDetails } = this.state;
+    food_caterersDetails[event.target.name] = event.target.value;
+    this.setState({
+      food_caterersDetails,
+      temp: !this.state.temp
+    });
+  };
+
+  photographerDetailsHandler = event => {
+    let { photographerDetails } = this.state;
+    photographerDetails[event.target.name] = event.target.value;
+    this.setState({
+      photographerDetails,
+      temp: !this.state.temp
+    });
   };
 
   categoryHandler = event => {
@@ -25,8 +154,30 @@ class AddVenue extends Component {
     });
   };
 
+  // venueDetailHandler = (event, formName) => {
+  //   const { name, value } = event.target;
+  //   let formData = { ...this.state[formName] };
+
+  //   formData = {
+  //     ...formData,
+  //     [name]: value
+  //   };
+  //   this.setState({});
+  //   // this.setState({
+  //   //   [name]: value,
+
+  //   // });
+  // };
+
   render() {
-    const { categorySelect } = this.state;
+    const {
+      categorySelect,
+      venueDetails,
+      food_caterersDetails,
+      photographerDetails,
+      decoratorDetails,
+      temp
+    } = this.state;
     return (
       <div>
         <AuthenticatedNavbar />
@@ -36,15 +187,57 @@ class AddVenue extends Component {
           categoryHandler={this.categoryHandler}
         />
 
+        {/* annonymus fuction     auto call */}
+
         {(() => {
           if (categorySelect === "venue_form") {
-            return <VenueForm />;
+            return (
+              <VenueForm
+                venueDetails={venueDetails}
+                temp={temp}
+                venueDetailHandler={this.venueDetailHandler}
+                handleClickOpen={this.handleClickOpen}
+                handleClose={this.handleClose}
+                pickedLocation={this.pickedLocation}
+                handleToggle={this.handleToggle}
+              />
+            );
           } else if (categorySelect === "food_caterers") {
-            return <Food_CaterersForm />;
+            return (
+              <Food_CaterersForm
+                food_caterersDetails={food_caterersDetails}
+                food_caterersDetailsHandler={this.food_caterersDetailsHandler}
+                temp={temp}
+                handleClickOpen={this.handleClickOpen}
+                handleClose={this.handleClose}
+                pickedLocation={this.pickedLocation}
+                handleToggle={this.handleToggle}
+              />
+            );
           } else if (categorySelect === "decorators_form") {
-            return <DecoratorsFrom />;
+            return (
+              <DecoratorsFrom
+                decoratorDetails={decoratorDetails}
+                decoratorDetailsHandler={this.decoratorDetailsHandler}
+                temp={temp}
+                handleClickOpen={this.handleClickOpen}
+                handleClose={this.handleClose}
+                pickedLocation={this.pickedLocation}
+                handleToggle={this.handleToggle}
+              />
+            );
           } else if (categorySelect === "photographer") {
-            return <Photographers />;
+            return (
+              <Photographers
+                photographerDetails={photographerDetails}
+                photographerDetailsHandler={this.photographerDetailsHandler}
+                temp={temp}
+                handleClickOpen={this.handleClickOpen}
+                handleClose={this.handleClose}
+                pickedLocation={this.pickedLocation}
+                handleToggle={this.handleToggle}
+              />
+            );
           }
         })()}
         {/* <VenueForm />
