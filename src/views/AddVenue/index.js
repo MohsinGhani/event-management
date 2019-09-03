@@ -17,7 +17,6 @@ class AddVenue extends Component {
     temp: true,
     classicModal: false,
     picked: null,
-    checked: [],
     venueDetails: {
       title: "",
       perHead: "",
@@ -30,7 +29,7 @@ class AddVenue extends Component {
       capacity: "",
       address: "",
       serviceChecked: [],
-      eventType: "",
+      eventTypeCheck: [],
       saveVenueLoader: false,
       saveVenueSuccess: false
     },
@@ -38,13 +37,25 @@ class AddVenue extends Component {
       title: "",
       price: "",
       address: "",
-      decorationThemeType: "",
+      decorationThemeTypeCheck: [],
       perHead: "",
       file: "",
       packages: "",
       contactNumber: "",
       saveVenueLoader: false,
       saveVenueSuccess: false
+    },
+    food_caterersDetails: {
+      title: "",
+      price: "",
+      address: "",
+      saveVenueLoader: false,
+      saveVenueSuccess: false,
+      type: "",
+      foodItemCheck: [],
+      file: "",
+      packages: "",
+      contactNumber: ""
     },
     photographerDetails: {
       title: "",
@@ -54,19 +65,8 @@ class AddVenue extends Component {
       saveVenueLoader: false,
       saveVenueSuccess: false,
       packages: "",
-      contactNumber: ""
-    },
-    food_caterersDetails: {
-      title: "",
-      price: "",
-      address: "",
-      saveVenueLoader: false,
-      saveVenueSuccess: false,
-      type: "",
-      foodItem: "",
-      file: "",
-      packages: "",
-      contactNumber: ""
+      contactNumber: "",
+      photographyType: []
     }
   };
 
@@ -91,8 +91,8 @@ class AddVenue extends Component {
     );
   };
 
-  handleToggle = value => {
-    debugger;
+  handleToggleOnService = value => {
+    let { venueDetails } = this.state;
     const { serviceChecked } = this.state.venueDetails;
     const currentIndex = serviceChecked.indexOf(value);
     const newServiceChecked = [...serviceChecked];
@@ -102,9 +102,91 @@ class AddVenue extends Component {
     } else {
       newServiceChecked.splice(currentIndex, 1);
     }
+    this.setState({
+      venueDetails: {
+        ...venueDetails,
+        serviceChecked: newServiceChecked
+      }
+    });
+  };
+
+  handleToggleOnEventType = value => {
+    let { venueDetails } = this.state;
+    const { eventTypeCheck } = this.state.venueDetails;
+    const currentIndex = eventTypeCheck.indexOf(value);
+    const newEventTypeCheck = [...eventTypeCheck];
+
+    if (currentIndex === -1) {
+      newEventTypeCheck.push(value);
+    } else {
+      newEventTypeCheck.splice(currentIndex, 1);
+    }
 
     this.setState({
-      serviceChecked: newServiceChecked
+      venueDetails: {
+        ...venueDetails,
+        eventTypeCheck: newEventTypeCheck
+      }
+    });
+  };
+
+  handleToggleOnDecorationThemeTypeCheck = value => {
+    let { decoratorDetails } = this.state;
+    const { decorationThemeTypeCheck } = this.state.decoratorDetails;
+    const currentIndex = decorationThemeTypeCheck.indexOf(value);
+    const newDecorationThemeTypeCheck = [...decorationThemeTypeCheck];
+
+    if (currentIndex === -1) {
+      newDecorationThemeTypeCheck.push(value);
+    } else {
+      newDecorationThemeTypeCheck.splice(currentIndex, 1);
+    }
+
+    this.setState({
+      decoratorDetails: {
+        ...decoratorDetails,
+        decorationThemeTypeCheck: newDecorationThemeTypeCheck
+      }
+    });
+  };
+
+  handleToggleOnFoodItemCheck = value => {
+    let { food_caterersDetails } = this.state;
+    const { foodItemCheck } = this.state.food_caterersDetails;
+    const currentIndex = foodItemCheck.indexOf(value);
+    const newFoodItemCheck = [...foodItemCheck];
+
+    if (currentIndex === -1) {
+      newFoodItemCheck.push(value);
+    } else {
+      newFoodItemCheck.splice(currentIndex, 1);
+    }
+
+    this.setState({
+      food_caterersDetails: {
+        ...food_caterersDetails,
+        foodItemCheck: newFoodItemCheck
+      }
+    });
+  };
+
+  handleToggleOnPhotographyType = value => {
+    let { photographerDetails } = this.state;
+    const { photographyType } = this.state.photographerDetails;
+    const currentIndex = photographyType.indexOf(value);
+    const newPhotographyType = [...photographyType];
+
+    if (currentIndex === -1) {
+      newPhotographyType.push(value);
+    } else {
+      newPhotographyType.splice(currentIndex, 1);
+    }
+
+    this.setState({
+      photographerDetails: {
+        ...photographerDetails,
+        photographyType: newPhotographyType
+      }
     });
   };
 
@@ -165,6 +247,16 @@ class AddVenue extends Component {
   //   // });
   // };
 
+  // =======================Nasted level setstate===========================
+  // venueDetailHandler = event => {
+  //   const {venueDetails} = {...this.state}
+  //   const currentState = venueDetails
+  //   const {name, value} = event.target
+  //   currentState[name] = value
+
+  //   this.setState({venueDetails: currentState})
+  // }
+
   render() {
     const {
       categorySelect,
@@ -174,9 +266,7 @@ class AddVenue extends Component {
       decoratorDetails,
       temp,
       classicModal,
-      picked,
-      checked,
-      serviceChecked
+      picked
     } = this.state;
     return (
       <div>
@@ -197,12 +287,12 @@ class AddVenue extends Component {
                 temp={temp}
                 classicModal={classicModal}
                 picked={picked}
-                checked={checked}
                 venueDetailHandler={this.venueDetailHandler}
                 handleClickOpen={this.handleClickOpen}
                 handleClose={this.handleClose}
                 pickedLocation={this.pickedLocation}
-                handleToggle={this.handleToggle}
+                handleToggleOnService={this.handleToggleOnService}
+                handleToggleOnEventType={this.handleToggleOnEventType}
               />
             );
           } else if (categorySelect === "food_caterers") {
@@ -213,11 +303,10 @@ class AddVenue extends Component {
                 temp={temp}
                 classicModal={classicModal}
                 picked={picked}
-                checked={checked}
                 handleClickOpen={this.handleClickOpen}
                 handleClose={this.handleClose}
                 pickedLocation={this.pickedLocation}
-                handleToggle={this.handleToggle}
+                handleToggleOnFoodItemCheck={this.handleToggleOnFoodItemCheck}
               />
             );
           } else if (categorySelect === "decorators_form") {
@@ -228,11 +317,12 @@ class AddVenue extends Component {
                 temp={temp}
                 classicModal={classicModal}
                 picked={picked}
-                checked={checked}
                 handleClickOpen={this.handleClickOpen}
                 handleClose={this.handleClose}
                 pickedLocation={this.pickedLocation}
-                handleToggle={this.handleToggle}
+                handleToggleOnDecorationThemeTypeCheck={
+                  this.handleToggleOnDecorationThemeTypeCheck
+                }
               />
             );
           } else if (categorySelect === "photographer") {
@@ -243,11 +333,12 @@ class AddVenue extends Component {
                 temp={temp}
                 classicModal={classicModal}
                 picked={picked}
-                checked={checked}
                 handleClickOpen={this.handleClickOpen}
                 handleClose={this.handleClose}
                 pickedLocation={this.pickedLocation}
-                handleToggle={this.handleToggle}
+                handleToggleOnPhotographyType={
+                  this.handleToggleOnPhotographyType
+                }
               />
             );
           }

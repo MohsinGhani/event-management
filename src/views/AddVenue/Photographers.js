@@ -10,15 +10,21 @@ import CustomInput from "components/CustomInput/CustomInput.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import PickLocationModal from "./PickLocationModal";
+import Check from "@material-ui/icons/Check";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
 import Button from "components/CustomButtons/Button.jsx";
 import SnackbarContent from "components/Snackbar/SnackbarContent.jsx";
-import Check from "@material-ui/icons/Check";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
 import CardHeader from "dashboard-components/Card/CardHeader.jsx";
 import CardBody from "dashboard-components/Card/CardBody.jsx";
+import Grid from "@material-ui/core/Grid";
+import Tooltip from "@material-ui/core/Tooltip";
+import javascriptStyles from "assets/jss/material-kit-react/views/componentsSections/javascriptStyles.jsx";
+
 
 const styles = theme => ({
   root: {
@@ -52,10 +58,9 @@ class Photographers extends React.Component {
       handleClickOpen,
       handleClose,
       pickedLocation,
-      handleToggle,
+      handleToggleOnPhotographyType,
       classicModal,
-      picked,
-      checked
+      picked
     } = this.props;
     return (
       <div>
@@ -181,13 +186,196 @@ class Photographers extends React.Component {
                         id: "age-simple"
                       }}
                     >
-                      <MenuItem value={10}>Platinum</MenuItem>
-                      <MenuItem value={20}>Gold</MenuItem>
-                      <MenuItem value={30}>Sliver</MenuItem>
-                      <MenuItem value={40}>Bronz</MenuItem>
+                      <MenuItem value={"Platinum"}>Platinum</MenuItem>
+                      <MenuItem value={"Gold"}>Gold</MenuItem>
+                      <MenuItem value={"Sliver"}>Sliver</MenuItem>
+                      <MenuItem value={"Bronz"}>Bronz</MenuItem>
                     </Select>
                   </FormControl>
                 </GridItem>
+                <GridItem>
+                  <div className={classes.title}>
+                    <h3>Photography Type</h3>
+                  </div>
+
+                  <Grid
+                    container
+                    direction="row"
+                    justify="space-between"
+                    alignItems="flex-start"
+                    className={
+                      classes.checkboxAndRadio +
+                      " " +
+                      classes.checkboxAndRadioHorizontal
+                    }
+                    style={{
+                      display: "flex",
+                      paddingRight: "10px",
+                      marginRight: "20px"
+                    }}
+                  >
+                    <GridItem xs={12} sm={4} md={4} lg={4}>
+                      <Tooltip
+                        id="tooltip-top"
+                        title="Digital photography is ideal for when you need instant photos - it is quick, simple and easy. It is especially useful for photos that will be displayed on digital platforms such as Instagram or Facebook for guest to view on the same day. Digital photography can be processed just days after your wedding and the shots can be adjusted accordingly."
+                        placement="top"
+                        classes={{ tooltip: classes.tooltip }}
+                      >
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              tabIndex={-1}
+                              onClick={() =>
+                                handleToggleOnPhotographyType("Digital")
+                              }
+                              checkedIcon={
+                                <Check className={classes.checkedIcon} />
+                              }
+                              icon={<Check className={classes.uncheckedIcon} />}
+                              classes={{ checked: classes.checked }}
+                            />
+                          }
+                          classes={{ label: classes.label }}
+                          label="Digital"
+                        />
+                      </Tooltip>
+                    </GridItem>
+                    <GridItem xs={12} sm={4} md={4} lg={4}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            tabIndex={-1}
+                            onClick={() =>
+                              handleToggleOnPhotographyType("Traditional")
+                            }
+                            checkedIcon={
+                              <Check className={classes.checkedIcon} />
+                            }
+                            icon={<Check className={classes.uncheckedIcon} />}
+                            classes={{ checked: classes.checked }}
+                          />
+                        }
+                        classes={{ label: classes.label }}
+                        label="Traditional"
+                      />
+                    </GridItem>
+                    <GridItem xs={12} sm={4} md={4} lg={4}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            tabIndex={-1}
+                            onClick={() =>
+                              handleToggleOnPhotographyType("Artistic")
+                            }
+                            checkedIcon={
+                              <Check className={classes.checkedIcon} />
+                            }
+                            icon={<Check className={classes.uncheckedIcon} />}
+                            classes={{ checked: classes.checked }}
+                          />
+                        }
+                        classes={{ label: classes.label }}
+                        label="Artistic"
+                      />
+                    </GridItem>
+                    <GridItem xs={12} sm={4} md={4} lg={4}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            tabIndex={-1}
+                            onClick={() =>
+                              handleToggleOnPhotographyType("Documentary")
+                            }
+                            checkedIcon={
+                              <Check className={classes.checkedIcon} />
+                            }
+                            icon={<Check className={classes.uncheckedIcon} />}
+                            classes={{ checked: classes.checked }}
+                          />
+                        }
+                        classes={{ label: classes.label }}
+                        label="Documentary"
+                      />
+                    </GridItem>
+                    <GridItem xs={12} sm={4} md={4} lg={4}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            tabIndex={-1}
+                            onClick={() =>
+                              handleToggleOnPhotographyType("Illustrative")
+                            }
+                            checkedIcon={
+                              <Check className={classes.checkedIcon} />
+                            }
+                            icon={<Check className={classes.uncheckedIcon} />}
+                            classes={{ checked: classes.checked }}
+                          />
+                        }
+                        classes={{ label: classes.label }}
+                        label="Illustrative "
+                      />
+                    </GridItem>
+                    <GridItem xs={12} sm={4} md={4} lg={4}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            tabIndex={-1}
+                            onClick={() =>
+                              handleToggleOnPhotographyType("Destination")
+                            }
+                            checkedIcon={
+                              <Check className={classes.checkedIcon} />
+                            }
+                            icon={<Check className={classes.uncheckedIcon} />}
+                            classes={{ checked: classes.checked }}
+                          />
+                        }
+                        classes={{ label: classes.label }}
+                        label="Destination"
+                      />
+                    </GridItem>
+                    <GridItem xs={12} sm={4} md={4} lg={4}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            tabIndex={-1}
+                            onClick={() =>
+                              handleToggleOnPhotographyType("Light and Airy")
+                            }
+                            checkedIcon={
+                              <Check className={classes.checkedIcon} />
+                            }
+                            icon={<Check className={classes.uncheckedIcon} />}
+                            classes={{ checked: classes.checked }}
+                          />
+                        }
+                        classes={{ label: classes.label }}
+                        label="Light and Airy"
+                      />
+                    </GridItem>
+                    <GridItem xs={12} sm={4} md={4} lg={4}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            tabIndex={-1}
+                            onClick={() =>
+                              handleToggleOnPhotographyType("Drone")
+                            }
+                            checkedIcon={
+                              <Check className={classes.checkedIcon} />
+                            }
+                            icon={<Check className={classes.uncheckedIcon} />}
+                            classes={{ checked: classes.checked }}
+                          />
+                        }
+                        classes={{ label: classes.label }}
+                        label="Drone"
+                      />
+                    </GridItem>
+                  </Grid>
+                </GridItem>
+
                 {!picked && (
                   <GridItem
                     xs={12}
@@ -318,4 +506,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(withStyles(basicsStyle)(Photographers)));
+)(withRouter(withStyles({...basicsStyle, ...javascriptStyles})(Photographers)));

@@ -56,10 +56,9 @@ class Food_CaterersForm extends React.Component {
       handleClickOpen,
       handleClose,
       pickedLocation,
-      handleToggle,
+      handleToggleOnFoodItemCheck,
       classicModal,
-      picked,
-      checked
+      picked
     } = this.props;
     return (
       <div>
@@ -167,10 +166,10 @@ class Food_CaterersForm extends React.Component {
                         id: "age-simple"
                       }}
                     >
-                      <MenuItem value={10}>Platinum</MenuItem>
-                      <MenuItem value={20}>Gold</MenuItem>
-                      <MenuItem value={30}>Sliver</MenuItem>
-                      <MenuItem value={40}>Bronz</MenuItem>
+                      <MenuItem value={"Platinum"}>Platinum</MenuItem>
+                      <MenuItem value={"Gold"}>Gold</MenuItem>
+                      <MenuItem value={"Sliver"}>Sliver</MenuItem>
+                      <MenuItem value={"Bronz"}>Bronz</MenuItem>
                     </Select>
                   </FormControl>
                 </GridItem>
@@ -216,7 +215,9 @@ class Food_CaterersForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() => handleToggle(21)}
+                            onClick={() =>
+                              handleToggleOnFoodItemCheck("Pakistani")
+                            }
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -233,7 +234,9 @@ class Food_CaterersForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() => handleToggle(21)}
+                            onClick={() =>
+                              handleToggleOnFoodItemCheck("Italian")
+                            }
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -250,7 +253,9 @@ class Food_CaterersForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() => handleToggle(21)}
+                            onClick={() =>
+                              handleToggleOnFoodItemCheck("Chainies")
+                            }
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -267,7 +272,9 @@ class Food_CaterersForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() => handleToggle(21)}
+                            onClick={() =>
+                              handleToggleOnFoodItemCheck("Continatial")
+                            }
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -359,8 +366,13 @@ class Food_CaterersForm extends React.Component {
                     <Button
                       color="success"
                       disabled={
-                        !(title && price && address && contactNumber && picked) ||
-                        saveVenueLoader
+                        !(
+                          title &&
+                          price &&
+                          address &&
+                          contactNumber &&
+                          picked
+                        ) || saveVenueLoader
                       }
                       onClick={this.saveVenue}
                     >
