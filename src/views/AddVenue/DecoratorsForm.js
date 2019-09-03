@@ -42,21 +42,25 @@ class DecorationsForm extends React.Component {
     const { classes } = this.props;
     let {
       decoratorDetails: {
-        classicModal,
-        picked,
         title,
         price,
         capacity,
         address,
         decorationThemeType,
-        checked,
         packages,
         file,
         saveVenueLoader,
         saveVenueSuccess,
         contactNumber
       },
-      decoratorDetailsHandler
+      decoratorDetailsHandler,
+      handleClickOpen,
+      handleClose,
+      pickedLocation,
+      handleToggle,
+      classicModal,
+      picked,
+      checked
     } = this.props;
     return (
       <div>
@@ -213,7 +217,7 @@ class DecorationsForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() => this.handleToggle(21)}
+                            onClick={() => handleToggle(21)}
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -230,7 +234,7 @@ class DecorationsForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() => this.handleToggle(21)}
+                            onClick={() => handleToggle(21)}
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -247,7 +251,7 @@ class DecorationsForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() => this.handleToggle(21)}
+                            onClick={() => handleToggle(21)}
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -264,7 +268,7 @@ class DecorationsForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() => this.handleToggle(21)}
+                            onClick={() => handleToggle(21)}
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -281,7 +285,7 @@ class DecorationsForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() => this.handleToggle(21)}
+                            onClick={() => handleToggle(21)}
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -299,7 +303,7 @@ class DecorationsForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() => this.handleToggle(21)}
+                            onClick={() => handleToggle(21)}
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -317,7 +321,7 @@ class DecorationsForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() => this.handleToggle(21)}
+                            onClick={() => handleToggle(21)}
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -334,7 +338,7 @@ class DecorationsForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() => this.handleToggle(21)}
+                            onClick={() => handleToggle(21)}
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -360,7 +364,7 @@ class DecorationsForm extends React.Component {
                       color="primary"
                       round
                       size="sm"
-                      onClick={() => this.handleClickOpen("classicModal")}
+                      onClick={() => handleClickOpen("classicModal")}
                     >
                       <i class="material-icons">add_location</i> Pick Your Venue
                       Location
@@ -381,7 +385,7 @@ class DecorationsForm extends React.Component {
                         endAdornment: (
                           <InputAdornment
                             position="end"
-                            onClick={() => this.pickedLocation(null)}
+                            onClick={() => pickedLocation(null)}
                           >
                             <i class="material-icons">close</i>
                           </InputAdornment>
@@ -404,7 +408,7 @@ class DecorationsForm extends React.Component {
                         endAdornment: (
                           <InputAdornment
                             position="end"
-                            onClick={() => this.pickedLocation(null)}
+                            onClick={() => pickedLocation(null)}
                           >
                             <i class="material-icons">close</i>
                           </InputAdornment>
@@ -442,8 +446,8 @@ class DecorationsForm extends React.Component {
 
         <PickLocationModal
           classicModal={classicModal}
-          handleClose={this.handleClose}
-          pickedLocation={this.pickedLocation}
+          handleClose={handleClose}
+          pickedLocation={pickedLocation}
         />
       </div>
     );

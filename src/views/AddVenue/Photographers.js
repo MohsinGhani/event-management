@@ -39,8 +39,6 @@ class Photographers extends React.Component {
     const { classes } = this.props;
     let {
       photographerDetails: {
-        classicModal,
-        picked,
         title,
         albumPrice,
         unlimitedAlbumPrice,
@@ -50,8 +48,15 @@ class Photographers extends React.Component {
         packages,
         contactNumber
       },
-      photographerDetailsHandler
-    } = this.state;
+      photographerDetailsHandler,
+      handleClickOpen,
+      handleClose,
+      pickedLocation,
+      handleToggle,
+      classicModal,
+      picked,
+      checked
+    } = this.props;
     return (
       <div>
         <br />
@@ -195,7 +200,7 @@ class Photographers extends React.Component {
                       color="primary"
                       round
                       size="sm"
-                      onClick={() => this.handleClickOpen("classicModal")}
+                      onClick={() => handleClickOpen("classicModal")}
                     >
                       <i class="material-icons">add_location</i> Pick Your Venue
                       Location
@@ -216,7 +221,7 @@ class Photographers extends React.Component {
                         endAdornment: (
                           <InputAdornment
                             position="end"
-                            onClick={() => this.pickedLocation(null)}
+                            onClick={() => pickedLocation(null)}
                           >
                             <i class="material-icons">close</i>
                           </InputAdornment>
@@ -239,7 +244,7 @@ class Photographers extends React.Component {
                         endAdornment: (
                           <InputAdornment
                             position="end"
-                            onClick={() => this.pickedLocation(null)}
+                            onClick={() => pickedLocation(null)}
                           >
                             <i class="material-icons">close</i>
                           </InputAdornment>
@@ -282,8 +287,8 @@ class Photographers extends React.Component {
 
         <PickLocationModal
           classicModal={classicModal}
-          handleClose={this.handleClose}
-          pickedLocation={this.pickedLocation}
+          handleClose={handleClose}
+          pickedLocation={pickedLocation}
         />
       </div>
     );

@@ -42,11 +42,9 @@ class Food_CaterersForm extends React.Component {
     const { classes } = this.props;
     let {
       food_caterersDetails: {
-        classicModal,
-        picked,
         title,
         price,
-        capacity,
+        contactNumber,
         address,
         foodItem,
         packages,
@@ -54,7 +52,14 @@ class Food_CaterersForm extends React.Component {
         saveVenueLoader,
         saveVenueSuccess
       },
-      food_caterersDetailsHandler
+      food_caterersDetailsHandler,
+      handleClickOpen,
+      handleClose,
+      pickedLocation,
+      handleToggle,
+      classicModal,
+      picked,
+      checked
     } = this.props;
     return (
       <div>
@@ -106,8 +111,8 @@ class Food_CaterersForm extends React.Component {
                     }}
                     inputProps={{
                       type: "number",
-                      name: "price",
-                      value: price,
+                      name: "contactNumber",
+                      value: contactNumber,
                       onChange: food_caterersDetailsHandler
                     }}
                   />
@@ -211,7 +216,7 @@ class Food_CaterersForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() => this.handleToggle(21)}
+                            onClick={() => handleToggle(21)}
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -220,7 +225,7 @@ class Food_CaterersForm extends React.Component {
                           />
                         }
                         classes={{ label: classes.label }}
-                        label="PAkistani"
+                        label="Pakistani"
                       />
                     </GridItem>
                     <GridItem xs={12} sm={4} md={4} lg={4}>
@@ -228,7 +233,7 @@ class Food_CaterersForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() => this.handleToggle(21)}
+                            onClick={() => handleToggle(21)}
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -245,7 +250,7 @@ class Food_CaterersForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() => this.handleToggle(21)}
+                            onClick={() => handleToggle(21)}
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -262,7 +267,7 @@ class Food_CaterersForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() => this.handleToggle(21)}
+                            onClick={() => handleToggle(21)}
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -289,7 +294,7 @@ class Food_CaterersForm extends React.Component {
                       color="primary"
                       round
                       size="sm"
-                      onClick={() => this.handleClickOpen("classicModal")}
+                      onClick={() => handleClickOpen("classicModal")}
                     >
                       <i class="material-icons">add_location</i> Pick Your Venue
                       Location
@@ -310,7 +315,7 @@ class Food_CaterersForm extends React.Component {
                         endAdornment: (
                           <InputAdornment
                             position="end"
-                            onClick={() => this.pickedLocation(null)}
+                            onClick={() => pickedLocation(null)}
                           >
                             <i class="material-icons">close</i>
                           </InputAdornment>
@@ -333,7 +338,7 @@ class Food_CaterersForm extends React.Component {
                         endAdornment: (
                           <InputAdornment
                             position="end"
-                            onClick={() => this.pickedLocation(null)}
+                            onClick={() => pickedLocation(null)}
                           >
                             <i class="material-icons">close</i>
                           </InputAdornment>
@@ -354,7 +359,7 @@ class Food_CaterersForm extends React.Component {
                     <Button
                       color="success"
                       disabled={
-                        !(title && price && address && capacity && picked) ||
+                        !(title && price && address && contactNumber && picked) ||
                         saveVenueLoader
                       }
                       onClick={this.saveVenue}
@@ -371,8 +376,8 @@ class Food_CaterersForm extends React.Component {
 
         <PickLocationModal
           classicModal={classicModal}
-          handleClose={this.handleClose}
-          pickedLocation={this.pickedLocation}
+          handleClose={handleClose}
+          pickedLocation={pickedLocation}
         />
       </div>
     );

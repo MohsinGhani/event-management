@@ -52,19 +52,24 @@ class VenueForm extends React.Component {
         file,
         packages,
         contactNumber,
-        checked,
         lenght,
         width,
         price,
         capacity,
         address,
-        classicModal,
-        picked,
         eventType,
+        serviceChecked,
         saveVenueLoader,
         saveVenueSuccess
       },
-      venueDetailHandler
+      venueDetailHandler,
+      handleClickOpen,
+      handleClose,
+      pickedLocation,
+      handleToggle,
+      classicModal,
+      picked,
+      checked
     } = this.props;
     return (
       <div>
@@ -269,7 +274,7 @@ class VenueForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() => this.handleToggle(21)}
+                            onClick={() => handleToggle(21)}
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -286,7 +291,7 @@ class VenueForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() => this.handleToggle(21)}
+                            onClick={() => handleToggle(21)}
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -303,7 +308,7 @@ class VenueForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() => this.handleToggle(21)}
+                            onClick={() => handleToggle(21)}
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -320,7 +325,7 @@ class VenueForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() => this.handleToggle(21)}
+                            onClick={() => handleToggle(21)}
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -337,7 +342,7 @@ class VenueForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() => this.handleToggle(21)}
+                            onClick={() => handleToggle(21)}
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -355,7 +360,7 @@ class VenueForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() => this.handleToggle(21)}
+                            onClick={() => handleToggle(21)}
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -373,7 +378,7 @@ class VenueForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() => this.handleToggle(21)}
+                            onClick={() => handleToggle(21)}
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -390,7 +395,7 @@ class VenueForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() => this.handleToggle(21)}
+                            onClick={() => handleToggle(21)}
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -407,7 +412,7 @@ class VenueForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() => this.handleToggle(21)}
+                            onClick={() => handleToggle(21)}
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -442,7 +447,8 @@ class VenueForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() => this.handleToggle(21)}
+                            onClick={() => handleToggle("Food")}
+                            // onChange={()=>handleToggle("Food")}
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -459,7 +465,7 @@ class VenueForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() => this.handleToggle(21)}
+                            onClick={() => handleToggle(21)}
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -476,7 +482,7 @@ class VenueForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() => this.handleToggle(21)}
+                            onClick={() => handleToggle(21)}
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -493,7 +499,7 @@ class VenueForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() => this.handleToggle(21)}
+                            onClick={() => handleToggle(21)}
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -511,7 +517,7 @@ class VenueForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() => this.handleToggle(21)}
+                            onClick={() => handleToggle(21)}
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -528,7 +534,7 @@ class VenueForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() => this.handleToggle(21)}
+                            onClick={() => handleToggle(21)}
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -545,7 +551,7 @@ class VenueForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() => this.handleToggle(21)}
+                            onClick={() => handleToggle(21)}
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -572,7 +578,7 @@ class VenueForm extends React.Component {
                       color="primary"
                       round
                       size="sm"
-                      onClick={() => this.handleClickOpen("classicModal")}
+                      onClick={() => handleClickOpen("classicModal")}
                     >
                       <i class="material-icons">add_location</i> Pick Your Venue
                       Location
@@ -593,7 +599,7 @@ class VenueForm extends React.Component {
                         endAdornment: (
                           <InputAdornment
                             position="end"
-                            onClick={() => this.pickedLocation(null)}
+                            onClick={() => pickedLocation(null)}
                           >
                             <i class="material-icons">close</i>
                           </InputAdornment>
@@ -616,7 +622,7 @@ class VenueForm extends React.Component {
                         endAdornment: (
                           <InputAdornment
                             position="end"
-                            onClick={() => this.pickedLocation(null)}
+                            onClick={() => pickedLocation(null)}
                           >
                             <i class="material-icons">close</i>
                           </InputAdornment>
@@ -654,8 +660,8 @@ class VenueForm extends React.Component {
 
         <PickLocationModal
           classicModal={classicModal}
-          handleClose={this.handleClose}
-          pickedLocation={this.pickedLocation}
+          handleClose={handleClose}
+          pickedLocation={pickedLocation}
         />
       </div>
     );

@@ -15,27 +15,26 @@ class AddVenue extends Component {
   state = {
     categorySelect: "",
     temp: true,
+    classicModal: false,
+    picked: null,
+    checked: [],
     venueDetails: {
       title: "",
       perHead: "",
       file: "",
       packages: "",
       contactNumber: "",
-      checked: [24, 22],
       lenght: "",
       width: "",
       price: "",
       capacity: "",
       address: "",
-      classicModal: false,
-      picked: null,
+      serviceChecked: [],
       eventType: "",
       saveVenueLoader: false,
       saveVenueSuccess: false
     },
     decoratorDetails: {
-      classicModal: false,
-      picked: null,
       title: "",
       price: "",
       address: "",
@@ -48,8 +47,6 @@ class AddVenue extends Component {
       saveVenueSuccess: false
     },
     photographerDetails: {
-      classicModal: false,
-      picked: null,
       title: "",
       albumPrice: "",
       unlimitedAlbumPrice: "",
@@ -60,8 +57,6 @@ class AddVenue extends Component {
       contactNumber: ""
     },
     food_caterersDetails: {
-      classicModal: false,
-      picked: null,
       title: "",
       price: "",
       address: "",
@@ -70,9 +65,9 @@ class AddVenue extends Component {
       type: "",
       foodItem: "",
       file: "",
-      packages: ""
-    },
-    abc: ""
+      packages: "",
+      contactNumber: ""
+    }
   };
 
   handleClickOpen = modal => {
@@ -97,18 +92,19 @@ class AddVenue extends Component {
   };
 
   handleToggle = value => {
-    const { checked } = this.state;
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
+    debugger;
+    const { serviceChecked } = this.state.venueDetails;
+    const currentIndex = serviceChecked.indexOf(value);
+    const newServiceChecked = [...serviceChecked];
 
     if (currentIndex === -1) {
-      newChecked.push(value);
+      newServiceChecked.push(value);
     } else {
-      newChecked.splice(currentIndex, 1);
+      newServiceChecked.splice(currentIndex, 1);
     }
 
     this.setState({
-      checked: newChecked
+      serviceChecked: newServiceChecked
     });
   };
 
@@ -176,7 +172,11 @@ class AddVenue extends Component {
       food_caterersDetails,
       photographerDetails,
       decoratorDetails,
-      temp
+      temp,
+      classicModal,
+      picked,
+      checked,
+      serviceChecked
     } = this.state;
     return (
       <div>
@@ -195,6 +195,9 @@ class AddVenue extends Component {
               <VenueForm
                 venueDetails={venueDetails}
                 temp={temp}
+                classicModal={classicModal}
+                picked={picked}
+                checked={checked}
                 venueDetailHandler={this.venueDetailHandler}
                 handleClickOpen={this.handleClickOpen}
                 handleClose={this.handleClose}
@@ -208,6 +211,9 @@ class AddVenue extends Component {
                 food_caterersDetails={food_caterersDetails}
                 food_caterersDetailsHandler={this.food_caterersDetailsHandler}
                 temp={temp}
+                classicModal={classicModal}
+                picked={picked}
+                checked={checked}
                 handleClickOpen={this.handleClickOpen}
                 handleClose={this.handleClose}
                 pickedLocation={this.pickedLocation}
@@ -220,6 +226,9 @@ class AddVenue extends Component {
                 decoratorDetails={decoratorDetails}
                 decoratorDetailsHandler={this.decoratorDetailsHandler}
                 temp={temp}
+                classicModal={classicModal}
+                picked={picked}
+                checked={checked}
                 handleClickOpen={this.handleClickOpen}
                 handleClose={this.handleClose}
                 pickedLocation={this.pickedLocation}
@@ -232,6 +241,9 @@ class AddVenue extends Component {
                 photographerDetails={photographerDetails}
                 photographerDetailsHandler={this.photographerDetailsHandler}
                 temp={temp}
+                classicModal={classicModal}
+                picked={picked}
+                checked={checked}
                 handleClickOpen={this.handleClickOpen}
                 handleClose={this.handleClose}
                 pickedLocation={this.pickedLocation}
