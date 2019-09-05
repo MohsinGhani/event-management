@@ -276,7 +276,6 @@ class AddVenue extends Component {
         title,
         price,
         address,
-        type,
         foodItemCheck,
         file,
         packages,
@@ -287,7 +286,6 @@ class AddVenue extends Component {
         title,
         price,
         address,
-        type,
         foodItemCheck,
         file,
         packages,
@@ -301,7 +299,6 @@ class AddVenue extends Component {
           title: "",
           price: "",
           address: "",
-          type: "",
           foodItemCheck: [],
           file: "",
           packages: "",
@@ -375,6 +372,9 @@ class AddVenue extends Component {
         }
       });
     }
+    this.setState({
+      picked: ''
+    })
   };
 
   // venueDetailHandler = (event, formName) => {

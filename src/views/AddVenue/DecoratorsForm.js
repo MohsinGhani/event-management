@@ -59,7 +59,7 @@ class DecorationsForm extends React.Component {
       classicModal,
       picked,
       saveVenue,
-      saveVenueLoader,
+      saveVenueLoader
     } = this.props;
     return (
       <div>
@@ -488,7 +488,7 @@ class DecorationsForm extends React.Component {
                         saveVenue();
                       }}
                     >
-                      <i class="material-icons">save_alt</i> Save{" "}
+                      <i class="material-icons">save_alt</i>
                       {saveVenueLoader ? (
                         <ReactLoading
                           type={"bars"}
@@ -517,27 +517,4 @@ class DecorationsForm extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  const {
-    authReducer: { user, isLoggedIn },
-    venueReducer: { venues }
-  } = state;
-  return {
-    user,
-    isLoggedIn,
-    venues
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    isLoggedInAction: payload => dispatch(authAction.isLoggedIn(payload)),
-    saveVenueAction: payload => dispatch(venueAction.saveVenue(payload)),
-    logout: () => dispatch(authAction.logout())
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(withStyles(basicsStyle)(DecorationsForm)));
+export default withRouter(withStyles(basicsStyle)(DecorationsForm));

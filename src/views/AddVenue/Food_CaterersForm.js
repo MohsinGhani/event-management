@@ -59,7 +59,7 @@ class Food_CaterersForm extends React.Component {
       classicModal,
       picked,
       saveVenue,
-      saveVenueLoader,
+      saveVenueLoader
     } = this.props;
     return (
       <div>
@@ -67,7 +67,7 @@ class Food_CaterersForm extends React.Component {
         <GridContainer
           style={{ padding: "0", maxWidth: "1024px", margin: "0 auto" }}
         >
-            {/* {saveVenueSuccess && (
+          {/* {saveVenueSuccess && (
               <SnackbarContent
                 message={
                   <span>
@@ -416,27 +416,4 @@ class Food_CaterersForm extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  const {
-    authReducer: { user, isLoggedIn },
-    venueReducer: { venues }
-  } = state;
-  return {
-    user,
-    isLoggedIn,
-    venues
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    isLoggedInAction: payload => dispatch(authAction.isLoggedIn(payload)),
-    saveVenueAction: payload => dispatch(venueAction.saveVenue(payload)),
-    logout: () => dispatch(authAction.logout())
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(withStyles(basicsStyle)(Food_CaterersForm)));
+export default withRouter(withStyles(basicsStyle)(Food_CaterersForm));

@@ -705,28 +705,6 @@ class VenueForm extends React.Component {
   }
 }
 
-// const mapStateToProps = state => {
-//   const {
-//     authReducer: { user, isLoggedIn },
-//     venueReducer: { savedVenue, saveVenueError, saveVenueLoader }
-//   } = state;
-//   return {
-//     user,
-//     isLoggedIn,
-//     savedVenue,
-//     saveVenueLoader,
-//     saveVenueError
-//   };
-// };
-
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     isLoggedInAction: payload => dispatch(authAction.isLoggedIn(payload)),
-//     saveVenueAction: payload => dispatch(venueAction.saveVenue(payload)),
-//     logout: () => dispatch(authAction.logout())
-//   };
-// };
-
 export default withRouter(
   withStyles({ ...basicsStyle, ...notificationsStyles })(VenueForm)
 );

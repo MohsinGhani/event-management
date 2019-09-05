@@ -61,7 +61,7 @@ class Photographers extends React.Component {
       classicModal,
       picked,
       saveVenue,
-      saveVenueLoader,
+      saveVenueLoader
     } = this.props;
     return (
       <div>
@@ -498,27 +498,4 @@ class Photographers extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  const {
-    authReducer: { user, isLoggedIn },
-    venueReducer: { venues }
-  } = state;
-  return {
-    user,
-    isLoggedIn,
-    venues
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    isLoggedInAction: payload => dispatch(authAction.isLoggedIn(payload)),
-    saveVenueAction: payload => dispatch(venueAction.saveVenue(payload)),
-    logout: () => dispatch(authAction.logout())
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(withStyles(basicsStyle)(Photographers)));
+export default withRouter(withStyles(basicsStyle)(Photographers));
