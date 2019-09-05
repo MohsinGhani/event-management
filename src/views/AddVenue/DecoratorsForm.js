@@ -22,6 +22,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import CardHeader from "dashboard-components/Card/CardHeader.jsx";
 import CardBody from "dashboard-components/Card/CardBody.jsx";
 import Grid from "@material-ui/core/Grid";
+import ReactLoading from "react-loading";
 
 const styles = theme => ({
   root: {
@@ -44,13 +45,11 @@ class DecorationsForm extends React.Component {
       decoratorDetails: {
         title,
         price,
-        capacity,
         address,
         packages,
         file,
-        saveVenueLoader,
-        saveVenueSuccess,
-        contactNumber
+        contactNumber,
+        decorationThemeTypeCheck
       },
       decoratorDetailsHandler,
       handleClickOpen,
@@ -58,7 +57,9 @@ class DecorationsForm extends React.Component {
       pickedLocation,
       handleToggleOnDecorationThemeTypeCheck,
       classicModal,
-      picked
+      picked,
+      saveVenue,
+      saveVenueLoader,
     } = this.props;
     return (
       <div>
@@ -66,7 +67,7 @@ class DecorationsForm extends React.Component {
         <GridContainer
           style={{ padding: "0", maxWidth: "1024px", margin: "0 auto" }}
         >
-          {saveVenueSuccess && (
+          {/* {saveVenueSuccess && (
             <SnackbarContent
               message={
                 <span>
@@ -78,7 +79,7 @@ class DecorationsForm extends React.Component {
               color="success"
               icon={Check}
             />
-          )}
+          )} */}
           <Card style={{ padding: "15px", margin: 0 }}>
             <CardHeader color="primary">
               <h4 className={classes.cardTitleWhite}>Decoration Details</h4>
@@ -107,9 +108,10 @@ class DecorationsForm extends React.Component {
                       fullWidth: true
                     }}
                     inputProps={{
-                      type: "number",
+                      type: "tel",
                       name: "contactNumber",
                       value: contactNumber,
+                      pattern: "[0-9]{4}-[0-9]{4}",
                       onChange: decoratorDetailsHandler,
                       endAdornment: (
                         <InputAdornment position="end">
@@ -472,13 +474,31 @@ class DecorationsForm extends React.Component {
                     <Button
                       color="success"
                       disabled={
-                        !(title && price && address && capacity && picked) ||
-                        saveVenueLoader
+                        !(
+                          title &&
+                          price &&
+                          file &&
+                          packages &&
+                          contactNumber &&
+                          decorationThemeTypeCheck &&
+                          address
+                        )
                       }
-                      onClick={this.saveVenue}
+                      onClick={() => {
+                        saveVenue();
+                      }}
                     >
                       <i class="material-icons">save_alt</i> Save{" "}
-                      {saveVenueLoader ? "..." : ""}
+                      {saveVenueLoader ? (
+                        <ReactLoading
+                          type={"bars"}
+                          color={"#3f51b5"}
+                          height={"30px"}
+                          width={"50px"}
+                        />
+                      ) : (
+                        "Submit"
+                      )}
                     </Button>
                   </GridItem>
                 }

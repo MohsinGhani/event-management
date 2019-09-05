@@ -24,7 +24,7 @@ import CardBody from "dashboard-components/Card/CardBody.jsx";
 import Grid from "@material-ui/core/Grid";
 import Tooltip from "@material-ui/core/Tooltip";
 import javascriptStyles from "assets/jss/material-kit-react/views/componentsSections/javascriptStyles.jsx";
-
+import ReactLoading from "react-loading";
 
 const styles = theme => ({
   root: {
@@ -49,10 +49,9 @@ class Photographers extends React.Component {
         albumPrice,
         unlimitedAlbumPrice,
         address,
-        saveVenueLoader,
-        saveVenueSuccess,
         packages,
-        contactNumber
+        contactNumber,
+        photographyType
       },
       photographerDetailsHandler,
       handleClickOpen,
@@ -60,7 +59,9 @@ class Photographers extends React.Component {
       pickedLocation,
       handleToggleOnPhotographyType,
       classicModal,
-      picked
+      picked,
+      saveVenue,
+      saveVenueLoader,
     } = this.props;
     return (
       <div>
@@ -68,7 +69,7 @@ class Photographers extends React.Component {
         <GridContainer
           style={{ padding: "0", maxWidth: "1024px", margin: "0 auto" }}
         >
-          {saveVenueSuccess && (
+          {/* {saveVenueSuccess && (
             <SnackbarContent
               message={
                 <span>
@@ -80,7 +81,7 @@ class Photographers extends React.Component {
               color="success"
               icon={Check}
             />
-          )}
+          )} */}
           <Card style={{ padding: "15px", margin: 0 }}>
             <CardHeader color="success">
               <h4 className={classes.cardTitleWhite}>Photographers Details</h4>
@@ -109,9 +110,10 @@ class Photographers extends React.Component {
                       fullWidth: true
                     }}
                     inputProps={{
-                      type: "number",
+                      type: "tel",
                       name: "contactNumber",
                       value: contactNumber,
+                      pattern: "[0-9]{4}-[0-9]{4}",
                       onChange: photographerDetailsHandler,
                       endAdornment: (
                         <InputAdornment position="end">
@@ -456,15 +458,28 @@ class Photographers extends React.Component {
                         !(
                           title &&
                           albumPrice &&
-                          address &&
+                          photographyType &&
+                          packages &&
                           contactNumber &&
-                          picked
-                        ) || saveVenueLoader
+                          address &&
+                          unlimitedAlbumPrice
+                        )
                       }
-                      onClick={this.saveVenue}
+                      onClick={() => {
+                        saveVenue();
+                      }}
                     >
                       <i class="material-icons">save_alt</i> Save{" "}
-                      {saveVenueLoader ? "..." : ""}
+                      {saveVenueLoader ? (
+                        <ReactLoading
+                          type={"bars"}
+                          color={"#3f51b5"}
+                          height={"30px"}
+                          width={"50px"}
+                        />
+                      ) : (
+                        "Submit"
+                      )}
                     </Button>
                   </GridItem>
                 }
@@ -506,4 +521,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(withStyles({...basicsStyle, ...javascriptStyles})(Photographers)));
+)(withRouter(withStyles(basicsStyle)(Photographers)));

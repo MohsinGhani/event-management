@@ -22,6 +22,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
 import CardHeader from "dashboard-components/Card/CardHeader.jsx";
 import CardBody from "dashboard-components/Card/CardBody.jsx";
+import ReactLoading from "react-loading";
+import notificationsStyles from "assets/jss/material-kit-react/views/componentsSections/notificationsStyles.jsx";
 
 const styles = theme => ({
   root: {
@@ -54,11 +56,10 @@ class VenueForm extends React.Component {
         contactNumber,
         lenght,
         width,
-        price,
         capacity,
         address,
-        saveVenueLoader,
-        saveVenueSuccess
+        serviceChecked,
+        eventTypeCheck
       },
       venueDetailHandler,
       handleClickOpen,
@@ -67,27 +68,30 @@ class VenueForm extends React.Component {
       handleToggleOnService,
       handleToggleOnEventType,
       classicModal,
-      picked
+      picked,
+      saveVenue,
+      saveVenueLoader,
+      createNotification
     } = this.props;
     return (
       <div>
         <br />
+        {saveVenueLoader ? (
+          <SnackbarContent
+            message={
+              <span>
+                <b>SUCCESS ALERT:</b> You've got some friends nearby, stop
+                looking at your phone and find them...
+              </span>
+            }
+            close
+            color="success"
+            icon={Check}
+          />
+        ) : null}
         <GridContainer
           style={{ padding: "0", maxWidth: "1024px", margin: "0 auto" }}
         >
-          {saveVenueSuccess && (
-            <SnackbarContent
-              message={
-                <span>
-                  <b>Congratulation!:</b> You have successfully added your Venue
-                  in our System...
-                </span>
-              }
-              close
-              color="success"
-              icon={Check}
-            />
-          )}
           <Card style={{ padding: "15px", margin: 0 }}>
             <CardHeader color="warning">
               <h4 className={classes.cardTitleWhite}>Venue Details</h4>
@@ -116,9 +120,10 @@ class VenueForm extends React.Component {
                       fullWidth: true
                     }}
                     inputProps={{
-                      type: "number",
+                      type: "tel",
                       name: "contactNumber",
                       value: contactNumber,
+                      pattern: "[0-9]{4}-[0-9]{4}",
                       onChange: venueDetailHandler,
                       endAdornment: (
                         <InputAdornment position="end">
@@ -653,13 +658,35 @@ class VenueForm extends React.Component {
                     <Button
                       color="success"
                       disabled={
-                        !(title && price && address && capacity && picked) ||
-                        saveVenueLoader
+                        !(
+                          title &&
+                          perHead &&
+                          file &&
+                          packages &&
+                          contactNumber &&
+                          lenght &&
+                          width &&
+                          capacity &&
+                          address &&
+                          serviceChecked &&
+                          eventTypeCheck
+                        )
                       }
-                      onClick={this.saveVenue}
+                      onClick={() => {
+                        saveVenue();
+                      }}
                     >
                       <i class="material-icons">save_alt</i> Save{" "}
-                      {saveVenueLoader ? "..." : ""}
+                      {saveVenueLoader ? (
+                        <ReactLoading
+                          type={"bars"}
+                          color={"#3f51b5"}
+                          height={"30px"}
+                          width={"50px"}
+                        />
+                      ) : (
+                        "Submit"
+                      )}
                     </Button>
                   </GridItem>
                 }
@@ -678,27 +705,28 @@ class VenueForm extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  const {
-    authReducer: { user, isLoggedIn },
-    venueReducer: { venues }
-  } = state;
-  return {
-    user,
-    isLoggedIn,
-    venues
-  };
-};
+// const mapStateToProps = state => {
+//   const {
+//     authReducer: { user, isLoggedIn },
+//     venueReducer: { savedVenue, saveVenueError, saveVenueLoader }
+//   } = state;
+//   return {
+//     user,
+//     isLoggedIn,
+//     savedVenue,
+//     saveVenueLoader,
+//     saveVenueError
+//   };
+// };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    isLoggedInAction: payload => dispatch(authAction.isLoggedIn(payload)),
-    saveVenueAction: payload => dispatch(venueAction.saveVenue(payload)),
-    logout: () => dispatch(authAction.logout())
-  };
-};
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     isLoggedInAction: payload => dispatch(authAction.isLoggedIn(payload)),
+//     saveVenueAction: payload => dispatch(venueAction.saveVenue(payload)),
+//     logout: () => dispatch(authAction.logout())
+//   };
+// };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(withStyles(basicsStyle)(VenueForm)));
+export default withRouter(
+  withStyles({ ...basicsStyle, ...notificationsStyles })(VenueForm)
+);

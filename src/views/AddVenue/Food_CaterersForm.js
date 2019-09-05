@@ -22,6 +22,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import CardHeader from "dashboard-components/Card/CardHeader.jsx";
 import CardBody from "dashboard-components/Card/CardBody.jsx";
 import Grid from "@material-ui/core/Grid";
+import ReactLoading from "react-loading";
 
 const styles = theme => ({
   root: {
@@ -46,11 +47,9 @@ class Food_CaterersForm extends React.Component {
         price,
         contactNumber,
         address,
-        foodItem,
         packages,
         file,
-        saveVenueLoader,
-        saveVenueSuccess
+        foodItemCheck
       },
       food_caterersDetailsHandler,
       handleClickOpen,
@@ -58,7 +57,9 @@ class Food_CaterersForm extends React.Component {
       pickedLocation,
       handleToggleOnFoodItemCheck,
       classicModal,
-      picked
+      picked,
+      saveVenue,
+      saveVenueLoader,
     } = this.props;
     return (
       <div>
@@ -66,19 +67,19 @@ class Food_CaterersForm extends React.Component {
         <GridContainer
           style={{ padding: "0", maxWidth: "1024px", margin: "0 auto" }}
         >
-          {saveVenueSuccess && (
-            <SnackbarContent
-              message={
-                <span>
-                  <b>Congratulation!:</b> You have successfully added your Venue
-                  in our System...
-                </span>
-              }
-              close
-              color="success"
-              icon={Check}
-            />
-          )}
+            {/* {saveVenueSuccess && (
+              <SnackbarContent
+                message={
+                  <span>
+                    <b>Congratulation!:</b> You have successfully added your Venue
+                    in our System...
+                  </span>
+                }
+                close
+                color="success"
+                icon={Check}
+              />
+            )} */}
           <Card style={{ padding: "15px", margin: 0 }}>
             <CardHeader color="danger">
               <h4 className={classes.cardTitleWhite}>
@@ -109,10 +110,16 @@ class Food_CaterersForm extends React.Component {
                       fullWidth: true
                     }}
                     inputProps={{
-                      type: "number",
+                      type: "tel",
                       name: "contactNumber",
                       value: contactNumber,
-                      onChange: food_caterersDetailsHandler
+                      pattern: "[0-9]{4}-[0-9]{4}",
+                      onChange: food_caterersDetailsHandler,
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <i class="material-icons">call</i>
+                        </InputAdornment>
+                      )
                     }}
                   />
                 </GridItem>
@@ -368,16 +375,29 @@ class Food_CaterersForm extends React.Component {
                       disabled={
                         !(
                           title &&
+                          file &&
+                          packages &&
+                          contactNumber &&
                           price &&
                           address &&
-                          contactNumber &&
-                          picked
-                        ) || saveVenueLoader
+                          foodItemCheck
+                        )
                       }
-                      onClick={this.saveVenue}
+                      onClick={() => {
+                        saveVenue();
+                      }}
                     >
                       <i class="material-icons">save_alt</i> Save{" "}
-                      {saveVenueLoader ? "..." : ""}
+                      {saveVenueLoader ? (
+                        <ReactLoading
+                          type={"bars"}
+                          color={"#3f51b5"}
+                          height={"30px"}
+                          width={"50px"}
+                        />
+                      ) : (
+                        "Submit"
+                      )}
                     </Button>
                   </GridItem>
                 }

@@ -10,6 +10,7 @@ import Photographers from "./Photographers";
 import DecoratorsFrom from "./DecoratorsForm";
 import Food_CaterersForm from "./Food_CaterersForm";
 import Selectbar from "./Selectbar";
+// import Notification from "./Notifications";
 
 class AddVenue extends Component {
   state = {
@@ -25,33 +26,24 @@ class AddVenue extends Component {
       contactNumber: "",
       lenght: "",
       width: "",
-      price: "",
       capacity: "",
       address: "",
       serviceChecked: [],
-      eventTypeCheck: [],
-      saveVenueLoader: false,
-      saveVenueSuccess: false
+      eventTypeCheck: []
     },
     decoratorDetails: {
       title: "",
       price: "",
       address: "",
       decorationThemeTypeCheck: [],
-      perHead: "",
       file: "",
       packages: "",
-      contactNumber: "",
-      saveVenueLoader: false,
-      saveVenueSuccess: false
+      contactNumber: ""
     },
     food_caterersDetails: {
       title: "",
       price: "",
       address: "",
-      saveVenueLoader: false,
-      saveVenueSuccess: false,
-      type: "",
       foodItemCheck: [],
       file: "",
       packages: "",
@@ -62,8 +54,6 @@ class AddVenue extends Component {
       albumPrice: "",
       unlimitedAlbumPrice: "",
       address: "",
-      saveVenueLoader: false,
-      saveVenueSuccess: false,
       packages: "",
       contactNumber: "",
       photographyType: []
@@ -232,6 +222,161 @@ class AddVenue extends Component {
     });
   };
 
+  saveVenue = () => {
+    const { categorySelect } = this.state;
+    const { picked } = this.state;
+
+    if (categorySelect === "venue_form") {
+      const {
+        title,
+        perHead,
+        file,
+        packages,
+        contactNumber,
+        lenght,
+        width,
+        capacity,
+        address,
+        serviceChecked,
+        eventTypeCheck
+      } = this.state.venueDetails;
+      const newVenueDetails = {
+        title,
+        perHead,
+        file,
+        packages,
+        contactNumber,
+        lenght,
+        width,
+        capacity,
+        address,
+        serviceChecked,
+        eventTypeCheck,
+        objType: categorySelect,
+        location: picked
+      };
+      this.props.saveVenue(newVenueDetails);
+      this.setState({
+        venueDetails: {
+          title: "",
+          perHead: "",
+          file: "",
+          packages: "",
+          contactNumber: "",
+          lenght: "",
+          width: "",
+          capacity: "",
+          address: "",
+          serviceChecked: [],
+          eventTypeCheck: []
+        }
+      });
+    } else if (categorySelect === "food_caterers") {
+      const {
+        title,
+        price,
+        address,
+        type,
+        foodItemCheck,
+        file,
+        packages,
+        contactNumber
+      } = this.state.food_caterersDetails;
+
+      const newFood_caterersDetails = {
+        title,
+        price,
+        address,
+        type,
+        foodItemCheck,
+        file,
+        packages,
+        contactNumber,
+        objType: categorySelect,
+        location: picked
+      };
+      this.props.saveVenue(newFood_caterersDetails);
+      this.setState({
+        food_caterersDetails: {
+          title: "",
+          price: "",
+          address: "",
+          type: "",
+          foodItemCheck: [],
+          file: "",
+          packages: "",
+          contactNumber: ""
+        }
+      });
+    } else if (categorySelect === "decorators_form") {
+      const {
+        title,
+        price,
+        address,
+        decorationThemeTypeCheck,
+        file,
+        packages,
+        contactNumber
+      } = this.state.decoratorDetails;
+      const newDecoratorDetails = {
+        title,
+        price,
+        address,
+        decorationThemeTypeCheck,
+        file,
+        packages,
+        contactNumber,
+        objType: categorySelect,
+        location: picked
+      };
+      this.props.saveVenue(newDecoratorDetails);
+      this.setState({
+        decoratorDetails: {
+          title: "",
+          price: "",
+          address: "",
+          decorationThemeTypeCheck: [],
+          file: "",
+          packages: "",
+          contactNumber: ""
+        }
+      });
+    } else if (categorySelect === "photographer") {
+      const {
+        title,
+        albumPrice,
+        unlimitedAlbumPrice,
+        address,
+        contactNumber,
+        packages,
+        photographyType
+      } = this.state.photographerDetails;
+      const newPhotographerDetails = {
+        title,
+        albumPrice,
+        unlimitedAlbumPrice,
+        address,
+        contactNumber,
+        packages,
+        photographyType,
+        objType: categorySelect,
+        location: picked
+      };
+      this.props.saveVenue(newPhotographerDetails);
+      this.setState({
+        photographerDetails: {
+          title: "",
+          albumPrice: "",
+          unlimitedAlbumPrice: "",
+          address: "",
+          packages: "",
+          contactNumber: "",
+          photographyType: []
+        }
+      });
+    }
+  };
+
   // venueDetailHandler = (event, formName) => {
   //   const { name, value } = event.target;
   //   let formData = { ...this.state[formName] };
@@ -268,6 +413,8 @@ class AddVenue extends Component {
       classicModal,
       picked
     } = this.state;
+
+    const { saveVenueLoader } = this.props;
     return (
       <div>
         <AuthenticatedNavbar />
@@ -293,6 +440,8 @@ class AddVenue extends Component {
                 pickedLocation={this.pickedLocation}
                 handleToggleOnService={this.handleToggleOnService}
                 handleToggleOnEventType={this.handleToggleOnEventType}
+                saveVenue={this.saveVenue}
+                saveVenueLoader={saveVenueLoader}
               />
             );
           } else if (categorySelect === "food_caterers") {
@@ -307,6 +456,8 @@ class AddVenue extends Component {
                 handleClose={this.handleClose}
                 pickedLocation={this.pickedLocation}
                 handleToggleOnFoodItemCheck={this.handleToggleOnFoodItemCheck}
+                saveVenue={this.saveVenue}
+                saveVenueLoader={saveVenueLoader}
               />
             );
           } else if (categorySelect === "decorators_form") {
@@ -323,6 +474,8 @@ class AddVenue extends Component {
                 handleToggleOnDecorationThemeTypeCheck={
                   this.handleToggleOnDecorationThemeTypeCheck
                 }
+                saveVenue={this.saveVenue}
+                saveVenueLoader={saveVenueLoader}
               />
             );
           } else if (categorySelect === "photographer") {
@@ -339,6 +492,8 @@ class AddVenue extends Component {
                 handleToggleOnPhotographyType={
                   this.handleToggleOnPhotographyType
                 }
+                saveVenue={this.saveVenue}
+                saveVenueLoader={saveVenueLoader}
               />
             );
           }
@@ -347,6 +502,7 @@ class AddVenue extends Component {
         <Photographers />
         <DecoratorsFrom />
         <Food_CaterersForm /> */}
+        {/* <Notification /> */}
       </div>
     );
   }
@@ -354,19 +510,21 @@ class AddVenue extends Component {
 const mapStateToProps = state => {
   const {
     authReducer: { user, isLoggedIn },
-    venueReducer: { venues }
+    venueReducer: { savedVenue, saveVenueError, saveVenueLoader }
   } = state;
   return {
     user,
     isLoggedIn,
-    venues
+    savedVenue,
+    saveVenueLoader,
+    saveVenueError
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     isLoggedInAction: payload => dispatch(authAction.isLoggedIn(payload)),
-    saveVenueAction: payload => dispatch(venueAction.saveVenue(payload)),
+    saveVenue: payload => dispatch(venueAction.saveVenue(payload)),
     logout: () => dispatch(authAction.logout())
   };
 };

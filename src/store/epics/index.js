@@ -13,7 +13,8 @@ const rootEpic = combineEpics(
   authEpic.getUserById,
   authEpic.logout,
 
-  venueEpic.reverseGeoCoding
+  venueEpic.reverseGeoCoding,
+  venueEpic.saveVenue
 );
 
 export default rootEpic;
