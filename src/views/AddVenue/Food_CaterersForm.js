@@ -1,8 +1,6 @@
-import React, { Fragment } from "react";
-import { connect } from "react-redux";
+import React, { Component } from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { withRouter } from "react-router-dom";
-import { authAction, venueAction } from "./../../store/actions";
 import GridContainer from "components/Grid/GridContainer";
 import Card from "components/Card/Card";
 import basicsStyle from "assets/jss/material-kit-react/views/componentsSections/basicsStyle.jsx";

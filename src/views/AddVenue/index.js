@@ -10,7 +10,6 @@ import Photographers from "./Photographers";
 import DecoratorsFrom from "./DecoratorsForm";
 import Food_CaterersForm from "./Food_CaterersForm";
 import Selectbar from "./Selectbar";
-// import Notification from "./Notifications";
 
 class AddVenue extends Component {
   state = {
@@ -377,31 +376,6 @@ class AddVenue extends Component {
     })
   };
 
-  // venueDetailHandler = (event, formName) => {
-  //   const { name, value } = event.target;
-  //   let formData = { ...this.state[formName] };
-
-  //   formData = {
-  //     ...formData,
-  //     [name]: value
-  //   };
-  //   this.setState({});
-  //   // this.setState({
-  //   //   [name]: value,
-
-  //   // });
-  // };
-
-  // =======================Nasted level setstate===========================
-  // venueDetailHandler = event => {
-  //   const {venueDetails} = {...this.state}
-  //   const currentState = venueDetails
-  //   const {name, value} = event.target
-  //   currentState[name] = value
-
-  //   this.setState({venueDetails: currentState})
-  // }
-
   render() {
     const {
       categorySelect,
@@ -498,11 +472,6 @@ class AddVenue extends Component {
             );
           }
         })()}
-        {/* <VenueForm />
-        <Photographers />
-        <DecoratorsFrom />
-        <Food_CaterersForm /> */}
-        {/* <Notification /> */}
       </div>
     );
   }
@@ -587,6 +556,31 @@ export default connect(
 //         })
 //     }
 
+
+  // venueDetailHandler = (event, formName) => {
+  //   const { name, value } = event.target;
+  //   let formData = { ...this.state[formName] };
+
+  //   formData = {
+  //     ...formData,
+  //     [name]: value
+  //   };
+  //   this.setState({});
+  //   // this.setState({
+  //   //   [name]: value,
+
+  //   // });
+  // };
+
+  // =======================Nasted level setstate===========================
+  // venueDetailHandler = event => {
+  //   const {venueDetails} = {...this.state}
+  //   const currentState = venueDetails
+  //   const {name, value} = event.target
+  //   currentState[name] = value
+
+  //   this.setState({venueDetails: currentState})
+  // }
 //     saveVenue = () => {
 //         let venue = {
 //             vid: '0002',
