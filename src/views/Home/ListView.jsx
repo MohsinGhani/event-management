@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Header from "components/Header/Header.jsx";
 import loginPageStyle from "assets/jss/material-kit-react/views/loginPage.jsx";
-import { authAction } from "./../../store/actions";
+import { authAction, venueAction } from "./../../store/actions";
 import Card from "components/Card/Card";
 import CardHeader from "components/Card/CardHeader";
 import CardBody from "components/Card/CardBody";
@@ -22,34 +22,32 @@ import Button from "components/CustomButtons/Button.jsx";
 import AuthenticatedNavbar from "./../../components/common/AuthenticatedNavbar";
 
 class ListView extends React.Component {
-  constructor(props) {
-    super(props);
-    // we use this to make the card to appear after the page has been rendered
-    this.state = {
-      venues: this.props.venues
-    };
-  }
 
   goto = path => {
     this.props.history.push(path);
   };
 
+  componentDidMount(){
+    this.props.getVenues()
+  }
+
   render() {
-    const { classes, user, ...rest } = this.props;
-    const { venues } = this.state;
-    const stars = Math.ceil(venues[0].rating.overall);
-    let renderFullStars = () => {
-      return stars !== 0
-        ? Array(stars)
-            .fill(null)
-            .map((item, i) => {
-              return <i className="fa fa-star" aria-hidden="true" key={i} />;
-            })
-        : "";
-    };
+    // const { classes, user, ...rest } = this.props;
+    // const { venues } = this.state;
+    // const stars = Math.ceil(venues[0].rating.overall);
+    // let renderFullStars = () => {
+    //   return stars !== 0
+    //     ? Array(stars)
+    //         .fill(null)
+    //         .map((item, i) => {
+    //           return <i className="fa fa-star" aria-hidden="true" key={i} />;
+    //         })
+    //     : "";
+    // };
     return (
       <div>
-        <AuthenticatedNavbar />
+        HELLOOOOO WORLD
+        {/* <AuthenticatedNavbar />
         <GridContainer
           style={{
             padding: "0 15px",
@@ -197,27 +195,37 @@ class ListView extends React.Component {
               color={"danger"}
             />
           </div>
-        </GridContainer>
+        </GridContainer> */}
       </div>
     );
   }
 }
 
+// const mapStateToProps = state => {
+//   const {
+//     authReducer: { user, isLoggedIn },
+//     venueReducer: { venues }
+//   } = state;
+//   return {
+//     user,
+//     isLoggedIn,
+//     venues
+//   };
+// };
+
 const mapStateToProps = state => {
-  const {
-    authReducer: { user, isLoggedIn },
-    venueReducer: { venues }
-  } = state;
+  const { venueReducer: {venues, getVenuesLoader, getVenuesError }} = state;
   return {
-    user,
-    isLoggedIn,
-    venues
+    venues,
+    getVenuesLoader,
+    getVenuesError
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    isLoggedInAction: payload => dispatch(authAction.isLoggedIn(payload))
+    // isLoggedInAction: payload => dispatch(authAction.isLoggedIn(payload))
+    getVenues: () => dispatch(venueAction.getVenues())
   };
 };
 

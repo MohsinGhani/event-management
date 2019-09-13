@@ -29,23 +29,24 @@ export class venueAction {
     }
     ////////////////
     static getVenues(payload) {
+        console.log("hello world")
         return {
             type: GET_VENUES,
             payload
         }
     }
 
-    static getVenuesSuccess(payload) {
+    static getVenuesSuccess(venues) {
         return {
             type: GET_VENUES_SUCCESS,
-            payload
+            payload: venues
         }
     }
 
     static getVenuesFailure(error) {
         return {
             type: GET_VENUES_FAILURE,
-            error
+            payload: error
         }
     }
 

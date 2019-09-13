@@ -48,4 +48,22 @@ export default class venueEpic {
           return venueAction.saveVenueFailure(`Error in Save venue! ${err}`);
         });
     });
+
+  static getVenues = action$ =>
+    action$.ofType(GET_VENUES).mergeMap(async () => {
+      try {
+        const querySnapshot = await db
+          .collection("services")
+          .get();
+        let services = [];
+        querySnapshot.forEach(doc => {
+          console.log(doc.id, "=>", doc.data());
+          services.push({ ...doc.data(), id: doc.id });
+        });
+        return venueAction.getVenuesSuccess(services);
+      }
+      catch (err) {
+        return venueAction.getVenuesFailure(`Error in getting services! ${err}`);
+      }
+    });
 }
