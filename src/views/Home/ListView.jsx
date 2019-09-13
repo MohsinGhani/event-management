@@ -22,6 +22,13 @@ import Button from "components/CustomButtons/Button.jsx";
 import AuthenticatedNavbar from "./../../components/common/AuthenticatedNavbar";
 
 class ListView extends React.Component {
+  constructor(props) {
+    super(props);
+    // we use this to make the card to appear after the page has been rendered
+    this.state = {
+      venues: this.props.venues
+    };
+  }
 
   goto = path => {
     this.props.history.push(path);
@@ -32,22 +39,21 @@ class ListView extends React.Component {
   }
 
   render() {
-    // const { classes, user, ...rest } = this.props;
-    // const { venues } = this.state;
-    // const stars = Math.ceil(venues[0].rating.overall);
-    // let renderFullStars = () => {
-    //   return stars !== 0
-    //     ? Array(stars)
-    //         .fill(null)
-    //         .map((item, i) => {
-    //           return <i className="fa fa-star" aria-hidden="true" key={i} />;
-    //         })
-    //     : "";
-    // };
+    const { classes, user, ...rest } = this.props;
+    const { venues } = this.state;
+    const stars = Math.ceil(venues[0].rating.overall);
+    let renderFullStars = () => {
+      return stars !== 0
+        ? Array(stars)
+            .fill(null)
+            .map((item, i) => {
+              return <i className="fa fa-star" aria-hidden="true" key={i} />;
+            })
+        : "";
+    };
     return (
       <div>
-        HELLOOOOO WORLD
-        {/* <AuthenticatedNavbar />
+        <AuthenticatedNavbar />
         <GridContainer
           style={{
             padding: "0 15px",
@@ -195,36 +201,29 @@ class ListView extends React.Component {
               color={"danger"}
             />
           </div>
-        </GridContainer> */}
+        </GridContainer>
       </div>
     );
   }
 }
 
-// const mapStateToProps = state => {
-//   const {
-//     authReducer: { user, isLoggedIn },
-//     venueReducer: { venues }
-//   } = state;
-//   return {
-//     user,
-//     isLoggedIn,
-//     venues
-//   };
-// };
-
 const mapStateToProps = state => {
-  const { venueReducer: {venues, getVenuesLoader, getVenuesError }} = state;
+  const {
+    venueReducer: { venues, getVenuesLoader, getVenuesError },
+    authReducer: { user, isLoggedIn }
+  } = state;
   return {
     venues,
     getVenuesLoader,
-    getVenuesError
+    getVenuesError,
+    user,
+    isLoggedIn,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    // isLoggedInAction: payload => dispatch(authAction.isLoggedIn(payload))
+    isLoggedInAction: payload => dispatch(authAction.isLoggedIn(payload)),
     getVenues: () => dispatch(venueAction.getVenues())
   };
 };
