@@ -10,6 +10,7 @@ import Photographers from "./Photographers";
 import DecoratorsFrom from "./DecoratorsForm";
 import Food_CaterersForm from "./Food_CaterersForm";
 import Selectbar from "./Selectbar";
+import storage from "../../firebase/FireBase";
 
 class AddVenue extends Component {
   state = {
@@ -17,10 +18,12 @@ class AddVenue extends Component {
     temp: true,
     classicModal: false,
     picked: null,
+    // image: null,
+    // url: "",
+    // progress: 0,
     venueDetails: {
       title: "",
       perHead: "",
-      file: "",
       packages: "",
       contactNumber: "",
       lenght: "",
@@ -28,7 +31,10 @@ class AddVenue extends Component {
       capacity: "",
       address: "",
       serviceChecked: [],
-      eventTypeCheck: []
+      eventTypeCheck: [],
+      image: null,
+      url: [],
+      progress: 0
     },
     decoratorDetails: {
       title: "",
@@ -37,7 +43,10 @@ class AddVenue extends Component {
       decorationThemeTypeCheck: [],
       file: "",
       packages: "",
-      contactNumber: ""
+      contactNumber: "",
+      image: null,
+      url: [],
+      progress: 0
     },
     food_caterersDetails: {
       title: "",
@@ -46,7 +55,10 @@ class AddVenue extends Component {
       foodItemCheck: [],
       file: "",
       packages: "",
-      contactNumber: ""
+      contactNumber: "",
+      image: null,
+      url: [],
+      progress: 0
     },
     photographerDetails: {
       title: "",
@@ -55,7 +67,10 @@ class AddVenue extends Component {
       address: "",
       packages: "",
       contactNumber: "",
-      photographyType: []
+      photographyType: [],
+      image: null,
+      url: [],
+      progress: 0
     }
   };
 
@@ -79,6 +94,270 @@ class AddVenue extends Component {
       this.handleClose("classicModal")
     );
   };
+
+  handleChangeOnVenueUpload = event => {
+    debugger
+    if (event.target.files[0]) {
+      debugger
+      const image = event.target.files[0];
+      debugger
+      this.setState({
+        venueDetails: {
+          ...this.state.venueDetails,
+          image
+        }
+      });
+    }
+  };
+
+  handleChangeOnDecorationUpload = event => {
+    if (event.target.files[0]) {
+      const image = event.target.files[0];
+      this.setState({
+        decoratorDetails: {
+          ...this.state.decoratorDetails,
+          image
+        }
+      });
+    }
+  };
+
+  handleChangeOnFoodUpload = event => {
+    if (event.target.files[0]) {
+      const image = event.target.files[0];
+      this.setState({
+        food_caterersDetails: {
+          ...this.state.food_caterersDetails,
+          image
+        }
+      });
+    }
+  };
+
+  handleChangeOnPhotograherUpload = event => {
+    if (event.target.files[0]) {
+      const image = event.target.files[0];
+      this.setState({
+        photographerDetails: {
+          ...this.state.photographerDetails,
+          image
+        }
+      });
+    }
+  };
+
+  handleOnVenueUploadFile = () => {
+    const { image } = this.state.venueDetails;
+    const uploadTask = storage.ref(`images/${image.name}`).put(image);
+    uploadTask.on(
+      "state_changed",
+      snapshot => {
+        // progrss function ....
+        const progress = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        console.log("Upload is " + progress + "% done");
+        this.setState({
+          venueDetails: {
+            ...this.state.venueDetails,
+            progress
+          }
+        });
+      },
+      error => {
+        // error function ....
+        console.log(error);
+      },
+
+      () => {
+        // complete function ....
+        storage
+          .ref("images")
+          .child(image.name)
+          .getDownloadURL()
+          .then(url => {
+            console.log(url);
+            let venueDetails = this.state.venueDetails;
+            venueDetails.url.push(url);
+            this.setState({ venueDetails });
+            // this.setState({ venueDetails: {
+            //   ...this.state.venueDetails,
+            //   url
+            // } });
+          });
+      }
+    );
+  };
+  handleOnDecorationUploadFile = () => {
+    const { image } = this.state.decoratorDetails;
+    const uploadTask = storage.ref(`images/${image.name}`).put(image);
+    uploadTask.on(
+      "state_changed",
+      snapshot => {
+        // progrss function ....
+        const progress = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        console.log("Upload is " + progress + "% done");
+        this.setState({
+          decoratorDetails: {
+            ...this.state.decoratorDetails,
+            progress
+          }
+        });
+      },
+      error => {
+        // error function ....
+        console.log(error);
+      },
+
+      () => {
+        // complete function ....
+        storage
+          .ref("images")
+          .child(image.name)
+          .getDownloadURL()
+          .then(url => {
+            console.log(url);
+            let decoratorDetails = this.state.decoratorDetails;
+            decoratorDetails.url.push(url);
+            this.setState({ decoratorDetails });
+            // this.setState({ decoratorDetails: {
+            //   ...this.state.decoratorDetails,
+            //   url
+            // } });
+          });
+      }
+    );
+  };
+  handleOnFoodUploadFile = () => {
+    const { image } = this.state.food_caterersDetails;
+    const uploadTask = storage.ref(`images/${image.name}`).put(image);
+    uploadTask.on(
+      "state_changed",
+      snapshot => {
+        // progrss function ....
+        const progress = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        console.log("Upload is " + progress + "% done");
+        this.setState({
+          food_caterersDetails: {
+            ...this.state.food_caterersDetails,
+            progress
+          }
+        });
+      },
+      error => {
+        // error function ....
+        console.log(error);
+      },
+
+      () => {
+        // complete function ....
+        storage
+          .ref("images")
+          .child(image.name)
+          .getDownloadURL()
+          .then(url => {
+            console.log(url);
+            let food_caterersDetails = this.state.food_caterersDetails;
+            food_caterersDetails.url.push(url);
+            this.setState({ food_caterersDetails });
+            // this.setState({ food_caterersDetails: {
+            //   ...this.state.food_caterersDetails,
+            //   url
+            // } });
+          });
+      }
+    );
+  };
+  handleOnPhotograhUploadFile = () => {
+    const { image } = this.state.photographerDetails;
+    const uploadTask = storage.ref(`images/${image.name}`).put(image);
+    uploadTask.on(
+      "state_changed",
+      snapshot => {
+        // progrss function ....
+        const progress = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        console.log("Upload is " + progress + "% done");
+        this.setState({
+          photographerDetails: {
+            ...this.state.photographerDetails,
+            progress
+          }
+        });
+      },
+      error => {
+        // error function ....
+        console.log(error);
+      },
+
+      () => {
+        // complete function ....
+        storage
+          .ref("images")
+          .child(image.name)
+          .getDownloadURL()
+          .then(url => {
+            console.log(url);
+            let photographerDetails = this.state.photographerDetails;
+            photographerDetails.url.push(url);
+            this.setState({ photographerDetails });
+            // this.setState({ photographerDetails: {
+            //   ...this.state.photographerDetails,
+            //   url
+            // } });
+          });
+      }
+    );
+  };
+
+  // ********************************* File Storage Function **************************************  //
+
+  // const { image } = this.state;
+  // // const uploadTask = storage.ref(`images/${image.image}`).put(image);
+  // console.log(image);
+  // var storageRef = storage.ref();
+  // const uploadTask = storageRef.child(`images/${image}`).put(image);
+  // uploadTask.on(
+  //   "state_changed",
+  //   snapshot => {
+  //     const progress = Math.round(
+  //       (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+  //     );
+  //     console.log("Upload is " + progress + "% done");
+  //     this.setState({
+  //       progress
+  //     });
+  //   },
+  //   error => {
+  //     console.log(error);
+  //   },
+  //   () => {
+  //     uploadTask.snapshot.ref.getDownloadURL().then(url => {
+  //       console.log("File available at", url);
+  //     });
+  //   }
+  //   // () => {
+  //   //   storage
+  //   //     .ref("images")
+  //   //     .child(image.name)
+  //   //     .getDownloadURL()
+  //   //     .then(url => {
+  //   //       console.log(url);
+  //   //       this.setState({
+  //   //         venueDetails: {
+  //   //           ...this.state.venueDetails,
+  //   //           url
+  //   //         }
+  //   //       });
+  //   //     });
+  //   // }
+  // );
+  // console.log(uploadTask);
 
   handleToggleOnService = value => {
     let { venueDetails } = this.state;
@@ -223,13 +502,12 @@ class AddVenue extends Component {
 
   saveVenue = () => {
     const { categorySelect } = this.state;
-    const { picked } = this.state;
+    const { picked, image, progress, url } = this.state;
 
     if (categorySelect === "venue_form") {
       const {
         title,
         perHead,
-        file,
         packages,
         contactNumber,
         lenght,
@@ -237,12 +515,14 @@ class AddVenue extends Component {
         capacity,
         address,
         serviceChecked,
-        eventTypeCheck
+        eventTypeCheck,
+        image,
+        url,
+        progress
       } = this.state.venueDetails;
       const newVenueDetails = {
         title,
         perHead,
-        file,
         packages,
         contactNumber,
         lenght,
@@ -252,14 +532,15 @@ class AddVenue extends Component {
         serviceChecked,
         eventTypeCheck,
         objType: categorySelect,
-        location: picked
+        location: picked,
+        url
       };
       this.props.saveVenue(newVenueDetails);
       this.setState({
         venueDetails: {
           title: "",
           perHead: "",
-          file: "",
+          image: "",
           packages: "",
           contactNumber: "",
           lenght: "",
@@ -267,7 +548,8 @@ class AddVenue extends Component {
           capacity: "",
           address: "",
           serviceChecked: [],
-          eventTypeCheck: []
+          eventTypeCheck: [],
+          url: []
         }
       });
     } else if (categorySelect === "food_caterers") {
@@ -276,9 +558,9 @@ class AddVenue extends Component {
         price,
         address,
         foodItemCheck,
-        file,
         packages,
-        contactNumber
+        contactNumber,
+        url
       } = this.state.food_caterersDetails;
 
       const newFood_caterersDetails = {
@@ -286,11 +568,11 @@ class AddVenue extends Component {
         price,
         address,
         foodItemCheck,
-        file,
         packages,
         contactNumber,
         objType: categorySelect,
-        location: picked
+        location: picked,
+        url,
       };
       this.props.saveVenue(newFood_caterersDetails);
       this.setState({
@@ -299,9 +581,10 @@ class AddVenue extends Component {
           price: "",
           address: "",
           foodItemCheck: [],
-          file: "",
           packages: "",
-          contactNumber: ""
+          contactNumber: "",
+          url: []
+
         }
       });
     } else if (categorySelect === "decorators_form") {
@@ -310,20 +593,20 @@ class AddVenue extends Component {
         price,
         address,
         decorationThemeTypeCheck,
-        file,
         packages,
-        contactNumber
+        contactNumber,
+        url
       } = this.state.decoratorDetails;
       const newDecoratorDetails = {
         title,
         price,
         address,
         decorationThemeTypeCheck,
-        file,
         packages,
         contactNumber,
         objType: categorySelect,
-        location: picked
+        location: picked,
+        url
       };
       this.props.saveVenue(newDecoratorDetails);
       this.setState({
@@ -332,9 +615,9 @@ class AddVenue extends Component {
           price: "",
           address: "",
           decorationThemeTypeCheck: [],
-          file: "",
           packages: "",
-          contactNumber: ""
+          contactNumber: "",
+          url: []
         }
       });
     } else if (categorySelect === "photographer") {
@@ -345,7 +628,8 @@ class AddVenue extends Component {
         address,
         contactNumber,
         packages,
-        photographyType
+        photographyType,
+        url
       } = this.state.photographerDetails;
       const newPhotographerDetails = {
         title,
@@ -356,7 +640,8 @@ class AddVenue extends Component {
         packages,
         photographyType,
         objType: categorySelect,
-        location: picked
+        location: picked,
+        url
       };
       this.props.saveVenue(newPhotographerDetails);
       this.setState({
@@ -367,13 +652,14 @@ class AddVenue extends Component {
           address: "",
           packages: "",
           contactNumber: "",
-          photographyType: []
+          photographyType: [],
+          url: []
         }
       });
     }
     this.setState({
-      picked: ''
-    })
+      picked: ""
+    });
   };
 
   render() {
@@ -386,6 +672,9 @@ class AddVenue extends Component {
       temp,
       classicModal,
       picked
+      // image,
+      // url,
+      // progress
     } = this.state;
 
     const { saveVenueLoader } = this.props;
@@ -398,7 +687,7 @@ class AddVenue extends Component {
           categoryHandler={this.categoryHandler}
         />
 
-        {/* annonymus fuction     auto call */}
+        {/* *********************** annonymus fuction     auto call ********************************** */}
 
         {(() => {
           if (categorySelect === "venue_form") {
@@ -416,6 +705,11 @@ class AddVenue extends Component {
                 handleToggleOnEventType={this.handleToggleOnEventType}
                 saveVenue={this.saveVenue}
                 saveVenueLoader={saveVenueLoader}
+                handleOnVenueUploadFile={this.handleOnVenueUploadFile}
+                handleChangeOnVenueUpload={this.handleChangeOnVenueUpload}
+                // image={image}
+                // progress={progress}
+                // url={url}
               />
             );
           } else if (categorySelect === "food_caterers") {
@@ -432,6 +726,11 @@ class AddVenue extends Component {
                 handleToggleOnFoodItemCheck={this.handleToggleOnFoodItemCheck}
                 saveVenue={this.saveVenue}
                 saveVenueLoader={saveVenueLoader}
+                handleOnFoodUploadFile={this.handleOnFoodUploadFile}               
+                handleChangeOnFoodUpload={this.handleChangeOnFoodUpload}
+                // image={image}
+                // progress={progress}
+                // url={url}
               />
             );
           } else if (categorySelect === "decorators_form") {
@@ -450,6 +749,11 @@ class AddVenue extends Component {
                 }
                 saveVenue={this.saveVenue}
                 saveVenueLoader={saveVenueLoader}
+                handleOnDecorationUploadFile={this.handleOnDecorationUploadFile}               
+                handleChangeOnDecorationUpload={this.handleChangeOnDecorationUpload}
+                // image={image}
+                // progress={progress}
+                // url={url}
               />
             );
           } else if (categorySelect === "photographer") {
@@ -468,6 +772,11 @@ class AddVenue extends Component {
                 }
                 saveVenue={this.saveVenue}
                 saveVenueLoader={saveVenueLoader}
+                handleOnPhotograhUploadFile={this.handleOnPhotograhUploadFile}               
+                handleChangeOnPhotograherUpload={this.handleChangeOnPhotograherUpload}
+                // image={image}
+                // progress={progress}
+                // url={url}
               />
             );
           }
@@ -556,31 +865,30 @@ export default connect(
 //         })
 //     }
 
+// venueDetailHandler = (event, formName) => {
+//   const { name, value } = event.target;
+//   let formData = { ...this.state[formName] };
 
-  // venueDetailHandler = (event, formName) => {
-  //   const { name, value } = event.target;
-  //   let formData = { ...this.state[formName] };
+//   formData = {
+//     ...formData,
+//     [name]: value
+//   };
+//   this.setState({});
+//   // this.setState({
+//   //   [name]: value,
 
-  //   formData = {
-  //     ...formData,
-  //     [name]: value
-  //   };
-  //   this.setState({});
-  //   // this.setState({
-  //   //   [name]: value,
+//   // });
+// };
 
-  //   // });
-  // };
+// =======================Nasted level setstate===========================
+// venueDetailHandler = event => {
+//   const {venueDetails} = {...this.state}
+//   const currentState = venueDetails
+//   const {name, value} = event.target
+//   currentState[name] = value
 
-  // =======================Nasted level setstate===========================
-  // venueDetailHandler = event => {
-  //   const {venueDetails} = {...this.state}
-  //   const currentState = venueDetails
-  //   const {name, value} = event.target
-  //   currentState[name] = value
-
-  //   this.setState({venueDetails: currentState})
-  // }
+//   this.setState({venueDetails: currentState})
+// }
 //     saveVenue = () => {
 //         let venue = {
 //             vid: '0002',

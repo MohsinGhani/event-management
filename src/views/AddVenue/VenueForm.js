@@ -22,6 +22,7 @@ import CardHeader from "dashboard-components/Card/CardHeader.jsx";
 import CardBody from "dashboard-components/Card/CardBody.jsx";
 import ReactLoading from "react-loading";
 import notificationsStyles from "assets/jss/material-kit-react/views/componentsSections/notificationsStyles.jsx";
+import storage from "../../firebase/FireBase";
 
 const styles = theme => ({
   root: {
@@ -38,18 +39,70 @@ const styles = theme => ({
 });
 
 class VenueForm extends React.Component {
-  componentDidUpdate(prevProps) {
-    // if(prevProps.temp !== this.props.temp){
-    //   this.props = this.props
-    // }
+  constructor(props) {
+    super(props);
+
+    // this.state = {
+    //   image: null,
+    //   url: "",
+    //   progress: 0
+    // };
   }
+
+  // handleOnChange = e => {
+  //   if (e.target.files[0]) {
+  //     const image = e.target.files[0];
+  //     this.setState({
+  //       image
+  //     });
+  //   }
+  //   // this.setState({
+  //   //   [e.target.name]:e.target.value
+  //   // })
+  // };
+
+  // handleUpload = () => {
+  //   const { image } = this.state;
+  //   const uploadTask = storage.ref(`images/${image.name}`).put(image);
+  //   uploadTask.on(
+  //     "state_changed",
+  //     snapshot => {
+  //       // progrss function ....
+  //       const progress = Math.round(
+  //         (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+  //       );
+  //       console.log('Upload is ' + progress + '% done');
+  //       this.setState({ progress });
+  //     },
+  //     error => {
+  //       // error function ....
+  //       console.log(error);
+  //     },
+
+  //     () => {
+  //       // complete function ....
+  //       storage
+  //         .ref("images")
+  //         .child(image.name)
+  //         .getDownloadURL()
+  //         .then(url => {
+  //           console.log(url);
+  //           this.setState({ url });
+  //         });
+  //     }
+  //   );
+  // };
+  // componentDidUpdate(prevProps) {
+  //   // if(prevProps.temp !== this.props.temp){
+  //   //   this.props = this.props
+  //   // }
+  // }
   render() {
     const { classes } = this.props;
     let {
       venueDetails: {
         title,
         perHead,
-        file,
         packages,
         contactNumber,
         lenght,
@@ -57,7 +110,10 @@ class VenueForm extends React.Component {
         capacity,
         address,
         serviceChecked,
-        eventTypeCheck
+        eventTypeCheck,
+        image,
+        url,
+        progress
       },
       venueDetailHandler,
       handleClickOpen,
@@ -69,8 +125,14 @@ class VenueForm extends React.Component {
       picked,
       saveVenue,
       saveVenueLoader,
-      createNotification
+      createNotification,
+      handleChangeOnVenueUpload,
+      handleOnVenueUploadFile
+      // image,
+      // progress,
+      // url
     } = this.props;
+
     return (
       <div>
         <br />
@@ -239,20 +301,60 @@ class VenueForm extends React.Component {
                     </Select>
                   </FormControl>
                 </GridItem>
-                <GridItem xs={12} sm={6} md={6} lg={6}>
-                  <CustomInput
-                    // labelText="Pictures of venue"
-                    id="float"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    inputProps={{
-                      type: "file",
-                      name: "file",
-                      value: file,
-                      onChange: venueDetailHandler
-                    }}
+                <GridItem>
+                  <GridItem xs={12} sm={6} md={6} lg={6}>
+                    <progress value={progress} max="100" />
+                  </GridItem>
+                  {/* <input
+                    type="file"
+                    multiple
+                    onChange={handleOnChange}
                   />
+                  <Button onClick={handleOnUploadFile}>upload</Button>
+                  <img
+                    scr={url || "http://via.placeholder.com/400x300"}
+                    alt="Uploaded images"
+                    height="300"
+                    width="400"
+                  /> */}
+                  <GridItem xs={12} sm={6} md={6} lg={6}>
+                    <CustomInput
+                      // labelText="Pictures of venue"
+                      id="float"
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      inputProps={{
+                        type: "file",
+                        // name: "image",
+                        // value: image,
+                        onChange: handleChangeOnVenueUpload
+                      }}
+                    />
+                    {/* <input
+                      type="file"
+                      multiple
+                      onChange={e => {
+                        handleChangeOnVenueUpload(e);
+                      }}
+                    /> */}
+                  </GridItem>
+                  <GridItem xs={12} sm={6} md={6} lg={6}>
+                    <Button onClick={handleOnVenueUploadFile}>
+                      upload
+                    </Button>
+                  </GridItem>
+                  <GridItem xs={12} sm={6} md={6} lg={6}>
+                    {url.map(source => (
+                      <img
+                        src={source || "http://via.placeholder.com/75x50"}
+                        alt="Uploaded images"
+                        height="50"
+                        width="75"
+                        justifyContent="space-between"
+                      />
+                    ))}
+                  </GridItem>
                 </GridItem>
                 <GridItem>
                   <div className={classes.title}>
@@ -659,7 +761,7 @@ class VenueForm extends React.Component {
                         !(
                           title &&
                           perHead &&
-                          file &&
+                          // image &&
                           packages &&
                           contactNumber &&
                           lenght &&

@@ -49,7 +49,10 @@ class Photographers extends React.Component {
         address,
         packages,
         contactNumber,
-        photographyType
+        photographyType,
+        image,
+        url,
+        progress
       },
       photographerDetailsHandler,
       handleClickOpen,
@@ -59,7 +62,9 @@ class Photographers extends React.Component {
       classicModal,
       picked,
       saveVenue,
-      saveVenueLoader
+      saveVenueLoader,
+      handleChangeOnPhotograherUpload,
+      handleOnPhotograhUploadFile
     } = this.props;
     return (
       <div>
@@ -192,6 +197,43 @@ class Photographers extends React.Component {
                       <MenuItem value={"Bronz"}>Bronz</MenuItem>
                     </Select>
                   </FormControl>
+                </GridItem>
+
+                <GridItem>
+                  <GridItem xs={12} sm={6} md={6} lg={6}>
+                    <progress value={progress} max="100" />
+                  </GridItem>
+                  <GridItem xs={12} sm={6} md={6} lg={6}>
+                    <CustomInput
+                      // labelText="Pictures of venue"
+                      id="float"
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      inputProps={{
+                        type: "file",
+                        // name: "image",
+                        // value: image,
+                        onChange: handleChangeOnPhotograherUpload
+                      }}
+                    />
+                  </GridItem>
+                  <GridItem xs={12} sm={6} md={6} lg={6}>
+                    <Button onClick={handleOnPhotograhUploadFile}>
+                      upload
+                    </Button>
+                  </GridItem>
+                  <GridItem xs={12} sm={6} md={6} lg={6}>
+                  {url.map(source => (
+                      <img
+                        src={source || "http://via.placeholder.com/75x50"}
+                        alt="Uploaded images"
+                        height="50"
+                        width="75"
+                        justifyContent="space-between"
+                      />
+                    ))}
+                  </GridItem>
                 </GridItem>
                 <GridItem>
                   <div className={classes.title}>

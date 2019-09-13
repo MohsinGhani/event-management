@@ -46,8 +46,10 @@ class Food_CaterersForm extends React.Component {
         contactNumber,
         address,
         packages,
-        file,
-        foodItemCheck
+        foodItemCheck,
+        image,
+        url,
+        progress
       },
       food_caterersDetailsHandler,
       handleClickOpen,
@@ -57,7 +59,9 @@ class Food_CaterersForm extends React.Component {
       classicModal,
       picked,
       saveVenue,
-      saveVenueLoader
+      saveVenueLoader,
+      handleOnFoodUploadFile,
+      handleChangeOnFoodUpload
     } = this.props;
     return (
       <div>
@@ -179,20 +183,39 @@ class Food_CaterersForm extends React.Component {
                   </FormControl>
                 </GridItem>
 
-                <GridItem xs={12} sm={6} md={6} lg={6}>
-                  <CustomInput
-                    // labelText="Pictures of venue"
-                    id="float"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    inputProps={{
-                      type: "file",
-                      name: "file",
-                      value: file,
-                      onChange: food_caterersDetailsHandler
-                    }}
-                  />
+                <GridItem>
+                  <GridItem xs={12} sm={6} md={6} lg={6}>
+                    <progress value={progress} max="100" />
+                  </GridItem>
+                  <GridItem xs={12} sm={6} md={6} lg={6}>
+                    <CustomInput
+                      // labelText="Pictures of venue"
+                      id="float"
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      inputProps={{
+                        type: "file",
+                        // name: "image",
+                        // value: image,
+                        onChange: handleChangeOnFoodUpload
+                      }}
+                    />
+                  </GridItem>
+                  <GridItem xs={12} sm={6} md={6} lg={6}>
+                    <Button onClick={handleOnFoodUploadFile}>upload</Button>
+                  </GridItem>
+                  <GridItem xs={12} sm={6} md={6} lg={6}>
+                  {url.map(source => (
+                      <img
+                        src={source || "http://via.placeholder.com/75x50"}
+                        alt="Uploaded images"
+                        height="50"
+                        width="75"
+                        justifyContent="space-between"
+                      />
+                    ))}
+                  </GridItem>
                 </GridItem>
                 <GridItem>
                   <div className={classes.title}>
@@ -373,7 +396,7 @@ class Food_CaterersForm extends React.Component {
                       disabled={
                         !(
                           title &&
-                          file &&
+                          // file &&
                           packages &&
                           contactNumber &&
                           price &&

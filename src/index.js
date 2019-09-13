@@ -12,13 +12,13 @@ import "assets/scss/material-kit-react.scss?v=1.4.0";
 
 // pages for this product
 // import Home from "views/Home";
-// import ListView from "views/Home/ListView.jsx";
+import ListView from "views/Home/ListView.jsx";
 // import RegisterPage from "views/LoginPage/RegisterPage.jsx";
 // import LoginPage from "views/LoginPage/LoginPage.jsx";
 // import ConfirmEmail from "views/LoginPage/ConfirmEmail.jsx";
 // import Dashboard from 'views/Dashboard/Dashboard.jsx'
 // import Admin from "layouts/Admin.jsx";
-// import VenueDetail from "./views/VenueDetail"
+import VenueDetail from "./views/VenueDetail"
 import AddVenue from "./views/AddVenue"
 import Components from "./views/Components/Components"
 
@@ -33,9 +33,9 @@ ReactDOM.render(
           {/* <PrivateRoute exact path="/" component={Components} /> */}
           <Route exact path="/" component={Components} />
 
-          {/* <PrivateRoute exact path="/" component={Home} />
-          <PrivateRoute exact path="/list-view" component={ListView} />
-          <PrivateRoute exact path="/venue-detail" component={VenueDetail} /> */}
+          {/* <PrivateRoute exact path="/" component={Home} /> */}
+          <Route exact path="/list-view" component={ListView} />
+          <Route exact path="/venue-detail" component={VenueDetail} />
           <Route exact path="/add-venue" component={AddVenue} />
           {/* <Route path="/register" exact component={RegisterPage} />
           <Route path="/login" exact component={LoginPage} />
