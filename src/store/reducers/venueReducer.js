@@ -9,10 +9,10 @@ import {
   REVERSE_GEOCODING_SUCCESS,
   REVERSE_GEOCODING_FAILURE
 } from "./../constants";
-import { venues } from "./../../assets/venus";
+// import { venues } from "./../../assets/venus";
 
 const initialState = {
-  venues,
+  venues: null,
   getVenuesLoader: false,
   getVenuesError: null,
 
@@ -63,6 +63,7 @@ export default function venueReducer(state = initialState, action) {
     case GET_VENUES_SUCCESS:
       return {
         ...state,
+        venues: action.payload,
         getVenuesLoader: true,
         getVenuesError: null
       };

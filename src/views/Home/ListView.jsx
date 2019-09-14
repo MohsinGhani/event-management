@@ -12,7 +12,7 @@ import CardBody from "components/Card/CardBody";
 import GridContainer from "components/Grid/GridContainer";
 import GridItem from "components/Grid/GridItem";
 import Pagination from "components/Pagination/Pagination.jsx";
-import { venues } from "./../../assets/venus";
+// import { venues } from "./../../assets/venus";
 import Location from "../../assets/icons/Location.svg";
 import Venue_type from "../../assets/icons/Venue_type.svg";
 import Layout_style from "../../assets/icons/Layout_style.svg";
@@ -26,7 +26,7 @@ class ListView extends React.Component {
     super(props);
     // we use this to make the card to appear after the page has been rendered
     this.state = {
-      venues: this.props.venues
+      venues: []
     };
   }
 
@@ -34,23 +34,32 @@ class ListView extends React.Component {
     this.props.history.push(path);
   };
 
-  componentDidMount(){
-    this.props.getVenues()
+  componentDidUpdate(prevProps) {
+    if(prevProps.venues !== this.props.venues && this.props.venues){
+      this.setState({
+        venues: this.props.venues
+      })
+    }
+  }
+
+  componentDidMount() {
+    this.props.getVenues();
   }
 
   render() {
     const { classes, user, ...rest } = this.props;
     const { venues } = this.state;
-    const stars = Math.ceil(venues[0].rating.overall);
-    let renderFullStars = () => {
-      return stars !== 0
-        ? Array(stars)
-            .fill(null)
-            .map((item, i) => {
-              return <i className="fa fa-star" aria-hidden="true" key={i} />;
-            })
-        : "";
-    };
+    // const stars = Math.ceil(venues[0].rating.overall);
+    // let renderFullStars = () => {
+    //   return stars !== 0
+    //     ? Array(stars)
+    //         .fill(null)
+    //         .map((item, i) => {
+    //           return <i className="fa fa-star" aria-hidden="true" key={i} />;
+    //         })
+    //     : "";
+    // };
+    console.log(this.props.venues)
     return (
       <div>
         <AuthenticatedNavbar />
@@ -62,7 +71,7 @@ class ListView extends React.Component {
             marginTop: "15px"
           }}
         >
-          {venues.map((vanue, i) => {
+          {venues && venues.map((venue, i) => {
             return (
               <GridItem md={4} key={i}>
                 <Card
@@ -72,22 +81,24 @@ class ListView extends React.Component {
                         style={{ position: "inherit", opacity: 0.9 }}
                         color={"primary"}
                       >
-                        {vanue.name}
+                        {venue.title.slice(0, 30)}
+                        <strong title={venue.title}>....</strong>
                       </CardHeader>
                       <CardBody className="card-body">
                         <img
-                          src={vanue.mainPic}
+                          src={venue.url[0]}
                           alt="some-img"
                           width="100%"
+                          height='160px'
                           style={{
-                            marginTop: "-36px",
+                            // marginTop: "-36px",
                             borderTopLeftRadius: 5,
                             borderTopRightRadius: 5
                           }}
                         />
                         <div className="card-body-info">
                           <div>
-                            <div className="star-ratting">
+                            {/* <div className="star-ratting">
                               {renderFullStars()}
                               <p
                                 style={{
@@ -99,7 +110,7 @@ class ListView extends React.Component {
                                 {" "}
                                 Ratting
                               </p>
-                            </div>
+                            </div> */}
                             <div className="city">
                               <img alt="some-img" src={Location} width="8%" />
                               <p
@@ -110,7 +121,7 @@ class ListView extends React.Component {
                                 }}
                               >
                                 {" "}
-                                {vanue.address}
+                                <span style={{display:"grid"}}><span style={{whiteSpace:' nowrap',overflow: 'hidden',textOverflow: 'ellipsis'}} >{venue.address}</span> </span>
                               </p>
                             </div>
                             <div className="type">
@@ -127,7 +138,7 @@ class ListView extends React.Component {
                                 }}
                               >
                                 {" "}
-                                {vanue.venueTypes}
+                                {venue.objType}
                               </p>
                             </div>
                             <div className="type">
@@ -140,7 +151,7 @@ class ListView extends React.Component {
                                 }}
                               >
                                 {" "}
-                                Sitting {vanue.capacity}
+                                Sitting {venue.capacity}
                               </p>
                             </div>
                           </div>

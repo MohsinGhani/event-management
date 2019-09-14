@@ -57,9 +57,10 @@ export default class venueEpic {
           .get();
         let services = [];
         querySnapshot.forEach(doc => {
-          console.log(doc.id, "=>", doc.data());
+          // console.log(doc.id, "=>", doc.data());
           services.push({ ...doc.data(), id: doc.id });
         });
+        console.log('these services goint to reducer', services)
         return venueAction.getVenuesSuccess(services);
       }
       catch (err) {

@@ -29,7 +29,6 @@ export class venueAction {
     }
     ////////////////
     static getVenues(payload) {
-        console.log("hello world")
         return {
             type: GET_VENUES,
             payload
