@@ -20,6 +20,10 @@ import view_profile from "../../assets/icons/view_profile.svg";
 import Button from "components/CustomButtons/Button.jsx";
 //import './ListView.css'
 import AuthenticatedNavbar from "./../../components/common/AuthenticatedNavbar";
+// import Carousel from "react-slick";
+
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from "react-responsive-carousel";
 
 class ListView extends React.Component {
   constructor(props) {
@@ -35,10 +39,10 @@ class ListView extends React.Component {
   };
 
   componentDidUpdate(prevProps) {
-    if(prevProps.venues !== this.props.venues && this.props.venues){
+    if (prevProps.venues !== this.props.venues && this.props.venues) {
       this.setState({
         venues: this.props.venues
-      })
+      });
     }
   }
 
@@ -49,6 +53,15 @@ class ListView extends React.Component {
   render() {
     const { classes, user, ...rest } = this.props;
     const { venues } = this.state;
+    const settings = {
+      dots: true,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      autoplay: false
+    };
+
     // const stars = Math.ceil(venues[0].rating.overall);
     // let renderFullStars = () => {
     //   return stars !== 0
@@ -59,7 +72,7 @@ class ListView extends React.Component {
     //         })
     //     : "";
     // };
-    console.log(this.props.venues)
+    console.log(this.props.venues);
     return (
       <div>
         <AuthenticatedNavbar />
@@ -71,34 +84,56 @@ class ListView extends React.Component {
             marginTop: "15px"
           }}
         >
-          {venues && venues.map((venue, i) => {
-            return (
-              <GridItem md={4} key={i}>
-                <Card
-                  children={
-                    <Fragment>
-                      <CardHeader
-                        style={{ position: "inherit", opacity: 0.9 }}
-                        color={"primary"}
-                      >
-                        {venue.title.slice(0, 30)}
-                        <strong title={venue.title}>....</strong>
-                      </CardHeader>
-                      <CardBody className="card-body">
-                        <img
-                          src={venue.url[0]}
-                          alt="some-img"
-                          width="100%"
-                          height='160px'
+          {venues &&
+            venues.map((venue, i) => {
+              return (
+                <GridItem md={4} key={i}>
+                  <Card
+                    children={
+                      <Fragment>
+                        <CardHeader
                           style={{
-                            // marginTop: "-36px",
-                            borderTopLeftRadius: 5,
-                            borderTopRightRadius: 5
+                            position: "inherit",
+                            opacity: 0.9,
+                            display: "flex"
                           }}
-                        />
-                        <div className="card-body-info">
-                          <div>
-                            {/* <div className="star-ratting">
+                          color={"primary"}
+                        >
+                          <p
+                            title={venue.title}
+                            style={{
+                              width: "100%",
+                              overflow: "hidden",
+                              whiteSpace: "nowrap",
+                              textOverflow: "ellipsis",
+                              margin: "5px 0 5px 0"
+                            }}
+                          >
+                            {venue.title}
+                          </p>
+                        </CardHeader>
+                        <CardBody
+                          className="card-body"
+                          style={{ color: "gray" }}
+                        >
+                          <Carousel showThumbs={false} showIndicators={false}>
+                            {venue.url.map(source => (
+                              <img
+                                src={source}
+                                alt="some-img"
+                                width="100%"
+                                height="160px"
+                                style={{
+                                  // marginTop: "-36px",
+                                  borderTopLeftRadius: 5,
+                                  borderTopRightRadius: 5
+                                }}
+                              />
+                            ))}
+                          </Carousel>
+                          <div className="card-body-info">
+                            <div>
+                              {/* <div className="star-ratting">
                               {renderFullStars()}
                               <p
                                 style={{
@@ -111,71 +146,85 @@ class ListView extends React.Component {
                                 Ratting
                               </p>
                             </div> */}
-                            <div className="city">
-                              <img alt="some-img" src={Location} width="8%" />
-                              <p
-                                style={{
-                                  display: "inline",
-                                  fontSize: "80%",
-                                  color: "grey"
-                                }}
-                              >
-                                {" "}
-                                <span style={{display:"grid"}}><span style={{whiteSpace:' nowrap',overflow: 'hidden',textOverflow: 'ellipsis'}} >{venue.address}</span> </span>
-                              </p>
-                            </div>
-                            <div className="type">
-                              <img
-                                alt="some-img"
-                                src={Layout_style}
-                                width="8%"
-                              />
-                              <p
-                                style={{
-                                  display: "inline",
-                                  fontSize: "80%",
-                                  color: "grey"
-                                }}
-                              >
-                                {" "}
-                                {venue.objType}
-                              </p>
-                            </div>
-                            <div className="type">
-                              <img alt="some-img" src={Venue_type} width="8%" />
-                              <p
-                                style={{
-                                  display: "inline",
-                                  fontSize: "80%",
-                                  color: "grey"
-                                }}
-                              >
-                                {" "}
-                                Sitting {venue.capacity}
-                              </p>
-                            </div>
-                          </div>
 
-                          <div className="right-panel">
-                            <div className="dtl-btn-wrapper">
-                              <Button
-                                color="warning"
-                                size="sm"
-                                round
-                                onClick={() => this.goto("/venue-detail")}
+                              <div
+                                className="city"
+                                style={{ display: "flex", paddingTop: "5px" }}
                               >
-                                Detail
-                              </Button>
+                                <i
+                                  class="fas fa-map-marker-alt"
+                                  style={{ padding: "10px 5px 0 0" }}
+                                ></i>
+                                <p
+                                  title={venue.address}
+                                  style={{
+                                    width: "100%",
+                                    overflow: "hidden",
+                                    whiteSpace: "nowrap",
+                                    textOverflow: "ellipsis",
+                                    margin: "5px 0 0 0"
+                                  }}
+                                >
+                                  {venue.address}
+                                </p>
+                              </div>
+
+                              <div className="contact">
+                                <i
+                                  class="fas fa-phone"
+                                  style={{ padding: "10px 5px 0 0" }}
+                                ></i>
+                                {venue.contactNumber}
+                              </div>
+                              <div className="email">
+                                <i
+                                  class="fas fa-envelope"
+                                  style={{ padding: "10px 5px 0 0" }}
+                                ></i>
+                                {venue.email}
+                              </div>
+                              <div className="price">
+                                <i
+                                  class="fas fa-tags"
+                                  style={{ padding: "10px 5px 0 0" }}
+                                ></i>
+                                Rs: {venue.price}
+                              </div>
+                              <div className="type">
+                                <i
+                                  class="fas fa-list-ul"
+                                  style={{ padding: "10px 5px 0 0" }}
+                                ></i>
+                                {venue.objType}
+                              </div>
+                            </div>
+
+                            <div className="right-panel">
+                              <div
+                                className="dtl-btn-wrapper"
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "flex-end"
+                                }}
+                              >
+                                <Button
+                                  color="warning"
+                                  size="sm"
+                                  round
+                                  onClick={() => this.goto("/venue-detail")}
+                                >
+                                  Detail
+                                </Button>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </CardBody>
-                    </Fragment>
-                  }
-                />
-              </GridItem>
-            );
-          })}
+                        </CardBody>
+                      </Fragment>
+                    }
+                  />
+                </GridItem>
+              );
+            })}
           <div
             style={{ display: "flex", justifyContent: "center", width: "100%" }}
           >
@@ -228,7 +277,7 @@ const mapStateToProps = state => {
     getVenuesLoader,
     getVenuesError,
     user,
-    isLoggedIn,
+    isLoggedIn
   };
 };
 

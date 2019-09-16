@@ -20,9 +20,9 @@ import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
 import CardHeader from "dashboard-components/Card/CardHeader.jsx";
 import CardBody from "dashboard-components/Card/CardBody.jsx";
-import ReactLoading from "react-loading";
 import notificationsStyles from "assets/jss/material-kit-react/views/componentsSections/notificationsStyles.jsx";
 import storage from "../../firebase/FireBase";
+import ReactLoading from 'react-loading';
 
 const styles = theme => ({
   root: {
@@ -102,12 +102,13 @@ class VenueForm extends React.Component {
     let {
       venueDetails: {
         title,
-        perHead,
+        price,
         packages,
         contactNumber,
         lenght,
         width,
         capacity,
+        email,
         address,
         serviceChecked,
         eventTypeCheck,
@@ -180,14 +181,35 @@ class VenueForm extends React.Component {
                       fullWidth: true
                     }}
                     inputProps={{
-                      type: "tel",
+                      type: "number",
                       name: "contactNumber",
                       value: contactNumber,
-                      pattern: "[0-9]{4}-[0-9]{4}",
+                      format: "(####) ###-####",
+                      mask: "",
                       onChange: venueDetailHandler,
                       endAdornment: (
                         <InputAdornment position="end">
                           <i class="material-icons">call</i>
+                        </InputAdornment>
+                      )
+                    }}
+                  />
+                </GridItem>
+                <GridItem xs={12} sm={6} md={6} lg={6}>
+                  <CustomInput
+                    labelText="Email Address"
+                    id="float"
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    inputProps={{
+                      type: "email",
+                      name: "email",
+                      value: email,
+                      onChange: venueDetailHandler,
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <i class="material-icons">email</i>
                         </InputAdornment>
                       )
                     }}
@@ -235,6 +257,26 @@ class VenueForm extends React.Component {
 
                 <GridItem xs={12} sm={6} md={6} lg={6}>
                   <CustomInput
+                    labelText="Price"
+                    id="float"
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    inputProps={{
+                      type: "number",
+                      name: "price",
+                      value: price,
+                      onChange: venueDetailHandler,
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <i class="fas fa-tag"></i>
+                        </InputAdornment>
+                      )
+                    }}
+                  />
+                </GridItem>
+                <GridItem xs={12} sm={6} md={6} lg={6}>
+                  <CustomInput
                     labelText="Venue Length"
                     id="float"
                     formControlProps={{
@@ -265,22 +307,6 @@ class VenueForm extends React.Component {
                 </GridItem>
 
                 <GridItem xs={12} sm={6} md={6} lg={6}>
-                  <CustomInput
-                    labelText="Per-Head Price"
-                    id="float"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    inputProps={{
-                      type: "number",
-                      name: "perHead",
-                      value: perHead,
-                      onChange: venueDetailHandler
-                    }}
-                  />
-                </GridItem>
-
-                <GridItem xs={12} sm={6} md={6} lg={6}>
                   <FormControl
                     style={{ marginTop: "8px", display: "flex" }}
                     fullWidth
@@ -303,6 +329,7 @@ class VenueForm extends React.Component {
                 </GridItem>
                 <GridItem>
                   <GridItem xs={12} sm={6} md={6} lg={6}>
+                  <ReactLoading type={'spinningBubbles'} value={progress} max="100" color={"#0000"} height={'20%'} width={'20%'} />
                     <progress value={progress} max="100" />
                   </GridItem>
                   {/* <input
@@ -340,9 +367,7 @@ class VenueForm extends React.Component {
                     /> */}
                   </GridItem>
                   <GridItem xs={12} sm={6} md={6} lg={6}>
-                    <Button onClick={handleOnVenueUploadFile}>
-                      upload
-                    </Button>
+                    <Button onClick={handleOnVenueUploadFile}>upload</Button>
                   </GridItem>
                   <GridItem xs={12} sm={6} md={6} lg={6}>
                     {url.map(source => (
@@ -760,8 +785,8 @@ class VenueForm extends React.Component {
                       disabled={
                         !(
                           title &&
-                          perHead &&
-                          // image &&
+                          price &&
+                          email &&
                           packages &&
                           contactNumber &&
                           lenght &&
