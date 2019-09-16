@@ -223,13 +223,17 @@ class Food_CaterersForm extends React.Component {
                       }}
                     />
                   </GridItem>
-                  <GridItem xs={12} sm={6} md={6} lg={6}
+                  <GridItem
+                    xs={12}
+                    sm={6}
+                    md={6}
+                    lg={6}
                     style={{ display: "flex", justifyContent: "flex-end" }}
-                    >
+                  >
                     <Button onClick={handleOnFoodUploadFile}>upload</Button>
                   </GridItem>
                   <GridItem xs={12} sm={6} md={6} lg={6}>
-                  {url.map(source => (
+                    {url.map(source => (
                       <img
                         src={source || "http://via.placeholder.com/75x50"}
                         alt="Uploaded images"
@@ -285,9 +289,7 @@ class Food_CaterersForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() =>
-                              handleToggleOnFoodItemCheck("Soup")
-                            }
+                            onClick={() => handleToggleOnFoodItemCheck("Soup")}
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -304,9 +306,7 @@ class Food_CaterersForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() =>
-                              handleToggleOnFoodItemCheck("Salad")
-                            }
+                            onClick={() => handleToggleOnFoodItemCheck("Salad")}
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -324,7 +324,9 @@ class Food_CaterersForm extends React.Component {
                           <Checkbox
                             tabIndex={-1}
                             onClick={() =>
-                              handleToggleOnFoodItemCheck("TRADITIONAL SI-CHUAN- FOOD")
+                              handleToggleOnFoodItemCheck(
+                                "TRADITIONAL SI-CHUAN- FOOD"
+                              )
                             }
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
@@ -399,9 +401,7 @@ class Food_CaterersForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() =>
-                              handleToggleOnFoodItemCheck("Rice")
-                            }
+                            onClick={() => handleToggleOnFoodItemCheck("Rice")}
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -438,7 +438,9 @@ class Food_CaterersForm extends React.Component {
                           <Checkbox
                             tabIndex={-1}
                             onClick={() =>
-                              handleToggleOnFoodItemCheck("Pakistani & muglhai food")
+                              handleToggleOnFoodItemCheck(
+                                "Pakistani & muglhai food"
+                              )
                             }
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
@@ -476,7 +478,9 @@ class Food_CaterersForm extends React.Component {
                           <Checkbox
                             tabIndex={-1}
                             onClick={() =>
-                              handleToggleOnFoodItemCheck("Hot & cold beverages")
+                              handleToggleOnFoodItemCheck(
+                                "Hot & cold beverages"
+                              )
                             }
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
@@ -527,7 +531,7 @@ class Food_CaterersForm extends React.Component {
                         label="PARATHA"
                       />
                     </GridItem>
-                    
+
                     <GridItem xs={12} sm={4} md={4} lg={4}>
                       <FormControlLabel
                         control={

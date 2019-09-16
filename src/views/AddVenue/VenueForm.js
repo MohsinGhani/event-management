@@ -346,7 +346,10 @@ class VenueForm extends React.Component {
                         handleChangeOnVenueUpload(e);
                       }}
                     /> */}
-                <GridItem container direction="row">
+                <GridItem>
+                  <GridItem xs={12} sm={6} md={6} lg={6}>
+                    <progress value={progress} max="100" />
+                  </GridItem>
                   <GridItem xs={12} sm={6} md={6} lg={6}>
                     <CustomInput
                       // labelText="Pictures of venue"
@@ -370,7 +373,6 @@ class VenueForm extends React.Component {
                     lg={6}
                     style={{ display: "flex", justifyContent: "flex-end" }}
                   >
-                    <progress value={progress} max="100" />
                     <Button onClick={handleOnVenueUploadFile}>upload</Button>
                   </GridItem>
                 </GridItem>
@@ -570,9 +572,7 @@ class VenueForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() =>
-                              handleToggleOnEventType("Festivals")
-                            }
+                            onClick={() => handleToggleOnEventType("Festivals")}
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -601,16 +601,14 @@ class VenueForm extends React.Component {
                         }
                         classes={{ label: classes.label }}
                         label="Exhibitions"
-                        />
+                      />
                     </GridItem>
                     <GridItem xs={12} sm={4} md={4} lg={4}>
                       <FormControlLabel
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() =>
-                              handleToggleOnEventType("Work Shop")
-                            }
+                            onClick={() => handleToggleOnEventType("Work Shop")}
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -627,9 +625,7 @@ class VenueForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() =>
-                              handleToggleOnEventType("Reunions")
-                            }
+                            onClick={() => handleToggleOnEventType("Reunions")}
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -646,9 +642,7 @@ class VenueForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() =>
-                              handleToggleOnEventType("Seminars")
-                            }
+                            onClick={() => handleToggleOnEventType("Seminars")}
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -722,9 +716,7 @@ class VenueForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() =>
-                              handleToggleOnEventType("Concerts")
-                            }
+                            onClick={() => handleToggleOnEventType("Concerts")}
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }

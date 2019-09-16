@@ -165,7 +165,6 @@ class DecorationsForm extends React.Component {
                   />
                 </GridItem>
 
-
                 <GridItem xs={12} sm={6} md={6} lg={6}>
                   <CustomInput
                     labelText="Price of each decoration"
@@ -223,15 +222,19 @@ class DecorationsForm extends React.Component {
                       }}
                     />
                   </GridItem>
-                  <GridItem xs={12} sm={6} md={6} lg={6} 
+                  <GridItem
+                    xs={12}
+                    sm={6}
+                    md={6}
+                    lg={6}
                     style={{ display: "flex", justifyContent: "flex-end" }}
-                    >
+                  >
                     <Button onClick={handleOnDecorationUploadFile}>
                       upload
                     </Button>
                   </GridItem>
                   <GridItem xs={12} sm={6} md={6} lg={6}>
-                  {url.map(source => (
+                    {url.map(source => (
                       <img
                         src={source || "http://via.placeholder.com/75x50"}
                         alt="Uploaded images"
@@ -264,7 +267,9 @@ class DecorationsForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() => handleToggleOnDecorationThemeTypeCheck("Wedding")}
+                            onClick={() =>
+                              handleToggleOnDecorationThemeTypeCheck("Wedding")
+                            }
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -281,7 +286,9 @@ class DecorationsForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() => handleToggleOnDecorationThemeTypeCheck("Mendhi")}
+                            onClick={() =>
+                              handleToggleOnDecorationThemeTypeCheck("Mendhi")
+                            }
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -298,7 +305,11 @@ class DecorationsForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() => handleToggleOnDecorationThemeTypeCheck("Engagmnet")}
+                            onClick={() =>
+                              handleToggleOnDecorationThemeTypeCheck(
+                                "Engagmnet"
+                              )
+                            }
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -315,7 +326,9 @@ class DecorationsForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() => handleToggleOnDecorationThemeTypeCheck("Valima")}
+                            onClick={() =>
+                              handleToggleOnDecorationThemeTypeCheck("Valima")
+                            }
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -332,7 +345,9 @@ class DecorationsForm extends React.Component {
                         control={
                           <Checkbox
                             tabIndex={-1}
-                            onClick={() => handleToggleOnDecorationThemeTypeCheck("Meetings")}
+                            onClick={() =>
+                              handleToggleOnDecorationThemeTypeCheck("Meetings")
+                            }
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
                             }
@@ -351,7 +366,9 @@ class DecorationsForm extends React.Component {
                           <Checkbox
                             tabIndex={-1}
                             onClick={() =>
-                              handleToggleOnDecorationThemeTypeCheck("Conferences")
+                              handleToggleOnDecorationThemeTypeCheck(
+                                "Conferences"
+                              )
                             }
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
@@ -371,7 +388,9 @@ class DecorationsForm extends React.Component {
                           <Checkbox
                             tabIndex={-1}
                             onClick={() =>
-                              handleToggleOnDecorationThemeTypeCheck("Casual Parties")
+                              handleToggleOnDecorationThemeTypeCheck(
+                                "Casual Parties"
+                              )
                             }
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
@@ -390,7 +409,9 @@ class DecorationsForm extends React.Component {
                           <Checkbox
                             tabIndex={-1}
                             onClick={() =>
-                              handleToggleOnDecorationThemeTypeCheck("Birthday Parties")
+                              handleToggleOnDecorationThemeTypeCheck(
+                                "Birthday Parties"
+                              )
                             }
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
@@ -409,7 +430,9 @@ class DecorationsForm extends React.Component {
                           <Checkbox
                             tabIndex={-1}
                             onClick={() =>
-                              handleToggleOnDecorationThemeTypeCheck("Naat Kawani")
+                              handleToggleOnDecorationThemeTypeCheck(
+                                "Naat Kawani"
+                              )
                             }
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
@@ -428,7 +451,9 @@ class DecorationsForm extends React.Component {
                           <Checkbox
                             tabIndex={-1}
                             onClick={() =>
-                              handleToggleOnDecorationThemeTypeCheck("Festivals")
+                              handleToggleOnDecorationThemeTypeCheck(
+                                "Festivals"
+                              )
                             }
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
@@ -447,7 +472,9 @@ class DecorationsForm extends React.Component {
                           <Checkbox
                             tabIndex={-1}
                             onClick={() =>
-                              handleToggleOnDecorationThemeTypeCheck("Exhibitions")
+                              handleToggleOnDecorationThemeTypeCheck(
+                                "Exhibitions"
+                              )
                             }
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
@@ -458,7 +485,7 @@ class DecorationsForm extends React.Component {
                         }
                         classes={{ label: classes.label }}
                         label="Exhibitions"
-                        />
+                      />
                     </GridItem>
                     <GridItem xs={12} sm={4} md={4} lg={4}>
                       <FormControlLabel
@@ -466,7 +493,9 @@ class DecorationsForm extends React.Component {
                           <Checkbox
                             tabIndex={-1}
                             onClick={() =>
-                              handleToggleOnDecorationThemeTypeCheck("Work Shop")
+                              handleToggleOnDecorationThemeTypeCheck(
+                                "Work Shop"
+                              )
                             }
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
@@ -523,7 +552,9 @@ class DecorationsForm extends React.Component {
                           <Checkbox
                             tabIndex={-1}
                             onClick={() =>
-                              handleToggleOnDecorationThemeTypeCheck("Brand Lunch")
+                              handleToggleOnDecorationThemeTypeCheck(
+                                "Brand Lunch"
+                              )
                             }
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
@@ -542,7 +573,9 @@ class DecorationsForm extends React.Component {
                           <Checkbox
                             tabIndex={-1}
                             onClick={() =>
-                              handleToggleOnDecorationThemeTypeCheck("Anniversaries")
+                              handleToggleOnDecorationThemeTypeCheck(
+                                "Anniversaries"
+                              )
                             }
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
@@ -561,7 +594,9 @@ class DecorationsForm extends React.Component {
                           <Checkbox
                             tabIndex={-1}
                             onClick={() =>
-                              handleToggleOnDecorationThemeTypeCheck("Musical Nights")
+                              handleToggleOnDecorationThemeTypeCheck(
+                                "Musical Nights"
+                              )
                             }
                             checkedIcon={
                               <Check className={classes.checkedIcon} />

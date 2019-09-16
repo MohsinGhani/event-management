@@ -53,7 +53,7 @@ class Photographers extends React.Component {
         image,
         url,
         progress,
-        email,
+        email
       },
       photographerDetailsHandler,
       handleClickOpen,
@@ -239,22 +239,25 @@ class Photographers extends React.Component {
                       }}
                     />
                   </GridItem>
-                  <GridItem xs={12} sm={6} md={6} lg={6}
+                  <GridItem
+                    xs={12}
+                    sm={6}
+                    md={6}
+                    lg={6}
                     style={{ display: "flex", justifyContent: "flex-end" }}
-                    >
+                  >
                     <Button onClick={handleOnPhotograhUploadFile}>
                       upload
                     </Button>
                   </GridItem>
                   <GridItem xs={12} sm={6} md={6} lg={6}>
-                  {url.map(source => (
+                    {url.map(source => (
                       <img
                         src={source || "http://via.placeholder.com/75x50"}
                         alt="Uploaded images"
                         height="50"
                         width="75"
-                      style={{ marginLeft: "10px" }}
-                       
+                        style={{ marginLeft: "10px" }}
                       />
                     ))}
                   </GridItem>
