@@ -20,9 +20,9 @@ import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
 import CardHeader from "dashboard-components/Card/CardHeader.jsx";
 import CardBody from "dashboard-components/Card/CardBody.jsx";
+import ReactLoading from "react-loading";
 import notificationsStyles from "assets/jss/material-kit-react/views/componentsSections/notificationsStyles.jsx";
 import storage from "../../firebase/FireBase";
-import ReactLoading from 'react-loading';
 
 const styles = theme => ({
   root: {
@@ -327,12 +327,7 @@ class VenueForm extends React.Component {
                     </Select>
                   </FormControl>
                 </GridItem>
-                <GridItem>
-                  <GridItem xs={12} sm={6} md={6} lg={6}>
-                  <ReactLoading type={'spinningBubbles'} value={progress} max="100" color={"#0000"} height={'20%'} width={'20%'} />
-                    <progress value={progress} max="100" />
-                  </GridItem>
-                  {/* <input
+                {/* <input
                     type="file"
                     multiple
                     onChange={handleOnChange}
@@ -344,6 +339,14 @@ class VenueForm extends React.Component {
                     height="300"
                     width="400"
                   /> */}
+                {/* <input
+                      type="file"
+                      multiple
+                      onChange={e => {
+                        handleChangeOnVenueUpload(e);
+                      }}
+                    /> */}
+                <GridItem container direction="row">
                   <GridItem xs={12} sm={6} md={6} lg={6}>
                     <CustomInput
                       // labelText="Pictures of venue"
@@ -358,28 +361,30 @@ class VenueForm extends React.Component {
                         onChange: handleChangeOnVenueUpload
                       }}
                     />
-                    {/* <input
-                      type="file"
-                      multiple
-                      onChange={e => {
-                        handleChangeOnVenueUpload(e);
-                      }}
-                    /> */}
                   </GridItem>
-                  <GridItem xs={12} sm={6} md={6} lg={6}>
+
+                  <GridItem
+                    xs={12}
+                    sm={6}
+                    md={6}
+                    lg={6}
+                    style={{ display: "flex", justifyContent: "flex-end" }}
+                  >
+                    <progress value={progress} max="100" />
                     <Button onClick={handleOnVenueUploadFile}>upload</Button>
                   </GridItem>
-                  <GridItem xs={12} sm={6} md={6} lg={6}>
-                    {url.map(source => (
-                      <img
-                        src={source || "http://via.placeholder.com/75x50"}
-                        alt="Uploaded images"
-                        height="50"
-                        width="75"
-                        justifyContent="space-between"
-                      />
-                    ))}
-                  </GridItem>
+                </GridItem>
+
+                <GridItem xs={12} sm={12} md={12} lg={12}>
+                  {url.map(source => (
+                    <img
+                      src={source || "http://via.placeholder.com/75x50"}
+                      alt="Uploaded images"
+                      height="50"
+                      width="75"
+                      style={{ marginLeft: "10px" }}
+                    />
+                  ))}
                 </GridItem>
                 <GridItem>
                   <div className={classes.title}>
@@ -558,6 +563,177 @@ class VenueForm extends React.Component {
                         }
                         classes={{ label: classes.label }}
                         label="Naat khwani"
+                      />
+                    </GridItem>
+                    <GridItem xs={12} sm={4} md={4} lg={4}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            tabIndex={-1}
+                            onClick={() =>
+                              handleToggleOnEventType("Festivals")
+                            }
+                            checkedIcon={
+                              <Check className={classes.checkedIcon} />
+                            }
+                            icon={<Check className={classes.uncheckedIcon} />}
+                            classes={{ checked: classes.checked }}
+                          />
+                        }
+                        classes={{ label: classes.label }}
+                        label="Festivals"
+                      />
+                    </GridItem>
+                    <GridItem xs={12} sm={4} md={4} lg={4}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            tabIndex={-1}
+                            onClick={() =>
+                              handleToggleOnEventType("Exhibitions")
+                            }
+                            checkedIcon={
+                              <Check className={classes.checkedIcon} />
+                            }
+                            icon={<Check className={classes.uncheckedIcon} />}
+                            classes={{ checked: classes.checked }}
+                          />
+                        }
+                        classes={{ label: classes.label }}
+                        label="Exhibitions"
+                        />
+                    </GridItem>
+                    <GridItem xs={12} sm={4} md={4} lg={4}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            tabIndex={-1}
+                            onClick={() =>
+                              handleToggleOnEventType("Work Shop")
+                            }
+                            checkedIcon={
+                              <Check className={classes.checkedIcon} />
+                            }
+                            icon={<Check className={classes.uncheckedIcon} />}
+                            classes={{ checked: classes.checked }}
+                          />
+                        }
+                        classes={{ label: classes.label }}
+                        label="Work Shop"
+                      />
+                    </GridItem>
+                    <GridItem xs={12} sm={4} md={4} lg={4}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            tabIndex={-1}
+                            onClick={() =>
+                              handleToggleOnEventType("Reunions")
+                            }
+                            checkedIcon={
+                              <Check className={classes.checkedIcon} />
+                            }
+                            icon={<Check className={classes.uncheckedIcon} />}
+                            classes={{ checked: classes.checked }}
+                          />
+                        }
+                        classes={{ label: classes.label }}
+                        label="Reunion"
+                      />
+                    </GridItem>
+                    <GridItem xs={12} sm={4} md={4} lg={4}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            tabIndex={-1}
+                            onClick={() =>
+                              handleToggleOnEventType("Seminars")
+                            }
+                            checkedIcon={
+                              <Check className={classes.checkedIcon} />
+                            }
+                            icon={<Check className={classes.uncheckedIcon} />}
+                            classes={{ checked: classes.checked }}
+                          />
+                        }
+                        classes={{ label: classes.label }}
+                        label="Seminars"
+                      />
+                    </GridItem>
+                    <GridItem xs={12} sm={4} md={4} lg={4}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            tabIndex={-1}
+                            onClick={() =>
+                              handleToggleOnEventType("Brand Lunch")
+                            }
+                            checkedIcon={
+                              <Check className={classes.checkedIcon} />
+                            }
+                            icon={<Check className={classes.uncheckedIcon} />}
+                            classes={{ checked: classes.checked }}
+                          />
+                        }
+                        classes={{ label: classes.label }}
+                        label="Brand Lunch"
+                      />
+                    </GridItem>
+                    <GridItem xs={12} sm={4} md={4} lg={4}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            tabIndex={-1}
+                            onClick={() =>
+                              handleToggleOnEventType("Anniversaries")
+                            }
+                            checkedIcon={
+                              <Check className={classes.checkedIcon} />
+                            }
+                            icon={<Check className={classes.uncheckedIcon} />}
+                            classes={{ checked: classes.checked }}
+                          />
+                        }
+                        classes={{ label: classes.label }}
+                        label="Anniversaries"
+                      />
+                    </GridItem>
+                    <GridItem xs={12} sm={4} md={4} lg={4}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            tabIndex={-1}
+                            onClick={() =>
+                              handleToggleOnEventType("Musical Nights")
+                            }
+                            checkedIcon={
+                              <Check className={classes.checkedIcon} />
+                            }
+                            icon={<Check className={classes.uncheckedIcon} />}
+                            classes={{ checked: classes.checked }}
+                          />
+                        }
+                        classes={{ label: classes.label }}
+                        label="Musical Nights"
+                      />
+                    </GridItem>
+                    <GridItem xs={12} sm={4} md={4} lg={4}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            tabIndex={-1}
+                            onClick={() =>
+                              handleToggleOnEventType("Concerts")
+                            }
+                            checkedIcon={
+                              <Check className={classes.checkedIcon} />
+                            }
+                            icon={<Check className={classes.uncheckedIcon} />}
+                            classes={{ checked: classes.checked }}
+                          />
+                        }
+                        classes={{ label: classes.label }}
+                        label="Concerts"
                       />
                     </GridItem>
                   </Grid>

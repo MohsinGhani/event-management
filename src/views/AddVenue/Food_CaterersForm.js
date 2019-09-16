@@ -45,6 +45,7 @@ class Food_CaterersForm extends React.Component {
         price,
         contactNumber,
         address,
+        email,
         packages,
         foodItemCheck,
         image,
@@ -147,6 +148,26 @@ class Food_CaterersForm extends React.Component {
                 </GridItem>
                 <GridItem xs={12} sm={6} md={6} lg={6}>
                   <CustomInput
+                    labelText="Email"
+                    id="material"
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    inputProps={{
+                      value: email,
+                      name: "email",
+                      type: "email",
+                      onChange: food_caterersDetailsHandler,
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <i class="material-icons">email</i>
+                        </InputAdornment>
+                      )
+                    }}
+                  />
+                </GridItem>
+                <GridItem xs={12} sm={6} md={6} lg={6}>
+                  <CustomInput
                     labelText="Price of each Food item"
                     id="float"
                     formControlProps={{
@@ -202,7 +223,9 @@ class Food_CaterersForm extends React.Component {
                       }}
                     />
                   </GridItem>
-                  <GridItem xs={12} sm={6} md={6} lg={6}>
+                  <GridItem xs={12} sm={6} md={6} lg={6}
+                    style={{ display: "flex", justifyContent: "flex-end" }}
+                    >
                     <Button onClick={handleOnFoodUploadFile}>upload</Button>
                   </GridItem>
                   <GridItem xs={12} sm={6} md={6} lg={6}>
@@ -212,7 +235,7 @@ class Food_CaterersForm extends React.Component {
                         alt="Uploaded images"
                         height="50"
                         width="75"
-                        justifyContent="space-between"
+                        style={{ marginLeft: "10px" }}
                       />
                     ))}
                   </GridItem>
@@ -244,7 +267,7 @@ class Food_CaterersForm extends React.Component {
                           <Checkbox
                             tabIndex={-1}
                             onClick={() =>
-                              handleToggleOnFoodItemCheck("Pakistani")
+                              handleToggleOnFoodItemCheck("Appetizers")
                             }
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
@@ -254,7 +277,7 @@ class Food_CaterersForm extends React.Component {
                           />
                         }
                         classes={{ label: classes.label }}
-                        label="Pakistani"
+                        label="Appetizers"
                       />
                     </GridItem>
                     <GridItem xs={12} sm={4} md={4} lg={4}>
@@ -263,7 +286,7 @@ class Food_CaterersForm extends React.Component {
                           <Checkbox
                             tabIndex={-1}
                             onClick={() =>
-                              handleToggleOnFoodItemCheck("Italian")
+                              handleToggleOnFoodItemCheck("Soup")
                             }
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
@@ -273,7 +296,7 @@ class Food_CaterersForm extends React.Component {
                           />
                         }
                         classes={{ label: classes.label }}
-                        label="Italian"
+                        label="Soup"
                       />
                     </GridItem>
                     <GridItem xs={12} sm={4} md={4} lg={4}>
@@ -282,7 +305,7 @@ class Food_CaterersForm extends React.Component {
                           <Checkbox
                             tabIndex={-1}
                             onClick={() =>
-                              handleToggleOnFoodItemCheck("Chainies")
+                              handleToggleOnFoodItemCheck("Salad")
                             }
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
@@ -292,7 +315,7 @@ class Food_CaterersForm extends React.Component {
                           />
                         }
                         classes={{ label: classes.label }}
-                        label="Chainies"
+                        label="Salad"
                       />
                     </GridItem>
                     <GridItem xs={12} sm={4} md={4} lg={4}>
@@ -301,7 +324,7 @@ class Food_CaterersForm extends React.Component {
                           <Checkbox
                             tabIndex={-1}
                             onClick={() =>
-                              handleToggleOnFoodItemCheck("Continatial")
+                              handleToggleOnFoodItemCheck("TRADITIONAL SI-CHUAN- FOOD")
                             }
                             checkedIcon={
                               <Check className={classes.checkedIcon} />
@@ -311,7 +334,274 @@ class Food_CaterersForm extends React.Component {
                           />
                         }
                         classes={{ label: classes.label }}
-                        label="Continatial"
+                        label="TRADITIONAL SI-CHUAN- FOOD"
+                      />
+                    </GridItem>
+                    <GridItem xs={12} sm={4} md={4} lg={4}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            tabIndex={-1}
+                            onClick={() =>
+                              handleToggleOnFoodItemCheck("Sea Food")
+                            }
+                            checkedIcon={
+                              <Check className={classes.checkedIcon} />
+                            }
+                            icon={<Check className={classes.uncheckedIcon} />}
+                            classes={{ checked: classes.checked }}
+                          />
+                        }
+                        classes={{ label: classes.label }}
+                        label="Sea Food"
+                      />
+                    </GridItem>
+                    <GridItem xs={12} sm={4} md={4} lg={4}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            tabIndex={-1}
+                            onClick={() =>
+                              handleToggleOnFoodItemCheck("Beef & lamb")
+                            }
+                            checkedIcon={
+                              <Check className={classes.checkedIcon} />
+                            }
+                            icon={<Check className={classes.uncheckedIcon} />}
+                            classes={{ checked: classes.checked }}
+                          />
+                        }
+                        classes={{ label: classes.label }}
+                        label="Beef & lamb"
+                      />
+                    </GridItem>
+                    <GridItem xs={12} sm={4} md={4} lg={4}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            tabIndex={-1}
+                            onClick={() =>
+                              handleToggleOnFoodItemCheck("Chicken")
+                            }
+                            checkedIcon={
+                              <Check className={classes.checkedIcon} />
+                            }
+                            icon={<Check className={classes.uncheckedIcon} />}
+                            classes={{ checked: classes.checked }}
+                          />
+                        }
+                        classes={{ label: classes.label }}
+                        label="Chicken"
+                      />
+                    </GridItem>
+                    <GridItem xs={12} sm={4} md={4} lg={4}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            tabIndex={-1}
+                            onClick={() =>
+                              handleToggleOnFoodItemCheck("Rice")
+                            }
+                            checkedIcon={
+                              <Check className={classes.checkedIcon} />
+                            }
+                            icon={<Check className={classes.uncheckedIcon} />}
+                            classes={{ checked: classes.checked }}
+                          />
+                        }
+                        classes={{ label: classes.label }}
+                        label="Rice"
+                      />
+                    </GridItem>
+                    <GridItem xs={12} sm={4} md={4} lg={4}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            tabIndex={-1}
+                            onClick={() =>
+                              handleToggleOnFoodItemCheck("Pasta & Noodle")
+                            }
+                            checkedIcon={
+                              <Check className={classes.checkedIcon} />
+                            }
+                            icon={<Check className={classes.uncheckedIcon} />}
+                            classes={{ checked: classes.checked }}
+                          />
+                        }
+                        classes={{ label: classes.label }}
+                        label="Pasta & Noodle"
+                      />
+                    </GridItem>
+                    <GridItem xs={12} sm={4} md={4} lg={4}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            tabIndex={-1}
+                            onClick={() =>
+                              handleToggleOnFoodItemCheck("Pakistani & muglhai food")
+                            }
+                            checkedIcon={
+                              <Check className={classes.checkedIcon} />
+                            }
+                            icon={<Check className={classes.uncheckedIcon} />}
+                            classes={{ checked: classes.checked }}
+                          />
+                        }
+                        classes={{ label: classes.label }}
+                        label="Pakistani & muglhai food"
+                      />
+                    </GridItem>
+                    <GridItem xs={12} sm={4} md={4} lg={4}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            tabIndex={-1}
+                            onClick={() =>
+                              handleToggleOnFoodItemCheck("Bar b q")
+                            }
+                            checkedIcon={
+                              <Check className={classes.checkedIcon} />
+                            }
+                            icon={<Check className={classes.uncheckedIcon} />}
+                            classes={{ checked: classes.checked }}
+                          />
+                        }
+                        classes={{ label: classes.label }}
+                        label="Bar b q"
+                      />
+                    </GridItem>
+                    <GridItem xs={12} sm={4} md={4} lg={4}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            tabIndex={-1}
+                            onClick={() =>
+                              handleToggleOnFoodItemCheck("Hot & cold beverages")
+                            }
+                            checkedIcon={
+                              <Check className={classes.checkedIcon} />
+                            }
+                            icon={<Check className={classes.uncheckedIcon} />}
+                            classes={{ checked: classes.checked }}
+                          />
+                        }
+                        classes={{ label: classes.label }}
+                        label="Hot & cold beverages"
+                      />
+                    </GridItem>
+                    <GridItem xs={12} sm={4} md={4} lg={4}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            tabIndex={-1}
+                            onClick={() =>
+                              handleToggleOnFoodItemCheck("CHICKEN QORMA")
+                            }
+                            checkedIcon={
+                              <Check className={classes.checkedIcon} />
+                            }
+                            icon={<Check className={classes.uncheckedIcon} />}
+                            classes={{ checked: classes.checked }}
+                          />
+                        }
+                        classes={{ label: classes.label }}
+                        label="CHICKEN QORMA"
+                      />
+                    </GridItem>
+                    <GridItem xs={12} sm={4} md={4} lg={4}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            tabIndex={-1}
+                            onClick={() =>
+                              handleToggleOnFoodItemCheck("PARATHA")
+                            }
+                            checkedIcon={
+                              <Check className={classes.checkedIcon} />
+                            }
+                            icon={<Check className={classes.uncheckedIcon} />}
+                            classes={{ checked: classes.checked }}
+                          />
+                        }
+                        classes={{ label: classes.label }}
+                        label="PARATHA"
+                      />
+                    </GridItem>
+                    
+                    <GridItem xs={12} sm={4} md={4} lg={4}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            tabIndex={-1}
+                            onClick={() =>
+                              handleToggleOnFoodItemCheck("Deserts")
+                            }
+                            checkedIcon={
+                              <Check className={classes.checkedIcon} />
+                            }
+                            icon={<Check className={classes.uncheckedIcon} />}
+                            classes={{ checked: classes.checked }}
+                          />
+                        }
+                        classes={{ label: classes.label }}
+                        label="Deserts"
+                      />
+                    </GridItem>
+                    <GridItem xs={12} sm={4} md={4} lg={4}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            tabIndex={-1}
+                            onClick={() =>
+                              handleToggleOnFoodItemCheck("GREEN MASALA")
+                            }
+                            checkedIcon={
+                              <Check className={classes.checkedIcon} />
+                            }
+                            icon={<Check className={classes.uncheckedIcon} />}
+                            classes={{ checked: classes.checked }}
+                          />
+                        }
+                        classes={{ label: classes.label }}
+                        label="GREEN MASALA"
+                      />
+                    </GridItem>
+                    <GridItem xs={12} sm={4} md={4} lg={4}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            tabIndex={-1}
+                            onClick={() =>
+                              handleToggleOnFoodItemCheck("LAHORI FRIED FISH")
+                            }
+                            checkedIcon={
+                              <Check className={classes.checkedIcon} />
+                            }
+                            icon={<Check className={classes.uncheckedIcon} />}
+                            classes={{ checked: classes.checked }}
+                          />
+                        }
+                        classes={{ label: classes.label }}
+                        label="LAHORI FRIED FISH"
+                      />
+                    </GridItem>
+                    <GridItem xs={12} sm={4} md={4} lg={4}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            tabIndex={-1}
+                            onClick={() =>
+                              handleToggleOnFoodItemCheck("CHAPLI KABAB")
+                            }
+                            checkedIcon={
+                              <Check className={classes.checkedIcon} />
+                            }
+                            icon={<Check className={classes.uncheckedIcon} />}
+                            classes={{ checked: classes.checked }}
+                          />
+                        }
+                        classes={{ label: classes.label }}
+                        label="CHAPLI KABAB"
                       />
                     </GridItem>
                   </Grid>
@@ -396,7 +686,7 @@ class Food_CaterersForm extends React.Component {
                       disabled={
                         !(
                           title &&
-                          // file &&
+                          email &&
                           packages &&
                           contactNumber &&
                           price &&

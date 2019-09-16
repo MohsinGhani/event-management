@@ -100,11 +100,8 @@ class AddVenue extends Component {
   };
 
   handleChangeOnVenueUpload = event => {
-    debugger
     if (event.target.files[0]) {
-      debugger
       const image = event.target.files[0];
-      debugger
       this.setState({
         venueDetails: {
           ...this.state.venueDetails,

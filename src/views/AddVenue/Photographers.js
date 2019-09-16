@@ -52,7 +52,8 @@ class Photographers extends React.Component {
         photographyType,
         image,
         url,
-        progress
+        progress,
+        email,
       },
       photographerDetailsHandler,
       handleClickOpen,
@@ -145,6 +146,26 @@ class Photographers extends React.Component {
                     }}
                   />
                 </GridItem>
+                <GridItem xs={12} sm={6} md={6} lg={6}>
+                  <CustomInput
+                    labelText="email"
+                    id="material"
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    inputProps={{
+                      value: email,
+                      name: "email",
+                      type: "email",
+                      onChange: photographerDetailsHandler,
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <i class="material-icons">email</i>
+                        </InputAdornment>
+                      )
+                    }}
+                  />
+                </GridItem>
 
                 <GridItem xs={12} sm={6} md={6} lg={6}>
                   <CustomInput
@@ -218,7 +239,9 @@ class Photographers extends React.Component {
                       }}
                     />
                   </GridItem>
-                  <GridItem xs={12} sm={6} md={6} lg={6}>
+                  <GridItem xs={12} sm={6} md={6} lg={6}
+                    style={{ display: "flex", justifyContent: "flex-end" }}
+                    >
                     <Button onClick={handleOnPhotograhUploadFile}>
                       upload
                     </Button>
@@ -230,7 +253,8 @@ class Photographers extends React.Component {
                         alt="Uploaded images"
                         height="50"
                         width="75"
-                        justifyContent="space-between"
+                      style={{ marginLeft: "10px" }}
+                       
                       />
                     ))}
                   </GridItem>
@@ -499,6 +523,7 @@ class Photographers extends React.Component {
                           title &&
                           albumPrice &&
                           photographyType &&
+                          email &&
                           packages &&
                           contactNumber &&
                           address &&
