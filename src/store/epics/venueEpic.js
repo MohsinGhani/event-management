@@ -40,8 +40,7 @@ export default class venueEpic {
       )
         .switchMap(() => {
           return Observable.of(
-            venueAction.saveVenueSuccess(payload)
-            //   venueAction.getVenues()
+            venueAction.saveVenueSuccess(payload),
           );
         })
         .catch(err => {
