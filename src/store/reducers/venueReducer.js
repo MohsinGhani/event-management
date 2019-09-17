@@ -2,6 +2,9 @@ import {
   GET_VENUES,
   GET_VENUES_SUCCESS,
   GET_VENUES_FAILURE,
+  GET_VENUE,
+  GET_VENUE_SUCCESS,
+  GET_VENUE_FAILURE,
   SAVE_VENUES,
   SAVE_VENUES_SUCCESS,
   SAVE_VENUES_FAILURE,
@@ -15,6 +18,10 @@ const initialState = {
   venues: null,
   getVenuesLoader: false,
   getVenuesError: null,
+
+  venue: null,
+  getVenueLoader: false,
+  getVenueError: null,
 
   reversedGeoCoding: null,
   reverseGeoCodingLoader: false,
@@ -99,6 +106,34 @@ export default function venueReducer(state = initialState, action) {
         savedVenue: null,
         saveVenueLoader: false,
         saveVenueLoader: action.payload
+      };
+
+    //////////////////////// By vId ////////////////////////
+
+    case GET_VENUE:
+      debugger
+      return {
+        ...state,
+        venue: null,
+        getVenueLoader: true,
+        getVenueError: null
+      };
+
+    case GET_VENUE_SUCCESS:
+      debugger
+      return {
+        ...state,
+        venue: action.payload,
+        getVenueLoader: false,
+        getVenueError: null
+      };
+
+    case GET_VENUE_FAILURE:
+      return {
+        ...state,
+        venue: null,
+        getVenueLoader: false,
+        getVenueError: "Can not Get Venue by id"
       };
 
     default:

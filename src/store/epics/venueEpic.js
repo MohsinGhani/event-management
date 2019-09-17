@@ -4,7 +4,7 @@ import { venueAction } from "./../actions/index";
 import { HttpService } from "../../services/http";
 import path from "./../../config/path";
 import credentials from "../../config/credentials";
-import { SAVE_VENUES, GET_VENUES } from "../constants";
+import { SAVE_VENUES, GET_VENUES, GET_VENUE } from "../constants";
 import { db } from "../../firebase/FireBase";
 import { storage } from "../../firebase/FireBase";
 
@@ -39,9 +39,7 @@ export default class venueEpic {
           .set(payload)
       )
         .switchMap(() => {
-          return Observable.of(
-            venueAction.saveVenueSuccess(payload),
-          );
+          return Observable.of(venueAction.saveVenueSuccess(payload));
         })
         .catch(err => {
           return venueAction.saveVenueFailure(`Error in Save venue! ${err}`);
@@ -51,19 +49,43 @@ export default class venueEpic {
   static getVenues = action$ =>
     action$.ofType(GET_VENUES).mergeMap(async () => {
       try {
-        const querySnapshot = await db
-          .collection("services")
-          .get();
+        const querySnapshot = await db.collection("services").get();
         let services = [];
         querySnapshot.forEach(doc => {
           // console.log(doc.id, "=>", doc.data());
-          services.push({ ...doc.data(), id: doc.id });
+          services.push({ ...doc.data(), vid: doc.id });
         });
-        console.log('these services goint to reducer', services)
+        console.log("these services goint to reducer", services);
         return venueAction.getVenuesSuccess(services);
+      } catch (err) {
+        return venueAction.getVenuesFailure(
+          `Error in getting services! ${err}`
+        );
       }
-      catch (err) {
-        return venueAction.getVenuesFailure(`Error in getting services! ${err}`);
-      }
+    });
+
+  static getVenue = action$ =>
+    action$.ofType(GET_VENUE).mergeMap(({ payload }) => {
+      console.log(payload);
+
+      return db
+        .collection("services")
+        .doc(payload)
+        .get()
+        .then(doc => {
+          if (doc.exists) {
+            console.log("Document data:", doc.data());
+            return venueAction.getVenueSuccess({ ...doc.data(), vid: doc.id });
+          } else {
+            // console.log("No such document!");
+            return venueAction.getVenueFailure(`No such document!`);
+          }
+        })
+        .catch(error => {
+          // console.log("Error getting document:", error);
+          return venueAction.getVenueFailure(
+            `Error in getting venue! ${error}`
+          );
+        });
     });
 }

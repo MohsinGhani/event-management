@@ -35,7 +35,7 @@ ReactDOM.render(
 
           {/* <PrivateRoute exact path="/" component={Home} /> */}
           <Route exact path="/list-view" component={ListView} />
-          <Route exact path="/venue-detail" component={VenueDetail} />
+          <Route exact path="/venue-detail/:vid" component={VenueDetail} />
           <Route exact path="/add-venue" component={AddVenue} />
           {/* <Route path="/register" exact component={RegisterPage} />
           <Route path="/login" exact component={LoginPage} />

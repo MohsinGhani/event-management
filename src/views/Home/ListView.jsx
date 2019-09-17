@@ -211,7 +211,7 @@ class ListView extends React.Component {
                                   color="warning"
                                   size="sm"
                                   round
-                                  onClick={() => this.goto("/venue-detail")}
+                                  onClick={() => this.goto( `/venue-detail/${venue.vid}` )}
                                 >
                                   Detail
                                 </Button>

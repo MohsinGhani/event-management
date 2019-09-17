@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Header from "components/Header/Header.jsx";
 import Button from "components/CustomButtons/Button.jsx";
-import { authAction } from "./../../store/actions";
+import { authAction, venueAction } from "./../../store/actions";
 import AuthenticatedNavbar from "./../../components/common/AuthenticatedNavbar";
 
 // react component for creating beautiful carousel
@@ -24,30 +24,39 @@ import image3 from "assets/img/bg3.jpg";
 // core components
 import CustomTabs from "components/CustomTabs/CustomTabs.jsx";
 import tabsStyle from "assets/jss/material-kit-react/views/componentsSections/tabsStyle.jsx";
+import FoodCaterers from "./FoodCaterers"
+
 
 class VenueDetail extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      venue: []
+    };
+  }
+
+  componentDidMount() {
+    const { vid } = this.props.match.params;
+    this.props.getVenue(vid);
+    console.log(vid);
   }
 
   render() {
-    const { classes } = this.props;
-    const settings = {
-      dots: true,
-      infinite: true,
-      speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      autoplay: false
-    };
+    const { classes, venue } = this.props;
     return (
-      <div className={classes.section}>
+      <div>
         <div>
           <AuthenticatedNavbar />
         </div>
-        <div className={classes.container}>
-          <GridContainer>
+        {(() => {
+          if (venue) {
+            switch (venue.objType) {
+              case "food_caterers":
+                return <FoodCaterers venue={venue} />;
+            }
+          }
+        })()}
+        {/* <GridContainer>
             <GridItem xs={12} sm={12} md={8} className={classes.marginAuto}>
               <Card carousel>
                 <Carousel {...settings}>
@@ -93,8 +102,7 @@ class VenueDetail extends React.Component {
                 </Carousel>
               </Card>
             </GridItem>
-          </GridContainer>
-        </div>
+          </GridContainer> */}
         <div className={classes.section}>
           <div className={classes.container}>
             <div id="nav-tabs">
@@ -175,18 +183,34 @@ class VenueDetail extends React.Component {
 
 const mapStateToProps = state => {
   const {
-    authReducer: { user, isLoggedIn }
+    authReducer: { user, isLoggedIn },
+    venueReducer: { venue, getVenueLoader, getVenueError }
   } = state;
   return {
+    venue,
+    getVenueLoader,
+    getVenueError,
     user,
     isLoggedIn
   };
 };
 
+// const FoodCateres = ({ venue }) => {
+//   return (
+//     <div>
+      // <h1>{venue.objType}</h1>
+      // <h1>HELLO</h1>
+      // <h1>{venue.objType}</h1>
+      // <h1>{venue.objType}</h1>
+      // <h1>{venue.objType}</h1>
+//     </div>
+//   );
+// };
+
 const mapDispatchToProps = dispatch => {
   return {
     isLoggedInAction: payload => dispatch(authAction.isLoggedIn(payload)),
-    logout: () => dispatch(authAction.logout())
+    getVenue: vid => dispatch(venueAction.getVenue(vid))
   };
 };
 
