@@ -23,6 +23,8 @@ import CardBody from "dashboard-components/Card/CardBody.jsx";
 import ReactLoading from "react-loading";
 import notificationsStyles from "assets/jss/material-kit-react/views/componentsSections/notificationsStyles.jsx";
 import storage from "../../firebase/FireBase";
+import TextField from "@material-ui/core/TextField";
+
 
 const styles = theme => ({
   root: {
@@ -114,7 +116,8 @@ class VenueForm extends React.Component {
         eventTypeCheck,
         image,
         url,
-        progress
+        progress,
+        description
       },
       venueDetailHandler,
       handleClickOpen,
@@ -305,7 +308,20 @@ class VenueForm extends React.Component {
                     }}
                   />
                 </GridItem>
-
+                <GridItem xs={12} sm={6} md={6} lg={6}>
+                  <TextField
+                    id="standard-textarea"
+                    label="Description"
+                    multiline
+                    type="text"
+                    name="description"
+                    value={description}
+                    onChange={venueDetailHandler}
+                    margin="normal"
+                    fullWidth
+                    style={{ marginTop: "10px" }}
+                  />
+                </GridItem>
                 <GridItem xs={12} sm={6} md={6} lg={6}>
                   <FormControl
                     style={{ marginTop: "8px", display: "flex" }}
@@ -350,7 +366,7 @@ class VenueForm extends React.Component {
                   <GridItem xs={12} sm={6} md={6} lg={6}>
                     <progress value={progress} max="100" />
                   </GridItem>
-                  <GridItem xs={12} sm={6} md={6} lg={6}>
+                  <GridItem xs={12} sm={12} md={12} lg={12}>
                     <CustomInput
                       // labelText="Pictures of venue"
                       id="float"

@@ -21,6 +21,8 @@ import CardHeader from "dashboard-components/Card/CardHeader.jsx";
 import CardBody from "dashboard-components/Card/CardBody.jsx";
 import Grid from "@material-ui/core/Grid";
 import ReactLoading from "react-loading";
+import TextField from "@material-ui/core/TextField";
+
 
 const styles = theme => ({
   root: {
@@ -50,7 +52,8 @@ class Food_CaterersForm extends React.Component {
         foodItemCheck,
         image,
         url,
-        progress
+        progress,
+        description
       },
       food_caterersDetailsHandler,
       handleClickOpen,
@@ -181,7 +184,20 @@ class Food_CaterersForm extends React.Component {
                     }}
                   />
                 </GridItem>
-
+                <GridItem xs={12} sm={6} md={6} lg={6}>
+                  <TextField
+                    id="standard-textarea"
+                    label="Description"
+                    multiline
+                    type="text"
+                    name="description"
+                    value={description}
+                    onChange={food_caterersDetailsHandler}
+                    margin="normal"
+                    fullWidth
+                    style={{ marginTop: "10px" }}
+                  />
+                </GridItem>
                 <GridItem xs={12} sm={6} md={6} lg={6}>
                   <FormControl
                     style={{ marginTop: "8px", display: "flex" }}
@@ -232,7 +248,7 @@ class Food_CaterersForm extends React.Component {
                   >
                     <Button onClick={handleOnFoodUploadFile}>upload</Button>
                   </GridItem>
-                  <GridItem xs={12} sm={6} md={6} lg={6}>
+                  <GridItem xs={12} sm={12} md={12} lg={12}>
                     {url.map(source => (
                       <img
                         src={source || "http://via.placeholder.com/75x50"}

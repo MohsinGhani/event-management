@@ -23,6 +23,7 @@ import Grid from "@material-ui/core/Grid";
 import Tooltip from "@material-ui/core/Tooltip";
 import javascriptStyles from "assets/jss/material-kit-react/views/componentsSections/javascriptStyles.jsx";
 import ReactLoading from "react-loading";
+import TextField from "@material-ui/core/TextField";
 
 const styles = theme => ({
   root: {
@@ -44,7 +45,7 @@ class Photographers extends React.Component {
     let {
       photographerDetails: {
         title,
-        albumPrice,
+        price,
         unlimitedAlbumPrice,
         address,
         packages,
@@ -53,7 +54,8 @@ class Photographers extends React.Component {
         image,
         url,
         progress,
-        email
+        email,
+        description
       },
       photographerDetailsHandler,
       handleClickOpen,
@@ -176,8 +178,8 @@ class Photographers extends React.Component {
                     }}
                     inputProps={{
                       type: "number",
-                      name: "albumPrice",
-                      value: albumPrice,
+                      name: "price",
+                      value: price,
                       onChange: photographerDetailsHandler
                     }}
                   />
@@ -219,7 +221,20 @@ class Photographers extends React.Component {
                     </Select>
                   </FormControl>
                 </GridItem>
-
+                <GridItem xs={12} sm={6} md={6} lg={6}>
+                  <TextField
+                    id="standard-textarea"
+                    label="Description"
+                    multiline
+                    type="text"
+                    name="description"
+                    value={description}
+                    onChange={photographerDetailsHandler}
+                    margin="normal"
+                    fullWidth
+                    style={{ marginTop: "10px" }}
+                  />
+                </GridItem>
                 <GridItem>
                   <GridItem xs={12} sm={6} md={6} lg={6}>
                     <progress value={progress} max="100" />
@@ -250,7 +265,7 @@ class Photographers extends React.Component {
                       upload
                     </Button>
                   </GridItem>
-                  <GridItem xs={12} sm={6} md={6} lg={6}>
+                  <GridItem xs={12} sm={12} md={12} lg={12}>
                     {url.map(source => (
                       <img
                         src={source || "http://via.placeholder.com/75x50"}
@@ -524,7 +539,7 @@ class Photographers extends React.Component {
                       disabled={
                         !(
                           title &&
-                          albumPrice &&
+                          price &&
                           photographyType &&
                           email &&
                           packages &&

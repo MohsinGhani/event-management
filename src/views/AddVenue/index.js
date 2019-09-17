@@ -35,7 +35,8 @@ class AddVenue extends Component {
       eventTypeCheck: [],
       image: null,
       url: [],
-      progress: 0
+      progress: 0,
+      description: ""
     },
     decoratorDetails: {
       title: "",
@@ -48,7 +49,8 @@ class AddVenue extends Component {
       contactNumber: "",
       image: null,
       url: [],
-      progress: 0
+      progress: 0,
+      description: ''
     },
     food_caterersDetails: {
       title: "",
@@ -61,11 +63,12 @@ class AddVenue extends Component {
       contactNumber: "",
       image: null,
       url: [],
-      progress: 0
+      progress: 0,
+      description: ''
     },
     photographerDetails: {
       title: "",
-      albumPrice: "",
+      price: "",
       unlimitedAlbumPrice: "",
       address: "",
       email: "",
@@ -74,7 +77,8 @@ class AddVenue extends Component {
       photographyType: [],
       image: null,
       url: [],
-      progress: 0
+      progress: 0,
+      description: ''
     }
   };
 
@@ -520,7 +524,8 @@ class AddVenue extends Component {
         eventTypeCheck,
         image,
         url,
-        progress
+        progress,
+        description
       } = this.state.venueDetails;
       const newVenueDetails = {
         title,
@@ -536,7 +541,8 @@ class AddVenue extends Component {
         eventTypeCheck,
         objType: categorySelect,
         location: picked,
-        url
+        url,
+        description
       };
       this.props.saveVenue(newVenueDetails);
       this.setState({
@@ -553,7 +559,8 @@ class AddVenue extends Component {
           address: "",
           serviceChecked: [],
           eventTypeCheck: [],
-          url: []
+          url: [],
+          description: '',
         }
       });
     } else if (categorySelect === "food_caterers") {
@@ -565,7 +572,8 @@ class AddVenue extends Component {
         foodItemCheck,
         packages,
         contactNumber,
-        url
+        url,
+        description
       } = this.state.food_caterersDetails;
 
       const newFood_caterersDetails = {
@@ -579,6 +587,7 @@ class AddVenue extends Component {
         objType: categorySelect,
         location: picked,
         url,
+        description
       };
       this.props.saveVenue(newFood_caterersDetails);
       this.setState({
@@ -590,8 +599,8 @@ class AddVenue extends Component {
           foodItemCheck: [],
           packages: "",
           contactNumber: "",
-          url: []
-
+          url: [],
+          description: "",
         }
       });
     } else if (categorySelect === "decorators_form") {
@@ -603,7 +612,8 @@ class AddVenue extends Component {
         decorationThemeTypeCheck,
         packages,
         contactNumber,
-        url
+        url,
+        description
       } = this.state.decoratorDetails;
       const newDecoratorDetails = {
         title,
@@ -615,7 +625,8 @@ class AddVenue extends Component {
         contactNumber,
         objType: categorySelect,
         location: picked,
-        url
+        url,
+        description
       };
       this.props.saveVenue(newDecoratorDetails);
       this.setState({
@@ -627,24 +638,26 @@ class AddVenue extends Component {
           decorationThemeTypeCheck: [],
           packages: "",
           contactNumber: "",
-          url: []
+          url: [],
+          description: ""
         }
       });
     } else if (categorySelect === "photographer") {
       const {
         title,
-        albumPrice,
+        price,
         unlimitedAlbumPrice,
         address,
         email,
         contactNumber,
         packages,
         photographyType,
-        url
+        url,
+        description
       } = this.state.photographerDetails;
       const newPhotographerDetails = {
         title,
-        albumPrice,
+        price,
         unlimitedAlbumPrice,
         address,
         email,
@@ -653,20 +666,22 @@ class AddVenue extends Component {
         photographyType,
         objType: categorySelect,
         location: picked,
-        url
+        url,
+        description
       };
       this.props.saveVenue(newPhotographerDetails);
       this.setState({
         photographerDetails: {
           title: "",
-          albumPrice: "",
+          price: "",
           unlimitedAlbumPrice: "",
           address: "",
           email: '',
           packages: "",
           contactNumber: "",
           photographyType: [],
-          url: []
+          url: [],
+          description: ""
         }
       });
     }

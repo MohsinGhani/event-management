@@ -23,6 +23,7 @@ import CardHeader from "dashboard-components/Card/CardHeader.jsx";
 import CardBody from "dashboard-components/Card/CardBody.jsx";
 import Grid from "@material-ui/core/Grid";
 import ReactLoading from "react-loading";
+import TextField from "@material-ui/core/TextField";
 
 const styles = theme => ({
   root: {
@@ -52,6 +53,7 @@ class DecorationsForm extends React.Component {
         email,
         progress,
         contactNumber,
+        description,
         decorationThemeTypeCheck
       },
       decoratorDetailsHandler,
@@ -180,7 +182,20 @@ class DecorationsForm extends React.Component {
                     }}
                   />
                 </GridItem>
-
+                <GridItem xs={12} sm={6} md={6} lg={6}>
+                  <TextField
+                    id="standard-textarea"
+                    label="Description"
+                    multiline
+                    type="text"
+                    name="description"
+                    value={description}
+                    onChange={decoratorDetailsHandler}
+                    margin="normal"
+                    fullWidth
+                    style={{ marginTop: "10px" }}
+                  />
+                </GridItem>
                 <GridItem xs={12} sm={6} md={6} lg={6}>
                   <FormControl
                     style={{ marginTop: "8px", display: "flex" }}
@@ -233,7 +248,7 @@ class DecorationsForm extends React.Component {
                       upload
                     </Button>
                   </GridItem>
-                  <GridItem xs={12} sm={6} md={6} lg={6}>
+                  <GridItem xs={12} sm={12} md={12} lg={12}>
                     {url.map(source => (
                       <img
                         src={source || "http://via.placeholder.com/75x50"}
