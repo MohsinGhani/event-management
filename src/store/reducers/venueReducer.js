@@ -111,7 +111,6 @@ export default function venueReducer(state = initialState, action) {
     //////////////////////// By vId ////////////////////////
 
     case GET_VENUE:
-      debugger
       return {
         ...state,
         venue: null,
@@ -120,7 +119,6 @@ export default function venueReducer(state = initialState, action) {
       };
 
     case GET_VENUE_SUCCESS:
-      debugger
       return {
         ...state,
         venue: action.payload,
