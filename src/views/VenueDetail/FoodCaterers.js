@@ -15,6 +15,10 @@ import call from "../../../src/assets/icons/call.svg";
 import checked from "../../../src/assets/icons/checked.svg";
 import Fastfood from "@material-ui/icons/Fastfood";
 import Tag from "@material-ui/icons/LocalOffer";
+import Description from '@material-ui/icons/Description';
+import Package from '@material-ui/icons/ListAlt';
+import Book from "@material-ui/icons/Payment"
+
 
 class FoodCaterers extends Component {
   render() {
@@ -31,9 +35,10 @@ class FoodCaterers extends Component {
           mouseDragEnabled={true}
         >
           {venue.url.map(source => (
-            <img src={source} alt="venues" width="100%" height="360px" />
+            <img src={source} alt="venues" width="100%" height="480px" />
           ))}
         </AliceCarousel>
+
         <GridContainer
           className={classes.section}
           style={{
@@ -43,165 +48,159 @@ class FoodCaterers extends Component {
             marginTop: "15px"
           }}
         >
-          <GridItem xs={12} sm={6} md={6} lg={6}>
-            <div className={classes.section}>
-              <div className={classes.container}>
-                <div id="typography">
-                  <div className={classes.typo}>
-                    <h2 className={classes.title}>{venue.title}</h2>
-                    <p style={{ display: "flex", alignItems: "center" }}>
-                      <img
-                        src={call}
-                        alt="icon"
-                        width="25px"
-                        height="25px"
-                        style={{ paddingRight: "5px" }}
-                      />
-                      {venue.contactNumber}
-                    </p>
-                    <p style={{ display: "flex", alignItems: "center" }}>
-                      <img
-                        src={email}
-                        alt="icon"
-                        width="25px"
-                        height="25px"
-                        style={{ paddingRight: "5px" }}
-                      />
-                      {venue.email}
-                    </p>
-                    <p style={{ display: "flex", alignItems: "center" }}>
-                      <img
-                        // src={require('path')}
-                        src={address}
-                        alt="icon"
-                        width="25px"
-                        height="25px"
-                        style={{ paddingRight: "5px" }}
-                      />
-                      {venue.address}
-                    </p>
+          <GridItem xs={12} sm={9} md={9} lg={9}>
+            <GridContainer>
+              <div className={classes.section}>
+                <div className={classes.container}>
+                  <div id="typography">
+                    <div className={classes.typo}>
+                      <h2 className={classes.title}>{venue.title}</h2>
+                      <p style={{ display: "flex", alignItems: "center" }}>
+                        <img
+                          src={call}
+                          alt="icon"
+                          width="30px"
+                          height="30px"
+                          style={{ paddingRight: "5px" }}
+                        />
+                        {venue.contactNumber}
+                      </p>
+                      <p style={{ display: "flex", alignItems: "center" }}>
+                        <img
+                          src={email}
+                          alt="icon"
+                          width="30px"
+                          height="30px"
+                          style={{ paddingRight: "5px" }}
+                        />
+                        {venue.email}
+                      </p>
+                      <p style={{ display: "flex", alignItems: "center" }}>
+                        <img
+                          // src={require('path')}
+                          src={address}
+                          alt="icon"
+                          width="30px"
+                          height="30px"
+                          style={{ paddingRight: "5px" }}
+                        />
+                        {venue.address}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </GridItem>
-          <GridItem xs={12} sm={6} md={6} lg={6}>
-            <CustomTabs
-              headerColor="danger"
-              tabs={[
-                {
-                  tabName: "Booking Options"
-                  // tabContent: (
-                  //   <p className={classes.textCenter}>{venue.packages}</p>
-                  // )
-                }
-              ]}
-            />
-          </GridItem>
+            </GridContainer>
+            <GridContainer>
+              {/* <div className={classes.container}>
+                <div id="nav-tabs"> */}
 
-          <div className={classes.container}>
-            <div id="nav-tabs">
-              <GridContainer>
-                <GridItem xs={12} sm={12} md={6}>
-                  <CustomTabs
-                    headerColor="danger"
-                    tabs={[
-                      {
-                        tabName: "Food Items",
-                        tabIcon: Fastfood,
+              <CustomTabs
+                headerColor="danger"
+                tabs={[
+                  {
+                    tabName: "Food Items",
+                    tabIcon: Fastfood,
 
-                        tabContent: (
-                          <Grid
-                            container
-                            direction="row"
-                            justify="flex-start"
-                            alignItems="flex-start"
+                    tabContent: (
+                      <Grid
+                        container
+                        direction="row"
+                        justify="flex-start"
+                        alignItems="flex-start"
+                      >
+                        {venue.foodItemCheck.map(foods => (
+                          <GridItem
+                            xs={12}
+                            sm={12}
+                            md={4}
+                            lg={4}
+                            style={{
+                              padding: "0",
+                              width: "35%",
+                              overflow: "hidden",
+                              whiteSpace: "nowrap",
+                              textOverflow: "ellipsis",
+                              margin: "5px 0 5px 0"
+                            }}
                           >
-                            {venue.foodItemCheck.map(foods => (
-                              <GridItem
-                                xs={12}
-                                sm={12}
-                                md={4}
-                                lg={4}
-                                style={{
-                                  padding: "0",
-                                  width: "35%",
-                                  overflow: "hidden",
-                                  whiteSpace: "nowrap",
-                                  textOverflow: "ellipsis",
-                                  margin: "5px 0 5px 0"
-                                }}
-                              >
-                                <img
-                                  src={checked}
-                                  alt="icon"
-                                  width="20px"
-                                  height="20px"
-                                  style={{ paddingRight: "5px" }}
-                                />
-                                <span title={foods}>{foods}</span>
-                              </GridItem>
-                            ))}
-                          </Grid>
-                        )
-                      }
-                    ]}
-                  />
-                </GridItem>
-              </GridContainer>
-              <GridContainer>
-                <GridItem xs={12} sm={12} md={6}>
-                  <CustomTabs
-                    headerColor="danger"
-                    tabs={[
-                      {
-                        tabName: "Pricing",
-                        tabIcon: Tag,
+                            <img
+                              src={checked}
+                              alt="icon"
+                              width="20px"
+                              height="20px"
+                              style={{ paddingRight: "5px" }}
+                            />
+                            <span title={foods}>{foods}</span>
+                          </GridItem>
+                        ))}
+                      </Grid>
+                    )
+                  }
+                ]}
+              />
+            </GridContainer>
 
-                        tabContent: (
-                          <p className={classes.textCenter}>
-                            Rs: {venue.price}
-                          </p>
-                        )
-                      }
-                    ]}
-                  />
-                </GridItem>
-              </GridContainer>
-              <GridContainer>
-                <GridItem xs={12} sm={12} md={6}>
-                  <CustomTabs
-                    headerColor="danger"
-                    tabs={[
-                      {
-                        tabName: "Food Packages",
-                        tabContent: (
-                          <p className={classes.textCenter}>{venue.packages}</p>
-                        )
-                      }
-                    ]}
-                  />
-                </GridItem>
-              </GridContainer>
-              <GridContainer>
-                <GridItem xs={12} sm={12} md={6}>
-                  <CustomTabs
-                    headerColor="danger"
-                    tabs={[
-                      {
-                        tabName: "Desciption",
-                        tabContent: (
-                          <p className={classes.textCenter}>
-                            {venue.description}
-                          </p>
-                        )
-                      }
-                    ]}
-                  />
-                </GridItem>
-              </GridContainer>
-            </div>
-          </div>
+            <GridContainer>
+              <CustomTabs
+                headerColor="danger"
+                tabs={[
+                  {
+                    tabName: "Pricing",
+                    tabIcon: Tag,
+
+                    tabContent: (
+                      <p className={classes.textCenter}>Rs: {venue.price}</p>
+                    )
+                  }
+                ]}
+              />
+            </GridContainer>
+            <GridContainer>
+              <CustomTabs
+                headerColor="danger"
+                tabs={[
+                  {
+                    tabName: "Food Packages",
+                    tabIcon: Package,
+                    tabContent: (
+                      <p className={classes.textCenter}>{venue.packages}</p>
+                    )
+                  }
+                ]}
+              />
+            </GridContainer>
+            <GridContainer>
+              <CustomTabs
+                headerColor="danger"
+                tabs={[
+                  {
+                    tabName: "Description",
+                    tabIcon: Description,
+                    tabContent: (
+                      <p className={classes.textCenter}>{venue.description}</p>
+                    )
+                  }
+                ]}
+              />
+            </GridContainer>
+          </GridItem>
+          <GridItem xs={12} sm={3} md={3} lg={3}>
+            <GridContainer>
+              <CustomTabs
+                headerColor="danger"
+                tabs={[
+                  {
+                    tabName: "Booking Options",
+                    tabIcon: Book,
+                    // tabContent: (
+                    //   <p className={classes.textCenter}>{venue.packages}</p>
+                    // )
+                  }
+                ]}
+              />
+            </GridContainer>
+          </GridItem>
         </GridContainer>
       </div>
     );

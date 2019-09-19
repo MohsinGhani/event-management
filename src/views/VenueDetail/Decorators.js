@@ -1,43 +1,45 @@
 import React, { Component } from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
-import basicsStyle from "assets/jss/material-kit-react/views/componentsSections/basicsStyle.jsx";
-import typographyStyle from "assets/jss/material-kit-react/views/componentsSections/typographyStyle.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
+import Grid from "@material-ui/core/Grid";
 import GridItem from "components/Grid/GridItem.jsx";
 import CustomTabs from "components/CustomTabs/CustomTabs.jsx";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Carousel } from 'react-responsive-carousel';
+import basicsStyle from "assets/jss/material-kit-react/views/componentsSections/basicsStyle.jsx";
+import typographyStyle from "assets/jss/material-kit-react/views/componentsSections/typographyStyle.jsx";
+import AliceCarousel from "react-alice-carousel";
+import "react-alice-carousel/lib/alice-carousel.css";
+import "./index.css";
+import address from "../../../src/assets/icons/address.svg";
+import email from "../../../src/assets/icons/email.svg";
+import call from "../../../src/assets/icons/call.svg";
+import checked from "../../../src/assets/icons/checked.svg";
+import Deck from "@material-ui/icons/LocalDining";
+import Tag from "@material-ui/icons/LocalOffer";
+import Description from '@material-ui/icons/Description';
+import Package from '@material-ui/icons/ListAlt';
+import Book from "@material-ui/icons/Payment"
 
 
-class Decorators extends Component {
+class FoodCaterers extends Component {
   render() {
     const { classes, venue } = this.props;
     return (
       <div>
-          <Carousel
-            showThumbs={false}
-            autoPlay={true}
-            infiniteLoop={true}
-            useKeyboardArrows={true}
-            emulateTouch={true}
-            stopOnHover
-            
-          >
-            {venue.url.map(source => (
-              <img
-                src={source}
-                alt="some-img"
-                width="100%"
-                height="480px"
-                style={{
-                  // marginTop: "-36px",
-                  borderTopLeftRadius: 5,
-                  borderTopRightRadius: 5
-                }}
-              />
-            ))}
-          </Carousel>
-        <div
+        <AliceCarousel
+          autoPlay={true}
+          autoPlayInterval={3000}
+          responsive={true}
+          showSlideInfo={true}
+          fadeOutAnimation={true}
+          showSlideInfo={true}
+          mouseDragEnabled={true}
+        >
+          {venue.url.map(source => (
+            <img src={source} alt="venues" width="100%" height="480px" />
+          ))}
+        </AliceCarousel>
+
+        <GridContainer
           className={classes.section}
           style={{
             padding: "0 15px",
@@ -46,99 +48,162 @@ class Decorators extends Component {
             marginTop: "15px"
           }}
         >
-          <GridItem xs={12} sm={6} md={6} lg={6}>
-            <div className={classes.section}>
-              <div className={classes.container}>
-                <div id="typography">
-                  <div className={classes.typo}>
-                    <h2 className={classes.title}>{venue.title}</h2>
+          <GridItem xs={12} sm={9} md={9} lg={9}>
+            <GridContainer>
+              <div className={classes.section}>
+                <div className={classes.container}>
+                  <div id="typography">
+                    <div className={classes.typo}>
+                      <h2 className={classes.title}>{venue.title}</h2>
+                      <p style={{ display: "flex", alignItems: "center" }}>
+                        <img
+                          src={call}
+                          alt="icon"
+                          width="30px"
+                          height="30px"
+                          style={{ paddingRight: "5px" }}
+                        />
+                        {venue.contactNumber}
+                      </p>
+                      <p style={{ display: "flex", alignItems: "center" }}>
+                        <img
+                          src={email}
+                          alt="icon"
+                          width="30px"
+                          height="30px"
+                          style={{ paddingRight: "5px" }}
+                        />
+                        {venue.email}
+                      </p>
+                      <p style={{ display: "flex", alignItems: "center" }}>
+                        <img
+                          // src={require('path')}
+                          src={address}
+                          alt="icon"
+                          width="30px"
+                          height="30px"
+                          style={{ paddingRight: "5px" }}
+                        />
+                        {venue.address}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </GridItem>
+            </GridContainer>
+            <GridContainer>
+              {/* <div className={classes.container}>
+                <div id="nav-tabs"> */}
 
-          <div className={classes.container}>
-            <h1>{venue.objType}</h1>
-            <h1>HELLO</h1>
-            <h1>{venue.objType}</h1>
-            <h1>{venue.objType}</h1>
-            <h1>{venue.objType}</h1>
-          </div>
-          <div className={classes.container}>
-            <div id="nav-tabs">
-              <h3>Venue Detail</h3>
-              <GridContainer>
-                <GridItem xs={12} sm={12} md={6}>
-                  <CustomTabs
-                    plainTabs
-                    headerColor="danger"
-                    tabs={[
-                      {
-                        tabName: "About",
-                        tabContent: (
-                          <p className={classes.textCenter}>
-                            The Medallion Banquets is a perfect place to host
-                            your upscale events like weddings, corporate events,
-                            birthdays or private gatherings. Located at the
-                            prime location with all premium facilities you may
-                            need to organize a perfect event. Come and
-                            experience the beautiful ambiance and see the
-                            difference .For the first time in Pakistan, a double
-                            story marquee with the seating capacity on first
-                            floor as well with a grand view to the exquisite
-                            stage !
-                          </p>
-                        )
-                      },
-                      {
-                        tabName: "Discount Partners",
-                        tabContent: <p className={classes.textCenter} />
-                      },
-                      {
-                        tabName: "Terms And Conditions",
-                        tabContent: (
-                          <p className={classes.textCenter}>
-                            Soft Drinks are not included in above package and
-                            will be charged separately. (Billed on Actual
-                            Consumption) Mineral Water is not included in above
-                            package and will be charged separately (Billed on
-                            Actual Consumption) Musical, Religious, Political,
-                            Commercial or Public events are subject to approval
-                            from concerned authorities Function must end at
-                            12:00 A.M or else penalty rate of PKR ----/hour will
-                            be applied unless NOC issued from concerned
-                            authorities Confirmed booking is subject to advance
-                            payment which is non refundable Any other
-                            instructions conveyed at the time of booking and
-                            commencement of functions by the Management has to
-                            be compiled by the party Fireworks are strictly
-                            prohibited within venue premises Private Guards of
-                            the Party are not allowed to enter in the Lawn,
-                            Carrying of Arms/Ammunitions inside the lawn
-                            premises is also prohibited. Eating of Pan is not
-                            allowed inside venue premises Lawn management has
-                            the authority to cancel the booking at any time
-                            without assigning any reason if they found anything
-                            misleading or suspicious. Rates may fluctuate due to
-                            seasonal variation Above rates are exclusive of all
-                            applicable taxes.
-                          </p>
-                        )
-                      },
-                      {
-                        tabName: "Other Charges",
-                        tabContent: <p className={classes.textCenter} />
-                      }
-                    ]}
-                  />
-                </GridItem>
-              </GridContainer>
-            </div>
-          </div>
-        </div>
+              <CustomTabs
+                headerColor="danger"
+                tabs={[
+                  {
+                    tabName: "Decorations Themes",
+                    tabIcon: Deck,
+
+                    tabContent: (
+                      <Grid
+                        container
+                        direction="row"
+                        justify="flex-start"
+                        alignItems="flex-start"
+                      >
+                        {venue.decorationThemeTypeCheck.map(decoration => (
+                          <GridItem
+                            xs={12}
+                            sm={12}
+                            md={4}
+                            lg={4}
+                            style={{
+                              padding: "0",
+                              width: "35%",
+                              overflow: "hidden",
+                              whiteSpace: "nowrap",
+                              textOverflow: "ellipsis",
+                              margin: "5px 0 5px 0"
+                            }}
+                          >
+                            <img
+                              src={checked}
+                              alt="icon"
+                              width="20px"
+                              height="20px"
+                              style={{ paddingRight: "5px" }}
+                            />
+                            <span title={decoration}>{decoration}</span>
+                          </GridItem>
+                        ))}
+                      </Grid>
+                    )
+                  }
+                ]}
+              />
+            </GridContainer>
+
+            <GridContainer>
+              <CustomTabs
+                headerColor="danger"
+                tabs={[
+                  {
+                    tabName: "Pricing",
+                    tabIcon: Tag,
+
+                    tabContent: (
+                      <p className={classes.textCenter}>Rs: {venue.price}</p>
+                    )
+                  }
+                ]}
+              />
+            </GridContainer>
+            <GridContainer>
+              <CustomTabs
+                headerColor="danger"
+                tabs={[
+                  {
+                    tabName: "Decorations Packages",
+                    tabIcon: Package,
+                    tabContent: (
+                      <p className={classes.textCenter}>{venue.packages}</p>
+                    )
+                  }
+                ]}
+              />
+            </GridContainer>
+            <GridContainer>
+              <CustomTabs
+                headerColor="danger"
+                tabs={[
+                  {
+                    tabName: "Description",
+                    tabIcon: Description,
+                    tabContent: (
+                      <p className={classes.textCenter}>{venue.description}</p>
+                    )
+                  }
+                ]}
+              />
+            </GridContainer>
+          </GridItem>
+          <GridItem xs={12} sm={3} md={3} lg={3}>
+            <GridContainer>
+              <CustomTabs
+                headerColor="danger"
+                tabs={[
+                  {
+                    tabName: "Booking Options",
+                    tabIcon: Book,
+                    // tabContent: (
+                    //   <p className={classes.textCenter}>{venue.packages}</p>
+                    // )
+                  }
+                ]}
+              />
+            </GridContainer>
+          </GridItem>
+        </GridContainer>
       </div>
     );
   }
 }
-export default withStyles({...basicsStyle, ...typographyStyle})(Decorators);
+export default withStyles({ ...basicsStyle, ...typographyStyle })(FoodCaterers);

@@ -210,10 +210,10 @@ class DecorationsForm extends React.Component {
                         id: "age-simple"
                       }}
                     >
-                      <MenuItem value={10}>Platinum</MenuItem>
-                      <MenuItem value={20}>Gold</MenuItem>
-                      <MenuItem value={30}>Sliver</MenuItem>
-                      <MenuItem value={40}>Bronz</MenuItem>
+                      <MenuItem value={"Platinum"}>Platinum</MenuItem>
+                      <MenuItem value={"Gold"}>Gold</MenuItem>
+                      <MenuItem value={"Sliver"}>Sliver</MenuItem>
+                      <MenuItem value={"Bronz"}>Bronz</MenuItem>
                     </Select>
                   </FormControl>
                 </GridItem>
