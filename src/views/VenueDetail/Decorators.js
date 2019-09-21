@@ -37,11 +37,13 @@ class Decorators extends Component {
             marginTop: "15px"
           }}
         >
-          <GridItem xs={12} sm={9} md={9} lg={9}>
+          <GridItem xs={12} sm={12} md={9} lg={9}>
             <GridContainer>
               <GlobleVariables venue={venue} />
             </GridContainer>
-            <GridContainer>
+          </GridItem>
+          <GridItem xs={12} sm={9} md={9} lg={9}>
+            <GridContainer style={{ marginRight: 0 }}>
               {/* <div className={classes.container}>
                 <div id="nav-tabs"> */}
 
@@ -91,7 +93,7 @@ class Decorators extends Component {
               />
             </GridContainer>
 
-            <GridContainer>
+            <GridContainer style={{ marginRight: 0 }}>
               <CustomTabs
                 headerColor="danger"
                 tabs={[
@@ -106,7 +108,7 @@ class Decorators extends Component {
                 ]}
               />
             </GridContainer>
-            <GridContainer>
+            <GridContainer style={{ marginRight: 0 }}>
               <CustomTabs
                 headerColor="danger"
                 tabs={[
@@ -120,7 +122,7 @@ class Decorators extends Component {
                 ]}
               />
             </GridContainer>
-            <GridContainer>
+            <GridContainer style={{ marginRight: 0 }}>
               <CustomTabs
                 headerColor="danger"
                 tabs={[

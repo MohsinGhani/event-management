@@ -39,7 +39,7 @@ class FoodCaterers extends Component {
             </GridContainer>
           </GridItem>
           <GridItem xs={12} sm={9} md={9} lg={9}>
-            <GridContainer>
+            <GridContainer style={{ marginRight: 0 }}>
               {/* <div className={classes.container}>
                 <div id="nav-tabs"> */}
 
@@ -89,7 +89,7 @@ class FoodCaterers extends Component {
               />
             </GridContainer>
 
-            <GridContainer>
+            <GridContainer style={{ marginRight: 0 }}>
               <CustomTabs
                 headerColor="danger"
                 tabs={[
@@ -104,7 +104,7 @@ class FoodCaterers extends Component {
                 ]}
               />
             </GridContainer>
-            <GridContainer>
+            <GridContainer style={{ marginRight: 0 }}>
               <CustomTabs
                 headerColor="danger"
                 tabs={[
@@ -118,7 +118,7 @@ class FoodCaterers extends Component {
                 ]}
               />
             </GridContainer>
-            <GridContainer>
+            <GridContainer style={{ marginRight: 0 }}>
               <CustomTabs
                 headerColor="danger"
                 tabs={[
@@ -136,6 +136,8 @@ class FoodCaterers extends Component {
           <GridItem xs={12} sm={3} md={3} lg={3}>
             <GridContainer>
               <Booking venue={venue} />
+            </GridContainer>
+            <GridContainer>
               <MapLocation location={venue.location} />
             </GridContainer>
           </GridItem>

@@ -17,6 +17,10 @@ import Layout_style from "../../assets/icons/Layout_style.svg";
 import Venue_type from "../../assets/icons/Venue_type.svg";
 import GridItem from "components/Grid/GridItem";
 import SavedLocation from "../../assets/icons/save_location.svg";
+import venuePin from "../../assets/icons/venuePin.svg";
+import decoration from "../../assets/icons/decoration.svg";
+import foood from "../../assets/icons/foood.svg";
+import photo from "../../assets/icons/photo.svg";
 
 const Map = ReactMapboxGl({
   accessToken: credentials.MAP_ACCESS_TOCKEN
@@ -195,6 +199,7 @@ class Home extends React.Component {
     return (
       <div>
         <AuthenticatedNavbar />
+        <MapMarkerIdentity />
         <Map
           style={"mapbox://styles/mapbox/streets-v9"}
           containerStyle={{
@@ -211,21 +216,92 @@ class Home extends React.Component {
             venues.length &&
             venues.map((venue, index) => {
               const { location } = venue;
-              return (
-                <Marker
-                  coordinates={[
-                    Number(location.longitude),
-                    Number(location.latitude)
-                  ]}
-                >
-                  <img
-                    style={{ height: '25px', width: '30px' }}
-                    src={SavedLocation}
-                    alt={"current location"}
-                    onClick={() => this.goto(`/venue-detail/${venue.vid}`)}
-                  />
-                </Marker>
-              );
+              if (venue.objType === "food_caterers") {
+                return (
+                  <Marker
+                    coordinates={[
+                      Number(location.longitude),
+                      Number(location.latitude)
+                    ]}
+                  >
+                    <img
+                      style={{
+                        height: "25px",
+                        width: "30px",
+                        cursor: "pointer"
+                      }}
+                      src={foood}
+                      title="Food & Caterers"
+                      alt={"current location"}
+                      onClick={() => this.goto(`/venue-detail/${venue.vid}`)}
+                    />
+                  </Marker>
+                );
+              }
+              if (venue.objType === "decorators_form") {
+                return (
+                  <Marker
+                    coordinates={[
+                      Number(location.longitude),
+                      Number(location.latitude)
+                    ]}
+                  >
+                    <img
+                      style={{
+                        height: "25px",
+                        width: "30px",
+                        cursor: "pointer"
+                      }}
+                      src={decoration}
+                      title="Decorators"
+                      alt={"current location"}
+                      onClick={() => this.goto(`/venue-detail/${venue.vid}`)}
+                    />
+                  </Marker>
+                );
+              } else if (venue.objType === "venue_form") {
+                return (
+                  <Marker
+                    coordinates={[
+                      Number(location.longitude),
+                      Number(location.latitude)
+                    ]}
+                  >
+                    <img
+                      style={{
+                        height: "25px",
+                        width: "30px",
+                        cursor: "pointer"
+                      }}
+                      src={venuePin}
+                      title="Venue"
+                      alt={"current location"}
+                      onClick={() => this.goto(`/venue-detail/${venue.vid}`)}
+                    />
+                  </Marker>
+                );
+              } else if (venue.objType === "photographer") {
+                return (
+                  <Marker
+                    coordinates={[
+                      Number(location.longitude),
+                      Number(location.latitude)
+                    ]}
+                  >
+                    <img
+                      style={{
+                        height: "25px",
+                        width: "30px",
+                        cursor: "pointer"
+                      }}
+                      src={photo}
+                      title="Photographer"
+                      alt={"current location"}
+                      onClick={() => this.goto(`/venue-detail/${venue.vid}`)}
+                    />
+                  </Marker>
+                );
+              }
             })}
         </Map>
       </div>
@@ -233,6 +309,51 @@ class Home extends React.Component {
   }
 }
 
+const MapMarkerIdentity = () => {
+  return (
+    <div
+      className="map-marker-identity"
+      style={{
+        border: "5px solid red",
+        display: "flex",
+        justifyContent: "space-evenly"
+      }}
+    >
+      <div>
+        <img
+          style={{ height: "25px", width: "30px" }}
+          src={photo}
+          alt={"current location"}
+        />
+        <span>Photographers</span>
+      </div>
+      <div>
+        <img
+          style={{ height: "25px", width: "30px" }}
+          src={venuePin}
+          alt={"current location"}
+        />
+        <span>Venues</span>
+      </div>
+      <div>
+        <img
+          style={{ height: "25px", width: "30px" }}
+          src={decoration}
+          alt={"current location"}
+        />
+        <span>Decorators</span>
+      </div>
+      <div>
+        <img
+          style={{ height: "25px", width: "30px" }}
+          src={foood}
+          alt={"current location"}
+        />
+        <span>Food And Caterers</span>
+      </div>
+    </div>
+  );
+};
 const mapStateToProps = state => {
   const {
     venueReducer: { venues, getVenuesLoader, getVenuesError },

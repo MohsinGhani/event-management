@@ -24,7 +24,7 @@ import AuthenticatedNavbar from "./../../components/common/AuthenticatedNavbar";
 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
-import GlobleLoader from "./GlobleLoader"
+import GlobleLoader from "./GlobleLoader";
 
 class ListView extends React.Component {
   constructor(props) {
@@ -77,7 +77,7 @@ class ListView extends React.Component {
     return (
       <div>
         <AuthenticatedNavbar />
-        
+
         <GridContainer
           style={{
             padding: "0 15px",
@@ -119,7 +119,12 @@ class ListView extends React.Component {
                           className="card-body"
                           style={{ color: "gray" }}
                         >
-                          <Carousel showThumbs={false} showIndicators={false}>
+                          <Carousel
+                            showThumbs={false}
+                            showIndicators={false}
+                            autoPlay={true}
+                            infiniteLoop={true}
+                          >
                             {venue.url.map(source => (
                               <img
                                 src={source}
