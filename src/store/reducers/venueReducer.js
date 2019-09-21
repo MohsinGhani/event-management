@@ -63,7 +63,7 @@ export default function venueReducer(state = initialState, action) {
       return {
         ...state,
         venues: null,
-        getVenuesLoader: false,
+        getVenuesLoader: true,
         getVenuesError: null
       };
 
@@ -71,7 +71,7 @@ export default function venueReducer(state = initialState, action) {
       return {
         ...state,
         venues: action.payload,
-        getVenuesLoader: true,
+        getVenuesLoader: false,
         getVenuesError: null
       };
 

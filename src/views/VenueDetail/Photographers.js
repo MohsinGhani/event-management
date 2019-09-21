@@ -6,37 +6,26 @@ import GridItem from "components/Grid/GridItem.jsx";
 import CustomTabs from "components/CustomTabs/CustomTabs.jsx";
 import basicsStyle from "assets/jss/material-kit-react/views/componentsSections/basicsStyle.jsx";
 import typographyStyle from "assets/jss/material-kit-react/views/componentsSections/typographyStyle.jsx";
-import AliceCarousel from "react-alice-carousel";
-import "react-alice-carousel/lib/alice-carousel.css";
 import "./index.css";
 import address from "../../../src/assets/icons/address.svg";
 import email from "../../../src/assets/icons/email.svg";
 import call from "../../../src/assets/icons/call.svg";
 import checked from "../../../src/assets/icons/checked.svg";
 import Tag from "@material-ui/icons/LocalOffer";
-import Description from '@material-ui/icons/Description';
+import Description from "@material-ui/icons/Description";
 import Photo from "@material-ui/icons/PhotoLibrary";
-import Package from '@material-ui/icons/ListAlt';
-import Book from "@material-ui/icons/Payment"
+import Package from "@material-ui/icons/ListAlt";
+import ImageCarousel from "./ImageCarousel";
+import GlobleVariables from "./GlobleVariables";
+import Booking from "./Booking";
+import MapLocation from "./MapLocation";
 
-class FoodCaterers extends Component {
+class Photographers extends Component {
   render() {
     const { classes, venue } = this.props;
     return (
       <div>
-        <AliceCarousel
-          autoPlay={true}
-          autoPlayInterval={3000}
-          responsive={true}
-          showSlideInfo={true}
-          fadeOutAnimation={true}
-          showSlideInfo={true}
-          mouseDragEnabled={true}
-        >
-          {venue.url.map(source => (
-            <img src={source} alt="venues" width="100%" height="480px" />
-          ))}
-        </AliceCarousel>
+        <ImageCarousel venue={venue} />
 
         <GridContainer
           className={classes.section}
@@ -49,46 +38,7 @@ class FoodCaterers extends Component {
         >
           <GridItem xs={12} sm={9} md={9} lg={9}>
             <GridContainer>
-              <div className={classes.section}>
-                <div className={classes.container}>
-                  <div id="typography">
-                    <div className={classes.typo}>
-                      <h2 className={classes.title}>{venue.title}</h2>
-                      <p style={{ display: "flex", alignItems: "center" }}>
-                        <img
-                          src={call}
-                          alt="icon"
-                          width="30px"
-                          height="30px"
-                          style={{ paddingRight: "5px" }}
-                        />
-                        {venue.contactNumber}
-                      </p>
-                      <p style={{ display: "flex", alignItems: "center" }}>
-                        <img
-                          src={email}
-                          alt="icon"
-                          width="30px"
-                          height="30px"
-                          style={{ paddingRight: "5px" }}
-                        />
-                        {venue.email}
-                      </p>
-                      <p style={{ display: "flex", alignItems: "center" }}>
-                        <img
-                          // src={require('path')}
-                          src={address}
-                          alt="icon"
-                          width="30px"
-                          height="30px"
-                          style={{ paddingRight: "5px" }}
-                        />
-                        {venue.address}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <GlobleVariables venue={venue} />
             </GridContainer>
             <GridContainer>
               {/* <div className={classes.container}>
@@ -145,11 +95,21 @@ class FoodCaterers extends Component {
                 headerColor="danger"
                 tabs={[
                   {
-                    tabName: "Pricing",
+                    tabName: "Limited Photos",
                     tabIcon: Tag,
 
                     tabContent: (
                       <p className={classes.textCenter}>Rs: {venue.price}</p>
+                    )
+                  },
+                  {
+                    tabName: "Unlimited Photos",
+                    tabIcon: Tag,
+
+                    tabContent: (
+                      <p className={classes.textCenter}>
+                        Rs: {venue.unlimitedAlbumPrice}
+                      </p>
                     )
                   }
                 ]}
@@ -186,18 +146,10 @@ class FoodCaterers extends Component {
           </GridItem>
           <GridItem xs={12} sm={3} md={3} lg={3}>
             <GridContainer>
-              <CustomTabs
-                headerColor="danger"
-                tabs={[
-                  {
-                    tabName: "Booking Options",
-                    tabIcon: Book
-                    // tabContent: (
-                    //   <p className={classes.textCenter}>{venue.packages}</p>
-                    // )
-                  }
-                ]}
-              />
+              <Booking venue={venue} />
+            </GridContainer>
+            <GridContainer>
+              <MapLocation location={venue.location} />
             </GridContainer>
           </GridItem>
         </GridContainer>
@@ -205,4 +157,6 @@ class FoodCaterers extends Component {
     );
   }
 }
-export default withStyles({ ...basicsStyle, ...typographyStyle })(FoodCaterers);
+export default withStyles({ ...basicsStyle, ...typographyStyle })(
+  Photographers
+);

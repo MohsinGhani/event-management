@@ -28,6 +28,7 @@ import FoodCaterers from "./FoodCaterers";
 import Venues from "./Venues";
 import Decorators from "./Decorators";
 import Photographers from "./Photographers";
+import GlobleLoader from "./GlobleLoader";
 
 class VenueDetail extends React.Component {
   constructor(props) {
@@ -44,32 +45,33 @@ class VenueDetail extends React.Component {
   }
 
   render() {
-    const { classes, venue } = this.props;
+    const { classes, venue, getVenueLoader } = this.props;
     return (
       <div>
         <div>
           <AuthenticatedNavbar />
+          <GlobleLoader getVenueLoader={getVenueLoader} />
         </div>
-          {(() => {
-            if (venue) {
-              switch (venue.objType) {
-                case "food_caterers":
-                  return <FoodCaterers venue={venue} />;
-                  break;
-                case "decorators_form":
-                  return <Decorators venue={venue} />;
-                  break;
-                case "venue_form":
-                  return <Venues venue={venue} />;
-                  break;
-                case "photographer":
-                  return <Photographers venue={venue} />;
-                  break;
-                default:
-                  break;
-              }
+        {(() => {
+          if (venue) {
+            switch (venue.objType) {
+              case "food_caterers":
+                return <FoodCaterers venue={venue} />;
+                break;
+              case "decorators_form":
+                return <Decorators venue={venue} />;
+                break;
+              case "venue_form":
+                return <Venues venue={venue} />;
+                break;
+              case "photographer":
+                return <Photographers venue={venue} />;
+                break;
+              default:
+                break;
             }
-          })()}
+          }
+        })()}
       </div>
     );
   }

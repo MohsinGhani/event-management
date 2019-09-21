@@ -24,6 +24,7 @@ import AuthenticatedNavbar from "./../../components/common/AuthenticatedNavbar";
 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
+import GlobleLoader from "./GlobleLoader"
 
 class ListView extends React.Component {
   constructor(props) {
@@ -51,7 +52,7 @@ class ListView extends React.Component {
   }
 
   render() {
-    const { classes, user, ...rest } = this.props;
+    const { classes, user, getVenuesLoader, ...rest } = this.props;
     const { venues } = this.state;
     const settings = {
       dots: true,
@@ -76,6 +77,7 @@ class ListView extends React.Component {
     return (
       <div>
         <AuthenticatedNavbar />
+        
         <GridContainer
           style={{
             padding: "0 15px",
@@ -84,6 +86,7 @@ class ListView extends React.Component {
             marginTop: "15px"
           }}
         >
+          <GlobleLoader getVenuesLoader={getVenuesLoader} />
           {venues &&
             venues.map((venue, i) => {
               return (
@@ -211,7 +214,9 @@ class ListView extends React.Component {
                                   color="warning"
                                   size="sm"
                                   round
-                                  onClick={() => this.goto( `/venue-detail/${venue.vid}` )}
+                                  onClick={() =>
+                                    this.goto(`/venue-detail/${venue.vid}`)
+                                  }
                                 >
                                   Detail
                                 </Button>
@@ -225,42 +230,6 @@ class ListView extends React.Component {
                 </GridItem>
               );
             })}
-          <div
-            style={{ display: "flex", justifyContent: "center", width: "100%" }}
-          >
-            <Pagination
-              pages={[
-                {
-                  active: false,
-                  disabled: false,
-                  text: "PREV",
-                  onClick: () => {}
-                },
-                {
-                  active: false,
-                  disabled: false,
-                  text: "...",
-                  onClick: () => {}
-                },
-                { active: false, disabled: false, text: 3, onClick: () => {} },
-                { active: true, disabled: false, text: 4, onClick: () => {} },
-                { active: false, disabled: false, text: 5, onClick: () => {} },
-                {
-                  active: false,
-                  disabled: false,
-                  text: "...",
-                  onClick: () => {}
-                },
-                {
-                  active: false,
-                  disabled: false,
-                  text: "NEXT",
-                  onClick: () => {}
-                }
-              ]}
-              color={"danger"}
-            />
-          </div>
         </GridContainer>
       </div>
     );
