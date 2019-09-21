@@ -141,7 +141,7 @@ class Decorators extends Component {
             <GridContainer>
               <Booking venue={venue} />
             </GridContainer>
-            <GridContainer>
+            <GridContainer style={{display: "flex", justifyContent: "center"}}>
               <MapLocation location={venue.location} />
             </GridContainer>
           </GridItem>

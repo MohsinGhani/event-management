@@ -197,14 +197,14 @@ class Home extends React.Component {
     const { classes, user, venues, ...rest } = this.props;
     const { center } = this.state;
     return (
-      <div>
+      <div style={{position: "fixed"}}>
         <AuthenticatedNavbar />
-        <MapMarkerIdentity />
         <Map
           style={"mapbox://styles/mapbox/streets-v9"}
           containerStyle={{
             height: "100vh",
-            width: "100vw"
+            width: "100vw",
+            position: "relative"
           }}
           movingMethod={"jumpTo"}
           center={[center.longitude, center.latitude]}
@@ -212,6 +212,7 @@ class Home extends React.Component {
           // onClick={(map, e) => { this.props.reverseGeoCodingAction(e.lngLat) }}
           // onClick={this.test}
         >
+          <MapMarkerIdentity />
           {venues &&
             venues.length &&
             venues.map((venue, index) => {
@@ -314,9 +315,9 @@ const MapMarkerIdentity = () => {
     <div
       className="map-marker-identity"
       style={{
+        position: "absolute",
         border: "5px solid red",
-        display: "flex",
-        justifyContent: "space-evenly"
+        backgroundColor: "lightgray"
       }}
     >
       <div>

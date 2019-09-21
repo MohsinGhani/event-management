@@ -14,15 +14,12 @@ export default class MapLocation extends Component {
     const { location } = this.props;
     if (location) {
       return (
-        <div style={{display: 'flex', justifyItems: 'center',
-        alignItems: 'center'}}>
           <Map
             style={"mapbox://styles/mapbox/streets-v9"}
             containerStyle={{
-              height: "250px",
-              width: "250px",
-              justifyContent: "center",
-              alignItems: "center"
+              height: "360px",
+              width: "360px",
+              border: "5px solid red"
             }}
             movingMethod={"jumpTo"}
             center={[location.longitude, location.latitude]}
@@ -35,7 +32,6 @@ export default class MapLocation extends Component {
               />
             </Marker>
           </Map>
-        </div>
       );
     } else {
       return <div>No Location Found</div>;

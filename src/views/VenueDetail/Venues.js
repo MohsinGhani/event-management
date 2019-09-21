@@ -46,18 +46,30 @@ class Venues extends Component {
           <GridItem xs={12} sm={9} md={9} lg={9}>
             <GridContainer style={{ marginRight: 0 }}>
               <Card>
-                <CardBody style={{display:"flex", justifyContent: "space-between"}}>
-                  <div >
-                    Guest Capicity<div style={{borderTop: "3px solid black"}}>{venue.capacity}</div>
+                <CardBody
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <div>
+                    Guest Capicity
+                    <div style={{ borderTop: "3px solid black" }}>
+                      {venue.capacity}
+                    </div>
                   </div>
                   <div>
-                    Venue Type<div style={{borderTop: "3px solid black"}}>Operational Hours</div></div>
+                    Venue Type
+                    <div style={{ borderTop: "3px solid black" }}>
+                      Operational Hours
+                    </div>
+                  </div>
                   <div>
-                    Operational Hours<div style={{borderTop: "3px solid black"}}>Oprational hour</div>
+                    Operational Hours
+                    <div style={{ borderTop: "3px solid black" }}>
+                      Oprational hour
+                    </div>
                   </div>
                   <div>
                     Dimention
-                    <div style={{borderTop: "3px solid black"}}>
+                    <div style={{ borderTop: "3px solid black" }}>
                       {venue.lenght}
                       <div>{venue.width}</div>
                     </div>
@@ -212,7 +224,9 @@ class Venues extends Component {
             <GridContainer>
               <Booking venue={venue} />
             </GridContainer>
-            <GridContainer>
+            <GridContainer
+              style={{ display: "flex", justifyContent: "center" }}
+            >
               <MapLocation location={venue.location} />
             </GridContainer>
           </GridItem>
