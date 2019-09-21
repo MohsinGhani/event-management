@@ -33,10 +33,12 @@ class FoodCaterers extends Component {
             marginTop: "15px"
           }}
         >
-          <GridItem xs={12} sm={9} md={9} lg={9}>
+          <GridItem xs={12} sm={12} md={9} lg={9}>
             <GridContainer>
               <GlobleVariables venue={venue} />
             </GridContainer>
+          </GridItem>
+          <GridItem xs={12} sm={9} md={9} lg={9}>
             <GridContainer>
               {/* <div className={classes.container}>
                 <div id="nav-tabs"> */}

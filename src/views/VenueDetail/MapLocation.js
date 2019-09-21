@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import ReactMapboxGl from "react-mapbox-gl";
 import { Marker } from "react-mapbox-gl";
 import credentials from "../../config/credentials";
+import marker from "../../../src/assets/icons/marker.svg";
+
 
 const Map = ReactMapboxGl({
   accessToken: credentials.MAP_ACCESS_TOCKEN
@@ -25,7 +27,7 @@ export default class MapLocation extends Component {
             <Marker coordinates={[location.longitude, location.latitude]}>
               <img
                 style={{ height: 15, width: 15 }}
-                src={require("./../../assets/icons/marker.png")}
+                src={marker}
                 alt={"current location"}
               />
             </Marker>
