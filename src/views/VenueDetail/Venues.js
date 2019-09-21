@@ -6,9 +6,9 @@ import GridItem from "components/Grid/GridItem.jsx";
 import CustomTabs from "components/CustomTabs/CustomTabs.jsx";
 import basicsStyle from "assets/jss/material-kit-react/views/componentsSections/basicsStyle.jsx";
 import typographyStyle from "assets/jss/material-kit-react/views/componentsSections/typographyStyle.jsx";
-import address from "../../../src/assets/icons/address.svg";
-import email from "../../../src/assets/icons/email.svg";
-import call from "../../../src/assets/icons/call.svg";
+import Card from "components/Card/Card";
+import CardHeader from "components/Card/CardHeader";
+import CardBody from "components/Card/CardBody";
 import checked from "../../../src/assets/icons/checked.svg";
 import Event from "@material-ui/icons/Event";
 import Tag from "@material-ui/icons/LocalOffer";
@@ -44,6 +44,27 @@ class Venues extends Component {
             </GridContainer>
           </GridItem>
           <GridItem xs={12} sm={9} md={9} lg={9}>
+            <GridContainer style={{ marginRight: 0 }}>
+              <Card>
+                <CardBody style={{display:"flex", justifyContent: "space-between"}}>
+                  <div >
+                    Guest Capicity<div style={{borderTop: "3px solid black"}}>{venue.capacity}</div>
+                  </div>
+                  <div>
+                    Venue Type<div style={{borderTop: "3px solid black"}}>Operational Hours</div></div>
+                  <div>
+                    Operational Hours<div style={{borderTop: "3px solid black"}}>Oprational hour</div>
+                  </div>
+                  <div>
+                    Dimention
+                    <div style={{borderTop: "3px solid black"}}>
+                      {venue.lenght}
+                      <div>{venue.width}</div>
+                    </div>
+                  </div>
+                </CardBody>
+              </Card>
+            </GridContainer>
             <GridContainer style={{ marginRight: 0 }}>
               {/* <div className={classes.container}>
                 <div id="nav-tabs"> */}
