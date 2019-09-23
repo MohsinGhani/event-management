@@ -312,6 +312,7 @@ class Home extends React.Component {
 
 const MapMarkerIdentity = () => {
   return (
+    <div className='map-marker-position' style={{display: "flex", justifyContent: "flex-end"}}>
     <div
       className="map-marker-identity"
       style={{
@@ -352,6 +353,7 @@ const MapMarkerIdentity = () => {
         />
         <span>Food And Caterers</span>
       </div>
+    </div>
     </div>
   );
 };
