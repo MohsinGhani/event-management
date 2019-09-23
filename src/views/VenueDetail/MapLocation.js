@@ -19,7 +19,7 @@ export default class MapLocation extends Component {
             containerStyle={{
               height: "360px",
               width: "360px",
-              border: "5px solid red"
+              border: "2px solid red"
             }}
             movingMethod={"jumpTo"}
             center={[location.longitude, location.latitude]}

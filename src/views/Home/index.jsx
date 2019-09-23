@@ -2,7 +2,6 @@ import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import withStyles from "@material-ui/core/styles/withStyles";
-import Header from "components/Header/Header.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 import loginPageStyle from "assets/jss/material-kit-react/views/loginPage.jsx";
 import { authAction, venueAction } from "./../../store/actions";
@@ -10,13 +9,9 @@ import ReactMapboxGl from "react-mapbox-gl";
 import { Marker, Popup } from "react-mapbox-gl";
 import credentials from "../../config/credentials";
 import AuthenticatedNavbar from "./../../components/common/AuthenticatedNavbar";
-import Card from "components/Card/Card";
-import CardHeader from "components/Card/CardHeader";
 import CardBody from "components/Card/CardBody";
 import Layout_style from "../../assets/icons/Layout_style.svg";
 import Venue_type from "../../assets/icons/Venue_type.svg";
-import GridItem from "components/Grid/GridItem";
-import SavedLocation from "../../assets/icons/save_location.svg";
 import venuePin from "../../assets/icons/venuePin.svg";
 import decoration from "../../assets/icons/decoration.svg";
 import foood from "../../assets/icons/foood.svg";
@@ -312,42 +307,43 @@ class Home extends React.Component {
 
 const MapMarkerIdentity = () => {
   return (
-    <div className='map-marker-position' style={{display: "flex", justifyContent: "flex-end"}}>
+    <div className='map-marker-position' style={{display: "flex", justifyContent: "flex-end", padding: "5px"}}>
     <div
       className="map-marker-identity"
       style={{
         position: "absolute",
-        border: "5px solid red",
-        backgroundColor: "lightgray"
+        border: "2px solid red",
+        backgroundColor: "lightgray",
+        padding: "5px"
       }}
     >
-      <div>
+      <div style={{padding: "5px"}}>
         <img
-          style={{ height: "25px", width: "30px" }}
+          style={{  height: "20px", width: "20px" }}
           src={photo}
           alt={"current location"}
         />
         <span>Photographers</span>
       </div>
-      <div>
+      <div style={{padding: "5px"}}>
         <img
-          style={{ height: "25px", width: "30px" }}
+          style={{  height: "20px", width: "20px"}}
           src={venuePin}
           alt={"current location"}
         />
         <span>Venues</span>
-      </div>
-      <div>
+      </div >
+      <div style={{padding: "5px"}}>
         <img
-          style={{ height: "25px", width: "30px" }}
+          style={{  height: "20px", width: "20px"}}
           src={decoration}
           alt={"current location"}
         />
         <span>Decorators</span>
       </div>
-      <div>
+      <div style={{padding: "5px"}}>
         <img
-          style={{ height: "25px", width: "30px" }}
+          style={{  height: "20px", width: "20px"}}
           src={foood}
           alt={"current location"}
         />
