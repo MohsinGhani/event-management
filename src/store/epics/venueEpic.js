@@ -6,7 +6,6 @@ import path from "./../../config/path";
 import credentials from "../../config/credentials";
 import { SAVE_VENUES, GET_VENUES, GET_VENUE } from "../constants";
 import { db } from "../../firebase/FireBase";
-import { storage } from "../../firebase/FireBase";
 
 export default class venueEpic {
   static reverseGeoCoding = action$ =>

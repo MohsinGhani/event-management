@@ -28,15 +28,15 @@ const styles = theme => ({
 
 class SelectBar extends React.Component {
   render() {
-    const { classes, categoryHandler, categorySelect } = this.props;
+    const { classes, categoryHandler, categorySelect, categories } = this.props;
     return (
       <GridContainer
         style={{ padding: "0", maxWidth: "1024px", margin: "0 auto" }}
       >
         <Card style={{ padding: "15px", margin: 0 }}>
-          {/* <CardHeader color="primary">
-              <h4 className={classes.cardTitleWhite}>Form Category</h4>
-            </CardHeader> */}
+          <CardHeader color="primary">
+            <h4 className={classes.cardTitleWhite}>Category Selector</h4>
+          </CardHeader>
           <CardBody>
             <GridContainer>
               <GridItem xs={12} sm={12} md={12} lg={12}>
@@ -46,17 +46,20 @@ class SelectBar extends React.Component {
                 >
                   <InputLabel htmlFor="age-simple">Form Category</InputLabel>
                   <Select
-                    value={categorySelect}
+                    value={categorySelect.title}
                     onChange={categoryHandler}
                     inputProps={{
                       name: "categorySelect",
                       id: "age-simple"
                     }}
                   >
-                    <MenuItem value={'venue_form'}>Venue From</MenuItem>
-                    <MenuItem value={'decorators_form'}>Decorators From</MenuItem>
-                    <MenuItem value={'food_caterers'}>Food and Caterers From</MenuItem>
-                    <MenuItem value={'photographer'}>Photograhpher</MenuItem>
+                    {categories.map((cat, i) => {
+                      return (
+                        <MenuItem key={i} value={cat}>
+                          {cat.title}
+                        </MenuItem>
+                      );
+                    })}
                   </Select>
                 </FormControl>
               </GridItem>

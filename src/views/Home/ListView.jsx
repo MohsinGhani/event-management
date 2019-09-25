@@ -39,13 +39,13 @@ class ListView extends React.Component {
     this.props.history.push(path);
   };
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.venues !== this.props.venues && this.props.venues) {
-      this.setState({
-        venues: this.props.venues
-      });
+    componentDidUpdate(prevProps) {
+      if (prevProps.venues !== this.props.venues && this.props.venues) {
+        this.setState({
+          venues: this.props.venues
+        });
+      }
     }
-  }
 
   componentDidMount() {
     this.props.getVenues();
