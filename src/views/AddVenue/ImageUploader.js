@@ -31,7 +31,7 @@ class ImageUploader extends Component {
       handleUploadClose,
       handleUploadOpen,
       files,
-      handelOnSaveAndUpload
+      // handelOnSaveAndUpload
     } = this.props;
     return (
       <div>
@@ -73,7 +73,7 @@ class ImageUploader extends Component {
               />
             </CardBody>
           </Card>
-          <Button
+          {/* <Button
             variant="outlined"
             color="primary"
             block
@@ -82,7 +82,7 @@ class ImageUploader extends Component {
             }}
           >
             Save
-          </Button>
+          </Button> */}
         </GridContainer>
       </div>
     );

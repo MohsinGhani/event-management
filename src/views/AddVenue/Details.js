@@ -33,7 +33,7 @@ class Details extends Component {
       email,
       address,
       description,
-      handleDetailInput,
+      handleDetailInput
     } = this.props;
     return (
       <div>
@@ -143,7 +143,6 @@ class Details extends Component {
               </GridContainer>
             </CardBody>
           </Card>
-         
         </GridContainer>
       </div>
     );

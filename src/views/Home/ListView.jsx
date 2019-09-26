@@ -103,7 +103,7 @@ class ListView extends React.Component {
                           color={"primary"}
                         >
                           <p
-                            title={venue.title}
+                            title={venue.name}
                             style={{
                               width: "100%",
                               overflow: "hidden",
@@ -112,7 +112,7 @@ class ListView extends React.Component {
                               margin: "5px 0 5px 0"
                             }}
                           >
-                            {venue.title}
+                            {venue.name}
                           </p>
                         </CardHeader>
                         <CardBody
@@ -182,7 +182,7 @@ class ListView extends React.Component {
                                   class="fas fa-phone"
                                   style={{ padding: "10px 5px 0 0" }}
                                 ></i>
-                                {venue.contactNumber}
+                                {venue.phone}
                               </div>
                               <div className="email">
                                 <i
@@ -191,13 +191,13 @@ class ListView extends React.Component {
                                 ></i>
                                 {venue.email}
                               </div>
-                              <div className="price">
+                              {/* <div className="price">
                                 <i
                                   class="fas fa-tags"
                                   style={{ padding: "10px 5px 0 0" }}
                                 ></i>
                                 Rs: {venue.price}
-                              </div>
+                              </div> */}
                               <div className="type">
                                 <i
                                   class="fas fa-list-ul"

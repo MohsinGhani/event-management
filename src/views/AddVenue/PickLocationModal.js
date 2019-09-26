@@ -59,7 +59,7 @@ class PickLocationModal extends React.Component {
     }
 
     render() {
-        const { handleClose, classicModal, pickedLocation, classes } = this.props
+        const { handleLocClose, mapModal, pickedLocation, classes } = this.props
         const { center, picked } = this.state
 
         return (
@@ -68,10 +68,10 @@ class PickLocationModal extends React.Component {
                     root: classes.center,
                     paper: classes.modal
                 }}
-                open={classicModal}
+                open={mapModal}
                 TransitionComponent={Transition}
                 keepMounted
-                onClose={() => handleClose("classicModal")}
+                onClose={() => handleLocClose("mapModal")}
                 aria-labelledby="classic-modal-slide-title"
                 aria-describedby="classic-modal-slide-description"
             >
@@ -85,7 +85,7 @@ class PickLocationModal extends React.Component {
                         key="close"
                         aria-label="Close"
                         color="inherit"
-                        onClick={() => handleClose("classicModal")}
+                        onClick={() => handleLocClose("mapModal")}
                     >
                         <Close className={classes.modalClose} />
                     </IconButton>
@@ -116,7 +116,7 @@ class PickLocationModal extends React.Component {
                         Pick
                     </Button>
                     <Button
-                        onClick={() => handleClose("classicModal")}
+                        onClick={() => handleLocClose("mapModal")}
                         color="danger"
                         simple
                     >

@@ -28,6 +28,8 @@ class AddVenue extends Component {
     this.state = {
       categorySelect: { title: "", id: "" },
       classicModal: false,
+      // mapModal: false,
+
       picked: null,
 
       serviesFacilities: [{ title: "", price: "" }],
@@ -58,27 +60,29 @@ class AddVenue extends Component {
     this.setState(x);
   };
 
-  handleClickLocOpen = modal => {
-    var x = [];
-    x[modal] = true;
-    this.setState(x);
-  };
+    handleClickLocOpen = modal => {
+      var mapModal = [];
+      mapModal[modal] = true;
+      this.setState(mapModal);
+    };
 
-  handleLocClose = modal => {
-    var x = [];
-    x[modal] = false;
-    this.setState(x);
-  };
-  
+    handleLocClose = modal => {
+      var mapModal = [];
+      mapModal[modal] = false;
+      this.setState(mapModal);
+    };
+    
 
-  pickedLocation = picked => {
-    this.setState(
-      {
-        picked
-      },
-      this.handleClose("classicModal")
-    );
-  };
+  // pickedLocation = picked => {
+  //   this.setState(
+  //     {
+  //       picked
+  //     },
+  //     this.handleClose("mapModal")
+  //   );
+  // };
+
+
 
   handleUploadClose = () => {
     this.setState({
@@ -187,7 +191,7 @@ class AddVenue extends Component {
 
     this.state.files.map((file, index) => {
       storageRef
-        .child(`images/${file.name}`)
+        .child(`events images/${file.name}`)
         .put(file)
         .then(response => {
           var progresss =
@@ -210,7 +214,7 @@ class AddVenue extends Component {
                 url: urls
               });
 
-              console.log("file.lennth", this.state.files.length);
+              console.log("file.length", this.state.files.length);
               console.log("index=", index);
               var sum = index + 1;
 
@@ -225,6 +229,7 @@ class AddVenue extends Component {
                   email,
                   address,
                   description,
+                  serviesFacilities,
                   image,
                   progress,
                   url,
@@ -237,6 +242,7 @@ class AddVenue extends Component {
                   email,
                   address,
                   description,
+                  serviesFacilities,
                   objType: categorySelect,
                   location: picked,
                   url
@@ -250,7 +256,9 @@ class AddVenue extends Component {
                   description: "",
                   url: [],
                   categorySelect: [],
-                  files: []
+                  files: [],
+                  serviesFacilities: [],
+                  picked: ''
                 });
               }
             })
@@ -258,9 +266,6 @@ class AddVenue extends Component {
               alert(error);
             });
         });
-    });
-    this.setState({
-      picked: ""
     });
   };
 
@@ -270,6 +275,8 @@ class AddVenue extends Component {
 
       classicModal,
       picked,
+
+      mapModal,
 
       name,
       phone,
@@ -308,6 +315,12 @@ class AddVenue extends Component {
           address={address}
           description={description}
           handleDetailInput={this.handleDetailInput}
+
+          // picked={picked}
+          // classicModal={classicModal}
+          // handleClickLocOpen={this.handleClickOpen}
+          // handleLocClose={this.handleClose}
+          // pickedLocation={this.pickedLocation}
         />
 
         <CreateServiceFacilities
@@ -328,19 +341,23 @@ class AddVenue extends Component {
           handleUploadOpen={this.handleUploadOpen}
           handleUploadClose={this.handleUploadClose}
           handleUploadSave={this.handleUploadSave}
-          handelOnSaveAndUpload={this.handelOnSaveAndUpload}
-
+          // handelOnSaveAndUpload={this.handelOnSaveAndUpload}
         />
 
-        {/* <PickLocation
-          picked={picked}
-          classicModal={classicModal}
-          handleClickLocOpen={this.handleClickOpen}
-          handleLocClose={this.handleClose}
-          pickedLocation={this.pickedLocation}
+        <PickLocation
+          // picked={picked}
+          // mapModal={mapModal}
+          // handleClickLocOpen={this.handleLocClickOpen}
+          // handleLocClose={this.handleLocClose}
+          // pickedLocation={this.pickedLocation}
+
+          // // handelOnSaveAndUpload={this.handelOnSaveAndUpload}
           handelOnSaveAndUpload={this.handelOnSaveAndUpload}
 
-        /> */}
+          parestSetState={(picked) => this.setState({
+            picked
+          })}
+        />
       </div>
     );
   }
