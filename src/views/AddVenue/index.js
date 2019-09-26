@@ -11,6 +11,7 @@ import CreateServiceFacilities from "./CreateServiceFacilities";
 import ImageUploader from "./ImageUploader";
 import storage from "../../firebase/FireBase";
 import PickLocation from "./PickLocation";
+import Notifire from "./Notifire";
 
 const dummyCategories = [
   { title: "Venue", id: "venue" },
@@ -58,18 +59,17 @@ class AddVenue extends Component {
     this.setState(x);
   };
 
-    handleClickLocOpen = modal => {
-      var mapModal = [];
-      mapModal[modal] = true;
-      this.setState(mapModal);
-    };
+  handleClickLocOpen = modal => {
+    var mapModal = [];
+    mapModal[modal] = true;
+    this.setState(mapModal);
+  };
 
-    handleLocClose = modal => {
-      var mapModal = [];
-      mapModal[modal] = false;
-      this.setState(mapModal);
-    };
-    
+  handleLocClose = modal => {
+    var mapModal = [];
+    mapModal[modal] = false;
+    this.setState(mapModal);
+  };
 
   // pickedLocation = picked => {
   //   this.setState(
@@ -79,8 +79,6 @@ class AddVenue extends Component {
   //     this.handleClose("mapModal")
   //   );
   // };
-
-
 
   handleUploadClose = () => {
     this.setState({
@@ -256,7 +254,7 @@ class AddVenue extends Component {
                   categorySelect: [],
                   files: [],
                   serviesFacilities: [],
-                  picked: ''
+                  picked: null
                 });
               }
             })
@@ -300,6 +298,7 @@ class AddVenue extends Component {
       <div>
         <AuthenticatedNavbar />
         <br />
+     
         <Selectbar
           categorySelect={categorySelect}
           categoryHandler={this.categoryHandler}
@@ -313,7 +312,7 @@ class AddVenue extends Component {
           address={address}
           description={description}
           handleDetailInput={this.handleDetailInput}
-
+          saveVenueLoader={saveVenueLoader}
           // picked={picked}
           // classicModal={classicModal}
           // handleClickLocOpen={this.handleClickOpen}
@@ -351,11 +350,14 @@ class AddVenue extends Component {
 
           // // handelOnSaveAndUpload={this.handelOnSaveAndUpload}
           handelOnSaveAndUpload={this.handelOnSaveAndUpload}
-
-          parestSetState={(picked) => this.setState({
-            picked
-          })}
+          parestSetState={picked =>
+            this.setState({
+              picked
+            })
+          }
         />
+
+        <Notifire />
       </div>
     );
   }
