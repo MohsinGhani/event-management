@@ -43,6 +43,7 @@ class Home extends React.Component {
 
   componentDidMount() {
     this.props.getVenues();
+    console.log(this.props.getVenues());
   }
 
   test = (event, object) => {
@@ -192,7 +193,7 @@ class Home extends React.Component {
     const { classes, user, venues, ...rest } = this.props;
     const { center } = this.state;
     return (
-      <div style={{position: "fixed"}}>
+      <div style={{ position: "fixed" }}>
         <AuthenticatedNavbar />
         <Map
           style={"mapbox://styles/mapbox/streets-v9"}
@@ -208,97 +209,102 @@ class Home extends React.Component {
           // onClick={this.test}
         >
           <MapMarkerIdentity />
-          {venues &&
-            venues.length &&
-            venues.map((venue, index) => {
-              const { location } = venue;
-              if (venue.objType === "food_caterers") {
-                return (
-                  <Marker
-                    coordinates={[
-                      Number(location.longitude),
-                      Number(location.latitude)
-                    ]}
-                  >
-                    <img
-                      style={{
-                        height: "25px",
-                        width: "30px",
-                        cursor: "pointer"
-                      }}
-                      src={foood}
-                      title="Food & Caterers"
-                      alt={"current location"}
-                      onClick={() => this.goto(`/venue-detail/${venue.vid}`)}
-                    />
-                  </Marker>
-                );
-              }
-              if (venue.objType === "decorators_form") {
-                return (
-                  <Marker
-                    coordinates={[
-                      Number(location.longitude),
-                      Number(location.latitude)
-                    ]}
-                  >
-                    <img
-                      style={{
-                        height: "25px",
-                        width: "30px",
-                        cursor: "pointer"
-                      }}
-                      src={decoration}
-                      title="Decorators"
-                      alt={"current location"}
-                      onClick={() => this.goto(`/venue-detail/${venue.vid}`)}
-                    />
-                  </Marker>
-                );
-              } else if (venue.objType === "venue_form") {
-                return (
-                  <Marker
-                    coordinates={[
-                      Number(location.longitude),
-                      Number(location.latitude)
-                    ]}
-                  >
-                    <img
-                      style={{
-                        height: "25px",
-                        width: "30px",
-                        cursor: "pointer"
-                      }}
-                      src={venuePin}
-                      title="Venue"
-                      alt={"current location"}
-                      onClick={() => this.goto(`/venue-detail/${venue.vid}`)}
-                    />
-                  </Marker>
-                );
-              } else if (venue.objType === "photographer") {
-                return (
-                  <Marker
-                    coordinates={[
-                      Number(location.longitude),
-                      Number(location.latitude)
-                    ]}
-                  >
-                    <img
-                      style={{
-                        height: "25px",
-                        width: "30px",
-                        cursor: "pointer"
-                      }}
-                      src={photo}
-                      title="Photographer"
-                      alt={"current location"}
-                      onClick={() => this.goto(`/venue-detail/${venue.vid}`)}
-                    />
-                  </Marker>
-                );
-              }
-            })}
+          {venues
+            ? venues.map((venue, index) => {
+                const { location, objType } = venue;
+
+                if (objType.id === "food_and_caterers") {
+                  return (
+                    <Marker
+                      key={index}
+                      coordinates={[
+                        Number(location.longitude),
+                        Number(location.latitude)
+                      ]}
+                    >
+                      <img
+                        style={{
+                          height: "25px",
+                          width: "30px",
+                          cursor: "pointer"
+                        }}
+                        src={foood}
+                        title="Food & Caterers"
+                        alt={"current location"}
+                        onClick={() => this.goto(`/venue-detail/${venue.vid}`)}
+                      />
+                    </Marker>
+                  );
+                }
+                if (objType.id === "decorator") {
+                  return (
+                    <Marker
+                      key={index}
+                      coordinates={[
+                        Number(location.longitude),
+                        Number(location.latitude)
+                      ]}
+                    >
+                      <img
+                        style={{
+                          height: "25px",
+                          width: "30px",
+                          cursor: "pointer"
+                        }}
+                        src={decoration}
+                        title="Decorators"
+                        alt={"current location"}
+                        onClick={() => this.goto(`/venue-detail/${venue.vid}`)}
+                      />
+                    </Marker>
+                  );
+                } else if (objType.id === "venue") {
+                  return (
+                    <Marker
+                      key={index}
+                      coordinates={[
+                        Number(location.longitude),
+                        Number(location.latitude)
+                      ]}
+                    >
+                      <img
+                        style={{
+                          height: "25px",
+                          width: "30px",
+                          cursor: "pointer"
+                        }}
+                        src={venuePin}
+                        title="Venue"
+                        alt={"current location"}
+                        onClick={() => this.goto(`/venue-detail/${venue.vid}`)}
+                      />
+                    </Marker>
+                  );
+                } else if (objType.id === "photographer") {
+                  return (
+                    <Marker
+                      key={index}
+                      coordinates={[
+                        Number(location.longitude),
+                        Number(location.latitude)
+                      ]}
+                    >
+                      <img
+                        style={{
+                          height: "25px",
+                          width: "30px",
+                          cursor: "pointer"
+                        }}
+                        src={photo}
+                        title="Photographer"
+                        alt={"current location"}
+                        onClick={() => this.goto(`/venue-detail/${venue.vid}`)}
+                      />
+                    </Marker>
+                  );
+                }
+              })
+            : null}
         </Map>
       </div>
     );
@@ -307,49 +313,52 @@ class Home extends React.Component {
 
 const MapMarkerIdentity = () => {
   return (
-    <div className='map-marker-position' style={{display: "flex", justifyContent: "flex-end", padding: "5px"}}>
     <div
-      className="map-marker-identity"
-      style={{
-        position: "absolute",
-        border: "2px solid red",
-        backgroundColor: "lightgray",
-        padding: "5px"
-      }}
+      className="map-marker-position"
+      style={{ display: "flex", justifyContent: "flex-end", padding: "5px" }}
     >
-      <div style={{padding: "5px"}}>
-        <img
-          style={{  height: "20px", width: "20px" }}
-          src={photo}
-          alt={"current location"}
-        />
-        <span>Photographers</span>
+      <div
+        className="map-marker-identity"
+        style={{
+          position: "absolute",
+          border: "2px solid red",
+          backgroundColor: "lightgray",
+          padding: "5px"
+        }}
+      >
+        <div style={{ padding: "5px" }}>
+          <img
+            style={{ height: "20px", width: "20px" }}
+            src={photo}
+            alt={"current location"}
+          />
+          <span>Photographers</span>
+        </div>
+        <div style={{ padding: "5px" }}>
+          <img
+            style={{ height: "20px", width: "20px" }}
+            src={venuePin}
+            alt={"current location"}
+          />
+          <span>Venues</span>
+        </div>
+        <div style={{ padding: "5px" }}>
+          <img
+            style={{ height: "20px", width: "20px" }}
+            src={decoration}
+            alt={"current location"}
+          />
+          <span>Decorators</span>
+        </div>
+        <div style={{ padding: "5px" }}>
+          <img
+            style={{ height: "20px", width: "20px" }}
+            src={foood}
+            alt={"current location"}
+          />
+          <span>Food And Caterers</span>
+        </div>
       </div>
-      <div style={{padding: "5px"}}>
-        <img
-          style={{  height: "20px", width: "20px"}}
-          src={venuePin}
-          alt={"current location"}
-        />
-        <span>Venues</span>
-      </div >
-      <div style={{padding: "5px"}}>
-        <img
-          style={{  height: "20px", width: "20px"}}
-          src={decoration}
-          alt={"current location"}
-        />
-        <span>Decorators</span>
-      </div>
-      <div style={{padding: "5px"}}>
-        <img
-          style={{  height: "20px", width: "20px"}}
-          src={foood}
-          alt={"current location"}
-        />
-        <span>Food And Caterers</span>
-      </div>
-    </div>
     </div>
   );
 };

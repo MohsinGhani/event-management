@@ -59,8 +59,6 @@ export class venueAction {
 
   ////////////////
   static getVenue(payload) {
-    debugger
-
     return {
       type: GET_VENUE,
       payload
@@ -68,8 +66,6 @@ export class venueAction {
   }
 
   static getVenueSuccess(venue) {
-    debugger
-
     return {
       type: GET_VENUE_SUCCESS,
       payload: venue
@@ -77,8 +73,6 @@ export class venueAction {
   }
 
   static getVenueFailure(error) {
-    debugger
-
     return {
       type: GET_VENUE_FAILURE,
       payload: error

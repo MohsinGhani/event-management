@@ -22,23 +22,21 @@ class VenueDetail extends React.Component {
 
   componentDidMount() {
     const { vid } = this.props.match.params;
-    console.log(this.props)
+    console.log(this.props);
     this.props.getVenue(vid);
     // console.log(vid);
   }
 
   render() {
-
     const { classes, venue, getVenueLoader } = this.props;
-    console.log(venue)
+    console.log(venue);
     return (
       <div>
         <div>
           <AuthenticatedNavbar />
           <GlobleLoader getVenueLoader={getVenueLoader} />
         </div>
-        {venue ? (<Venues venue={venue} />) : null}
-        
+        {venue ? <Venues venue={venue} /> : null}
       </div>
     );
   }
@@ -49,7 +47,7 @@ const mapStateToProps = state => {
     authReducer: { user, isLoggedIn },
     venueReducer: { venue, getVenueLoader, getVenueError }
   } = state;
-  // debugger
+  //
   return {
     venue,
     getVenueLoader,
@@ -60,7 +58,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  // debugger
+  //
   return {
     isLoggedInAction: payload => dispatch(authAction.isLoggedIn(payload)),
     getVenue: vid => dispatch(venueAction.getVenue(vid))
