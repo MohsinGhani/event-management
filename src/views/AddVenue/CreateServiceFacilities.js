@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
-import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
 import Dialog from "@material-ui/core/Dialog";
 import Slide from "@material-ui/core/Slide";
@@ -9,10 +8,6 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 // @material-ui/icons
-import Email from "@material-ui/icons/Email";
-import People from "@material-ui/icons/People";
-import Call from "@material-ui/icons/Call";
-import Address from "@material-ui/icons/LocationCity";
 import LibraryBooks from "@material-ui/icons/LibraryBooks";
 import Close from "@material-ui/icons/Close";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -26,10 +21,7 @@ import CardBody from "dashboard-components/Card/CardBody.jsx";
 import TextField from "@material-ui/core/TextField";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
-import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Button from "components/CustomButtons/Button.jsx";
-import CustomLinearProgress from "components/CustomLinearProgress/CustomLinearProgress.jsx";
-import ReactLoading from "react-loading";
 import javascriptStyles from "assets/jss/material-kit-react/views/componentsSections/javascriptStyles.jsx";
 import basicsStyle from "assets/jss/material-kit-react/views/componentsSections/basicsStyle.jsx";
 

@@ -2,7 +2,6 @@ import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import withStyles from "@material-ui/core/styles/withStyles";
-import Header from "components/Header/Header.jsx";
 import loginPageStyle from "assets/jss/material-kit-react/views/loginPage.jsx";
 import { authAction, venueAction } from "./../../store/actions";
 import Card from "components/Card/Card";
@@ -11,12 +10,7 @@ import CardBody from "components/Card/CardBody";
 // import CardFooter from 'components/Card/CardFooter'
 import GridContainer from "components/Grid/GridContainer";
 import GridItem from "components/Grid/GridItem";
-import Pagination from "components/Pagination/Pagination.jsx";
 // import { venues } from "./../../assets/venus";
-import Location from "../../assets/icons/Location.svg";
-import Venue_type from "../../assets/icons/Venue_type.svg";
-import Layout_style from "../../assets/icons/Layout_style.svg";
-import view_profile from "../../assets/icons/view_profile.svg";
 import Button from "components/CustomButtons/Button.jsx";
 //import './ListView.css'
 import AuthenticatedNavbar from "./../../components/common/AuthenticatedNavbar";
@@ -40,7 +34,7 @@ class ListView extends React.Component {
   };
 
     componentDidUpdate(prevProps) {
-      if (prevProps.venues !== this.props.venues && this.props.venues) {
+      if ((prevProps.venues && prevProps.venues.length )!== (this.props.venues && this.props.venues.length)) {
         this.setState({
           venues: this.props.venues
         });
@@ -73,7 +67,7 @@ class ListView extends React.Component {
     //         })
     //     : "";
     // };
-    console.log(this.props.venues);
+    console.log("venues from state =>", this.props.venues);
     return (
       <div>
         <AuthenticatedNavbar />
@@ -89,6 +83,7 @@ class ListView extends React.Component {
           <GlobleLoader getVenuesLoader={getVenuesLoader} />
           {venues &&
             venues.map((venue, i) => {
+              console.log("venues=>", venue)
               return (
                 <GridItem md={4} key={i}>
                   <Card
@@ -141,22 +136,9 @@ class ListView extends React.Component {
                           </Carousel>
                           <div className="card-body-info">
                             <div>
-                              {/* <div className="star-ratting">
-                              {renderFullStars()}
-                              <p
-                                style={{
-                                  display: "inline",
-                                  fontSize: "80%",
-                                  color: "grey"
-                                }}
-                              >
-                                {" "}
-                                Ratting
-                              </p>
-                            </div> */}
 
                               <div
-                                className="city"
+                                className="address"
                                 style={{ display: "flex", paddingTop: "5px" }}
                               >
                                 <i
@@ -203,7 +185,7 @@ class ListView extends React.Component {
                                   class="fas fa-list-ul"
                                   style={{ padding: "10px 5px 0 0" }}
                                 ></i>
-                                {venue.objType}
+                                {venue.objType.title}
                               </div>
                             </div>
 

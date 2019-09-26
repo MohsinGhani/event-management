@@ -15,12 +15,7 @@ import TextField from "@material-ui/core/TextField";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
-import Button from "components/CustomButtons/Button.jsx";
-import CreateServiceFacilities from "./CreateServiceFacilities";
-import ImageUploader from "./ImageUploader";
-import CustomLinearProgress from "components/CustomLinearProgress/CustomLinearProgress.jsx";
 import ReactLoading from "react-loading";
-import PickLocationModal from "./PickLocationModal";
 
 import basicsStyle from "assets/jss/material-kit-react/views/componentsSections/basicsStyle.jsx";
 

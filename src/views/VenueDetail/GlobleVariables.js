@@ -15,7 +15,7 @@ class GlobleVariables extends Component {
         <div className={classes.container}>
           <div id="typography">
             <div className={classes.typo + " typo"}>
-              <h2 className={classes.title + " typo-title"}>{venue.title}</h2>
+              <h2 className={classes.title + " typo-title"}>{venue.name}</h2>
               <p style={{ display: "flex", alignItems: "center" }}>
                 <img
                   src={call}
@@ -24,7 +24,7 @@ class GlobleVariables extends Component {
                   height="30px"
                   style={{ paddingRight: "5px" }}
                 />
-                {venue.contactNumber}
+                {venue.phone}
               </p>
               <p style={{ display: "flex", alignItems: "center" }}>
                 <img

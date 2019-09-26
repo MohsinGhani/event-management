@@ -7,18 +7,19 @@ import CustomTabs from "components/CustomTabs/CustomTabs.jsx";
 import basicsStyle from "assets/jss/material-kit-react/views/componentsSections/basicsStyle.jsx";
 import typographyStyle from "assets/jss/material-kit-react/views/componentsSections/typographyStyle.jsx";
 import Card from "components/Card/Card";
-import CardHeader from "components/Card/CardHeader";
 import CardBody from "components/Card/CardBody";
 import checked from "../../../src/assets/icons/checked.svg";
-import Event from "@material-ui/icons/Event";
 import Tag from "@material-ui/icons/LocalOffer";
 import Description from "@material-ui/icons/Description";
-import Package from "@material-ui/icons/ListAlt";
-import Book from "@material-ui/icons/Payment";
 import Facilaty from "@material-ui/icons/RoomService";
 import ImageCarousel from "./ImageCarousel";
+import address from "../../../src/assets/icons/address.svg";
+import email from "../../../src/assets/icons/email.svg";
+import call from "../../../src/assets/icons/call.svg";
+// import basicsStyle from "assets/jss/material-kit-react/views/componentsSections/basicsStyle.jsx";
+// import typographyStyle from "assets/jss/material-kit-react/views/componentsSections/typographyStyle.jsx";
 import "./index.css";
-import GlobleVariables from "./GlobleVariables";
+// import GlobleVariables from "./GlobleVariables";
 import Booking from "./Booking";
 import MapLocation from "./MapLocation";
 
@@ -40,7 +41,50 @@ class Venues extends Component {
         >
           <GridItem xs={12} sm={12} md={9} lg={9}>
             <GridContainer>
-              <GlobleVariables venue={venue} />
+              {/* <GlobleVariables venue={venue} /> */}
+
+              <div className={classes.section + " typo_section"}>
+        <div className={classes.container}>
+          <div id="typography">
+            <div className={classes.typo + " typo"}>
+              <h2 className={classes.title + " typo-title"}>{venue.name}</h2>
+              <p style={{ display: "flex", alignItems: "center" }}>
+                <img
+                  src={call}
+                  alt="icon"
+                  width="30px"
+                  height="30px"
+                  style={{ paddingRight: "5px" }}
+                />
+                {venue.phone}
+              </p>
+              <p style={{ display: "flex", alignItems: "center" }}>
+                <img
+                  src={email}
+                  alt="icon"
+                  width="30px"
+                  height="30px"
+                  style={{ paddingRight: "5px" }}
+                />
+                {venue.email}
+              </p>
+              <p style={{ display: "flex", alignItems: "center" }}>
+                <img
+                  // src={require('path')}'
+                  className="text"
+                  src={address}
+                  alt="icon"
+                  width="30px"
+                  height="30px"
+                  style={{ paddingRight: "5px" }}
+                />
+                {venue.address}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
             </GridContainer>
           </GridItem>
           <GridItem xs={12} sm={9} md={9} lg={9}>
@@ -52,7 +96,8 @@ class Venues extends Component {
                   <div>
                     Guest Capicity
                     <div style={{ borderTop: "3px solid black" }}>
-                      {venue.capacity}
+                      {/* {venue.capacity} */}
+                      Capicity
                     </div>
                   </div>
                   <div>
@@ -70,16 +115,17 @@ class Venues extends Component {
                   <div>
                     Dimention
                     <div style={{ borderTop: "3px solid black" }}>
-                      {venue.lenght}
-                      <div>{venue.width}</div>
+                      {/* {venue.lenght}
+                      <div>{venue.width}</div> */}
+                      length and width
                     </div>
                   </div>
                 </CardBody>
               </Card>
             </GridContainer>
-            <GridContainer style={{ marginRight: 0 }}>
-              {/* <div className={classes.container}>
-                <div id="nav-tabs"> */}
+            {/* <GridContainer style={{ marginRight: 0 }}>
+              // <div className={classes.container}>
+              //   <div id="nav-tabs"> 
 
               <CustomTabs
                 headerColor="danger"
@@ -95,7 +141,7 @@ class Venues extends Component {
                         justify="flex-start"
                         alignItems="flex-start"
                       >
-                        {venue.eventTypeCheck.map(event => (
+                        {venue.serviesFacilities.map(event => (
                           <GridItem
                             xs={12}
                             sm={12}
@@ -125,7 +171,8 @@ class Venues extends Component {
                   }
                 ]}
               />
-            </GridContainer>
+            </GridContainer> */}
+
             <GridContainer style={{ marginRight: 0 }}>
               {/* <div className={classes.container}>
                 <div id="nav-tabs"> */}
@@ -144,7 +191,7 @@ class Venues extends Component {
                         justify="flex-start"
                         alignItems="flex-start"
                       >
-                        {venue.serviceChecked.map(services => (
+                        {venue.serviesFacilities && venue.serviesFacilities.map(services => (
                           <GridItem
                             xs={12}
                             sm={12}
@@ -166,7 +213,9 @@ class Venues extends Component {
                               height="20px"
                               style={{ paddingRight: "5px" }}
                             />
-                            <span title={services}>{services}</span>
+                            <span title={services.title}>{services.title}</span>
+                            <span title={services.price}>{services.price}</span>
+
                           </GridItem>
                         ))}
                       </Grid>
@@ -191,7 +240,7 @@ class Venues extends Component {
                 ]}
               />
             </GridContainer>
-            <GridContainer style={{ marginRight: 0 }}>
+            {/* <GridContainer style={{ marginRight: 0 }}>
               <CustomTabs
                 headerColor="danger"
                 tabs={[
@@ -204,7 +253,7 @@ class Venues extends Component {
                   }
                 ]}
               />
-            </GridContainer>
+            </GridContainer> */}
             <GridContainer style={{ marginRight: 0 }}>
               <CustomTabs
                 headerColor="danger"

@@ -66,12 +66,13 @@ export default class venueEpic {
   static getVenue = action$ =>
     action$.ofType(GET_VENUE).mergeMap(({ payload }) => {
       console.log(payload);
-
+      debugger
       return db
         .collection("services")
         .doc(payload)
         .get()
         .then(doc => {
+          debugger
           if (doc.exists) {
             console.log("Document data:", doc.data());
             return venueAction.getVenueSuccess({ ...doc.data(), vid: doc.id });
@@ -81,6 +82,7 @@ export default class venueEpic {
           }
         })
         .catch(error => {
+          debugger
           // console.log("Error getting document:", error);
           return venueAction.getVenueFailure(
             `Error in getting venue! ${error}`

@@ -14,8 +14,6 @@ import Close from "@material-ui/icons/Close";
 import Button from "components/CustomButtons/Button.jsx";
 import Slide from "@material-ui/core/Slide";
 
-import { venueAction } from './../../store/actions'
-
 const Transition = (props) => {
     return <Slide direction="down" {...props} />;
 }

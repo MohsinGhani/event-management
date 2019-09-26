@@ -9,8 +9,6 @@ import Selectbar from "./Selectbar";
 import Details from "./Details";
 import CreateServiceFacilities from "./CreateServiceFacilities";
 import ImageUploader from "./ImageUploader";
-import Button from "components/CustomButtons/Button.jsx";
-import javascriptStyles from "assets/jss/material-kit-react/views/componentsSections/javascriptStyles.jsx";
 import storage from "../../firebase/FireBase";
 import PickLocation from "./PickLocation";
 

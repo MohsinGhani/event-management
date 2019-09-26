@@ -1,22 +1,13 @@
 import React, { Component } from "react";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
-import InputAdornment from "@material-ui/core/InputAdornment";
 // @material-ui/icons
-import Email from "@material-ui/icons/Email";
-import People from "@material-ui/icons/People";
-import Call from "@material-ui/icons/Call";
-import Address from "@material-ui/icons/LocationCity";
 // core components
 import Card from "components/Card/Card";
 import CardHeader from "dashboard-components/Card/CardHeader.jsx";
 import CardBody from "dashboard-components/Card/CardBody.jsx";
-import TextField from "@material-ui/core/TextField";
 import GridContainer from "components/Grid/GridContainer.jsx";
-import GridItem from "components/Grid/GridItem.jsx";
-import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Button from "components/CustomButtons/Button.jsx";
-import CustomLinearProgress from "components/CustomLinearProgress/CustomLinearProgress.jsx";
 import ReactLoading from "react-loading";
 import { DropzoneDialog } from "material-ui-dropzone";
 
