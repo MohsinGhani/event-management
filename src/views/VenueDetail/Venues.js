@@ -22,10 +22,14 @@ import "./index.css";
 // import GlobleVariables from "./GlobleVariables";
 import Booking from "./Booking";
 import MapLocation from "./MapLocation";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import Check from "@material-ui/icons/Check";
 
 class Venues extends Component {
+  
   render() {
-    const { classes, venue } = this.props;
+    const { classes, venue, bookingPrice, handleToggle} = this.props;
     return (
       <div>
         <ImageCarousel venue={venue} />
@@ -108,7 +112,7 @@ class Venues extends Component {
                         alignItems="flex-start"
                       >
                         {venue.serviesFacilities &&
-                          venue.serviesFacilities.map(services => (
+                          venue.serviesFacilities.map(service => (
                             // <GridItem
                             //   xs={12}
                             //   sm={12}
@@ -123,31 +127,47 @@ class Venues extends Component {
                             //     margin: "5px 0 5px 0"
                             //   }}
                             // >
-                            <GridItem
-                              xs={12}
-                              sm={12}
-                              md={4}
-                              lg={4}
-                              style={{
-                                display: "flex",
-                                justifyContent: "space-between"
-                              }}
-                            >
-                              <img
-                                src={checked}
-                                alt="icon"
-                                width="20px"
-                                height="20px"
-                                style={{ paddingRight: "5px" }}
-                              />
-                              <span title={services.title}>
-                                {services.title}
-                              </span>
 
-                              <span title={services.price}>
-                                Rs: {services.price}
-                              </span>
-                            </GridItem>
+                            <GridContainer>
+                              <GridItem xs={12} sm={6} md={4} lg={3}>
+                                <div
+                                  className={
+                                    classes.checkboxAndRadio +
+                                    " " +
+                                    classes.checkboxAndRadioHorizontal
+                                  }
+                                >
+                                  <FormControlLabel
+                                    control={
+                                      <Checkbox
+                                        tabIndex={-1}
+                                        // onChange={this.handleToggle}
+                                        onClick={() =>
+                                          handleToggle(service)
+                                        }
+                                        // name={`${services.price}`}
+                                        checkedIcon={
+                                          <Check
+                                            className={classes.checkedIcon}
+                                          />
+                                        }
+                                        icon={
+                                          <Check
+                                            className={classes.uncheckedIcon}
+                                          />
+                                        }
+                                        classes={{ checked: classes.checked }}
+                                      />
+                                    }
+                                    classes={{ label: classes.label }}
+                                    label={`${service.title} ${service.price}`}
+                                  />
+                                  {/* // ></FormControlLabel>
+                                  // <span>{services.title}</span>
+                                  // <span>{services.price}</span> */}
+                                </div>
+                              </GridItem>
+                            </GridContainer>
                           ))}
                       </Grid>
                     )
@@ -173,7 +193,7 @@ class Venues extends Component {
           </GridItem>
           <GridItem xs={12} sm={3} md={3} lg={3}>
             <GridContainer>
-              <Booking venue={venue} />
+              <Booking venue={venue} bookingPrice={bookingPrice} />
             </GridContainer>
             <GridContainer
               style={{ display: "flex", justifyContent: "center" }}
@@ -187,3 +207,31 @@ class Venues extends Component {
   }
 }
 export default withStyles({ ...basicsStyle, ...typographyStyle })(Venues);
+
+{
+  /* <GridItem
+                              xs={12}
+                              sm={12}
+                              md={4}
+                              lg={4}
+                              style={{
+                                display: "flex",
+                                justifyContent: "space-between"
+                              }}
+                            >
+                              <img
+                                src={checked}
+                                alt="icon"
+                                width="20px"
+                                height="20px"
+                                style={{ paddingRight: "5px" }}
+                              />
+                              <span title={services.title}>
+                                {services.title}
+                              </span>
+
+                              <span title={services.price}>
+                                Rs: {services.price}
+                              </span>
+                            </GridItem> */
+}

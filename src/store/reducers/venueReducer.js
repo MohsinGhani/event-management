@@ -29,7 +29,11 @@ const initialState = {
 
   savedVenue: null,
   saveVenueLoader: false,
-  saveVenueError: null
+  saveVenueError: null,
+
+  customBooking: [],
+  getCustomBookingLoader: false,
+  getCustomBookingError: null
 };
 
 export default function venueReducer(state = initialState, action) {
@@ -133,6 +137,29 @@ export default function venueReducer(state = initialState, action) {
         getVenueLoader: false,
         getVenueError: "Can not Get Venue by id"
       };
+
+    // case CUSTOM_BOOKING:
+    //   return {
+    //     ...state,
+    //     customBooking: null,
+    //     getCustomBookingLoader: true,
+    //     getCustomBookingError: null
+    //   };
+
+    // case CUSTOM_BOOKING_SUCCESS:
+    //   return {
+    //     ...state,
+    //     customBooking: action.payload,
+    //     getCustomBookingLoader: false,
+    //     getCustomBookingError: null
+    //   };
+    // case CUSTOM_BOOKING_FAILURE:
+    //   return {
+    //     ...state,
+    //     customBooking: null,
+    //     getCustomBookingLoader: false,
+    //     getCustomBookingError: "Can Not Booked"
+    //   };
 
     default:
       return state;
