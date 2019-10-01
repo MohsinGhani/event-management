@@ -11,7 +11,8 @@ import CreateServiceFacilities from "./CreateServiceFacilities";
 import ImageUploader from "./ImageUploader";
 import storage from "../../firebase/FireBase";
 import PickLocation from "./PickLocation";
-import Notifire from "./Notifire";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const dummyCategories = [
   { title: "Venue", id: "venue" },
@@ -33,6 +34,8 @@ class AddVenue extends Component {
 
       serviesFacilities: [{ title: "", price: "" }],
       addSer: false,
+
+      // disable: true,
 
       open: false,
       files: [],
@@ -79,6 +82,8 @@ class AddVenue extends Component {
   //     this.handleClose("mapModal")
   //   );
   // };
+
+  successNotifiy = () => toast.success("Form Successfully Submited...!");
 
   handleUploadClose = () => {
     this.setState({
@@ -286,7 +291,8 @@ class AddVenue extends Component {
       open,
       progress,
       files,
-      url
+      url,
+      disable
 
       // image,
       // url,
@@ -298,12 +304,13 @@ class AddVenue extends Component {
       <div>
         <AuthenticatedNavbar />
         <br />
-     
+
         <Selectbar
           categorySelect={categorySelect}
           categoryHandler={this.categoryHandler}
           categories={dummyCategories}
         />
+        <ToastContainer />
 
         <Details
           name={name}
@@ -312,7 +319,6 @@ class AddVenue extends Component {
           address={address}
           description={description}
           handleDetailInput={this.handleDetailInput}
-          saveVenueLoader={saveVenueLoader}
           // picked={picked}
           // classicModal={classicModal}
           // handleClickLocOpen={this.handleClickOpen}
@@ -335,6 +341,7 @@ class AddVenue extends Component {
           progress={progress}
           files={files}
           url={url}
+          saveVenueLoader={saveVenueLoader}
           handleUploadOpen={this.handleUploadOpen}
           handleUploadClose={this.handleUploadClose}
           handleUploadSave={this.handleUploadSave}
@@ -347,8 +354,10 @@ class AddVenue extends Component {
           // handleClickLocOpen={this.handleLocClickOpen}
           // handleLocClose={this.handleLocClose}
           // pickedLocation={this.pickedLocation}
-
           // // handelOnSaveAndUpload={this.handelOnSaveAndUpload}
+          // disable={disable}
+          saveVenueLoader={saveVenueLoader}
+          successNotifiy={this.successNotifiy}
           handelOnSaveAndUpload={this.handelOnSaveAndUpload}
           parestSetState={picked =>
             this.setState({
@@ -356,8 +365,6 @@ class AddVenue extends Component {
             })
           }
         />
-
-        <Notifire />
       </div>
     );
   }

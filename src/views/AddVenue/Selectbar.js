@@ -28,7 +28,7 @@ const styles = theme => ({
 
 class SelectBar extends React.Component {
   render() {
-    const { classes, categoryHandler, categorySelect, categories } = this.props;
+    const { classes, categoryHandler, categorySelect, categories } = this.props
     return (
       <GridContainer
         style={{ padding: "0", maxWidth: "1024px", margin: "0 auto" }}

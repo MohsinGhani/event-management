@@ -25,7 +25,6 @@ class Booking extends Component {
                       return <li>Rs: {prices.price}</li>;
                     })
                   : null}
-                {/* <p className={classes.textCenter}>Rs: {bookingPrice}</p> */}
                 <div
                   className="totalPrice"
                   style={{

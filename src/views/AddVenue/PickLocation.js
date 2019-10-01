@@ -8,9 +8,12 @@ import GridItem from "components/Grid/GridItem.jsx";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 import withStyles from "@material-ui/core/styles/withStyles";
+import ReactLoading from "react-loading";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import javascriptStyles from "assets/jss/material-kit-react/views/componentsSections/javascriptStyles.jsx";
 import basicsStyle from "assets/jss/material-kit-react/views/componentsSections/basicsStyle.jsx";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 class PickLocation extends Component {
   state = {
@@ -46,6 +49,9 @@ class PickLocation extends Component {
       //   handleLocClose,
       //   pickedLocation,
       //   picked
+      // disable,
+      saveVenueLoader,
+      successNotifiy,
       classes,
       handelOnSaveAndUpload
     } = this.props;
@@ -53,7 +59,13 @@ class PickLocation extends Component {
     return (
       <div>
         <GridContainer
-          style={{ padding: "0", maxWidth: "1024px", margin: "0 auto", display: 'flex', justifyContent: 'flex-end' }}
+          style={{
+            padding: "0",
+            maxWidth: "1024px",
+            margin: "0 auto",
+            display: "flex",
+            justifyContent: "flex-end"
+          }}
         >
           <Card style={{ padding: "15px", margin: 0, marginTop: "20px" }}>
             <CardHeader color="primary">
@@ -74,7 +86,8 @@ class PickLocation extends Component {
                     size="sm"
                     onClick={() => this.handleClickLocOpen("mapModal")}
                   >
-                    <i class="material-icons">add_location</i> Pick Your Location
+                    <i class="material-icons">add_location</i> Pick Your
+                    Location
                   </Button>
                 </GridItem>
               )}
@@ -126,16 +139,26 @@ class PickLocation extends Component {
               )}
             </CardBody>
           </Card>
-            <Button
-              variant="outlined"
-              color="primary"
-              block
-              onClick={() => {
-                handelOnSaveAndUpload();
-              }}
-            >
-              Save
-            </Button>
+          <Button
+          // disabled={disable}
+            variant="outlined"
+            color="success"
+            onClick={() => {
+              handelOnSaveAndUpload();
+              successNotifiy();
+            }}
+          >
+            {saveVenueLoader ? (
+              <ReactLoading
+                type={"spin"}
+                color={"#ffff"}
+                // height={'100px'}
+                // width={'100px'}
+              />
+            ) : (
+              "Submit"
+            )}
+          </Button>
           <PickLocationModal
             mapModal={mapModal}
             handleLocClose={this.handleLocClose}
