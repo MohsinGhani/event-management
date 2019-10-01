@@ -9,6 +9,7 @@ import { Button } from "@material-ui/core";
 class Booking extends Component {
   render() {
     const { classes, venue, bookingPrice } = this.props;
+    let totalPrice = 0
     return (
       <CustomTabs
         headerColor="danger"
@@ -18,11 +19,13 @@ class Booking extends Component {
             tabIcon: Book,
             tabContent: (
               <div className="booking">
-                {bookingPrice ? bookingPrice.map(prices => (
-                  <li>Rs: {prices.price}</li>
-                )) : null}
+                {bookingPrice ? bookingPrice.map(prices => {
+                  totalPrice += parseInt(prices.price) ;
+                  return <li>Rs: {prices.price}</li>
+                }) : null}
                 {/* <p className={classes.textCenter}>Rs: {bookingPrice}</p> */}
                 <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                  {totalPrice}
                   <Button variant="outlined" color="primary">
                     Book Now
                   </Button>

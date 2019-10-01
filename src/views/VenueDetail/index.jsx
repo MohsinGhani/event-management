@@ -27,59 +27,29 @@ class VenueDetail extends React.Component {
     // console.log(vid);
   }
 
-  // handleToggle = event => {
-  //   console.log(event.target.name);
-  //   // let {bookingPrice} = this.state
-  //   // bookingPrice[event.target.name] = event.target.value;
-  //   this.setState({
-  //     bookingPrice:event.target.name
-  //   })
-  //   // bookingPrice.concat(event.target.name)
-  // };
-
   handleToggleOnService = value => {
     let { servicesBookingPrice } = this.state;
-
-    // 1. check is value exist in servicesBookingPrice array or not
-
-    // 2. if is value exist in servicesBookingPrice array then remove from it
-
-    // 3. otherwise push value in servicesBookingPrice array
-
-    // const currentIndex = servicesBookingPrice.find(value);
-    
-    var isExist = servicesBookingPrice.filter(
-      (service, index) => {
-        // currentIndex = index
-        return service.title === value.title
-        }
-    );
  
-    console.log(isExist)
-    // var isExist = servicesBookingPrice.map((service, index) => service.title === value.title)
+    // check the value in array thorugh filter
+ 
+    var isExist = servicesBookingPrice.filter(service => {
+      return service.title === value.title;
+    });
 
-    if(isExist.length){
-      servicesBookingPrice.splice(1);
-    }
-    else {
-      servicesBookingPrice.push(value)
+    if (isExist.length) {
+      // remove array is exit through filter
+      var removePrice = servicesBookingPrice.filter((service) => {
+        return service.title !== value.title
+      });
+      this.setState({
+        servicesBookingPrice : removePrice
+      })
+    } else {
+      servicesBookingPrice.push(value);
       this.setState({
         servicesBookingPrice
-      })
+      });
     }
-
-//     const currentIndex = servicesBookingPrice.indexOf(value);
-//     console.log(currentIndex)
-//     const newServicesBookingPrice = [...servicesBookingPrice];
-//     console.log(newServicesBookingPrice)
-//     if (currentIndex === -1) {
-//       newServicesBookingPrice.push(value);
-//     } else {
-//       newServicesBookingPrice.splice(currentIndex, 1);
-//     }
-//     this.setState({
-//         servicesBookingPrice: newServicesBookingPrice
-//     });
   };
 
   render() {
@@ -92,7 +62,13 @@ class VenueDetail extends React.Component {
           <AuthenticatedNavbar />
           <GlobleLoader getVenueLoader={getVenueLoader} />
         </div>
-        {venue ? <Venues venue={venue} bookingPrice={servicesBookingPrice} handleToggle={this.handleToggleOnService} /> : null}
+        {venue ? (
+          <Venues
+            venue={venue}
+            bookingPrice={servicesBookingPrice}
+            handleToggle={this.handleToggleOnService}
+          />
+        ) : null}
       </div>
     );
   }
