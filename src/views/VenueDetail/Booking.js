@@ -19,13 +19,28 @@ class Booking extends Component {
             tabIcon: Book,
             tabContent: (
               <div className="booking">
-                {bookingPrice ? bookingPrice.map(prices => {
-                  totalPrice += parseInt(prices.price) ;
-                  return <li>Rs: {prices.price}</li>
-                }) : null}
+                {bookingPrice
+                  ? bookingPrice.map(prices => {
+                      totalPrice += parseInt(prices.price);
+                      return <li>Rs: {prices.price}</li>;
+                    })
+                  : null}
                 {/* <p className={classes.textCenter}>Rs: {bookingPrice}</p> */}
+                <div
+                  className="totalPrice"
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    borderTop: "2px solid #727272",
+                    borderBottom: "2px solid #727272",
+                    margin: "5px 0px 10px 0px"
+                  }}
+                >
+                  <div>Total Price: </div>
+                  <div>Rs: {totalPrice}</div>
+                </div>
+
                 <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                  {totalPrice}
                   <Button variant="outlined" color="primary">
                     Book Now
                   </Button>
