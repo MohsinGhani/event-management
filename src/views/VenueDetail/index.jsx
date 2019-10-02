@@ -17,7 +17,8 @@ class VenueDetail extends React.Component {
     super(props);
     this.state = {
       eventId: "",
-      servicesBookingPrice: []
+      servicesBookingPrice: [],
+      bookingDate: new Date()
     };
   }
 
@@ -28,9 +29,15 @@ class VenueDetail extends React.Component {
     // console.log(vid);
   }
 
+  handleOnDateChange = date => {
+    this.setState({
+      bookingDate: date
+    });
+  };
+
   saveCustomBooking = () => {
     const { vid } = this.props.match.params;
-    const { servicesBookingPrice } = this.state;
+    const { servicesBookingPrice, bookingDate } = this.state;
     this.setState({
       eventId: vid
     });
@@ -38,6 +45,7 @@ class VenueDetail extends React.Component {
       userId: "current user id",
       eventId: vid,
       servicesBookingPrice,
+      bookingDate,
       createdTimestamp: new Date().getTime()
     };
     console.log(bookingDetail);
@@ -74,7 +82,7 @@ class VenueDetail extends React.Component {
 
   render() {
     const { classes, venue, getVenueLoader } = this.props;
-    const { servicesBookingPrice } = this.state;
+    const { servicesBookingPrice, bookingDate } = this.state;
     // console.log(venue);
     return (
       <div>
@@ -86,8 +94,10 @@ class VenueDetail extends React.Component {
           <Venues
             venue={venue}
             bookingPrice={servicesBookingPrice}
+            bookingDate={bookingDate}
             handleToggle={this.handleToggleOnService}
             saveCustomBooking={this.saveCustomBooking}
+            handleOnDateChange={this.handleOnDateChange}
           />
         ) : null}
       </div>

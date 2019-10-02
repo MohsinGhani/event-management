@@ -16,9 +16,29 @@ import { Button } from "@material-ui/core";
 
 import basicsStyle from "assets/jss/material-kit-react/views/componentsSections/basicsStyle.jsx";
 
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
+
 class Booking extends Component {
+  // state = {
+  //   startDate: new Date()
+  // };
+
+  // handleChange = date => {
+  //   this.setState({
+  //     startDate: date
+  //   });
+  // };
   render() {
-    const { classes, venue, bookingPrice, saveCustomBooking } = this.props;
+    const {
+      classes,
+      venue,
+      bookingPrice,
+      saveCustomBooking,
+      bookingDate,
+      handleOnDateChange
+    } = this.props;
     let totalPrice = 0;
     return (
       <CustomTabs
@@ -30,21 +50,27 @@ class Booking extends Component {
             tabContent: (
               <GridContainer>
                 <GridItem xs={12} sm={12} md={12}>
-                  <div className={classes.title}>
-                    <h3>Datetime Picker</h3>
-                  </div>
                   <GridContainer>
-                    {/* <GridItem xs={12} sm={12} md={6}> */}
-                    {/* <InputLabel className={classes.label}>
+                    <GridItem xs={12} sm={12} md={6}>
+                      {/* <InputLabel className={classes.label}>
                         Datetime Picker
-                      </InputLabel> */}
+                      </InputLabel>
                     <br />
                     <FormControl fullWidth>
                       <Datetime
                         inputProps={{ placeholder: "Datetime Picker Here" }}
                       />
-                    </FormControl>
-                    {/* </GridItem> */}
+                    </FormControl> */}
+                      <DatePicker
+                        selected={bookingDate}
+                        onChange={handleOnDateChange}
+                        showTimeSelect
+                        timeFormat="HH:mm"
+                        timeIntervals={15}
+                        timeCaption="time"
+                        dateFormat="MMMM d, yyyy h:mm aa"
+                      />
+                    </GridItem>
                   </GridContainer>
                 </GridItem>
                 <GridItem xs={12} sm={12} md={12}>
