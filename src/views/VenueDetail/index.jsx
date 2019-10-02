@@ -16,6 +16,7 @@ class VenueDetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      eventId: "",
       servicesBookingPrice: []
     };
   }
@@ -27,23 +28,42 @@ class VenueDetail extends React.Component {
     // console.log(vid);
   }
 
+  saveCustomBooking = () => {
+    const { vid } = this.props.match.params;
+    const { servicesBookingPrice } = this.state;
+    this.setState({
+      eventId: vid
+    });
+    const bookingDetail = {
+      userId: "current user id",
+      eventId: vid,
+      servicesBookingPrice,
+      createdTimestamp: new Date().getTime()
+    };
+    console.log(bookingDetail);
+    this.props.saveCustomBooking(bookingDetail);
+    this.setState({
+      servicesBookingPrice: []
+    });
+  };
+
   handleToggleOnService = value => {
     let { servicesBookingPrice } = this.state;
- 
+
     // check the value in array thorugh filter
- 
+
     var isExist = servicesBookingPrice.filter(service => {
       return service.title === value.title;
     });
 
     if (isExist.length) {
       // remove array is exit through filter
-      var removePrice = servicesBookingPrice.filter((service) => {
-        return service.title !== value.title
+      var removePrice = servicesBookingPrice.filter(service => {
+        return service.title !== value.title;
       });
       this.setState({
-        servicesBookingPrice : removePrice
-      })
+        servicesBookingPrice: removePrice
+      });
     } else {
       servicesBookingPrice.push(value);
       this.setState({
@@ -67,6 +87,7 @@ class VenueDetail extends React.Component {
             venue={venue}
             bookingPrice={servicesBookingPrice}
             handleToggle={this.handleToggleOnService}
+            saveCustomBooking={this.saveCustomBooking}
           />
         ) : null}
       </div>
@@ -77,13 +98,25 @@ class VenueDetail extends React.Component {
 const mapStateToProps = state => {
   const {
     authReducer: { user, isLoggedIn },
-    venueReducer: { venue, getVenueLoader, getVenueError }
+    venueReducer: {
+      venue,
+      getVenueLoader,
+      getVenueError,
+      saveCustomBooking,
+      saveCustomBookingLoader,
+      saveCustomBookingError
+    }
   } = state;
   //
   return {
     venue,
     getVenueLoader,
     getVenueError,
+
+    saveCustomBooking,
+    saveCustomBookingLoader,
+    saveCustomBookingError,
+
     user,
     isLoggedIn
   };
@@ -93,7 +126,9 @@ const mapDispatchToProps = dispatch => {
   //
   return {
     isLoggedInAction: payload => dispatch(authAction.isLoggedIn(payload)),
-    getVenue: vid => dispatch(venueAction.getVenue(vid))
+    getVenue: vid => dispatch(venueAction.getVenue(vid)),
+    saveCustomBooking: payload =>
+      dispatch(venueAction.saveCustomBooking(payload))
   };
 };
 

@@ -16,7 +16,8 @@ const rootEpic = combineEpics(
   venueEpic.reverseGeoCoding,
   venueEpic.saveVenue,
   venueEpic.getVenues,
-  venueEpic.getVenue
+  venueEpic.getVenue,
+  venueEpic.saveCustomBooking
 );
 
 export default rootEpic;

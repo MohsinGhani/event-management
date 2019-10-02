@@ -10,7 +10,10 @@ import {
   SAVE_VENUES_FAILURE,
   REVERSE_GEOCODING,
   REVERSE_GEOCODING_SUCCESS,
-  REVERSE_GEOCODING_FAILURE
+  REVERSE_GEOCODING_FAILURE,
+  SAVE_CUSTOM_BOOKING,
+  SAVE_CUSTOM_BOOKING_SUCCESS,
+  SAVE_CUSTOM_BOOKING_FAILURE
 } from "./../constants";
 
 export class venueAction {
@@ -36,6 +39,7 @@ export class venueAction {
     };
   }
   ////////////////
+
   static getVenues(payload) {
     return {
       type: GET_VENUES,
@@ -58,6 +62,7 @@ export class venueAction {
   }
 
   ////////////////
+
   static getVenue(payload) {
     return {
       type: GET_VENUE,
@@ -80,6 +85,7 @@ export class venueAction {
   }
 
   ////////////////
+
   static saveVenue(payload) {
     return {
       type: SAVE_VENUES,
@@ -97,6 +103,27 @@ export class venueAction {
   static saveVenueFailure(error) {
     return {
       type: SAVE_VENUES_FAILURE,
+      error
+    };
+  }
+
+  ///////////////
+
+  static saveCustomBooking(payload) {
+    return {
+      type: SAVE_CUSTOM_BOOKING,
+      payload
+    };
+  }
+  static saveCustomBookingSuccess(payload) {
+    return {
+      type: SAVE_CUSTOM_BOOKING_SUCCESS,
+      payload
+    };
+  }
+  static saveCustomBookingFailure(error) {
+    return {
+      type: SAVE_CUSTOM_BOOKING_FAILURE,
       error
     };
   }

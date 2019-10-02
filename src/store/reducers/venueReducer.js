@@ -10,7 +10,10 @@ import {
   SAVE_VENUES_FAILURE,
   REVERSE_GEOCODING,
   REVERSE_GEOCODING_SUCCESS,
-  REVERSE_GEOCODING_FAILURE
+  REVERSE_GEOCODING_FAILURE,
+  SAVE_CUSTOM_BOOKING,
+  SAVE_CUSTOM_BOOKING_SUCCESS,
+  SAVE_CUSTOM_BOOKING_FAILURE
 } from "./../constants";
 // import { venues } from "./../../assets/venus";
 
@@ -31,9 +34,9 @@ const initialState = {
   saveVenueLoader: false,
   saveVenueError: null,
 
-  customBooking: [],
-  getCustomBookingLoader: false,
-  getCustomBookingError: null
+  saveCustomBooking: null,
+  saveCustomBookingLoader: false,
+  saveCustomBookingError: null
 };
 
 export default function venueReducer(state = initialState, action) {
@@ -138,28 +141,30 @@ export default function venueReducer(state = initialState, action) {
         getVenueError: "Can not Get Venue by id"
       };
 
-    // case CUSTOM_BOOKING:
-    //   return {
-    //     ...state,
-    //     customBooking: null,
-    //     getCustomBookingLoader: true,
-    //     getCustomBookingError: null
-    //   };
+    ////////////////////
 
-    // case CUSTOM_BOOKING_SUCCESS:
-    //   return {
-    //     ...state,
-    //     customBooking: action.payload,
-    //     getCustomBookingLoader: false,
-    //     getCustomBookingError: null
-    //   };
-    // case CUSTOM_BOOKING_FAILURE:
-    //   return {
-    //     ...state,
-    //     customBooking: null,
-    //     getCustomBookingLoader: false,
-    //     getCustomBookingError: "Can Not Booked"
-    //   };
+    case SAVE_CUSTOM_BOOKING:
+      return {
+        ...state,
+        saveCustomBooking: null,
+        saveCustomBookingLoader: true,
+        saveCustomBookingError: null
+      };
+
+    case SAVE_CUSTOM_BOOKING_SUCCESS:
+      return {
+        ...state,
+        saveCustomBooking: action.payload,
+        saveCustomBookingLoader: false,
+        saveCustomBookingError: null
+      };
+    case SAVE_CUSTOM_BOOKING_FAILURE:
+      return {
+        ...state,
+        saveCustomBooking: null,
+        saveCustomBookingLoader: false,
+        saveCustomBookingError: "Can Not Booked"
+      };
 
     default:
       return state;

@@ -1,10 +1,15 @@
-import { REVERSE_GEOCODING } from "./../constants";
+import { REVERSE_GEOCODING, SAVE_CUSTOM_BOOKING_FAILURE } from "./../constants";
 import { Observable } from "rxjs/Rx";
 import { venueAction } from "./../actions/index";
 import { HttpService } from "../../services/http";
 import path from "./../../config/path";
 import credentials from "../../config/credentials";
-import { SAVE_VENUES, GET_VENUES, GET_VENUE } from "../constants";
+import {
+  SAVE_VENUES,
+  GET_VENUES,
+  GET_VENUE,
+  SAVE_CUSTOM_BOOKING
+} from "../constants";
 import { db } from "../../firebase/FireBase";
 
 export default class venueEpic {
@@ -83,6 +88,25 @@ export default class venueEpic {
           // console.log("Error getting document:", error);
           return venueAction.getVenueFailure(
             `Error in getting venue! ${error}`
+          );
+        });
+    });
+
+  static saveCustomBooking = action$ =>
+    action$.ofType(SAVE_CUSTOM_BOOKING).mergeMap(({ payload }) => {
+      // console.log("custom booking => ",payload)
+      return Observable.fromPromise(
+        db
+          .collection("booking")
+          .doc()
+          .set(payload)
+      )
+        .switchMap(() => {
+          return Observable.of(venueAction.saveCustomBookingSuccess(payload));
+        })
+        .catch(err => {
+          return venueAction.saveCustomBookingFailure(
+            `Error in Save Booking! ${err}`
           );
         });
     });

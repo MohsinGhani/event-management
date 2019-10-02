@@ -29,7 +29,7 @@ import Check from "@material-ui/icons/Check";
 class Venues extends Component {
   
   render() {
-    const { classes, venue, bookingPrice, handleToggle} = this.props;
+    const { classes, venue, bookingPrice, handleToggle,saveCustomBooking} = this.props;
     return (
       <div>
         <ImageCarousel venue={venue} />
@@ -113,20 +113,6 @@ class Venues extends Component {
                       >
                         {venue.serviesFacilities &&
                           venue.serviesFacilities.map(service => (
-                            // <GridItem
-                            //   xs={12}
-                            //   sm={12}
-                            //   md={4}
-                            //   lg={4}
-                            //   style={{
-                            //     padding: "0",
-                            //     width: "35%",
-                            //     overflow: "hidden",
-                            //     whiteSpace: "nowrap",
-                            //     textOverflow: "ellipsis",
-                            //     margin: "5px 0 5px 0"
-                            //   }}
-                            // >
 
                             <GridContainer>
                               <GridItem xs={12} sm={6} md={4} lg={3}>
@@ -193,7 +179,7 @@ class Venues extends Component {
           </GridItem>
           <GridItem xs={12} sm={3} md={3} lg={3}>
             <GridContainer>
-              <Booking venue={venue} bookingPrice={bookingPrice} />
+              <Booking venue={venue} bookingPrice={bookingPrice} saveCustomBooking={saveCustomBooking} />
             </GridContainer>
             <GridContainer
               style={{ display: "flex", justifyContent: "center" }}
