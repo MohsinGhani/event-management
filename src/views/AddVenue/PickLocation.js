@@ -139,26 +139,36 @@ class PickLocation extends Component {
               )}
             </CardBody>
           </Card>
-          <Button
-          // disabled={disable}
-            variant="outlined"
-            color="success"
-            onClick={() => {
-              handelOnSaveAndUpload();
-              successNotifiy();
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              height: "50px"
             }}
           >
-            {saveVenueLoader ? (
-              <ReactLoading
-                type={"spin"}
-                color={"#ffff"}
-                // height={'100px'}
-                // width={'100px'}
-              />
-            ) : (
-              "Submit"
-            )}
-          </Button>
+            {" "}
+            <Button
+              // disabled={disable}
+              variant="outlined"
+              color="success"
+              onClick={() => {
+                handelOnSaveAndUpload();
+                successNotifiy("Form Successfully Submited...!");
+              }}
+            >
+              {saveVenueLoader ? (
+                <ReactLoading
+                  type={"spin"}
+                  color={"#ffff"}
+                  // height={'100px'}
+                  // width={'100px'}
+                />
+              ) : (
+                "Submit"
+              )}
+            </Button>
+          </div>
+
           <PickLocationModal
             mapModal={mapModal}
             handleLocClose={this.handleLocClose}

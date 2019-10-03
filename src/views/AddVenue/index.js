@@ -83,7 +83,7 @@ class AddVenue extends Component {
   //   );
   // };
 
-  successNotifiy = () => toast.success("Form Successfully Submited...!");
+  successNotifiy = message => toast.success(message);
 
   handleUploadClose = () => {
     this.setState({

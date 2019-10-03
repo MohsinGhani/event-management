@@ -35,7 +35,9 @@ class Venues extends Component {
       handleToggle,
       saveCustomBooking,
       bookingDate,
-      handleOnDateChange
+      handleOnDateChange,
+      saveCustomBookingLoader,
+      successNotifiy
     } = this.props;
     return (
       <div>
@@ -189,6 +191,8 @@ class Venues extends Component {
                 saveCustomBooking={saveCustomBooking}
                 bookingDate={bookingDate}
                 handleOnDateChange={handleOnDateChange}
+                saveCustomBookingLoader={saveCustomBookingLoader}
+                successNotifiy={successNotifiy}
               />
             </GridContainer>
             <GridContainer

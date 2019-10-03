@@ -11,6 +11,8 @@ import carouselStyle from "assets/jss/material-kit-react/views/componentsSection
 // core components
 import Venues from "./Venues";
 import GlobleLoader from "./GlobleLoader";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 class VenueDetail extends React.Component {
   constructor(props) {
@@ -34,6 +36,7 @@ class VenueDetail extends React.Component {
       bookingDate: date
     });
   };
+  successNotifiy = message => toast.success(message);
 
   saveCustomBooking = () => {
     const { vid } = this.props.match.params;
@@ -81,7 +84,12 @@ class VenueDetail extends React.Component {
   };
 
   render() {
-    const { classes, venue, getVenueLoader } = this.props;
+    const {
+      classes,
+      venue,
+      getVenueLoader,
+      saveCustomBookingLoader
+    } = this.props;
     const { servicesBookingPrice, bookingDate } = this.state;
     // console.log(venue);
     return (
@@ -90,14 +98,18 @@ class VenueDetail extends React.Component {
           <AuthenticatedNavbar />
           <GlobleLoader getVenueLoader={getVenueLoader} />
         </div>
+        <ToastContainer />
+
         {venue ? (
           <Venues
             venue={venue}
             bookingPrice={servicesBookingPrice}
             bookingDate={bookingDate}
+            saveCustomBookingLoader={saveCustomBookingLoader}
             handleToggle={this.handleToggleOnService}
             saveCustomBooking={this.saveCustomBooking}
             handleOnDateChange={this.handleOnDateChange}
+            successNotifiy={this.successNotifiy}
           />
         ) : null}
       </div>
