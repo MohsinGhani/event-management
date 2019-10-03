@@ -13,8 +13,8 @@ import "assets/scss/material-kit-react.scss?v=1.4.0";
 // pages for this product
 import Home from "views/Home";
 import ListView from "views/Home/ListView.jsx";
-// import RegisterPage from "views/LoginPage/RegisterPage.jsx";
-// import LoginPage from "views/LoginPage/LoginPage.jsx";
+import RegisterPage from "views/LoginPage/RegisterPage.jsx";
+import LoginPage from "views/LoginPage/LoginPage.jsx";
 // import ConfirmEmail from "views/LoginPage/ConfirmEmail.jsx";
 // import Dashboard from 'views/Dashboard/Dashboard.jsx'
 // import Admin from "layouts/Admin.jsx";
@@ -39,9 +39,9 @@ ReactDOM.render(
           <Route exact path="/list-view" component={ListView} />
           <Route exact path="/venue-detail/:vid" component={VenueDetail} />
           <Route exact path="/add-venue" component={AddVenue} />
-          {/* <Route path="/register" exact component={RegisterPage} />
+          <Route path="/register" exact component={RegisterPage} />
           <Route path="/login" exact component={LoginPage} />
-          <Route path="/verify-email" exact component={ConfirmEmail} />
+         {/*  <Route path="/verify-email" exact component={ConfirmEmail} />
           <Route path="/admin" component={Admin} /> */}
         </Switch>
       </React.Fragment>

@@ -19,13 +19,13 @@ import basicsStyle from "assets/jss/material-kit-react/views/componentsSections/
 
 import DatePicker from "react-datepicker";
 
+import ReactLoading from "react-loading";
 import "react-toastify/dist/ReactToastify.css";
 
 import "react-datepicker/dist/react-datepicker.css";
 import "flatpickr/dist/themes/material_green.css";
 import Flatpickr from "react-flatpickr";
 
-import ReactLoading from "react-loading";
 
 class Booking extends Component {
   // state = {

@@ -1,6 +1,6 @@
 import React from "react";
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -23,6 +23,11 @@ import loginPageStyle from "assets/jss/material-kit-react/views/loginPage.jsx";
 
 import image from "assets/img/bg7.jpg";
 
+import ReactLoading from "react-loading";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 // actions
 import { authAction } from "./../../store/actions";
 
@@ -38,7 +43,7 @@ class LoginPage extends React.Component {
       isSigninButtonDisabled: true,
       error: {
         userEmail: null,
-        userPass: null,
+        userPass: null
       }
     };
   }
@@ -47,70 +52,79 @@ class LoginPage extends React.Component {
     this.props.history.push(path);
   };
 
-  handleInput = (e) => {
+  handleInput = e => {
     this.setState({
       [e.target.id]: e.target.value
-    })
-  }
+    });
+  };
 
   componentDidMount() {
     // we add a hidden class to the card and after 700 ms we delete it and the transition appears
     setTimeout(
-      function () {
+      function() {
         this.setState({ cardAnimaton: "" });
       }.bind(this),
       500
     );
     this.props.isLoggedInAction();
-    if (this.props.isLoggedIn) {
-      this.goto('/')
-    }
+    // if (this.props.isLoggedIn) {
+    //   this.goto('/list-view')
+    // }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.isLoggedIn) {
-      this.goto('/')
-    }
-  }
-  
+  // componentWillReceiveProps(nextProps) {
+  //   if (this.props.isLoggedIn) {
+  //     this.goto('/list-view')
+  //   }
+  // }
+
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.userEmail !== this.state.userEmail || prevState.userPass !== this.state.userPass) {
-      this.validateSignupForm()
+    if (
+      prevState.userEmail !== this.state.userEmail ||
+      prevState.userPass !== this.state.userPass
+    ) {
+      this.validateSignupForm();
     }
   }
-
+  successNotifiy = message => toast.success(message);
 
   validateSignupForm = () => {
-    let { userEmail, userPass, error } = this.state
-    if ((userPass && userPass.length >= 8) && userEmail) {
-      error = { userEmail: null, userPass: null }
-      this.setState({ isSigninButtonDisabled: false, error })
+    let { userEmail, userPass, error } = this.state;
+    if (userPass && userPass.length >= 8 && userEmail) {
+      error = { userEmail: null, userPass: null };
+      this.setState({ isSigninButtonDisabled: false, error });
+    } else if (userPass && userPass.length < 8) {
+      error.userPass = "password does not meet the requirements";
+      this.setState({ isSigninButtonDisabled: true, error });
+    } else {
+      error = { userEmail: null, userPass: null };
+      this.setState({ isSigninButtonDisabled: true, error });
     }
-    else if (userPass && userPass.length < 8) {
-      error.userPass = "password does not meet the requirements"
-      this.setState({ isSigninButtonDisabled: true, error })
-    }
-    else {
-      error = { userEmail: null, userPass: null }
-      this.setState({ isSigninButtonDisabled: true, error })
-    }
-  }
+  };
 
   handleSignIn = () => {
-    let { userEmail, userPass } = this.state
-    this.props.signInAction({ userEmail, userPass })
-  }
+    let { userEmail, userPass } = this.state;
+    this.props.signInAction({ userEmail, userPass });
+    this.successNotifiy("Login Success...!");
+    this.goto("/");
+  };
 
   toggleShowPass = () => {
-    this.setState({ showPass: !this.state.showPass })
-  }
+    this.setState({ showPass: !this.state.showPass });
+  };
 
   render() {
     const { classes, authError, authLoader, ...rest } = this.props;
-    const { userEmail, userPass, isSigninButtonDisabled, showPass } = this.state;
+    const {
+      userEmail,
+      userPass,
+      isSigninButtonDisabled,
+      showPass
+    } = this.state;
 
     return (
       <div>
+        <ToastContainer />
         <Header
           absolute
           color="transparent"
@@ -133,7 +147,12 @@ class LoginPage extends React.Component {
                     <CardHeader color="primary" className={classes.cardHeader}>
                       <h4>Login</h4>
                     </CardHeader>
-                    <p className={classes.divider} style={{ width: "80%", color: "red", margin: "0 auto" }}>{authError}</p>
+                    <p
+                      className={classes.divider}
+                      style={{ width: "80%", color: "red", margin: "0 auto" }}
+                    >
+                      {authError}
+                    </p>
                     <CardBody>
                       <CustomInput
                         labelText="Email"
@@ -143,7 +162,7 @@ class LoginPage extends React.Component {
                         inputProps={{
                           type: "email",
                           id: "userEmail",
-                          onChange: (ev) => this.handleInput(ev),
+                          onChange: ev => this.handleInput(ev),
                           value: userEmail ? userEmail : "",
                           endAdornment: (
                             <InputAdornment position="end">
@@ -160,16 +179,16 @@ class LoginPage extends React.Component {
                         inputProps={{
                           type: showPass ? "text" : "password",
                           id: "userPass",
-                          onChange: (ev) => this.handleInput(ev),
+                          onChange: ev => this.handleInput(ev),
                           value: userPass ? userPass : "",
                           endAdornment: (
                             <InputAdornment position="end">
-                              <Icon 
-                                className={classes.inputIconsColor} 
-                                style={{cursor: "pointer"}}
+                              <Icon
+                                className={classes.inputIconsColor}
+                                style={{ cursor: "pointer" }}
                                 onClick={this.toggleShowPass}
                               >
-                                { showPass ? "visibility" : "visibility_off"}
+                                {showPass ? "visibility" : "visibility_off"}
                               </Icon>
                             </InputAdornment>
                           )
@@ -179,22 +198,34 @@ class LoginPage extends React.Component {
                     <CardFooter className={classes.cardFooter}>
                       <Button
                         simple
-                        style={{cursor: "pointer"}}
+                        style={{ cursor: "pointer" }}
                         color="primary"
                         size="lg"
-                        onClick={() => this.goto('/register')}
+                        onClick={() => this.goto("/register")}
                       >
                         I want to Register
                       </Button>
                       <Button
                         simple
-                        style={{cursor: "pointer"}}
+                        style={{ cursor: "pointer" }}
                         color="primary"
                         size="lg"
                         disabled={isSigninButtonDisabled || authLoader}
-                        onClick={this.handleSignIn}
+                        onClick={() => {
+                          this.handleSignIn();
+                          
+                        }}
                       >
-                        { authLoader ? '...' : 'Login'}
+                        {authLoader ? (
+                          <ReactLoading
+                            type={"spin"}
+                            color={"#ffff"}
+                            // height={'100px'}
+                            // width={'100px'}
+                          />
+                        ) : (
+                          "Login"
+                        )}
                       </Button>
                     </CardFooter>
                   </form>
@@ -208,20 +239,26 @@ class LoginPage extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  const { authReducer: { user, authLoader, authError, isLoggedIn } } = state;
+const mapStateToProps = state => {
+  const {
+    authReducer: { user, authLoader, authError, isLoggedIn }
+  } = state;
   return {
-    user, authLoader, authError, isLoggedIn
-  }
-}
+    user,
+    authLoader,
+    authError,
+    isLoggedIn
+  };
+};
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    signInAction: (payload) => dispatch(authAction.signIn(payload)),
-    isLoggedInAction: (payload) => dispatch(authAction.isLoggedIn(payload)),
+    signInAction: payload => dispatch(authAction.signIn(payload)),
+    isLoggedInAction: payload => dispatch(authAction.isLoggedIn(payload))
   };
 };
 
 export default connect(
-  mapStateToProps, mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(withRouter(withStyles(loginPageStyle)(LoginPage)));
