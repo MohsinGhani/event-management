@@ -93,7 +93,7 @@ export default class authEpic {
           // if (response.type && response.type === "LOGOUT_FAILURE") {
           //   return Observable.of(authAction.logoutFailure(response.error));
           // } else {
-          //   return Observable.of(authAction.logoutSuccess(response));
+            return Observable.of(authAction.logoutSuccess(response));
           // }
         });
     });

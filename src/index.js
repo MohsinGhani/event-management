@@ -6,7 +6,7 @@ import Amplify from 'aws-amplify';
 import awsConfig from './config/awsConfig'
 import { Provider } from "react-redux";
 import store from './store/store'
-// import PrivateRoute from './components/common/PrivateRoute';
+import PrivateRoute from './components/common/PrivateRoute';
 // import './index.css'
 import "assets/scss/material-kit-react.scss?v=1.4.0";
 
@@ -33,8 +33,8 @@ ReactDOM.render(
           {/* <PrivateRoute exact path="/" component={Components} /> */}
           {/* <Route exact path="/" component={Components} /> */}
 
-          {/* <PrivateRoute exact path="/" component={Home} /> */}
-          <Route exact path="/" component={Home} />
+          <PrivateRoute exact path="/" component={Home} />
+          {/* <Route exact path="/" component={Home} /> */}
 
           <Route exact path="/list-view" component={ListView} />
           <Route exact path="/venue-detail/:vid" component={VenueDetail} />
