@@ -9,7 +9,7 @@ import Selectbar from "./Selectbar";
 import Details from "./Details";
 import CreateServiceFacilities from "./CreateServiceFacilities";
 import ImageUploader from "./ImageUploader";
-import storage from "../../firebase/FireBase";
+import { storage } from "../../firebase/FireBase";
 import PickLocation from "./PickLocation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -189,6 +189,7 @@ class AddVenue extends Component {
   handelOnSaveAndUpload = () => {
     var storageRef = storage.ref();
     var urls = [];
+    let user = this.props.user;
 
     this.state.files.map((file, index) => {
       storageRef
@@ -246,7 +247,8 @@ class AddVenue extends Component {
                   serviesFacilities,
                   objType: categorySelect,
                   location: picked,
-                  url
+                  url,
+                  userId: user && user.user.uid
                 };
                 this.props.saveVenue(newDetails);
                 this.setState({
@@ -299,7 +301,8 @@ class AddVenue extends Component {
       // progress
     } = this.state;
 
-    const { saveVenueLoader } = this.props;
+    const { saveVenueLoader, user } = this.props;
+    console.log(user && user.user.uid);
     return (
       <div>
         <AuthenticatedNavbar />

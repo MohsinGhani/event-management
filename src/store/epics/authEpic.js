@@ -25,6 +25,41 @@ import {
 import { db } from "../../firebase/FireBase";
 
 export default class authEpic {
+  static signUp = action$ =>
+    action$.ofType(SIGNUP).switchMap(({ payload }) => {
+      return Observable.fromPromise(
+        auth.createUserWithEmailAndPassword(payload.userEmail, payload.userPass)
+      )
+        .catch(err => {
+          return Observable.of(authAction.signUpFailure(err));
+        })
+        .switchMap(response => {
+          console.log("signup", response);
+          let userId = "";
+          userId = response.user.uid;
+          console.log(userId);
+          if (response.type && response.type === "SIGNUP_FAILURE") {
+            return Observable.of(authAction.signUpFailure(response.error));
+          } else {
+            return Observable.fromPromise(
+              db
+                .collection("Users")
+                .doc(userId)
+                .set(payload)
+            )
+              .switchMap(response => {
+                return Observable.of(
+                  authAction.signUpSuccess(response)
+                  // authAction.signIn(response)
+                );
+              })
+              .catch(err => {
+                return Observable.of(authAction.signInFailure(err));
+              });
+          }
+        });
+    });
+
   static signIn = action$ =>
     action$.ofType(SIGNIN).switchMap(({ payload }) => {
       const { userEmail, userPass } = payload;
@@ -35,7 +70,7 @@ export default class authEpic {
           return Observable.of(authAction.signInFailure(err));
         })
         .switchMap(response => {
-            console.log(response)
+          console.log(response);
           if (response.type && response.type === "SIGNIN_FAILURE") {
             return Observable.of(authAction.signInFailure(response.error));
           } else {
@@ -44,96 +79,24 @@ export default class authEpic {
         });
     });
 
-  // static signIn = (action$) =>
-  //     action$.ofType(SIGNIN)
-  //         .switchMap(({ payload }) => {
-  //             const { userEmail, userPass } = payload
-  //             return Observable.fromPromise(login(userEmail, userPass))
-  //                 .catch((err) => {
-  //                     return Observable.of(
-  //                         authAction.signInFailure(err)
-  //                     )
-  //                 })
-  //                 .switchMap((res) => {
-  //                     if (res.type && res.type === 'SIGNIN_FAILURE') {
-  //                         return Observable.of(
-  //                             authAction.signInFailure(res.error)
-  //                         )
-  //                     } else {
-  //                         return Observable.of(
-  //                             authAction.signInSuccess(res),
-  //                             authAction.getUserById({ user_id: res.username })
-  //                         );
-  //                     }
-  //                 })
-  //         })
-
-
-  ///SignUp Remaing
-
-//   static signUp = action$ =>
-//   action$.ofType(SIGNUP).switchMap(({payload}) => {
-//       let userId = ""
-//       return Observable.fromPromise(
-//         auth.createUserWithEmailAndPassword(payload.userEmail, payload.userPass))
-//         .catch((err) => {
-//             return Observable.of(authAction.signUpFailure(err.message))
-//   })
-//   .switchMap(response => {
-//       if(response.type && response.type === "SIGNUP_FAILURE") {
-//           return Observable.of(authAction.signUpFailure(response.error))
-//       } else {
-//           return Observable.fromPromise(db.collection("User SignUp Details").doc(userId).set(payload))
-//           .switchMap((response) => {
-//               return Observable.of(
-//                 authAction.signUpSuccess(response),
-//                 authAction.signIn(response)
-//               )
-//           })
-//           .catch((err) => {
-//               return Observable.of(
-//                   authAction.signInFailure(err)
-//               )
-//           })
-//       }
-//   })
-
-
-
-  static signUp = action$ =>
-    action$
-      .ofType(SIGNUP)
-      .switchMap(({ payload }) => {
-        return Observable.fromPromise(signup(payload)).catch(err => {
-          return Observable.of(authAction.signUpFailure(err.message));
-        });
-      })
-      .switchMap(res => {
-        if (res.type && res.type === "SIGNUP_FAILURE") {
-          return Observable.of(authAction.signUpFailure(res.error));
-        } else {
-          return Observable.of(
-            authAction.signUpSuccess(res),
-            authAction.postSignUp(res)
-          );
-        }
-      });
+  ///////////////////////////////////////******************************************//////////////////////////////////////
 
   static logout = action$ =>
-    action$
-      .ofType(LOGOUT)
-      .switchMap(() => {
-        return Observable.fromPromise(logout()).catch(err => {
-          return Observable.of(authAction.logoutFailure(err.message));
+    action$.ofType(LOGOUT).switchMap(() => {
+      return Observable.fromPromise(auth.signOut())
+        .catch(err => {
+          console.log(err)
+          return Observable.of(authAction.logoutFailure(err));
+        })
+        .switchMap(response => {
+          console.log(response)
+          // if (response.type && response.type === "LOGOUT_FAILURE") {
+          //   return Observable.of(authAction.logoutFailure(response.error));
+          // } else {
+          //   return Observable.of(authAction.logoutSuccess(response));
+          // }
         });
-      })
-      .switchMap(res => {
-        if (res.type && res.type === "LOGOUT_FAILURE") {
-          return Observable.of(authAction.logoutFailure(res.error));
-        } else {
-          return Observable.of(authAction.logoutSuccess(res));
-        }
-      });
+    });
 
   static isLoggedIn = action$ =>
     action$.ofType(IS_LOGGED_IN).switchMap(() => {
@@ -229,3 +192,46 @@ export default class authEpic {
         });
     });
 }
+
+// static signIn = (action$) =>
+//     action$.ofType(SIGNIN)
+//         .switchMap(({ payload }) => {
+//             const { userEmail, userPass } = payload
+//             return Observable.fromPromise(login(userEmail, userPass))
+//                 .catch((err) => {
+//                     return Observable.of(
+//                         authAction.signInFailure(err)
+//                     )
+//                 })
+//                 .switchMap((res) => {
+//                     if (res.type && res.type === 'SIGNIN_FAILURE') {
+//                         return Observable.of(
+//                             authAction.signInFailure(res.error)
+//                         )
+//                     } else {
+//                         return Observable.of(
+//                             authAction.signInSuccess(res),
+//                             authAction.getUserById({ user_id: res.username })
+//                         );
+//                     }
+//                 })
+//         })
+
+// static signUp = action$ =>
+//   action$
+//     .ofType(SIGNUP)
+//     .switchMap(({ payload }) => {
+//       return Observable.fromPromise(signup(payload)).catch(err => {
+//         return Observable.of(authAction.signUpFailure(err.message));
+//       });
+//     })
+//     .switchMap(res => {
+//       if (res.type && res.type === "SIGNUP_FAILURE") {
+//         return Observable.of(authAction.signUpFailure(res.error));
+//       } else {
+//         return Observable.of(
+//           authAction.signUpSuccess(res),
+//           authAction.postSignUp(res)
+//         );
+//       }
+//     });

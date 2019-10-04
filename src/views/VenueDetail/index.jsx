@@ -40,12 +40,14 @@ class VenueDetail extends React.Component {
 
   saveCustomBooking = () => {
     const { vid } = this.props.match.params;
+    let user = this.props.user;
+
     const { servicesBookingPrice, bookingDate } = this.state;
     this.setState({
       eventId: vid
     });
     const bookingDetail = {
-      userId: "current user id",
+      userId: user && user.user.uid,
       eventId: vid,
       servicesBookingPrice,
       bookingDate,

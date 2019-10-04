@@ -71,20 +71,20 @@ class RegisterPage extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.isLoggedIn) {
-      this.goto('/')
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if (this.props.isLoggedIn) {
+  //     this.goto('/')
+  //   }
+  // }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.firstName !== this.state.firstName || prevState.lastName !== this.state.lastName || prevState.userEmail !== this.state.userEmail || prevState.userPass !== this.state.userPass) {
       this.validateSignupForm()
     }
 
-    if (prevProps.authLoader && !this.props.authLoader && !this.props.authError && this.props.signupUser) {
-      this.goto('/verify-email')
-    }
+    // if (prevProps.authLoader && !this.props.authLoader && !this.props.authError && this.props.signupUser) {
+    //   this.goto('/verify-email')
+    // }
   }
 
   validateSignupForm = () => {
@@ -106,6 +106,7 @@ class RegisterPage extends React.Component {
   handleSignUp = () => {
     let { firstName, lastName, userEmail, userPass } = this.state
     this.props.signUpAction({ firstName, lastName, userEmail, userPass })
+    this.goto('/login')
   }
 
   toggleShowPass = () => {
