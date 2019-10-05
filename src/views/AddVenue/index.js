@@ -46,8 +46,88 @@ class AddVenue extends Component {
       phone: "",
       email: "",
       address: "",
-      description: ""
+      description: "",
+
+      isDetailsButtonDisable: true,
+
+      error: {
+        categorySelect: null,
+        name: null,
+        phone: null,
+        email: null,
+        address: null,
+        description: null,
+        serviesFacilities: null,
+        files: null,
+        picked: null
+      }
     };
+  }
+
+  validatesAddDetailsForm = () => {
+    let {
+      name,
+      phone,
+      email,
+      address,
+      description,
+      // serviesFacilities,
+      // categorySelect,
+      // picked,
+      error
+    } = this.state;
+
+    if (
+      name &&
+      name.length >= 3 &&
+      (phone && phone.length >= 11) &&
+      email &&
+      (address && address.length >= 10) &&
+      (description && description.length >= 10)
+    ) {
+      error = {
+        name: null,
+        phone: null,
+        email: null,
+        address: null,
+        description: null
+      };
+      this.setState({
+        isDetailsButtonDisable: false,
+        error
+      });
+    } else {
+      error = {
+        categorySelect: null,
+        name: null,
+        phone: null,
+        email: null,
+        address: null,
+        description: null,
+        serviesFacilities: null,
+        files: null,
+        picked: null
+      };
+      this.setState({
+        isDetailsButtonDisable: true,
+        error
+      });
+    }
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      prevState.name !== this.state.name ||
+      prevState.phone !== this.state.phone ||
+      prevState.email !== this.state.email ||
+      prevState.address !== this.state.address ||
+      prevState.description !== this.state.description ||
+      prevState.serviesFacilities !== this.state.serviesFacilities ||
+      prevState.categorySelect !== this.state.categorySelect ||
+      prevState.picked !== this.state.picked
+    ) {
+      this.validatesAddDetailsForm();
+    }
   }
 
   handleClickOpen = modal => {
@@ -294,8 +374,8 @@ class AddVenue extends Component {
       progress,
       files,
       url,
-      disable
-
+      disable,
+      isDetailsButtonDisable
       // image,
       // url,
       // progress
@@ -359,6 +439,7 @@ class AddVenue extends Component {
           // pickedLocation={this.pickedLocation}
           // // handelOnSaveAndUpload={this.handelOnSaveAndUpload}
           // disable={disable}
+          isDetailsButtonDisable={isDetailsButtonDisable}
           saveVenueLoader={saveVenueLoader}
           successNotifiy={this.successNotifiy}
           handelOnSaveAndUpload={this.handelOnSaveAndUpload}

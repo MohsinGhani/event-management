@@ -53,7 +53,8 @@ class PickLocation extends Component {
       saveVenueLoader,
       successNotifiy,
       classes,
-      handelOnSaveAndUpload
+      handelOnSaveAndUpload,
+      isDetailsButtonDisable
     } = this.props;
     const { mapModal, picked } = this.state;
     return (
@@ -148,9 +149,9 @@ class PickLocation extends Component {
           >
             {" "}
             <Button
-              // disabled={disable}
               variant="outlined"
               color="success"
+              disabled={isDetailsButtonDisable}
               onClick={() => {
                 handelOnSaveAndUpload();
                 successNotifiy("Form Successfully Submited...!");
