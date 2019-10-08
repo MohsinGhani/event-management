@@ -328,7 +328,9 @@ class AddVenue extends Component {
                   objType: categorySelect,
                   location: picked,
                   url,
-                  userId: user && user.user.uid
+                  userId: user && user.user.uid,
+                  createdTimestamp: new Date().getTime(),
+                  
                 };
                 this.props.saveVenue(newDetails);
                 this.setState({

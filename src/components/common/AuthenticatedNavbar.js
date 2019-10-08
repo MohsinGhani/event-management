@@ -19,28 +19,30 @@ import Header from "components/Header/Header.jsx";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
 import CustomDropdown from "components/CustomDropdown/CustomDropdown.jsx";
 import Button from "components/CustomButtons/Button.jsx";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import { authAction } from "./../../store/actions";
-import { withRouter } from 'react-router-dom';
+import { withRouter } from "react-router-dom";
 import navbarsStyle from "assets/jss/material-kit-react/views/componentsSections/navbarsStyle.jsx";
-
+import auth from "./../../firebase/FireBase";
 class AuthenticatedNavbar extends React.Component {
+  goto = path => {
+    this.props.history.push(path);
+  };
 
-    goto = path => {
-        this.props.history.push(path);
-    };
+  logout = () => {
+    // this.props.logout();
+    auth.signOut().then(() => {
+        debugger
+      this.goto("/login");
+    });
+  };
 
-    logout = () => {
-        this.props.logout();
-        this.goto('/login');
-    }
-
-    render() {
-        const { classes } = this.props;
-        return (
-            <div className={classes.section}>
-                <div id="navbar" className={classes.navbar}>
-                    {/* <Header
+  render() {
+    const { classes } = this.props;
+    return (
+      <div className={classes.section}>
+        <div id="navbar" className={classes.navbar}>
+          {/* <Header
                     absolute
                     color="rose"
                     brand="Event Management"
@@ -52,91 +54,94 @@ class AuthenticatedNavbar extends React.Component {
                         </Fragment>
                     }
                 /> */}
-                    <Header
-                        fixed
-                        color="rose"
-                        brand="Event Management"
-                        rightLinks={
-                            <List className={classes.list}>
-                                <ListItem className={classes.listItem}>
-                                    <CustomDropdown
-                                        noLiPadding
-                                        buttonText="Venue"
-                                        buttonProps={{
-                                            className: classes.navLink,
-                                            color: "transparent"
-                                        }}
-                                        buttonIcon={Apps}
-                                        dropdownList={[
-                                            <Button
-                                                className={classes.navLink}
-                                                // className={classes.navLink + " " + classes.navLinkActive}
-                                                onClick={e => this.goto('/add-venue')}
-                                                color="transparent"
-                                            >
-                                                <Icon className={classes.icons}>add_rounded</Icon>Create
-                                            </Button>,
-                                            <Button
-                                                className={classes.navLink}
-                                                // className={classes.navLink + " " + classes.navLinkActive}
-                                                onClick={e => this.goto('/list-view')}
-                                                color="transparent"
-                                            >
-                                                <Icon className={classes.icons}>list</Icon> List View
-                                            </Button>,
-                                            <Button
-                                                className={classes.navLink}
-                                                // className={classes.navLink + " " + classes.navLinkActive}
-                                                onClick={e => this.goto('/')}
-                                                color="transparent"
-                                            >
-                                                <Icon className={classes.icons}>map</Icon> Map View
-                                            </Button>
-                                        ]}
-                                    />
-                                </ListItem>
-                                <ListItem className={classes.listItem}>
-                                    <Button
-                                        className={classes.navLink}
-                                        onClick={e => this.goto('/admin/dashboard')}
-                                        color="transparent"
-                                    >
-                                        <Icon className={classes.icons}>dashboard</Icon> Dashboard
-                                </Button>
-                                </ListItem>
-                                <ListItem className={classes.listItem}>
-                                    <Button
-                                        className={classes.navLink}
-                                        onClick={this.logout}
-                                        color="transparent"
-                                    >
-                                        <Icon className={classes.icons}>logout</Icon> Logout
-                                    </Button>
-                                </ListItem>
-                            </List>
-                        }
-                    />
-                </div>
-            </div>
-        );
-    }
+          <Header
+            fixed
+            color="rose"
+            brand="Event Management"
+            rightLinks={
+              <List className={classes.list}>
+                <ListItem className={classes.listItem}>
+                  <CustomDropdown
+                    noLiPadding
+                    buttonText="Venue"
+                    buttonProps={{
+                      className: classes.navLink,
+                      color: "transparent"
+                    }}
+                    buttonIcon={Apps}
+                    dropdownList={[
+                      <Button
+                        className={classes.navLink}
+                        // className={classes.navLink + " " + classes.navLinkActive}
+                        onClick={e => this.goto("/add-venue")}
+                        color="transparent"
+                      >
+                        <Icon className={classes.icons}>add_rounded</Icon>Create
+                      </Button>,
+                      <Button
+                        className={classes.navLink}
+                        // className={classes.navLink + " " + classes.navLinkActive}
+                        onClick={e => this.goto("/list-view")}
+                        color="transparent"
+                      >
+                        <Icon className={classes.icons}>list</Icon> List View
+                      </Button>,
+                      <Button
+                        className={classes.navLink}
+                        // className={classes.navLink + " " + classes.navLinkActive}
+                        onClick={e => this.goto("/")}
+                        color="transparent"
+                      >
+                        <Icon className={classes.icons}>map</Icon> Map View
+                      </Button>
+                    ]}
+                  />
+                </ListItem>
+                <ListItem className={classes.listItem}>
+                  <Button
+                    className={classes.navLink}
+                    onClick={e => this.goto("/admin/dashboard")}
+                    color="transparent"
+                  >
+                    <Icon className={classes.icons}>dashboard</Icon> Dashboard
+                  </Button>
+                </ListItem>
+                <ListItem className={classes.listItem}>
+                  <Button
+                    className={classes.navLink}
+                    onClick={this.logout}
+                    color="transparent"
+                  >
+                    <Icon className={classes.icons}>logout</Icon> Logout
+                  </Button>
+                </ListItem>
+              </List>
+            }
+          />
+        </div>
+      </div>
+    );
+  }
 }
 
+const mapStateToProps = state => {
+  const {
+    authReducer: { user, isLoggedIn }
+  } = state;
+  return {
+    user,
+    isLoggedIn
+  };
+};
 
-const mapStateToProps = (state) => {
-    const { authReducer: { user, isLoggedIn } } = state;
-    return {
-        user, isLoggedIn
-    }
-}
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        isLoggedInAction: (payload) => dispatch(authAction.isLoggedIn(payload)),
-        logout: () => dispatch(authAction.logout()),
-    };
+const mapDispatchToProps = dispatch => {
+  return {
+    isLoggedInAction: payload => dispatch(authAction.isLoggedIn(payload)),
+    logout: () => dispatch(authAction.logout())
+  };
 };
 
 export default connect(
-    mapStateToProps, mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(withRouter(withStyles(navbarsStyle)(AuthenticatedNavbar)));

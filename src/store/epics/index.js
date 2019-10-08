@@ -11,7 +11,7 @@ const rootEpic = combineEpics(
   authEpic.postConfirm,
   authEpic.isLoggedIn,
   authEpic.getUserById,
-  authEpic.logout,
+  // authEpic.logout,
 
   venueEpic.reverseGeoCoding,
   venueEpic.saveVenue,

@@ -71,7 +71,7 @@ export default function authReducer(state = initialState, action) {
         ...state,
         user: null,
         authLoader: false,
-        authError: action.error,
+        authError: action.payload,
         isLoggedIn: false
       };
 
@@ -95,7 +95,7 @@ export default function authReducer(state = initialState, action) {
       return {
         ...state,
         user: null,
-        authLoader: true,
+        authLoader: false,
         authError: null,
         isLoggedIn: false
       };
@@ -152,29 +152,29 @@ export default function authReducer(state = initialState, action) {
       };
 
     /////////////
-    case LOGOUT:
-      return {
-        ...state,
-        logout: null,
-        logoutLoader: true,
-        logoutError: null
-      };
+    // case LOGOUT:
+    //   return {
+    //     ...state,
+    //     logout: null,
+    //     logoutLoader: true,
+    //     logoutError: null
+    //   };
 
-    case LOGOUT_SUCCESS:
-      return {
-        ...state,
-        ...state,
-        logout: null,
-        logoutLoader: false,
-        logoutError: null
-      };
-    case LOGOUT_FAILURE:
-      return {
-        ...state,
-        logout: null,
-        logoutLoader: true,
-        logoutError: null
-      };
+    // case LOGOUT_SUCCESS:
+    //   return {
+    //     ...state,
+    //     ...state,
+    //     logout: null,
+    //     logoutLoader: false,
+    //     logoutError: null
+    //   };
+    // case LOGOUT_FAILURE:
+    //   return {
+    //     ...state,
+    //     logout: null,
+    //     logoutLoader: true,
+    //     logoutError: null
+    //   };
 
     //////////////////
     case IS_LOGGED_IN:

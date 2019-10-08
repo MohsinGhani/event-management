@@ -66,7 +66,7 @@ class LoginPage extends React.Component {
       }.bind(this),
       500
     );
-    this.props.isLoggedInAction();
+    // this.props.isLoggedInAction();
     // if (this.props.isLoggedIn) {
     //   this.goto('/list-view')
     // }
@@ -80,11 +80,17 @@ class LoginPage extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (
-      prevState.userEmail !== this.state.userEmail ||
-      prevState.userPass !== this.state.userPass
+      prevProps.isLoggedIn !== this.props.isLoggedIn &&
+      this.props.isLoggedIn
     ) {
-      this.validateSignupForm();
+      this.successNotifiy("Login Success...!");
+      this.goto("/");
     }
+    //   prevState.userEmail !== this.state.userEmail ||
+    //   prevState.userPass !== this.state.userPass
+    // ) {
+    //   this.validateSignupForm();
+    // }
   }
   successNotifiy = message => toast.success(message);
 
@@ -105,8 +111,13 @@ class LoginPage extends React.Component {
   handleSignIn = () => {
     let { userEmail, userPass } = this.state;
     this.props.signInAction({ userEmail, userPass });
-    this.successNotifiy("Login Success...!");
-    this.goto("/");
+    // console.log(this.props.isLoggedIn )
+    // if (this.props.isLoggedIn === true) {
+    //   this.successNotifiy("Login Success...!");
+    //   this.goto("/");
+    // } else {
+    //   alert("+++++++++++++");
+    // }
   };
 
   toggleShowPass = () => {
@@ -210,7 +221,7 @@ class LoginPage extends React.Component {
                         style={{ cursor: "pointer" }}
                         color="primary"
                         size="lg"
-                        disabled={isSigninButtonDisabled || authLoader}
+                        // disabled={isSigninButtonDisabled || authLoader}
                         onClick={() => {
                           this.handleSignIn();
                           

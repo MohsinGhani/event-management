@@ -8,7 +8,10 @@ import {
   IS_LOGGED_IN,
   GET_USER_BY_ID,
   LOGOUT,
-  SIGNUP_FAILURE
+  SIGNUP_FAILURE,
+  SIGNIN_FAILURE,
+  LOGOUT_FAILURE,
+  LOGOUT_SUCCESS
 } from "./../constants";
 import { Observable } from "rxjs/Rx";
 import { authAction } from "./../actions/index";
@@ -27,10 +30,12 @@ import { db } from "../../firebase/FireBase";
 export default class authEpic {
   static signUp = action$ =>
     action$.ofType(SIGNUP).switchMap(({ payload }) => {
+      debugger
       return Observable.fromPromise(
         auth.createUserWithEmailAndPassword(payload.userEmail, payload.userPass)
       )
         .catch(err => {
+          debugger;
           return Observable.of(authAction.signUpFailure(err));
         })
         .switchMap(response => {
@@ -39,6 +44,7 @@ export default class authEpic {
           userId = response.user.uid;
           console.log(userId);
           if (response.type && response.type === "SIGNUP_FAILURE") {
+            debugger;
             return Observable.of(authAction.signUpFailure(response.error));
           } else {
             return Observable.fromPromise(
@@ -48,8 +54,10 @@ export default class authEpic {
                 .set(payload)
             )
               .switchMap(response => {
+                debugger;
                 return Observable.of(
-                  authAction.signUpSuccess(response)
+                  authAction.signUpSuccess(response),
+                  auth.signOut(response)
                   // authAction.signIn(response)
                 );
               })
@@ -62,14 +70,17 @@ export default class authEpic {
 
   static signIn = action$ =>
     action$.ofType(SIGNIN).switchMap(({ payload }) => {
+      debugger;
       const { userEmail, userPass } = payload;
       return Observable.fromPromise(
         auth.signInWithEmailAndPassword(userEmail, userPass)
       )
         .catch(err => {
+          debugger;
           return Observable.of(authAction.signInFailure(err));
         })
         .switchMap(response => {
+          debugger;
           console.log(response);
           if (response.type && response.type === "SIGNIN_FAILURE") {
             return Observable.of(authAction.signInFailure(response.error));
@@ -81,26 +92,45 @@ export default class authEpic {
 
   ///////////////////////////////////////******************************************//////////////////////////////////////
 
-  static logout = action$ =>
-    action$.ofType(LOGOUT).switchMap(() => {
-      return Observable.fromPromise(auth.signOut())
-        .catch(err => {
-          console.log(err)
-          return Observable.of(authAction.logoutFailure(err));
-        })
-        .switchMap(response => {
-          console.log(response)
-          // if (response.type && response.type === "LOGOUT_FAILURE") {
-          //   return Observable.of(authAction.logoutFailure(response.error));
-          // } else {
-            return Observable.of(authAction.logoutSuccess(response));
-          // }
-        });
-    });
+  // static logout = action$ =>
+  //   action$.ofType(LOGOUT).switchMap(() => {
+  //     debugger;
+  //     return (
+  //       Observable.fromPromise(auth.signOut())
+  //         .catch(err => {
+  //           debugger;
+  //           console.log(err);
+  //           return Observable.of({ type: LOGOUT_FAILURE });
+  //           // return Observable.of(authAction.logoutFailure(err));
+  //         })
+  //         // .switchMap(response => {
+  //         //   debugger;
+  //         //   console.log(response);
+  //         //   if (response.type && response.type === LOGOUT_FAILURE) {
+  //         //     debugger;
+  //         //     return Observable.of(authAction.logoutFailure(response.error));
+  //         //   } else {
+  //         //     debugger;
+  //         //     return Observable.of(authAction.logoutSuccess(response));
+  //         //   }
+  //         // });
+  //         .map(response => {
+  //           if (response.type && response.type === "LOGOUT_FAILURE") {
+  //             return {
+  //               type: LOGOUT_FAILURE
+  //             };
+  //           } else {
+  //             return {
+  //               type: LOGOUT_SUCCESS
+  //             };
+  //           }
+  //         })
+  //     );
+  //   });
 
   static isLoggedIn = action$ =>
     action$.ofType(IS_LOGGED_IN).switchMap(() => {
-      return Observable.fromPromise(isLoggedIn())
+      return Observable.fromPromise(auth.onAuthStateChanged())
         .catch(err => {
           return Observable.of(authAction.isLoggedInFailure(err));
         })
