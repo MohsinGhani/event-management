@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
+
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -18,6 +19,8 @@ import CardBody from "components/Card/CardBody.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
+
+import auth from "./../../firebase/FireBase";
 
 import loginPageStyle from "assets/jss/material-kit-react/views/loginPage.jsx";
 
@@ -49,7 +52,7 @@ class LoginPage extends React.Component {
   }
 
   goto = path => {
-    this.props.history.push(path);
+    this.props.history.replace(path);
   };
 
   handleInput = e => {
@@ -66,10 +69,17 @@ class LoginPage extends React.Component {
       }.bind(this),
       500
     );
-    // this.props.isLoggedInAction();
-    // if (this.props.isLoggedIn) {
-    //   this.goto('/list-view')
-    // }
+    // auth.onAuthStateChanged(user => {
+    //   if (user) {
+    //     console.log(user);
+    //   } else {
+    //     alert("no more user are online");
+    //   }
+    // });
+    this.props.isLoggedInAction();
+    if (this.props.isLoggedIn) {
+      this.goto('/')
+    }
   }
 
   // componentWillReceiveProps(nextProps) {
@@ -83,16 +93,29 @@ class LoginPage extends React.Component {
       prevProps.isLoggedIn !== this.props.isLoggedIn &&
       this.props.isLoggedIn
     ) {
-      this.successNotifiy("Login Success...!");
       this.goto("/");
+    } else if (
+      prevState.userEmail !== this.state.userEmail ||
+      prevState.userPass !== this.state.userPass
+    ) {
+      this.validateSignupForm();
     }
-    //   prevState.userEmail !== this.state.userEmail ||
-    //   prevState.userPass !== this.state.userPass
-    // ) {
-    //   this.validateSignupForm();
+
+    // else if (this.props.isLoggedIn) {
+    //   this.goto("/");
     // }
   }
   successNotifiy = message => toast.success(message);
+
+  // isLoggedIn = () => {
+  //   auth.onAuthStateChanged(user => {
+  //     if (user) {
+  //       console.log(user);
+  //     } else {
+  //       alert("no more user are online");
+  //     }
+  //   });
+  // };
 
   validateSignupForm = () => {
     let { userEmail, userPass, error } = this.state;
@@ -111,6 +134,8 @@ class LoginPage extends React.Component {
   handleSignIn = () => {
     let { userEmail, userPass } = this.state;
     this.props.signInAction({ userEmail, userPass });
+    this.successNotifiy("Login Success...!");
+
     // console.log(this.props.isLoggedIn )
     // if (this.props.isLoggedIn === true) {
     //   this.successNotifiy("Login Success...!");
@@ -221,10 +246,9 @@ class LoginPage extends React.Component {
                         style={{ cursor: "pointer" }}
                         color="primary"
                         size="lg"
-                        // disabled={isSigninButtonDisabled || authLoader}
+                        disabled={isSigninButtonDisabled || authLoader}
                         onClick={() => {
                           this.handleSignIn();
-                          
                         }}
                       >
                         {authLoader ? (

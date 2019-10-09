@@ -30,7 +30,7 @@ import { db } from "../../firebase/FireBase";
 export default class authEpic {
   static signUp = action$ =>
     action$.ofType(SIGNUP).switchMap(({ payload }) => {
-      debugger
+      debugger;
       return Observable.fromPromise(
         auth.createUserWithEmailAndPassword(payload.userEmail, payload.userPass)
       )
@@ -56,8 +56,7 @@ export default class authEpic {
               .switchMap(response => {
                 debugger;
                 return Observable.of(
-                  authAction.signUpSuccess(response),
-                  auth.signOut(response)
+                  authAction.signUpSuccess(response)
                   // authAction.signIn(response)
                 );
               })
@@ -70,17 +69,14 @@ export default class authEpic {
 
   static signIn = action$ =>
     action$.ofType(SIGNIN).switchMap(({ payload }) => {
-      debugger;
       const { userEmail, userPass } = payload;
       return Observable.fromPromise(
         auth.signInWithEmailAndPassword(userEmail, userPass)
       )
         .catch(err => {
-          debugger;
           return Observable.of(authAction.signInFailure(err));
         })
         .switchMap(response => {
-          debugger;
           console.log(response);
           if (response.type && response.type === "SIGNIN_FAILURE") {
             return Observable.of(authAction.signInFailure(response.error));
@@ -130,17 +126,32 @@ export default class authEpic {
 
   static isLoggedIn = action$ =>
     action$.ofType(IS_LOGGED_IN).switchMap(() => {
-      return Observable.fromPromise(auth.onAuthStateChanged())
+      debugger;
+      return Observable.fromPromise(
+        new Promise((res, rej) => {
+          auth.onAuthStateChanged(user => {
+            if (user) {
+              console.log(user);
+              res(user);
+            } else {
+              alert("no user");
+              rej(false);
+            }
+          });
+        })
+      )
         .catch(err => {
+          debugger;
           return Observable.of(authAction.isLoggedInFailure(err));
         })
         .switchMap(res => {
+          debugger;
           if (res.type && res.type === "IS_LOGGED_IN_FAILURE") {
             return Observable.of(authAction.isLoggedInFailure(res));
           } else {
             return Observable.of(
-              authAction.isLoggedInSuccess(res),
-              authAction.getUserById({ user_id: res.username })
+              authAction.isLoggedInSuccess(res)
+              // authAction.getUserById({ user_id: res.username })
             );
           }
         });

@@ -26,15 +26,20 @@ import navbarsStyle from "assets/jss/material-kit-react/views/componentsSections
 import auth from "./../../firebase/FireBase";
 class AuthenticatedNavbar extends React.Component {
   goto = path => {
-    this.props.history.push(path);
+    this.props.history.replace(path);
   };
 
   logout = () => {
     // this.props.logout();
-    auth.signOut().then(() => {
-        debugger
-      this.goto("/login");
-    });
+    auth
+      .signOut()
+      .then(response => {
+        console.log(response);
+        this.goto("/login");
+      })
+      .catch(error => {
+        alert("still login");
+      });
   };
 
   render() {
@@ -136,8 +141,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    isLoggedInAction: payload => dispatch(authAction.isLoggedIn(payload)),
-    logout: () => dispatch(authAction.logout())
+    isLoggedInAction: payload => dispatch(authAction.isLoggedIn(payload))
+    // logout: () => dispatch(authAction.logout())
   };
 };
 

@@ -1,6 +1,6 @@
 import React from "react";
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -22,7 +22,8 @@ import CustomInput from "components/CustomInput/CustomInput.jsx";
 import loginPageStyle from "assets/jss/material-kit-react/views/loginPage.jsx";
 
 import image from "assets/img/bg7.jpg";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // actions
 import { authAction } from "./../../store/actions";
 
@@ -32,17 +33,17 @@ class RegisterPage extends React.Component {
     // we use this to make the card to appear after the page has been rendered
     this.state = {
       cardAnimaton: "cardHidden",
-      firstName: 'Aftab',
-      lastName: 'Umer',
-      userEmail: 'test@gmail.com',
-      userPass: 'test12345',
+      firstName: "Aftab",
+      lastName: "Umer",
+      userEmail: "test@gmail.com",
+      userPass: "test12345",
       showPass: false,
       isSignupButtonDisabled: true,
       error: {
         firstName: null,
         lastName: null,
         userEmail: null,
-        userPass: null,
+        userPass: null
       }
     };
   }
@@ -51,24 +52,24 @@ class RegisterPage extends React.Component {
     this.props.history.push(path);
   };
 
-  handleInput = (e) => {
+  handleInput = e => {
     this.setState({
       [e.target.id]: e.target.value
-    })
-  }
+    });
+  };
 
   componentDidMount() {
     // we add a hidden class to the card and after 700 ms we delete it and the transition appears
     setTimeout(
-      function () {
+      function() {
         this.setState({ cardAnimaton: "" });
       }.bind(this),
       500
     );
-    this.props.isLoggedInAction();
-    if (this.props.isLoggedIn) {
-      this.goto('/')
-    }
+    // this.props.isLoggedInAction();
+    // if (this.props.isLoggedIn) {
+    //   this.goto("/");
+    // }
   }
 
   // componentWillReceiveProps(nextProps) {
@@ -78,47 +79,79 @@ class RegisterPage extends React.Component {
   // }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.firstName !== this.state.firstName || prevState.lastName !== this.state.lastName || prevState.userEmail !== this.state.userEmail || prevState.userPass !== this.state.userPass) {
-      this.validateSignupForm()
+    if (
+      prevProps.signupUser !== this.props.signupUser &&
+      this.props.signupUser
+      // !this.props.authError &&
+      // this.props.signupUser
+    ) {
+      this.goto("/");
+    } else if (
+      prevState.firstName !== this.state.firstName ||
+      prevState.lastName !== this.state.lastName ||
+      prevState.userEmail !== this.state.userEmail ||
+      prevState.userPass !== this.state.userPass
+    ) {
+      this.validateSignupForm();
     }
-
-    // if (prevProps.authLoader && !this.props.authLoader && !this.props.authError && this.props.signupUser) {
-    //   this.goto('/verify-email')
-    // }
   }
 
   validateSignupForm = () => {
-    let { firstName, lastName, userEmail, userPass, error } = this.state
-    if ((firstName && firstName.length >= 3) && (lastName && lastName.length >= 3) && (userPass && userPass.length >= 8) && userEmail) {
-      error = { firstName: null, lastName: null, userEmail: null, userPass: null }
-      this.setState({ isSignupButtonDisabled: false, error })
+    let { firstName, lastName, userEmail, userPass, error } = this.state;
+    if (
+      firstName &&
+      firstName.length >= 3 &&
+      (lastName && lastName.length >= 3) &&
+      (userPass && userPass.length >= 8) &&
+      userEmail
+    ) {
+      error = {
+        firstName: null,
+        lastName: null,
+        userEmail: null,
+        userPass: null
+      };
+      this.setState({ isSignupButtonDisabled: false, error });
+    } else if (userPass && userPass.length < 8) {
+      error.userPass = "password does not meet the requirements";
+      this.setState({ isSignupButtonDisabled: true, error });
+    } else {
+      error = {
+        firstName: null,
+        lastName: null,
+        userEmail: null,
+        userPass: null
+      };
+      this.setState({ isSignupButtonDisabled: true, error });
     }
-    else if (userPass && userPass.length < 8) {
-      error.userPass = "password does not meet the requirements"
-      this.setState({ isSignupButtonDisabled: true, error })
-    }
-    else {
-      error = { firstName: null, lastName: null, userEmail: null, userPass: null }
-      this.setState({ isSignupButtonDisabled: true, error })
-    }
-  }
+  };
+  successNotifiy = message => toast.success(message);
 
   handleSignUp = () => {
-    let { firstName, lastName, userEmail, userPass } = this.state
-    this.props.signUpAction({ firstName, lastName, userEmail, userPass })
-    this.goto('/login')
-  }
+    let { firstName, lastName, userEmail, userPass } = this.state;
+    this.props.signUpAction({ firstName, lastName, userEmail, userPass });
+    this.successNotifiy("Rigster Success...!");
+  };
 
   toggleShowPass = () => {
-    this.setState({ showPass: !this.state.showPass })
-  }
+    this.setState({ showPass: !this.state.showPass });
+  };
 
   render() {
     const { classes, authLoader, authError, ...rest } = this.props;
-    const { firstName, lastName, userEmail, userPass, isSignupButtonDisabled, showPass } = this.state;
+    const {
+      firstName,
+      lastName,
+      userEmail,
+      userPass,
+      isSignupButtonDisabled,
+      showPass
+    } = this.state;
 
     return (
       <div>
+        <ToastContainer />
+
         <Header
           absolute
           color="transparent"
@@ -141,7 +174,12 @@ class RegisterPage extends React.Component {
                     <CardHeader color="primary" className={classes.cardHeader}>
                       <h4>Register</h4>
                     </CardHeader>
-                    <p className={classes.divider} style={{ width: "80%", color: "red", margin: "0 auto" }}>{authError}</p>
+                    <p
+                      className={classes.divider}
+                      style={{ width: "80%", color: "red", margin: "0 auto" }}
+                    >
+                      {authError}
+                    </p>
                     <CardBody>
                       <CustomInput
                         labelText="First Name"
@@ -151,7 +189,7 @@ class RegisterPage extends React.Component {
                         inputProps={{
                           type: "text",
                           id: "firstName",
-                          onChange: (ev) => this.handleInput(ev),
+                          onChange: ev => this.handleInput(ev),
                           value: firstName ? firstName : "",
                           endAdornment: (
                             <InputAdornment position="end">
@@ -168,7 +206,7 @@ class RegisterPage extends React.Component {
                         inputProps={{
                           type: "text",
                           id: "lastName",
-                          onChange: (ev) => this.handleInput(ev),
+                          onChange: ev => this.handleInput(ev),
                           value: lastName ? lastName : "",
                           endAdornment: (
                             <InputAdornment position="end">
@@ -185,7 +223,7 @@ class RegisterPage extends React.Component {
                         inputProps={{
                           type: "email",
                           id: "userEmail",
-                          onChange: (ev) => this.handleInput(ev),
+                          onChange: ev => this.handleInput(ev),
                           value: userEmail ? userEmail : "",
                           endAdornment: (
                             <InputAdornment position="end">
@@ -202,7 +240,7 @@ class RegisterPage extends React.Component {
                         inputProps={{
                           type: showPass ? "text" : "password",
                           id: "userPass",
-                          onChange: (ev) => this.handleInput(ev),
+                          onChange: ev => this.handleInput(ev),
                           value: userPass ? userPass : "",
                           endAdornment: (
                             <InputAdornment position="end">
@@ -224,7 +262,7 @@ class RegisterPage extends React.Component {
                         style={{ cursor: "pointer" }}
                         color="primary"
                         size="lg"
-                        onClick={() => this.goto('/login')}
+                        onClick={() => this.goto("/login")}
                       >
                         I Already Have Account
                       </Button>
@@ -233,7 +271,7 @@ class RegisterPage extends React.Component {
                         style={{ cursor: "pointer" }}
                         color="primary"
                         size="lg"
-                        disabled={isSignupButtonDisabled || authLoader}
+                        // disabled={isSignupButtonDisabled || authLoader}
                         onClick={this.handleSignUp}
                       >
                         Next
@@ -250,20 +288,26 @@ class RegisterPage extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  const { authReducer: { signupUser, authLoader, authError, isLoggedIn } } = state;
+const mapStateToProps = state => {
+  const {
+    authReducer: { signupUser, authLoader, authError, isLoggedIn }
+  } = state;
   return {
-    signupUser, authLoader, authError, isLoggedIn
-  }
-}
+    signupUser,
+    authLoader,
+    authError,
+    isLoggedIn
+  };
+};
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    signUpAction: (payload) => dispatch(authAction.signUp(payload)),
-    isLoggedInAction: (payload) => dispatch(authAction.isLoggedIn(payload)),
+    signUpAction: payload => dispatch(authAction.signUp(payload)),
+    isLoggedInAction: payload => dispatch(authAction.isLoggedIn(payload))
   };
 };
 
 export default connect(
-  mapStateToProps, mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(withRouter(withStyles(loginPageStyle)(RegisterPage)));
