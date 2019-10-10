@@ -1,6 +1,5 @@
-import React, { Fragment } from "react";
+import React from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
-import AuthenticatedNavbar from "./../../components/common/AuthenticatedNavbar";
 import GridContainer from "components/Grid/GridContainer";
 import Card from "components/Card/Card";
 import basicsStyle from "assets/jss/material-kit-react/views/componentsSections/basicsStyle.jsx";
@@ -11,20 +10,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
 import CardHeader from "dashboard-components/Card/CardHeader.jsx";
 import CardBody from "dashboard-components/Card/CardBody.jsx";
-
-const styles = theme => ({
-  root: {
-    display: "flex",
-    flexWrap: "wrap"
-  },
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2)
-  }
-});
 
 class SelectBar extends React.Component {
   render() {

@@ -3,7 +3,7 @@ import ReactLoading from 'react-loading';
 
 export default class GlobleLoader extends Component {
   render() {
-    const { classes, getVenuesLoader } = this.props;
+    const { getVenuesLoader } = this.props;
     return (
       <div>
         {getVenuesLoader ? (

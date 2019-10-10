@@ -12,8 +12,6 @@ import ReactLoading from "react-loading";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import javascriptStyles from "assets/jss/material-kit-react/views/componentsSections/javascriptStyles.jsx";
 import basicsStyle from "assets/jss/material-kit-react/views/componentsSections/basicsStyle.jsx";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 class PickLocation extends Component {
   state = {
@@ -44,12 +42,6 @@ class PickLocation extends Component {
 
   render() {
     let {
-      //   mapModal,
-      //   handleClickLocOpen,
-      //   handleLocClose,
-      //   pickedLocation,
-      //   picked
-      // disable,
       saveVenueLoader,
       successNotifiy,
       classes,

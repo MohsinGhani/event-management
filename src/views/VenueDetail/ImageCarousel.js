@@ -13,7 +13,6 @@ export default class ImageCarousel extends Component {
           responsive={true}
           showSlideInfo={true}
           fadeOutAnimation={true}
-          showSlideInfo={true}
           mouseDragEnabled={true}
         >
           {venue.url.map(source => (

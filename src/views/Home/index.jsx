@@ -26,13 +26,10 @@ class Home extends React.Component {
     super(props);
     // we use this to make the card to appear after the page has been rendered
     this.state = {
-      // longitude: 67.06985544,
-      // latitude: 24.86053553,
       center: {
         longitude: 67.06985544,
         latitude: 24.86053553
       },
-      //   // venues: this.props.venues,
       popupInfo: null
     };
   }
@@ -43,7 +40,6 @@ class Home extends React.Component {
 
   componentDidMount() {
     this.props.getVenues();
-    console.log(this.props.getVenues());
   }
 
   test = (event, object) => {
@@ -53,8 +49,6 @@ class Home extends React.Component {
         latitude: object.lngLat.lat
       }
     });
-    // this.setState({ clickedPosition })
-    // console.log('clickedPosition', clickedPosition)
   };
 
   logout = () => {
@@ -91,13 +85,11 @@ class Home extends React.Component {
           onClose={() => this.setState({ popupInfo: null })}
         >
           <div style={{ width: "250px" }}>
-            {/* <Card children={ */}
             <Fragment>
-              {/* <CardHeader style={{ position: 'inherit', opacity: 0.9 }} color={'primary'}>{popupInfo.name}</CardHeader> */}
               <CardBody className="card-body">
                 <img
                   src={popupInfo.mainPic}
-                  alt="venue-image"
+                  alt="venue"
                   width="100%"
                   style={{ borderTopLeftRadius: 5, borderTopRightRadius: 5 }}
                 />
@@ -172,7 +164,6 @@ class Home extends React.Component {
                 </div>
               </CardBody>
             </Fragment>
-            {/* } /> */}
           </div>
         </Popup>
       )
@@ -190,7 +181,7 @@ class Home extends React.Component {
       : "";
   };
   render() {
-    const { classes, user, venues, ...rest } = this.props;
+    const { venues } = this.props;
     const { center } = this.state;
     return (
       <div style={{ position: "fixed" }}>
@@ -204,15 +195,11 @@ class Home extends React.Component {
           }}
           movingMethod={"jumpTo"}
           center={[center.longitude, center.latitude]}
-          // zoom={[15]}
-          // onClick={(map, e) => { this.props.reverseGeoCodingAction(e.lngLat) }}
-          // onClick={this.test}
         >
           <MapMarkerIdentity />
           {venues
             ? venues.map((venue, index) => {
                 const { location, objType } = venue;
-
                 if (objType.id === "food_and_caterers") {
                   return (
                     <Marker
@@ -235,8 +222,7 @@ class Home extends React.Component {
                       />
                     </Marker>
                   );
-                }
-                if (objType.id === "decorator") {
+                } else if (objType.id === "decorator") {
                   return (
                     <Marker
                       key={index}
@@ -302,6 +288,8 @@ class Home extends React.Component {
                       />
                     </Marker>
                   );
+                } else {
+                  return null;
                 }
               })
             : null}
@@ -365,13 +353,12 @@ const MapMarkerIdentity = () => {
 const mapStateToProps = state => {
   const {
     venueReducer: { venues, getVenuesLoader, getVenuesError },
-    authReducer: { user, isLoggedIn }
+    authReducer: { isLoggedIn }
   } = state;
   return {
     venues,
     getVenuesLoader,
     getVenuesError,
-    user,
     isLoggedIn
   };
 };

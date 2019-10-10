@@ -29,13 +29,6 @@ function Transition(props) {
   return <Slide direction="down" {...props} />;
 }
 
-const styles = theme => ({
-  textField: {
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
-    width: 200
-  }
-});
 class CreateServiceFacilities extends Component {
   render() {
     const { classes } = this.props;
@@ -46,8 +39,7 @@ class CreateServiceFacilities extends Component {
       serviesFacilities,
       handleChangeOnServiceFacilites,
       handlerServicesFieldAdd,
-      handlerServicesFieldDelete,
-      addSer
+      handlerServicesFieldDelete
     } = this.props;
     return (
       <div>
@@ -62,7 +54,6 @@ class CreateServiceFacilities extends Component {
               <div>
                 {serviesFacilities.map((ser, i) => {
                   return (
-                    // <div key={i}>
                     <GridContainer key={i} style={{ display: "flex" }}>
                       <GridItem xs={12} sm={1} md={1} lg={1}>
                         <img
@@ -80,7 +71,6 @@ class CreateServiceFacilities extends Component {
                         Rs: {ser.price}
                       </GridItem>
                     </GridContainer>
-                    // </div>
                   );
                 })}
               </div>
@@ -175,9 +165,6 @@ class CreateServiceFacilities extends Component {
                     <Button
                       color="transparent"
                       simple
-                      // disabled={
-                      //   !(serviesFacilities.title && serviesFacilities.price)
-                      // }
                       onClick={event => {
                         handlerServicesFieldAdd(event);
                       }}

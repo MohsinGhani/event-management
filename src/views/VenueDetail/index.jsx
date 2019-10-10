@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -83,7 +83,6 @@ class VenueDetail extends React.Component {
 
   render() {
     const {
-      classes,
       venue,
       getVenueLoader,
       saveCustomBookingLoader

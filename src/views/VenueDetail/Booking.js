@@ -97,7 +97,6 @@ class Booking extends Component {
                       }}
                     >
                       <Button
-                        // disabled={disable}
                         variant="outlined"
                         color="success"
                         onClick={() => {

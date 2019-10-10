@@ -1,9 +1,7 @@
-import React, { Fragment } from "react";
+import React from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
 import ReactMapboxGl, { Marker } from "react-mapbox-gl";
 import credentials from '../../config/credentials'
-import { connect } from 'react-redux';
-
 import javascriptStyles from "assets/jss/material-kit-react/views/componentsSections/javascriptStyles.jsx";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -126,17 +124,4 @@ class PickLocationModal extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    const { } = state;
-    return {}
-}
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-       
-    };
-};
-
-export default connect(
-    mapStateToProps, mapDispatchToProps
-)(withStyles(javascriptStyles)(PickLocationModal));
+export default withStyles(javascriptStyles)(PickLocationModal);

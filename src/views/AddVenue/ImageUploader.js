@@ -20,8 +20,7 @@ class ImageUploader extends Component {
       handleUploadSave,
       handleUploadClose,
       handleUploadOpen,
-      files,
-      // handelOnSaveAndUpload
+      files
     } = this.props;
     return (
       <div>
@@ -63,16 +62,6 @@ class ImageUploader extends Component {
               />
             </CardBody>
           </Card>
-          {/* <Button
-            variant="outlined"
-            color="primary"
-            block
-            onClick={() => {
-              handelOnSaveAndUpload();
-            }}
-          >
-            Save
-          </Button> */}
         </GridContainer>
       </div>
     );

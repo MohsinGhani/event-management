@@ -7,14 +7,10 @@ import { authAction, venueAction } from "./../../store/actions";
 import Card from "components/Card/Card";
 import CardHeader from "components/Card/CardHeader";
 import CardBody from "components/Card/CardBody";
-// import CardFooter from 'components/Card/CardFooter'
 import GridContainer from "components/Grid/GridContainer";
 import GridItem from "components/Grid/GridItem";
-// import { venues } from "./../../assets/venus";
 import Button from "components/CustomButtons/Button.jsx";
-//import './ListView.css'
 import AuthenticatedNavbar from "./../../components/common/AuthenticatedNavbar";
-// import Carousel from "react-slick";
 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
@@ -34,9 +30,10 @@ class ListView extends React.Component {
   };
 
     componentDidUpdate(prevProps) {
-      if ((prevProps.venues && prevProps.venues.length )!== (this.props.venues && this.props.venues.length)) {
+      const {venues} = this.props
+      if ((prevProps.venues && prevProps.venues.length )!== (venues && venues.length)) {
         this.setState({
-          venues: this.props.venues
+          venues: venues
         });
       }
     }
@@ -46,28 +43,9 @@ class ListView extends React.Component {
   }
 
   render() {
-    const { classes, user, getVenuesLoader, ...rest } = this.props;
+    const { getVenuesLoader} = this.props;
     const { venues } = this.state;
-    const settings = {
-      dots: true,
-      infinite: true,
-      speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      autoplay: false
-    };
 
-    // const stars = Math.ceil(venues[0].rating.overall);
-    // let renderFullStars = () => {
-    //   return stars !== 0
-    //     ? Array(stars)
-    //         .fill(null)
-    //         .map((item, i) => {
-    //           return <i className="fa fa-star" aria-hidden="true" key={i} />;
-    //         })
-    //     : "";
-    // };
-    console.log("venues from state =>", this.props.venues);
     return (
       <div>
         <AuthenticatedNavbar />
@@ -173,13 +151,6 @@ class ListView extends React.Component {
                                 ></i>
                                 {venue.email}
                               </div>
-                              {/* <div className="price">
-                                <i
-                                  class="fas fa-tags"
-                                  style={{ padding: "10px 5px 0 0" }}
-                                ></i>
-                                Rs: {venue.price}
-                              </div> */}
                               <div className="type">
                                 <i
                                   class="fas fa-list-ul"

@@ -56,6 +56,8 @@ class LoginPage extends React.Component {
   };
 
   componentDidMount() {
+    const { isLoggedIn } = this.props;
+
     // we add a hidden class to the card and after 700 ms we delete it and the transition appears
     setTimeout(() => {
       this.setState({ cardAnimaton: "" });
@@ -65,7 +67,7 @@ class LoginPage extends React.Component {
     this.props.isLoggedInAction();
 
     // if user is isLogged in then redirect it to home
-    if (this.props.isLoggedIn) this.goto("/");
+    if (isLoggedIn) this.goto("/");
   }
 
   componentDidUpdate(prevProps, prevState) {

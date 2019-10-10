@@ -15,13 +15,12 @@ import TextField from "@material-ui/core/TextField";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
-import ReactLoading from "react-loading";
 
 import basicsStyle from "assets/jss/material-kit-react/views/componentsSections/basicsStyle.jsx";
 
 class Details extends Component {
   render() {
-    const { classes, saveVenue } = this.props;
+    const { classes } = this.props;
     let {
       name,
       phone,

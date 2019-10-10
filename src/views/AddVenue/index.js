@@ -28,14 +28,11 @@ class AddVenue extends Component {
     this.state = {
       categorySelect: { title: "", id: "" },
       classicModal: false,
-      // mapModal: false,
 
       picked: null,
 
       serviesFacilities: [{ title: "", price: "" }],
       addSer: false,
-
-      // disable: true,
 
       open: false,
       files: [],
@@ -65,17 +62,7 @@ class AddVenue extends Component {
   }
 
   validatesAddDetailsForm = () => {
-    let {
-      name,
-      phone,
-      email,
-      address,
-      description,
-      // serviesFacilities,
-      // categorySelect,
-      // picked,
-      error
-    } = this.state;
+    let { name, phone, email, address, description, error } = this.state;
 
     if (
       name &&
@@ -116,15 +103,25 @@ class AddVenue extends Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
+    const {
+      name,
+      phone,
+      email,
+      address,
+      description,
+      serviesFacilities,
+      categorySelect,
+      picked
+    } = this.state;
     if (
-      prevState.name !== this.state.name ||
-      prevState.phone !== this.state.phone ||
-      prevState.email !== this.state.email ||
-      prevState.address !== this.state.address ||
-      prevState.description !== this.state.description ||
-      prevState.serviesFacilities !== this.state.serviesFacilities ||
-      prevState.categorySelect !== this.state.categorySelect ||
-      prevState.picked !== this.state.picked
+      prevState.name !== name ||
+      prevState.phone !== phone ||
+      prevState.email !== email ||
+      prevState.address !== address ||
+      prevState.description !== description ||
+      prevState.serviesFacilities !== serviesFacilities ||
+      prevState.categorySelect !== categorySelect ||
+      prevState.picked !== picked
     ) {
       this.validatesAddDetailsForm();
     }
@@ -154,15 +151,6 @@ class AddVenue extends Component {
     this.setState(mapModal);
   };
 
-  // pickedLocation = picked => {
-  //   this.setState(
-  //     {
-  //       picked
-  //     },
-  //     this.handleClose("mapModal")
-  //   );
-  // };
-
   successNotifiy = message => toast.success(message);
 
   handleUploadClose = () => {
@@ -190,43 +178,6 @@ class AddVenue extends Component {
     });
   };
 
-  // saveVenue = () => {
-  //   // const { categorySelect } = this.state;
-  //   // const { picked, image, progress, url } = this.state;
-  //   const {
-  //     name,
-  //     phone,
-  //     email,
-  //     address,
-  //     description,
-  //     picked,
-  //     image,
-  //     progress,
-  //     url,
-  //     categorySelect
-  //   } = this.state;
-  //   const newDetails = {
-  //     name,
-  //     phone,
-  //     email,
-  //     address,
-  //     description,
-  //     objType: categorySelect,
-  //     location: picked,
-  //     url
-  //   };
-  //   this.props.saveVenue(newDetails);
-  //   this.setState({
-  //     name: "",
-  //     phone: "",
-  //     email: "",
-  //     address: "",
-  //     description: "",
-  //     url: [],
-  //     picked: ""
-  //   });
-  // };
-
   handleDetailInput = event => {
     this.setState({
       [event.target.name]: event.target.value
@@ -242,11 +193,6 @@ class AddVenue extends Component {
   };
 
   handlerServicesFieldAdd = () => {
-    // if (this.state.addSer === false) {
-    //   this.setState({
-    //     addSer: true
-    //   });
-    // } else {
     this.setState({
       serviesFacilities: [
         ...this.state.serviesFacilities,
@@ -272,7 +218,7 @@ class AddVenue extends Component {
     let user = this.props.user;
 
     this.state.files.map((file, index) => {
-      storageRef
+      return storageRef
         .child(`events images/${file.name}`)
         .put(file)
         .then(response => {
@@ -312,8 +258,6 @@ class AddVenue extends Component {
                   address,
                   description,
                   serviesFacilities,
-                  image,
-                  progress,
                   url,
                   categorySelect,
                   picked
@@ -329,8 +273,7 @@ class AddVenue extends Component {
                   location: picked,
                   url,
                   userId: user && user.user.uid,
-                  createdTimestamp: new Date().getTime(),
-                  
+                  createdTimestamp: new Date().getTime()
                 };
                 this.props.saveVenue(newDetails);
                 this.setState({
@@ -359,9 +302,6 @@ class AddVenue extends Component {
       categorySelect,
 
       classicModal,
-      picked,
-
-      mapModal,
 
       name,
       phone,
@@ -376,11 +316,7 @@ class AddVenue extends Component {
       progress,
       files,
       url,
-      disable,
       isDetailsButtonDisable
-      // image,
-      // url,
-      // progress
     } = this.state;
 
     const { saveVenueLoader, user } = this.props;
@@ -404,11 +340,6 @@ class AddVenue extends Component {
           address={address}
           description={description}
           handleDetailInput={this.handleDetailInput}
-          // picked={picked}
-          // classicModal={classicModal}
-          // handleClickLocOpen={this.handleClickOpen}
-          // handleLocClose={this.handleClose}
-          // pickedLocation={this.pickedLocation}
         />
 
         <CreateServiceFacilities
@@ -430,17 +361,9 @@ class AddVenue extends Component {
           handleUploadOpen={this.handleUploadOpen}
           handleUploadClose={this.handleUploadClose}
           handleUploadSave={this.handleUploadSave}
-          // handelOnSaveAndUpload={this.handelOnSaveAndUpload}
         />
 
         <PickLocation
-          // picked={picked}
-          // mapModal={mapModal}
-          // handleClickLocOpen={this.handleLocClickOpen}
-          // handleLocClose={this.handleLocClose}
-          // pickedLocation={this.pickedLocation}
-          // // handelOnSaveAndUpload={this.handelOnSaveAndUpload}
-          // disable={disable}
           isDetailsButtonDisable={isDetailsButtonDisable}
           saveVenueLoader={saveVenueLoader}
           successNotifiy={this.successNotifiy}
