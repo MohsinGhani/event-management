@@ -27,10 +27,11 @@ export class authAction {
         }
     }
 
-    static signInFailure(error) {
+    static signInFailure(payload) {
+        debugger
         return {
             type: SIGNIN_FAILURE,
-            error
+            payload
         }
     }
 

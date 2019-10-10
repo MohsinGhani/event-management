@@ -2,8 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { createBrowserHistory } from "history";
 import { Router, Route, Switch } from "react-router-dom";
-import Amplify from "aws-amplify";
-import awsConfig from "./config/awsConfig";
+// import Amplify from "aws-amplify";
+// import awsConfig from "./config/awsConfig";
 import { Provider } from "react-redux";
 import store from "./store/store";
 import PrivateRoute from './components/common/PrivateRoute';
@@ -22,7 +22,7 @@ import VenueDetail from "./views/VenueDetail";
 import AddVenue from "./views/AddVenue";
 // import Components from "./views/Components/Components"
 
-Amplify.configure(awsConfig);
+// Amplify.configure(awsConfig);
 var hist = createBrowserHistory();
 
 ReactDOM.render(

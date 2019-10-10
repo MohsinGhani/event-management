@@ -51,9 +51,7 @@ class LoginPage extends React.Component {
     };
   }
 
-  goto = path => {
-    this.props.history.replace(path);
-  };
+  goto = path => { this.props.history.replace(path) };
 
   handleInput = e => {
     this.setState({
@@ -63,86 +61,49 @@ class LoginPage extends React.Component {
 
   componentDidMount() {
     // we add a hidden class to the card and after 700 ms we delete it and the transition appears
-    setTimeout(
-      function() {
-        this.setState({ cardAnimaton: "" });
-      }.bind(this),
-      500
-    );
-    // auth.onAuthStateChanged(user => {
-    //   if (user) {
-    //     console.log(user);
-    //   } else {
-    //     alert("no more user are online");
-    //   }
-    // });
-    this.props.isLoggedInAction();
-    if (this.props.isLoggedIn) {
-      this.goto('/')
-    }
-  }
+    setTimeout(() => { this.setState({ cardAnimaton: "" }); }, 500);
 
-  // componentWillReceiveProps(nextProps) {
-  //   if (this.props.isLoggedIn) {
-  //     this.goto('/list-view')
-  //   }
-  // }
+    // when this component render the check user is logged in or not
+    this.props.isLoggedInAction();
+
+    // if user is isLogged in then redirect it to home
+    if (this.props.isLoggedIn) this.goto('/')
+  }
 
   componentDidUpdate(prevProps, prevState) {
-    if (
-      prevProps.isLoggedIn !== this.props.isLoggedIn &&
-      this.props.isLoggedIn
-    ) {
+    const { isLoggedIn } = this.props
+    if (prevProps.isLoggedIn !== isLoggedIn && isLoggedIn) {
       this.goto("/");
-    } else if (
-      prevState.userEmail !== this.state.userEmail ||
-      prevState.userPass !== this.state.userPass
-    ) {
-      this.validateSignupForm();
     }
 
-    // else if (this.props.isLoggedIn) {
-    //   this.goto("/");
-    // }
+    if (prevState.userEmail !== this.state.userEmail || prevState.userPass !== this.state.userPass) {
+      this.validateSignupForm();
+    }
   }
-  successNotifiy = message => toast.success(message);
 
-  // isLoggedIn = () => {
-  //   auth.onAuthStateChanged(user => {
-  //     if (user) {
-  //       console.log(user);
-  //     } else {
-  //       alert("no more user are online");
-  //     }
-  //   });
-  // };
+  errorNotifiy = message => toast.error(message);
 
   validateSignupForm = () => {
     let { userEmail, userPass, error } = this.state;
+
     if (userPass && userPass.length >= 8 && userEmail) {
       error = { userEmail: null, userPass: null };
       this.setState({ isSigninButtonDisabled: false, error });
-    } else if (userPass && userPass.length < 8) {
+    }
+    else if (userPass && userPass.length < 8) {
       error.userPass = "password does not meet the requirements";
       this.setState({ isSigninButtonDisabled: true, error });
-    } else {
+    }
+    else {
       error = { userEmail: null, userPass: null };
       this.setState({ isSigninButtonDisabled: true, error });
     }
+
   };
 
   handleSignIn = () => {
     let { userEmail, userPass } = this.state;
     this.props.signInAction({ userEmail, userPass });
-    this.successNotifiy("Login Success...!");
-
-    // console.log(this.props.isLoggedIn )
-    // if (this.props.isLoggedIn === true) {
-    //   this.successNotifiy("Login Success...!");
-    //   this.goto("/");
-    // } else {
-    //   alert("+++++++++++++");
-    // }
   };
 
   toggleShowPass = () => {
@@ -254,13 +215,13 @@ class LoginPage extends React.Component {
                         {authLoader ? (
                           <ReactLoading
                             type={"spin"}
-                            color={"#ffff"}
-                            // height={'100px'}
-                            // width={'100px'}
+                            color={"#ab47bc"}
+                            height={'20px'}
+                            width={'20px'}
                           />
                         ) : (
-                          "Login"
-                        )}
+                            "Login"
+                          )}
                       </Button>
                     </CardFooter>
                   </form>
