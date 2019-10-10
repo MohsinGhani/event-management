@@ -25,8 +25,8 @@ import image from "assets/img/bg7.jpg";
 
 import ReactLoading from "react-loading";
 
-import { Formik, Field, Form, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
+import { Formik, Field, Form, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
 // actions
 import { authAction } from "./../../store/actions";
@@ -36,7 +36,7 @@ class LoginPage extends React.Component {
     super(props);
     // we use this to make the card to appear after the page has been rendered
     this.state = {
-      cardAnimaton: "cardHidden",
+      cardAnimaton: "cardHidden"
     };
   }
 
@@ -100,64 +100,74 @@ class LoginPage extends React.Component {
             <GridContainer justify="center">
               <GridItem xs={12} sm={12} md={4}>
                 <Card className={classes[this.state.cardAnimaton]}>
-
-                  <CardHeader color="primary" className={classes.cardHeader}>
-                    <h4>Login</h4>
-                  </CardHeader>
-
-                  <p
-                    className={classes.divider}
-                    style={{ width: "80%", color: "red", margin: "0 auto" }}
-                  >
-                    {authError}
-                  </p>
-
                   <Formik
                     initialValues={{
-                      email: '',
-                      password: ''
+                      email: "",
+                      password: ""
                     }}
                     validationSchema={Yup.object().shape({
                       email: Yup.string()
-                        .email('Email is invalid')
-                        .required('Email is required'),
-                      password: Yup.string()
-                        .required('Password is Required'),
+                        .email("Email is invalid")
+                        .required("Email is required"),
+                      password: Yup.string().required("Password is Required")
                     })}
                     onSubmit={({ email, password }) => {
-                      this.props.signInAction({ userEmail: email, userPass: password });
+                      this.props.signInAction({
+                        userEmail: email,
+                        userPass: password
+                      });
                     }}
                     render={({ errors, status, touched }) => (
                       <Form>
+                        <CardHeader
+                          color="primary"
+                          className={classes.cardHeader}
+                        >
+                          <h4>Login</h4>
+                        </CardHeader>
+                        <p
+                          className={classes.divider}
+                          style={{
+                            width: "80%",
+                            color: "red",
+                            margin: "0 auto"
+                          }}
+                        >
+                          {authError}
+                        </p>
                         <CardBody>
                           <Fragment>
-
-                            <Field name="email" render={({ field }) => (
-                              <CustomInput
-                                labelText="Email"
-                                formControlProps={{
-                                  fullWidth: true
-                                }}
-                                name="email"
-                                inputProps={{
-                                  ...field,
-                                  type: "email",
-                                  // id: "userEmail",
-                                  // onChange: ev => this.handleInput(ev),
-                                  // value: userEmail ? userEmail : "",
-                                  endAdornment: (
-                                    <InputAdornment position="end">
-                                      <Email className={classes.inputIconsColor} />
-                                    </InputAdornment>
-                                  )
-                                }}
-                              />
-                            )} />
-                            <ErrorMessage name="email" component="div" className="invalid-feedback" />
+                            <Field
+                              name="email"
+                              render={({ field }) => (
+                                <CustomInput
+                                  labelText="Email"
+                                  formControlProps={{
+                                    fullWidth: true
+                                  }}
+                                  name="email"
+                                  inputProps={{
+                                    ...field,
+                                    type: "email",
+                                    endAdornment: (
+                                      <InputAdornment position="end">
+                                        <Email
+                                          className={classes.inputIconsColor}
+                                        />
+                                      </InputAdornment>
+                                    )
+                                  }}
+                                />
+                              )}
+                            />
+                            <ErrorMessage
+                              name="email"
+                              component="div"
+                              className="invalid-feedback"
+                            />
                           </Fragment>
 
                           <Fragment>
-
                             <Field
                               name="password"
                               render={({ field }) => (
@@ -177,7 +187,9 @@ class LoginPage extends React.Component {
                                           style={{ cursor: "pointer" }}
                                           onClick={this.toggleShowPass}
                                         >
-                                          {showPass ? "visibility" : "visibility_off"}
+                                          {showPass
+                                            ? "visibility"
+                                            : "visibility_off"}
                                         </Icon>
                                       </InputAdornment>
                                     )
@@ -185,10 +197,12 @@ class LoginPage extends React.Component {
                                 />
                               )}
                             />
-                            {/* <Field name="password" type="password" /> */}
-                            <ErrorMessage name="password" component="div" className="invalid-feedback" />
+                            <ErrorMessage
+                              name="password"
+                              component="div"
+                              className="invalid-feedback"
+                            />
                           </Fragment>
-
                         </CardBody>
                         <CardFooter className={classes.cardFooter}>
                           <Button
@@ -215,14 +229,13 @@ class LoginPage extends React.Component {
                                 width={"20px"}
                               />
                             ) : (
-                                "Login"
-                              )}
+                              "Login"
+                            )}
                           </Button>
                         </CardFooter>
                       </Form>
                     )}
                   />
-
                 </Card>
               </GridItem>
             </GridContainer>
@@ -234,8 +247,8 @@ class LoginPage extends React.Component {
 }
 
 const TempInput = () => {
-  return <input type={'password'} />
-}
+  return <input type={"password"} />;
+};
 
 const mapStateToProps = state => {
   const {
