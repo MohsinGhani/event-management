@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { withRouter, Redirect } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -8,7 +8,6 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import Icon from "@material-ui/core/Icon";
 // @material-ui/icons
 import Email from "@material-ui/icons/Email";
-// import People from "@material-ui/icons/People";
 // core components
 import Header from "components/Header/Header.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
@@ -20,16 +19,11 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
 
-import auth from "./../../firebase/FireBase";
-
 import loginPageStyle from "assets/jss/material-kit-react/views/loginPage.jsx";
 
 import image from "assets/img/bg7.jpg";
 
 import ReactLoading from "react-loading";
-
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 // actions
 import { authAction } from "./../../store/actions";
@@ -51,7 +45,9 @@ class LoginPage extends React.Component {
     };
   }
 
-  goto = path => { this.props.history.replace(path) };
+  goto = path => {
+    this.props.history.replace(path);
+  };
 
   handleInput = e => {
     this.setState({
@@ -61,27 +57,30 @@ class LoginPage extends React.Component {
 
   componentDidMount() {
     // we add a hidden class to the card and after 700 ms we delete it and the transition appears
-    setTimeout(() => { this.setState({ cardAnimaton: "" }); }, 500);
+    setTimeout(() => {
+      this.setState({ cardAnimaton: "" });
+    }, 500);
 
     // when this component render the check user is logged in or not
     this.props.isLoggedInAction();
 
     // if user is isLogged in then redirect it to home
-    if (this.props.isLoggedIn) this.goto('/')
+    if (this.props.isLoggedIn) this.goto("/");
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { isLoggedIn } = this.props
+    const { isLoggedIn } = this.props;
     if (prevProps.isLoggedIn !== isLoggedIn && isLoggedIn) {
       this.goto("/");
     }
 
-    if (prevState.userEmail !== this.state.userEmail || prevState.userPass !== this.state.userPass) {
+    if (
+      prevState.userEmail !== this.state.userEmail ||
+      prevState.userPass !== this.state.userPass
+    ) {
       this.validateSignupForm();
     }
   }
-
-  errorNotifiy = message => toast.error(message);
 
   validateSignupForm = () => {
     let { userEmail, userPass, error } = this.state;
@@ -89,16 +88,13 @@ class LoginPage extends React.Component {
     if (userPass && userPass.length >= 8 && userEmail) {
       error = { userEmail: null, userPass: null };
       this.setState({ isSigninButtonDisabled: false, error });
-    }
-    else if (userPass && userPass.length < 8) {
+    } else if (userPass && userPass.length < 8) {
       error.userPass = "password does not meet the requirements";
       this.setState({ isSigninButtonDisabled: true, error });
-    }
-    else {
+    } else {
       error = { userEmail: null, userPass: null };
       this.setState({ isSigninButtonDisabled: true, error });
     }
-
   };
 
   handleSignIn = () => {
@@ -121,7 +117,6 @@ class LoginPage extends React.Component {
 
     return (
       <div>
-        <ToastContainer />
         <Header
           absolute
           color="transparent"
@@ -216,12 +211,12 @@ class LoginPage extends React.Component {
                           <ReactLoading
                             type={"spin"}
                             color={"#ab47bc"}
-                            height={'20px'}
-                            width={'20px'}
+                            height={"20px"}
+                            width={"20px"}
                           />
                         ) : (
-                            "Login"
-                          )}
+                          "Login"
+                        )}
                       </Button>
                     </CardFooter>
                   </form>

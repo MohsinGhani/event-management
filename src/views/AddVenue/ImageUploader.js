@@ -8,7 +8,6 @@ import CardHeader from "dashboard-components/Card/CardHeader.jsx";
 import CardBody from "dashboard-components/Card/CardBody.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import Button from "components/CustomButtons/Button.jsx";
-import ReactLoading from "react-loading";
 import { DropzoneDialog } from "material-ui-dropzone";
 
 import basicsStyle from "assets/jss/material-kit-react/views/componentsSections/basicsStyle.jsx";

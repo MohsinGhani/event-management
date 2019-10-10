@@ -2,11 +2,7 @@ import React, { Component } from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Book from "@material-ui/icons/Payment";
 import "./index.css";
-// react plugin for creating date-time-picker
-import Datetime from "react-datetime";
 
-import InputLabel from "@material-ui/core/InputLabel";
-import FormControl from "@material-ui/core/FormControl";
 import CustomTabs from "components/CustomTabs/CustomTabs.jsx";
 
 // core components
@@ -17,8 +13,6 @@ import "react-toastify/dist/ReactToastify.css";
 
 import basicsStyle from "assets/jss/material-kit-react/views/componentsSections/basicsStyle.jsx";
 
-import DatePicker from "react-datepicker";
-
 import ReactLoading from "react-loading";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -26,22 +20,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import "flatpickr/dist/themes/material_green.css";
 import Flatpickr from "react-flatpickr";
 
-
 class Booking extends Component {
-  // state = {
-  //   startDate: new Date()
-  // };
-
-  // handleChange = date => {
-  //   this.setState({
-  //     startDate: date
-  //   });
-  // };
-
   render() {
     const {
-      classes,
-      venue,
       bookingPrice,
       saveCustomBooking,
       bookingDate,
@@ -62,25 +43,6 @@ class Booking extends Component {
                 <GridItem xs={12} sm={12} md={12}>
                   <GridContainer>
                     <GridItem xs={12} sm={12} md={12}>
-                      {/* <InputLabel className={classes.label}>
-                        Datetime Picker
-                      </InputLabel>
-                    <br />
-                    <FormControl fullWidth>
-                      <Datetime
-                        inputProps={{ placeholder: "Datetime Picker Here" }}
-                      />
-                    </FormControl> */}
-
-                      {/* <DatePicker
-                        selected={bookingDate}
-                        onChange={handleOnDateChange}
-                        showTimeSelect
-                        timeFormat="HH:mm"
-                        timeIntervals={15}
-                        timeCaption="time"
-                        dateFormat="MMMM d, yyyy h:mm aa"
-                      /> */}
                       <h6>Select Booking Date From Here</h6>
                       <div
                         style={{
@@ -154,13 +116,6 @@ class Booking extends Component {
                           "Book Now"
                         )}
                       </Button>
-                      {/* <Button
-                        variant="outlined"
-                        color="primary"
-                        onClick={saveCustomBooking}
-                      >
-                        Book Now 
-                      </Button> */}
                     </div>
                   </div>
                 </GridItem>

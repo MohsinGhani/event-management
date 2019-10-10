@@ -22,7 +22,7 @@ import CustomInput from "components/CustomInput/CustomInput.jsx";
 import loginPageStyle from "assets/jss/material-kit-react/views/loginPage.jsx";
 
 import image from "assets/img/bg7.jpg";
-import "react-toastify/dist/ReactToastify.css";
+
 // actions
 import { authAction } from "./../../store/actions";
 
@@ -59,23 +59,23 @@ class RegisterPage extends React.Component {
 
   componentDidMount() {
     // we add a hidden class to the card and after 700 ms we delete it and the transition appears
-    setTimeout(() => { this.setState({ cardAnimaton: "" }); }, 500);
+    setTimeout(() => {
+      this.setState({ cardAnimaton: "" });
+    }, 500);
 
     // when this component render the check user is logged in or not
     this.props.isLoggedInAction();
 
     // if user is isLogged in then redirect it to home
-    if (this.props.isLoggedIn) this.goto('/')
+    if (this.props.isLoggedIn) this.goto("/");
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { isLoggedIn } = this.props
+    const { isLoggedIn } = this.props;
     if (prevProps.isLoggedIn !== isLoggedIn && isLoggedIn) {
       this.goto("/");
     }
   }
-
-
 
   handleSignUp = () => {
     let { firstName, lastName, userEmail, userPass } = this.state;

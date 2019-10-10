@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import ReactLoading from 'react-loading';
+import ReactLoading from "react-loading";
 
 export default class GlobleLoader extends Component {
   render() {
-    const { classes, getVenueLoader } = this.props;
+    const { getVenueLoader } = this.props;
     return (
       <div>
         {getVenueLoader ? (
@@ -22,7 +22,7 @@ export default class GlobleLoader extends Component {
               color={"#e91e63"}
               height={"20%"}
               width={"100%"}
-            />  
+            />
           </div>
         ) : (
           ""

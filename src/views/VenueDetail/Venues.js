@@ -6,20 +6,13 @@ import GridItem from "components/Grid/GridItem.jsx";
 import CustomTabs from "components/CustomTabs/CustomTabs.jsx";
 import basicsStyle from "assets/jss/material-kit-react/views/componentsSections/basicsStyle.jsx";
 import typographyStyle from "assets/jss/material-kit-react/views/componentsSections/typographyStyle.jsx";
-import Card from "components/Card/Card";
-import CardBody from "components/Card/CardBody";
-import checked from "../../../src/assets/icons/checked.svg";
-import Tag from "@material-ui/icons/LocalOffer";
 import Description from "@material-ui/icons/Description";
 import Facilaty from "@material-ui/icons/RoomService";
 import ImageCarousel from "./ImageCarousel";
 import address from "../../../src/assets/icons/address.svg";
 import email from "../../../src/assets/icons/email.svg";
 import call from "../../../src/assets/icons/call.svg";
-// import basicsStyle from "assets/jss/material-kit-react/views/componentsSections/basicsStyle.jsx";
-// import typographyStyle from "assets/jss/material-kit-react/views/componentsSections/typographyStyle.jsx";
 import "./index.css";
-// import GlobleVariables from "./GlobleVariables";
 import Booking from "./Booking";
 import MapLocation from "./MapLocation";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -54,8 +47,6 @@ class Venues extends Component {
         >
           <GridItem xs={12} sm={12} md={9} lg={9}>
             <GridContainer>
-              {/* <GlobleVariables venue={venue} /> */}
-
               <div className={classes.section + " typo_section"}>
                 <div className={classes.container}>
                   <div id="typography">
@@ -85,7 +76,6 @@ class Venues extends Component {
                       </p>
                       <p style={{ display: "flex", alignItems: "center" }}>
                         <img
-                          // src={require('path')}'
                           className="text"
                           src={address}
                           alt="icon"
@@ -103,9 +93,6 @@ class Venues extends Component {
           </GridItem>
           <GridItem xs={12} sm={9} md={9} lg={9}>
             <GridContainer style={{ marginRight: 0 }}>
-              {/* <div className={classes.container}>
-                <div id="nav-tabs"> */}
-
               <CustomTabs
                 headerColor="danger"
                 tabs={[
@@ -135,9 +122,7 @@ class Venues extends Component {
                                     control={
                                       <Checkbox
                                         tabIndex={-1}
-                                        // onChange={this.handleToggle}
                                         onClick={() => handleToggle(service)}
-                                        // name={`${services.price}`}
                                         checkedIcon={
                                           <Check
                                             className={classes.checkedIcon}
@@ -154,9 +139,6 @@ class Venues extends Component {
                                     classes={{ label: classes.label }}
                                     label={`${service.title} ${service.price}`}
                                   />
-                                  {/* // ></FormControlLabel>
-                                  // <span>{services.title}</span>
-                                  // <span>{services.price}</span> */}
                                 </div>
                               </GridItem>
                             </GridContainer>
@@ -207,31 +189,3 @@ class Venues extends Component {
   }
 }
 export default withStyles({ ...basicsStyle, ...typographyStyle })(Venues);
-
-{
-  /* <GridItem
-                              xs={12}
-                              sm={12}
-                              md={4}
-                              lg={4}
-                              style={{
-                                display: "flex",
-                                justifyContent: "space-between"
-                              }}
-                            >
-                              <img
-                                src={checked}
-                                alt="icon"
-                                width="20px"
-                                height="20px"
-                                style={{ paddingRight: "5px" }}
-                              />
-                              <span title={services.title}>
-                                {services.title}
-                              </span>
-
-                              <span title={services.price}>
-                                Rs: {services.price}
-                              </span>
-                            </GridItem> */
-}

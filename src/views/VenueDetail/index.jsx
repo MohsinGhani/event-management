@@ -4,11 +4,7 @@ import { withRouter } from "react-router-dom";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { authAction, venueAction } from "./../../store/actions";
 import AuthenticatedNavbar from "./../../components/common/AuthenticatedNavbar";
-// @material-ui/core components
-// @material-ui/icons
-// core components
 import carouselStyle from "assets/jss/material-kit-react/views/componentsSections/carouselStyle.jsx";
-// core components
 import Venues from "./Venues";
 import GlobleLoader from "./GlobleLoader";
 import { ToastContainer, toast } from "react-toastify";
@@ -28,7 +24,6 @@ class VenueDetail extends React.Component {
     const { vid } = this.props.match.params;
     console.log(this.props);
     this.props.getVenue(vid);
-    // console.log(vid);
   }
 
   handleOnDateChange = date => {
@@ -71,6 +66,7 @@ class VenueDetail extends React.Component {
 
     if (isExist.length) {
       // remove array is exit through filter
+
       var removePrice = servicesBookingPrice.filter(service => {
         return service.title !== value.title;
       });
@@ -93,7 +89,6 @@ class VenueDetail extends React.Component {
       saveCustomBookingLoader
     } = this.props;
     const { servicesBookingPrice, bookingDate } = this.state;
-    // console.log(venue);
     return (
       <div>
         <div>
@@ -131,7 +126,6 @@ const mapStateToProps = state => {
       saveCustomBookingError
     }
   } = state;
-  //
   return {
     venue,
     getVenueLoader,
@@ -147,7 +141,6 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  //
   return {
     isLoggedInAction: payload => dispatch(authAction.isLoggedIn(payload)),
     getVenue: vid => dispatch(venueAction.getVenue(vid)),
