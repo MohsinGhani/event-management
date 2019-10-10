@@ -67,7 +67,6 @@ export default function authReducer(state = initialState, action) {
       };
 
     case SIGNIN_FAILURE:
-      debugger
       return {
         ...state,
         user: null,
