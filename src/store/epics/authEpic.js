@@ -19,11 +19,7 @@ import auth from "./../../firebase/FireBase";
 import { HttpService } from "./../../services/http";
 import path from "./../../config/path";
 import {
-  login,
-  signup,
-  confirm,
-  isLoggedIn,
-  logout
+  confirm
 } from "../../services/AuthService";
 import { db } from "../../firebase/FireBase";
 
@@ -33,31 +29,21 @@ export default class authEpic {
       return Observable.fromPromise(
         auth.createUserWithEmailAndPassword(payload.userEmail, payload.userPass)
       )
-        .catch(err => {
-          return Observable.of(authAction.signUpFailure(err));
-        })
         .switchMap(response => {
-          let userId = "";
-          userId = response.user.uid;
+          payload['uid'] = response.user.uid
           if (response.type && response.type === "SIGNUP_FAILURE") {
             return Observable.of(authAction.signUpFailure(response.error));
           } else {
-            return Observable.fromPromise(
-              db
-                .collection("Users")
-                .doc(userId)
-                .set(payload)
-            )
-              .switchMap(response => {
-                return Observable.of(
-                  authAction.signUpSuccess(response)
-                  // authAction.signIn(response)
-                );
-              })
-              .catch(err => {
-                return Observable.of(authAction.signInFailure(err));
-              });
+            return Observable.fromPromise(db.collection("Users").doc(response.user.uid).set(payload))
           }
+        })
+        .switchMap(response => {
+          return Observable.of(
+            authAction.signUpSuccess(payload)
+          );
+        })
+        .catch(({ message }) => {
+          return Observable.of(authAction.signInFailure(message));
         });
     });
 
