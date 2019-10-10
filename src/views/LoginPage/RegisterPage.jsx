@@ -72,7 +72,7 @@ class RegisterPage extends React.Component {
     if (isLoggedIn) this.goto("/");
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     const { isLoggedIn } = this.props;
     if (prevProps.isLoggedIn !== isLoggedIn && isLoggedIn) {
       this.goto("/");

@@ -141,7 +141,8 @@ export default function authReducer(state = initialState, action) {
         signupUser: action.payload,
         user: action.payload,
         authLoader: false,
-        authError: null
+        authError: null,
+        isLoggedIn: true
       };
 
     case SIGNUP_FAILURE:
