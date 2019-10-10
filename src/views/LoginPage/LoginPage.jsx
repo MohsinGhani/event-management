@@ -109,7 +109,9 @@ class LoginPage extends React.Component {
                       email: Yup.string()
                         .email("Email is invalid")
                         .required("Email is required"),
-                      password: Yup.string().required("Password is Required")
+                      password: Yup.string()
+                        .min(6, "Password must be at least 6 characters")
+                        .required("Password is Required")
                     })}
                     onSubmit={({ email, password }) => {
                       this.props.signInAction({
@@ -245,10 +247,6 @@ class LoginPage extends React.Component {
     );
   }
 }
-
-const TempInput = () => {
-  return <input type={"password"} />;
-};
 
 const mapStateToProps = state => {
   const {
