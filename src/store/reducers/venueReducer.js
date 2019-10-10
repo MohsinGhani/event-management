@@ -112,7 +112,7 @@ export default function venueReducer(state = initialState, action) {
         ...state,
         savedVenue: null,
         saveVenueLoader: false,
-        saveVenueLoader: action.payload
+        saveVenueError: action.payload
       };
 
     //////////////////////// By vId ////////////////////////

@@ -1,4 +1,4 @@
-import { REVERSE_GEOCODING, SAVE_CUSTOM_BOOKING_FAILURE } from "./../constants";
+import { REVERSE_GEOCODING } from "./../constants";
 import { Observable } from "rxjs/Rx";
 import { venueAction } from "./../actions/index";
 import { HttpService } from "../../services/http";
@@ -21,7 +21,6 @@ export default class venueEpic {
       )
         .switchMap(response => {
           if (response.status === 200) {
-            // console.log(response['response'].features)
             return Observable.of(
               venueAction.reverseGeoCodingSuccess(response["response"].features)
             );
@@ -56,10 +55,8 @@ export default class venueEpic {
         const querySnapshot = await db.collection("services").get();
         let services = [];
         querySnapshot.forEach(doc => {
-          // console.log(doc.id, "=>", doc.data());
           services.push({ ...doc.data(), vid: doc.id });
         });
-        console.log("these services goint to reducer", services);
         return venueAction.getVenuesSuccess(services);
       } catch (err) {
         return venueAction.getVenuesFailure(
@@ -80,12 +77,10 @@ export default class venueEpic {
             console.log("Document data:", doc.data());
             return venueAction.getVenueSuccess({ ...doc.data(), vid: doc.id });
           } else {
-            // console.log("No such document!");
             return venueAction.getVenueFailure(`No such document!`);
           }
         })
         .catch(error => {
-          // console.log("Error getting document:", error);
           return venueAction.getVenueFailure(
             `Error in getting venue! ${error}`
           );
@@ -94,7 +89,6 @@ export default class venueEpic {
 
   static saveCustomBooking = action$ =>
     action$.ofType(SAVE_CUSTOM_BOOKING).mergeMap(({ payload }) => {
-      // console.log("custom booking => ",payload)
       return Observable.fromPromise(
         db
           .collection("booking")

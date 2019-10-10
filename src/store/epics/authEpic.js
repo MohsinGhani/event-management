@@ -8,10 +8,7 @@ import {
   IS_LOGGED_IN,
   GET_USER_BY_ID,
   LOGOUT,
-  SIGNUP_FAILURE,
-  SIGNIN_FAILURE,
   LOGOUT_FAILURE,
-  LOGOUT_SUCCESS
 } from "./../constants";
 import { Observable } from "rxjs/Rx";
 import { authAction } from "./../actions/index";
