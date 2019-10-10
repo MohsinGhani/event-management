@@ -320,7 +320,6 @@ class AddVenue extends Component {
     } = this.state;
 
     const { saveVenueLoader, user } = this.props;
-    console.log(user && user.user.uid);
     return (
       <div>
         <AuthenticatedNavbar />

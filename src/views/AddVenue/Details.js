@@ -82,7 +82,7 @@ class Details extends Component {
                 </GridItem>
                 <GridItem xs={12} sm={2} md={2} lg={6}>
                   <CustomInput
-                    labelText="Email Address"
+                    labelText="Email"
                     id="material"
                     formControlProps={{
                       fullWidth: true
