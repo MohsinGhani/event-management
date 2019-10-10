@@ -73,53 +73,9 @@ class RegisterPage extends React.Component {
     if (prevProps.isLoggedIn !== isLoggedIn && isLoggedIn) {
       this.goto("/");
     }
-
-    if (
-      prevProps.signupUser !== this.props.signupUser &&
-      this.props.signupUser
-      // !this.props.authError &&
-      // this.props.signupUser
-    ) {
-      this.goto("/");
-    } else if (
-      prevState.firstName !== this.state.firstName ||
-      prevState.lastName !== this.state.lastName ||
-      prevState.userEmail !== this.state.userEmail ||
-      prevState.userPass !== this.state.userPass
-    ) {
-      this.validateSignupForm();
-    }
   }
 
-  validateSignupForm = () => {
-    let { firstName, lastName, userEmail, userPass, error } = this.state;
-    if (
-      firstName &&
-      firstName.length >= 3 &&
-      (lastName && lastName.length >= 3) &&
-      (userPass && userPass.length >= 8) &&
-      userEmail
-    ) {
-      error = {
-        firstName: null,
-        lastName: null,
-        userEmail: null,
-        userPass: null
-      };
-      this.setState({ isSignupButtonDisabled: false, error });
-    } else if (userPass && userPass.length < 8) {
-      error.userPass = "password does not meet the requirements";
-      this.setState({ isSignupButtonDisabled: true, error });
-    } else {
-      error = {
-        firstName: null,
-        lastName: null,
-        userEmail: null,
-        userPass: null
-      };
-      this.setState({ isSignupButtonDisabled: true, error });
-    }
-  };
+
 
   handleSignUp = () => {
     let { firstName, lastName, userEmail, userPass } = this.state;
