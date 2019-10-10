@@ -36,9 +36,9 @@ ReactDOM.render(
           <PrivateRoute exact path="/" component={Home} />
           {/* <Route exact path="/" component={Home} /> */}
 
-          <Route exact path="/list-view" component={ListView} />
-          <Route exact path="/venue-detail/:vid" component={VenueDetail} />
-          <Route exact path="/add-venue" component={AddVenue} />
+          <PrivateRoute exact path="/list-view" component={ListView} />
+          <PrivateRoute exact path="/venue-detail/:vid" component={VenueDetail} />
+          <PrivateRoute exact path="/add-venue" component={AddVenue} />
           <Route path="/register" exact component={RegisterPage} />
           <Route path="/login" exact component={LoginPage} />
           {/*  <Route path="/verify-email" exact component={ConfirmEmail} />
