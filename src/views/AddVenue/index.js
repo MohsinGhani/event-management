@@ -209,7 +209,6 @@ class AddVenue extends Component {
     this.setState({
       serviesFacilities: this.state.serviesFacilities
     });
-    console.log(this.state.serviesFacilities);
   };
 
   handelOnSaveAndUpload = () => {
@@ -272,7 +271,7 @@ class AddVenue extends Component {
                   objType: categorySelect,
                   location: picked,
                   url,
-                  userId: user && user.user.uid,
+                  userId: user && user.uid,
                   createdTimestamp: new Date().getTime()
                 };
                 this.props.saveVenue(newDetails);
@@ -319,7 +318,7 @@ class AddVenue extends Component {
       isDetailsButtonDisable
     } = this.state;
 
-    const { saveVenueLoader, user } = this.props;
+    const { saveVenueLoader } = this.props;
     return (
       <div>
         <AuthenticatedNavbar />
@@ -395,7 +394,8 @@ const mapDispatchToProps = dispatch => {
   return {
     isLoggedInAction: payload => dispatch(authAction.isLoggedIn(payload)),
     saveVenue: payload => dispatch(venueAction.saveVenue(payload)),
-    logout: () => dispatch(authAction.logout())
+    logout: () => dispatch(authAction.logout()),
+
   };
 };
 
