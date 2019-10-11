@@ -22,7 +22,6 @@ class VenueDetail extends React.Component {
 
   componentDidMount() {
     const { vid } = this.props.match.params;
-    console.log(this.props);
     this.props.getVenue(vid);
   }
 
@@ -42,13 +41,12 @@ class VenueDetail extends React.Component {
       eventId: vid
     });
     const bookingDetail = {
-      userId: user && user.user.uid,
+      userId: user && user.uid,
       eventId: vid,
       servicesBookingPrice,
       bookingDate,
       createdTimestamp: new Date().getTime()
     };
-    console.log(bookingDetail);
     this.props.saveCustomBooking(bookingDetail);
     this.setState({
       servicesBookingPrice: []
