@@ -5,6 +5,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Icon from "@material-ui/core/Icon";
+
 // @material-ui/icons
 import { Apps } from "@material-ui/icons";
 // core components
@@ -16,7 +17,11 @@ import { authAction } from "./../../store/actions";
 import { withRouter } from "react-router-dom";
 import navbarsStyle from "assets/jss/material-kit-react/views/componentsSections/navbarsStyle.jsx";
 
+import "./index.css";
+
+
 class AuthenticatedNavbar extends React.Component {
+
   goto = path => {
     this.props.history.replace(path);
   };
@@ -48,6 +53,19 @@ class AuthenticatedNavbar extends React.Component {
             brand="Event Management"
             rightLinks={
               <List className={classes.list}>
+                <ListItem className={classes.listItem}>
+                  <Button
+                    className={"switch-button"}
+                    // variant="outline-success"
+                    onClick={this.props.switchUserMode}
+                    color="transparent"
+                  >
+                    <Icon className={classes.icons}>swap_horiz</Icon>{" "}
+                    {this.props.userMood === "customer"
+                      ? "SWITCH TO VENDOR"
+                      : "SWITCH TO CUSTOMER"}
+                  </Button>
+                </ListItem>
                 <ListItem className={classes.listItem}>
                   <CustomDropdown
                     noLiPadding
@@ -85,6 +103,7 @@ class AuthenticatedNavbar extends React.Component {
                     ]}
                   />
                 </ListItem>
+
                 <ListItem className={classes.listItem}>
                   <Button
                     className={classes.navLink}
@@ -114,18 +133,20 @@ class AuthenticatedNavbar extends React.Component {
 
 const mapStateToProps = state => {
   const {
-    authReducer: { user, isLoggedIn }
+    authReducer: { user, isLoggedIn, userMood }
   } = state;
   return {
     user,
-    isLoggedIn
+    isLoggedIn,
+    userMood
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     // isLoggedInAction: payload => dispatch(authAction.isLoggedIn(payload)),
-    logout: () => dispatch(authAction.logout())
+    logout: () => dispatch(authAction.logout()),
+    switchUserMode: () => dispatch(authAction.switchUserMode())
   };
 };
 

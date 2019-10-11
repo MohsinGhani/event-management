@@ -1,213 +1,239 @@
-
 import {
-    SIGNIN, SIGNIN_SUCCESS, SIGNIN_FAILURE,
-    SIGNUP, SIGNUP_SUCCESS, SIGNUP_FAILURE,
-    POST_SIGNUP, POST_SIGNUP_SUCCESS, POST_SIGNUP_FAILURE,
-    CONFIRM_SIGNUP, CONFIRM_SIGNUP_SUCCESS, CONFIRM_SIGNUP_FAILURE,
-    POST_CONFIRM, POST_CONFIRM_SUCCESS, POST_CONFIRM_FAILURE,
-    RESEND_SIGNUP, RESEND_SIGNUP_SUCCESS, RESEND_SIGNUP_FAILURE,
-    IS_LOGGED_IN, IS_LOGGED_IN_SUCCESS, IS_LOGGED_IN_FAILURE,
-    GET_USER_BY_ID, GET_USER_BY_ID_SUCCESS, GET_USER_BY_ID_FAILURE,
-    LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAILURE,
-} from './../constants'
+  SIGNIN,
+  SIGNIN_SUCCESS,
+  SIGNIN_FAILURE,
+  SIGNUP,
+  SIGNUP_SUCCESS,
+  SIGNUP_FAILURE,
+  POST_SIGNUP,
+  POST_SIGNUP_SUCCESS,
+  POST_SIGNUP_FAILURE,
+  CONFIRM_SIGNUP,
+  CONFIRM_SIGNUP_SUCCESS,
+  CONFIRM_SIGNUP_FAILURE,
+  POST_CONFIRM,
+  POST_CONFIRM_SUCCESS,
+  POST_CONFIRM_FAILURE,
+  RESEND_SIGNUP,
+  RESEND_SIGNUP_SUCCESS,
+  RESEND_SIGNUP_FAILURE,
+  IS_LOGGED_IN,
+  IS_LOGGED_IN_SUCCESS,
+  IS_LOGGED_IN_FAILURE,
+  GET_USER_BY_ID,
+  GET_USER_BY_ID_SUCCESS,
+  GET_USER_BY_ID_FAILURE,
+  LOGOUT,
+  LOGOUT_SUCCESS,
+  LOGOUT_FAILURE,
+  SWITCH_USER_MOOD
+} from "./../constants";
 
 export class authAction {
+  static signIn(payload) {
+    return {
+      type: SIGNIN,
+      payload
+    };
+  }
 
-    static signIn(payload) {
-        return {
-            type: SIGNIN,
-            payload
-        }
-    }
+  static signInSuccess(payload) {
+    return {
+      type: SIGNIN_SUCCESS,
+      payload
+    };
+  }
 
-    static signInSuccess(payload) {
-        return {
-            type: SIGNIN_SUCCESS,
-            payload
-        }
-    }
+  static signInFailure(payload) {
+    return {
+      type: SIGNIN_FAILURE,
+      payload
+    };
+  }
 
-    static signInFailure(payload) {
-        return {
-            type: SIGNIN_FAILURE,
-            payload
-        }
-    }
+  /////////////
+  static signUp(payload) {
+    return {
+      type: SIGNUP,
+      payload
+    };
+  }
 
-    /////////////
-    static signUp(payload) {
-        return {
-            type: SIGNUP,
-            payload
-        }
-    }
+  static signUpSuccess(payload) {
+    return {
+      type: SIGNUP_SUCCESS,
+      payload
+    };
+  }
 
-    static signUpSuccess(payload) {
-        return {
-            type: SIGNUP_SUCCESS,
-            payload
-        }
-    }
+  static signUpFailure(error) {
+    return {
+      type: SIGNUP_FAILURE,
+      error
+    };
+  }
 
-    static signUpFailure(error) {
-        return {
-            type: SIGNUP_FAILURE,
-            error
-        }
-    }
+  /////////////
+  static isLoggedIn(payload) {
+    return {
+      type: IS_LOGGED_IN,
+      payload
+    };
+  }
 
-    /////////////
-    static postSignUp(payload) {
-        return {
-            type: POST_SIGNUP,
-            payload
-        }
-    }
+  static isLoggedInSuccess(payload) {
+    return {
+      type: IS_LOGGED_IN_SUCCESS,
+      payload
+    };
+  }
 
-    static postSignUpSuccess(payload) {
-        return {
-            type: POST_SIGNUP_SUCCESS,
-            payload
-        }
-    }
+  static isLoggedInFailure(error) {
+    return {
+      type: IS_LOGGED_IN_FAILURE,
+      error
+    };
+  }
 
-    static postSignUpFailure(error) {
-        return {
-            type: POST_SIGNUP_FAILURE,
-            error
-        }
-    }
+  /////////////
+  static logout(payload) {
+    return {
+      type: LOGOUT,
+      payload
+    };
+  }
 
-    /////////////
-    static confirmSignUp(payload) {
-        return {
-            type: CONFIRM_SIGNUP,
-            payload
-        }
-    }
+  static logoutSuccess(payload) {
+    return {
+      type: LOGOUT_SUCCESS,
+      payload
+    };
+  }
 
-    static confirmSignUpSuccess(payload) {
-        return {
-            type: CONFIRM_SIGNUP_SUCCESS,
-            payload
-        }
-    }
+  static logoutFailure(error) {
+    return {
+      type: LOGOUT_FAILURE,
+      error
+    };
+  }
 
-    static confirmSignUpFailure(error) {
-        return {
-            type: CONFIRM_SIGNUP_FAILURE,
-            error
-        }
-    }
+  /////////////
+  static switchUserMode(payload) {
+    return {
+      type: SWITCH_USER_MOOD,
+      payload
+    };
+  }
 
-    /////////////
-    static postConfirm(payload) {
-        return {
-            type: POST_CONFIRM,
-            payload
-        }
-    }
+  /*********************************** Extra Actions *******************************/
 
-    static postConfirmSuccess(payload) {
-        return {
-            type: POST_CONFIRM_SUCCESS,
-            payload
-        }
-    }
+  /////////////
+  static resendSignUp(payload) {
+    return {
+      type: RESEND_SIGNUP,
+      payload
+    };
+  }
 
-    static postConfirmFailure(error) {
-        return {
-            type: POST_CONFIRM_FAILURE,
-            error
-        }
-    }
+  static resendSignUpSuccess(payload) {
+    return {
+      type: RESEND_SIGNUP_SUCCESS,
+      payload
+    };
+  }
 
-    /////////////
-    static isLoggedIn(payload) {
-        return {
-            type: IS_LOGGED_IN,
-            payload
-        }
-    }
+  static resendSignUpFailure(error) {
+    return {
+      type: RESEND_SIGNUP_FAILURE,
+      error
+    };
+  }
 
-    static isLoggedInSuccess(payload) {
-        return {
-            type: IS_LOGGED_IN_SUCCESS,
-            payload
-        }
-    }
+  /////////////
+  static getUserById(payload) {
+    return {
+      type: GET_USER_BY_ID,
+      payload
+    };
+  }
 
-    static isLoggedInFailure(error) {
-        return {
-            type: IS_LOGGED_IN_FAILURE,
-            error
-        }
-    }
+  static getUserByIdSuccess(payload) {
+    return {
+      type: GET_USER_BY_ID_SUCCESS,
+      payload
+    };
+  }
 
-    /////////////
-    static resendSignUp(payload) {
-        return {
-            type: RESEND_SIGNUP,
-            payload
-        }
-    }
+  static getUserByIdFailure(error) {
+    return {
+      type: GET_USER_BY_ID_FAILURE,
+      error
+    };
+  }
 
-    static resendSignUpSuccess(payload) {
-        return {
-            type: RESEND_SIGNUP_SUCCESS,
-            payload
-        }
-    }
+  /////////////
+  static postSignUp(payload) {
+    return {
+      type: POST_SIGNUP,
+      payload
+    };
+  }
 
-    static resendSignUpFailure(error) {
-        return {
-            type: RESEND_SIGNUP_FAILURE,
-            error
-        }
-    }
+  static postSignUpSuccess(payload) {
+    return {
+      type: POST_SIGNUP_SUCCESS,
+      payload
+    };
+  }
 
-    /////////////
-    static getUserById(payload) {
-        return {
-            type: GET_USER_BY_ID,
-            payload
-        }
-    }
+  static postSignUpFailure(error) {
+    return {
+      type: POST_SIGNUP_FAILURE,
+      error
+    };
+  }
 
-    static getUserByIdSuccess(payload) {
-        return {
-            type: GET_USER_BY_ID_SUCCESS,
-            payload
-        }
-    }
+  /////////////
+  static confirmSignUp(payload) {
+    return {
+      type: CONFIRM_SIGNUP,
+      payload
+    };
+  }
 
-    static getUserByIdFailure(error) {
-        return {
-            type: GET_USER_BY_ID_FAILURE,
-            error
-        }
-    }
+  static confirmSignUpSuccess(payload) {
+    return {
+      type: CONFIRM_SIGNUP_SUCCESS,
+      payload
+    };
+  }
 
-    /////////////
-    static logout(payload) {
-        return {
-            type: LOGOUT,
-            payload
-        }
-    }
+  static confirmSignUpFailure(error) {
+    return {
+      type: CONFIRM_SIGNUP_FAILURE,
+      error
+    };
+  }
 
-    static logoutSuccess(payload) {
-        return {
-            type: LOGOUT_SUCCESS,
-            payload
-        }
-    }
+  /////////////
+  static postConfirm(payload) {
+    return {
+      type: POST_CONFIRM,
+      payload
+    };
+  }
 
-    static logoutFailure(error) {
-        return {
-            type: LOGOUT_FAILURE,
-            error
-        }
-    }
+  static postConfirmSuccess(payload) {
+    return {
+      type: POST_CONFIRM_SUCCESS,
+      payload
+    };
+  }
 
+  static postConfirmFailure(error) {
+    return {
+      type: POST_CONFIRM_FAILURE,
+      error
+    };
+  }
 }

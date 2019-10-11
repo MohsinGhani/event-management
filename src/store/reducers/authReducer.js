@@ -25,7 +25,8 @@ import {
   GET_USER_BY_ID_FAILURE,
   LOGOUT,
   LOGOUT_SUCCESS,
-  LOGOUT_FAILURE
+  LOGOUT_FAILURE,
+  SWITCH_USER_MOOD
 } from "./../constants";
 
 const initialState = {
@@ -42,7 +43,9 @@ const initialState = {
 
   logout: null,
   logoutLoader: false,
-  logoutError: null
+  logoutError: null,
+
+  userMood: "customer"
 };
 
 export default function authReducer(state = initialState, action) {
@@ -73,56 +76,6 @@ export default function authReducer(state = initialState, action) {
         authLoader: false,
         authError: action.payload,
         isLoggedIn: false
-      };
-
-    /////////////
-    case LOGOUT:
-      return {
-        ...state,
-        user: null,
-        authLoader: true,
-        authError: null,
-        isLoggedIn: false
-      };
-
-    case LOGOUT_SUCCESS:
-      return {
-        ...state,
-        initialState
-      };
-
-    case LOGOUT_FAILURE:
-      return {
-        ...state,
-        user: null,
-        authLoader: false,
-        authError: null,
-        isLoggedIn: false
-      };
-
-    //////////////////
-    case GET_USER_BY_ID:
-      return {
-        ...state,
-        user: null,
-        authLoader: true,
-        authError: null
-      };
-
-    case GET_USER_BY_ID_SUCCESS:
-      return {
-        ...state,
-        user: action.payload,
-        authLoader: false,
-        authError: null
-      };
-
-    case GET_USER_BY_ID_FAILURE:
-      return {
-        ...state,
-        user: null,
-        authLoader: false,
-        authError: action.error
       };
 
     //////////////////
@@ -173,6 +126,67 @@ export default function authReducer(state = initialState, action) {
         ...state,
         isLoggedIn: false,
         authLoader: false
+      };
+
+    /////////////
+    case LOGOUT:
+      return {
+        ...state,
+        user: null,
+        authLoader: true,
+        authError: null,
+        isLoggedIn: false
+      };
+
+    case LOGOUT_SUCCESS:
+      return {
+        ...state,
+        initialState
+      };
+
+    case LOGOUT_FAILURE:
+      return {
+        ...state,
+        user: null,
+        authLoader: false,
+        authError: null,
+        isLoggedIn: false
+      };
+
+    //////////////////
+    case SWITCH_USER_MOOD:
+      return {
+        ...state,
+        userMood: state.userMood === "customer" ? "vendor" : "customer"
+      };
+
+    //////////////////
+
+    /***************************  Extra Reducers  ******************************/
+
+    //////////////////
+    case GET_USER_BY_ID:
+      return {
+        ...state,
+        user: null,
+        authLoader: true,
+        authError: null
+      };
+
+    case GET_USER_BY_ID_SUCCESS:
+      return {
+        ...state,
+        user: action.payload,
+        authLoader: false,
+        authError: null
+      };
+
+    case GET_USER_BY_ID_FAILURE:
+      return {
+        ...state,
+        user: null,
+        authLoader: false,
+        authError: action.error
       };
 
     //////////////////
