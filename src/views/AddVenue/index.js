@@ -44,6 +44,7 @@ class AddVenue extends Component {
       email: "",
       address: "",
       description: "",
+      bookingPerDay: "",
 
       isDetailsButtonDisable: true,
 
@@ -54,6 +55,7 @@ class AddVenue extends Component {
         email: null,
         address: null,
         description: null,
+        bookingPerDay: null,
         serviesFacilities: null,
         files: null,
         picked: null
@@ -62,7 +64,15 @@ class AddVenue extends Component {
   }
 
   validatesAddDetailsForm = () => {
-    let { name, phone, email, address, description, error } = this.state;
+    let {
+      name,
+      phone,
+      email,
+      address,
+      description,
+      bookingPerDay,
+      error
+    } = this.state;
 
     if (
       name &&
@@ -70,14 +80,16 @@ class AddVenue extends Component {
       (phone && phone.length >= 11) &&
       email &&
       (address && address.length >= 10) &&
-      (description && description.length >= 10)
+      (description && description.length >= 10) &&
+      (bookingPerDay && bookingPerDay.length >= 1)
     ) {
       error = {
         name: null,
         phone: null,
         email: null,
         address: null,
-        description: null
+        description: null,
+        bookingPerDay: null
       };
       this.setState({
         isDetailsButtonDisable: false,
@@ -91,6 +103,7 @@ class AddVenue extends Component {
         email: null,
         address: null,
         description: null,
+        bookingPerDay: null,
         serviesFacilities: null,
         files: null,
         picked: null
@@ -109,6 +122,7 @@ class AddVenue extends Component {
       email,
       address,
       description,
+      bookingPerDay,
       serviesFacilities,
       categorySelect,
       picked
@@ -119,6 +133,7 @@ class AddVenue extends Component {
       prevState.email !== email ||
       prevState.address !== address ||
       prevState.description !== description ||
+      prevState.bookingPerDay !== bookingPerDay ||
       prevState.serviesFacilities !== serviesFacilities ||
       prevState.categorySelect !== categorySelect ||
       prevState.picked !== picked
@@ -256,6 +271,7 @@ class AddVenue extends Component {
                   email,
                   address,
                   description,
+                  bookingPerDay,
                   serviesFacilities,
                   url,
                   categorySelect,
@@ -267,6 +283,7 @@ class AddVenue extends Component {
                   email,
                   address,
                   description,
+                  bookingPerDay,
                   serviesFacilities,
                   objType: categorySelect,
                   location: picked,
@@ -281,6 +298,7 @@ class AddVenue extends Component {
                   email: "",
                   address: "",
                   description: "",
+                  bookingPerDay: "",
                   url: [],
                   categorySelect: [],
                   files: [],
@@ -307,6 +325,7 @@ class AddVenue extends Component {
       email,
       address,
       description,
+      bookingPerDay,
 
       serviesFacilities,
       addSpec,
@@ -337,6 +356,7 @@ class AddVenue extends Component {
           email={email}
           address={address}
           description={description}
+          bookingPerDay={bookingPerDay}
           handleDetailInput={this.handleDetailInput}
         />
 
@@ -394,8 +414,7 @@ const mapDispatchToProps = dispatch => {
   return {
     isLoggedInAction: payload => dispatch(authAction.isLoggedIn(payload)),
     saveVenue: payload => dispatch(venueAction.saveVenue(payload)),
-    logout: () => dispatch(authAction.logout()),
-
+    logout: () => dispatch(authAction.logout())
   };
 };
 

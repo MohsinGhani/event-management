@@ -7,6 +7,8 @@ import Email from "@material-ui/icons/Email";
 import People from "@material-ui/icons/People";
 import Call from "@material-ui/icons/Call";
 import Address from "@material-ui/icons/LocationCity";
+import Booking from "@material-ui/icons/Book";
+
 // core components
 import Card from "components/Card/Card";
 import CardHeader from "dashboard-components/Card/CardHeader.jsx";
@@ -27,6 +29,7 @@ class Details extends Component {
       email,
       address,
       description,
+      bookingPerDay,
       handleDetailInput
     } = this.props;
     return (
@@ -120,7 +123,7 @@ class Details extends Component {
                     }}
                   />
                 </GridItem>
-                <GridItem xs={12} sm={2} md={2} lg={12}>
+                <GridItem xs={12} sm={2} md={2} lg={6}>
                   <TextField
                     id="standard-textarea"
                     label="Description"
@@ -132,6 +135,26 @@ class Details extends Component {
                     margin="normal"
                     fullWidth
                     style={{ marginTop: "10px" }}
+                  />
+                </GridItem>
+                <GridItem xs={12} sm={2} md={2} lg={6}>
+                  <CustomInput
+                    labelText="Booking Per Day"
+                    id="material"
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    inputProps={{
+                      name: "bookingPerDay",
+                      value: bookingPerDay,
+                      type: "number",
+                      onChange: handleDetailInput,
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <Booking />
+                        </InputAdornment>
+                      )
+                    }}
                   />
                 </GridItem>
               </GridContainer>
