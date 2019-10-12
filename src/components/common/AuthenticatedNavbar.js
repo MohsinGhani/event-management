@@ -19,9 +19,7 @@ import navbarsStyle from "assets/jss/material-kit-react/views/componentsSections
 
 import "./index.css";
 
-
 class AuthenticatedNavbar extends React.Component {
-
   goto = path => {
     this.props.history.replace(path);
   };
@@ -66,43 +64,85 @@ class AuthenticatedNavbar extends React.Component {
                       : "SWITCH TO CUSTOMER"}
                   </Button>
                 </ListItem>
-                <ListItem className={classes.listItem}>
-                  <CustomDropdown
-                    noLiPadding
-                    buttonText="Venue"
-                    buttonProps={{
-                      className: classes.navLink,
-                      color: "transparent"
-                    }}
-                    buttonIcon={Apps}
-                    dropdownList={[
-                      <Button
-                        className={classes.navLink}
-                        // className={classes.navLink + " " + classes.navLinkActive}
-                        onClick={e => this.goto("/add-venue")}
-                        color="transparent"
-                      >
-                        <Icon className={classes.icons}>add_rounded</Icon>Create
-                      </Button>,
-                      <Button
-                        className={classes.navLink}
-                        // className={classes.navLink + " " + classes.navLinkActive}
-                        onClick={e => this.goto("/list-view")}
-                        color="transparent"
-                      >
-                        <Icon className={classes.icons}>list</Icon> List View
-                      </Button>,
-                      <Button
-                        className={classes.navLink}
-                        // className={classes.navLink + " " + classes.navLinkActive}
-                        onClick={e => this.goto("/")}
-                        color="transparent"
-                      >
-                        <Icon className={classes.icons}>map</Icon> Map View
-                      </Button>
-                    ]}
-                  />
-                </ListItem>
+                {this.props.userMood === "customer" ? (
+                  <ListItem className={classes.listItem}>
+                    <CustomDropdown
+                      noLiPadding
+                      buttonText="Venue"
+                      buttonProps={{
+                        className: classes.navLink,
+                        color: "transparent"
+                      }}
+                      buttonIcon={Apps}
+                      dropdownList={[
+                        // <Button
+                        //   className={classes.navLink}
+                        //   // className={classes.navLink + " " + classes.navLinkActive}
+                        //   onClick={e => this.goto("/add-venue")}
+                        //   color="transparent"
+                        // >
+                        //   <Icon className={classes.icons}>add_rounded</Icon>
+                        //   Create
+                        // </Button>,
+                        <Button
+                          className={classes.navLink}
+                          // className={classes.navLink + " " + classes.navLinkActive}
+                          onClick={e => this.goto("/list-view")}
+                          color="transparent"
+                        >
+                          <Icon className={classes.icons}>list</Icon> List View
+                        </Button>,
+                        <Button
+                          className={classes.navLink}
+                          // className={classes.navLink + " " + classes.navLinkActive}
+                          onClick={e => this.goto("/")}
+                          color="transparent"
+                        >
+                          <Icon className={classes.icons}>map</Icon> Map View
+                        </Button>
+                      ]}
+                    />
+                  </ListItem>
+                ) : (
+                  <ListItem className={classes.listItem}>
+                    <CustomDropdown
+                      noLiPadding
+                      buttonText="Venue"
+                      buttonProps={{
+                        className: classes.navLink,
+                        color: "transparent"
+                      }}
+                      buttonIcon={Apps}
+                      dropdownList={[
+                        <Button
+                          className={classes.navLink}
+                          // className={classes.navLink + " " + classes.navLinkActive}
+                          onClick={e => this.goto("/add-venue")}
+                          color="transparent"
+                        >
+                          <Icon className={classes.icons}>add_rounded</Icon>
+                          Create
+                        </Button>,
+                        <Button
+                          className={classes.navLink}
+                          // className={classes.navLink + " " + classes.navLinkActive}
+                          onClick={e => this.goto("/list-view")}
+                          color="transparent"
+                        >
+                          <Icon className={classes.icons}>list</Icon> List View
+                        </Button>,
+                        <Button
+                          className={classes.navLink}
+                          // className={classes.navLink + " " + classes.navLinkActive}
+                          onClick={e => this.goto("/")}
+                          color="transparent"
+                        >
+                          <Icon className={classes.icons}>map</Icon> Map View
+                        </Button>
+                      ]}
+                    />
+                  </ListItem>
+                )}
 
                 <ListItem className={classes.listItem}>
                   <Button
