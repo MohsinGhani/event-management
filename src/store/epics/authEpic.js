@@ -7,17 +7,14 @@ import {
   POST_CONFIRM,
   IS_LOGGED_IN,
   GET_USER_BY_ID,
-  LOGOUT,
-  LOGOUT_FAILURE,
+  LOGOUT
 } from "./../constants";
 import { Observable } from "rxjs/Rx";
 import { authAction } from "./../actions/index";
 import auth from "./../../firebase/FireBase";
 import { HttpService } from "./../../services/http";
 import path from "./../../config/path";
-import {
-  confirm
-} from "../../services/AuthService";
+import { confirm } from "../../services/AuthService";
 import { db } from "../../firebase/FireBase";
 
 export default class authEpic {
@@ -27,17 +24,20 @@ export default class authEpic {
         auth.createUserWithEmailAndPassword(payload.userEmail, payload.userPass)
       )
         .switchMap(response => {
-          payload['uid'] = response.user.uid
+          payload["uid"] = response.user.uid;
           if (response.type && response.type === "SIGNUP_FAILURE") {
             return Observable.of(authAction.signUpFailure(response.error));
           } else {
-            return Observable.fromPromise(db.collection("Users").doc(response.user.uid).set(payload))
+            return Observable.fromPromise(
+              db
+                .collection("users")
+                .doc(response.user.uid)
+                .set(payload)
+            );
           }
         })
         .switchMap(response => {
-          return Observable.of(
-            authAction.signUpSuccess(payload)
-          );
+          return Observable.of(authAction.signUpSuccess(payload));
         })
         .catch(({ message }) => {
           return Observable.of(authAction.signInFailure(message));
@@ -47,7 +47,9 @@ export default class authEpic {
   static signIn = action$ =>
     action$.ofType(SIGNIN).switchMap(({ payload }) => {
       const { userEmail, userPass } = payload;
-      return Observable.fromPromise(auth.signInWithEmailAndPassword(userEmail, userPass))
+      return Observable.fromPromise(
+        auth.signInWithEmailAndPassword(userEmail, userPass)
+      )
         .switchMap(response => {
           if (response.type && response.type === "SIGNIN_FAILURE") {
             return Observable.of(authAction.signInFailure(response.error));
@@ -57,14 +59,14 @@ export default class authEpic {
         })
         .catch(({ message }) => {
           return Observable.of(authAction.signInFailure(message));
-        })
+        });
     });
 
   static logout = action$ =>
     action$.ofType(LOGOUT).switchMap(() => {
-      return (Observable.fromPromise(auth.signOut()))
+      return Observable.fromPromise(auth.signOut())
         .switchMap(response => {
-          if (response.type && response.type === LOGOUT_FAILURE) {
+          if (response.type && response.type === "LOGOUT_FAILURE") {
             return Observable.of(authAction.logoutFailure(response.error));
           } else {
             return Observable.of(authAction.logoutSuccess(response));
@@ -72,7 +74,7 @@ export default class authEpic {
         })
         .catch(err => {
           return Observable.of(authAction.logoutFailure(err));
-        })
+        });
     });
 
   static isLoggedIn = action$ =>
@@ -88,19 +90,42 @@ export default class authEpic {
           });
         })
       )
-        .catch(err => {
-          return Observable.of(authAction.isLoggedInFailure(err));
-        })
         .switchMap(res => {
           if (res.type && res.type === "IS_LOGGED_IN_FAILURE") {
             return Observable.of(authAction.isLoggedInFailure(res));
           } else {
             return Observable.of(
-              authAction.isLoggedInSuccess(res)
+              authAction.isLoggedInSuccess(res),
+              authAction.getUserById({ uid: res.uid })
             );
           }
+        })
+        .catch(err => {
+          return Observable.of(authAction.isLoggedInFailure(err));
         });
     });
+
+  static getUserById = action$ =>
+    action$.ofType(GET_USER_BY_ID).mergeMap(({ payload }) => {
+      return db
+        .collection("users")
+        .doc(payload.uid)
+        .get()
+        .then(doc => {
+          if (doc.exists) {
+            return authAction.getUserByIdSuccess({ ...doc.data() });
+          } else {
+            return authAction.getUserByIdFailure("no user");
+          }
+        })
+        .catch(err => {
+          return authAction.getUserByIdFailure(
+            `Error in getting venue! ${err}`
+          );
+        });
+    });
+
+  /////////////////////////// Extra Api's //////////////////////
 
   static confirmSignUp = action$ =>
     action$.ofType(CONFIRM_SIGNUP).switchMap(({ payload }) => {
@@ -159,22 +184,6 @@ export default class authEpic {
         })
         .catch(err => {
           return Observable.of(authAction.resendSignUpFailure(``));
-        });
-    });
-
-  static getUserById = action$ =>
-    action$.ofType(GET_USER_BY_ID).switchMap(({ payload }) => {
-      return HttpService.get(`${path.GET_USER_BY_ID}/${payload.user_id}`)
-        .switchMap(({ response }) => {
-          response = JSON.parse(response);
-          if (response.status === 200) {
-            return Observable.of(authAction.getUserByIdSuccess(response.data));
-          }
-        })
-        .catch(err => {
-          return Observable.of(
-            authAction.getUserByIdFailure({ error: err.message })
-          );
         });
     });
 }

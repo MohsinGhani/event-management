@@ -17,7 +17,8 @@ const rootEpic = combineEpics(
   venueEpic.saveVenue,
   venueEpic.getVenues,
   venueEpic.getVenue,
-  venueEpic.saveCustomBooking
+  venueEpic.saveCustomBooking,
+  venueEpic.getVenuesByUserId
 );
 
 export default rootEpic;

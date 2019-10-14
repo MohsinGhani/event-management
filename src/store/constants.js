@@ -42,7 +42,21 @@ export const REVERSE_GEOCODING = "REVERSE_GEOCODING";
 export const REVERSE_GEOCODING_SUCCESS = "REVERSE_GEOCODING_SUCCESS";
 export const REVERSE_GEOCODING_FAILURE = "REVERSE_GEOCODING_FAILURE";
 
+/*****************************  Dashboard Constants  *************************************/
+
+export const GET_VENUES_BY_USER_ID = "GET_VENUES_BY_USER_ID";
+export const GET_VENUES_BY_USER_ID_SUCCESS = "GET_VENUES_BY_USER_ID_SUCCESS";
+export const GET_VENUES_BY_USER_ID_FAILURE = "GET_VENUES_BY_USER_ID_FAILURE";
+
+/*****************************  Get User Constants  *************************************/
+
+export const GET_USER_BY_ID = "GET_USER_BY_ID";
+export const GET_USER_BY_ID_SUCCESS = "GET_USER_BY_ID_SUCCESS";
+export const GET_USER_BY_ID_FAILURE = "GET_USER_BY_ID_FAILURE";
+
+
 /*****************************  Extra Constants  *************************************/
+
 
 export const POST_SIGNUP = "POST_SIGNUP";
 export const POST_SIGNUP_SUCCESS = "POST_SIGNUP_SUCCESS";
@@ -56,9 +70,6 @@ export const POST_CONFIRM = "POST_CONFIRM";
 export const POST_CONFIRM_SUCCESS = "POST_CONFIRM_SUCCESS";
 export const POST_CONFIRM_FAILURE = "POST_CONFIRM_FAILURE";
 
-export const GET_USER_BY_ID = "GET_USER_BY_ID";
-export const GET_USER_BY_ID_SUCCESS = "GET_USER_BY_ID_SUCCESS";
-export const GET_USER_BY_ID_FAILURE = "GET_USER_BY_ID_FAILURE";
 
 export const RESEND_SIGNUP = "RESEND_SIGNUP";
 export const RESEND_SIGNUP_SUCCESS = "RESEND_SIGNUP_SUCCESS";
