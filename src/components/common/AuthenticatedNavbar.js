@@ -27,7 +27,7 @@ class AuthenticatedNavbar extends React.Component {
   logout = () => {
     this.props.logout();
   };
-
+  
   render() {
     const { classes } = this.props;
     return (
@@ -186,7 +186,7 @@ const mapDispatchToProps = dispatch => {
   return {
     // isLoggedInAction: payload => dispatch(authAction.isLoggedIn(payload)),
     logout: () => dispatch(authAction.logout()),
-    switchUserMode: () => dispatch(authAction.switchUserMode())
+    switchUserMode: () => dispatch(authAction.switchUserMode()),
   };
 };
 
