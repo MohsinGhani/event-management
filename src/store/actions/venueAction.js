@@ -13,7 +13,10 @@ import {
   REVERSE_GEOCODING_FAILURE,
   SAVE_CUSTOM_BOOKING,
   SAVE_CUSTOM_BOOKING_SUCCESS,
-  SAVE_CUSTOM_BOOKING_FAILURE
+  SAVE_CUSTOM_BOOKING_FAILURE,
+  GET_VENUES_BY_USER_ID,
+  GET_VENUES_BY_USER_ID_SUCCESS,
+  GET_VENUES_BY_USER_ID_FAILURE
 } from "./../constants";
 
 export class venueAction {
@@ -125,6 +128,32 @@ export class venueAction {
     return {
       type: SAVE_CUSTOM_BOOKING_FAILURE,
       error
+    };
+  }
+
+  /////////////////
+
+  static getVenuesByUserId(payload) {
+    debugger;
+    return {
+      type: GET_VENUES_BY_USER_ID,
+      payload
+    };
+  }
+
+  static getVenuesByUserIdSuccess(getVenues) {
+    debugger;
+    return {
+      type: GET_VENUES_BY_USER_ID_SUCCESS,
+      payload: getVenues
+    };
+  }
+
+  static getVenuesByUserIdFailure(error) {
+    debugger;
+    return {
+      type: GET_VENUES_BY_USER_ID_FAILURE,
+      payload: error
     };
   }
 }

@@ -4,13 +4,16 @@ import { venueAction } from "./../actions/index";
 import { HttpService } from "../../services/http";
 import path from "./../../config/path";
 import credentials from "../../config/credentials";
+
 import {
   SAVE_VENUES,
   GET_VENUES,
   GET_VENUE,
-  SAVE_CUSTOM_BOOKING
+  SAVE_CUSTOM_BOOKING,
+  GET_VENUES_BY_USER_ID
 } from "../constants";
 import { db } from "../../firebase/FireBase";
+import auth from "../../firebase/FireBase";
 
 export default class venueEpic {
   static reverseGeoCoding = action$ =>
@@ -67,14 +70,12 @@ export default class venueEpic {
 
   static getVenue = action$ =>
     action$.ofType(GET_VENUE).mergeMap(({ payload }) => {
-      console.log(payload);
       return db
         .collection("services")
         .doc(payload)
         .get()
         .then(doc => {
           if (doc.exists) {
-            console.log("Document data:", doc.data());
             return venueAction.getVenueSuccess({ ...doc.data(), vid: doc.id });
           } else {
             return venueAction.getVenueFailure(`No such document!`);
@@ -101,6 +102,30 @@ export default class venueEpic {
         .catch(err => {
           return venueAction.saveCustomBookingFailure(
             `Error in Save Booking! ${err}`
+          );
+        });
+    });
+
+  static getVenuesByUserId = action$ =>
+    action$.ofType(GET_VENUES_BY_USER_ID).mergeMap(({ payload }) => {
+      return db
+        .collection("services")
+        .where("userId", "==", auth.currentUser.uid)
+        .doc(payload)
+        .get()
+        .then(doc => {
+          if (doc.exists) {
+            return venueAction.getVenuesByUserIdSuccess({
+              ...doc.data(),
+              vid: doc.id
+            });
+          } else {
+            return venueAction.getVenuesByUserIdFailure(`No such document!`);
+          }
+        })
+        .catch(error => {
+          return venueAction.getVenuesByUserIdFailure(
+            `Error in getting venue! ${error}`
           );
         });
     });

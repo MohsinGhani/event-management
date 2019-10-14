@@ -13,7 +13,10 @@ import {
   REVERSE_GEOCODING_FAILURE,
   SAVE_CUSTOM_BOOKING,
   SAVE_CUSTOM_BOOKING_SUCCESS,
-  SAVE_CUSTOM_BOOKING_FAILURE
+  SAVE_CUSTOM_BOOKING_FAILURE,
+  GET_VENUES_BY_USER_ID,
+  GET_VENUES_BY_USER_ID_SUCCESS,
+  GET_VENUES_BY_USER_ID_FAILURE
 } from "./../constants";
 // import { venues } from "./../../assets/venus";
 
@@ -36,7 +39,11 @@ const initialState = {
 
   saveCustomBooking: null,
   saveCustomBookingLoader: false,
-  saveCustomBookingError: null
+  saveCustomBookingError: null,
+
+  getVenuesByUserId: null,
+  getVenuesByUserIdLoader: false,
+  getVenuesByUserIdError: null
 };
 
 export default function venueReducer(state = initialState, action) {
@@ -164,6 +171,35 @@ export default function venueReducer(state = initialState, action) {
         saveCustomBooking: null,
         saveCustomBookingLoader: false,
         saveCustomBookingError: "Can Not Booked"
+      };
+
+    ///////////////////
+
+    case GET_VENUES_BY_USER_ID:
+      debugger;
+      return {
+        ...state,
+        getVenuesByUserId: null,
+        getVenuesByUserIdLoader: true,
+        getVenuesByUserIdError: null
+      };
+
+    case GET_VENUES_BY_USER_ID_SUCCESS:
+      debugger;
+      return {
+        ...state,
+        getVenuesByUserId: action.payload,
+        getVenuesByUserIdLoader: false,
+        getVenuesByUserIdError: null
+      };
+
+    case GET_VENUES_BY_USER_ID_FAILURE:
+      debugger;
+      return {
+        ...state,
+        getVenuesByUserId: null,
+        getVenuesByUserIdLoader: false,
+        getVenuesByUserIdError: "Can not Get Venues"
       };
 
     default:

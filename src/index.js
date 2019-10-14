@@ -17,6 +17,10 @@ import RegisterPage from "views/LoginPage/RegisterPage.jsx";
 import LoginPage from "views/LoginPage/LoginPage.jsx";
 import VenueDetail from "./views/VenueDetail";
 import AddVenue from "./views/AddVenue";
+
+import Dashboard from 'views/Dashboard/Dashboard.jsx'
+import Admin from "layouts/Admin.jsx";
+
 // import Components from "./views/Components/Components"
 
 // Amplify.configure(awsConfig);
@@ -34,6 +38,7 @@ ReactDOM.render(
           <PrivateRoute exact path="/add-venue" component={AddVenue} />
           <Route path="/register" exact component={RegisterPage} />
           <Route path="/login" exact component={LoginPage} />
+          <Route path="/admin" component={Admin} />
         </Switch>
       </React.Fragment>
     </Router>
