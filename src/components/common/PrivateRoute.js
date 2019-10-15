@@ -4,7 +4,9 @@ import { connect } from "react-redux";
 import { authAction } from "./../../store/actions";
 
 class PrivateRoute extends Component {
-
+  // componentDidMount(){
+  //   this.props.isLoggedInAction()
+  // }
   render() {
     const {
       component: Component,

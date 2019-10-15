@@ -36,9 +36,9 @@ ReactDOM.render(
           <PrivateRoute exact path="/list-view" component={ListView} />
           <PrivateRoute exact path="/venue-detail/:vid" component={VenueDetail} />
           <PrivateRoute exact path="/add-venue" component={AddVenue} />
+          <PrivateRoute path="/admin" component={Admin} />
           <Route path="/register" exact component={RegisterPage} />
           <Route path="/login" exact component={LoginPage} />
-          <Route path="/admin" component={Admin} />
         </Switch>
       </React.Fragment>
     </Router>

@@ -55,26 +55,33 @@ const style = {
 };
 
 class MyVenues extends Component {
-  componentDidUpdate(prevProps) {
-    const {
-      user,
-      isLoggedIn,
-      getVenuesByUserIdDetails,
-      getVenuesByUserId,
-    } = this.props;
-    if (prevProps.isLoggedIn !== isLoggedIn && isLoggedIn) {
-      console.log(user && user.uid)
-      console.log("userID: ", getVenuesByUserId);
-      console.log("details: ", getVenuesByUserIdDetails);
-    }
-  }
+  // componentDidUpdate(prevProps) {
+  //   const {
+  //     user,
+  //     isLoggedIn,
+  //     getVenuesByUserIdDetails,
+  //     getVenuesByUserId,
+  //   } = this.props;
+  //   if (prevProps.isLoggedIn !== isLoggedIn && isLoggedIn) {
+  //     console.log(user && user.uid)
+  //     console.log("userID: ", getVenuesByUserId);
+  //     console.log("details: ", getVenuesByUserIdDetails);
+  //   }
+  // }
+
+  // componentDidMount() {
+  //   const { isLoggedIn, user } = this.props;
+  //   this.props.isLoggedInAction();
+  //   console.log("hello");
+  //   console.log(user && user.uid);
+  //   console.log(isLoggedIn);
+  // }
 
   componentDidMount() {
-    const { isLoggedIn, user } = this.props;
-    this.props.isLoggedInAction();
-    console.log("hello");
-    console.log(user && user.uid);
-    console.log(isLoggedIn);
+    const { getVenuesByUserIdDetails, user } = this.props;
+    getVenuesByUserIdDetails({ userId: venues.userId });
+
+    console.log(venues.userId);
   }
 
   render() {
@@ -100,6 +107,7 @@ const mapStateToProps = state => {
   const {
     authReducer: { user, isLoggedIn },
     venueReducer: {
+      venues,
       getVenuesByUserId,
       getVenuesByUserIdLoader,
       getVenuesByUserIdError
@@ -109,6 +117,7 @@ const mapStateToProps = state => {
     user,
     isLoggedIn,
 
+    venues,
     getVenuesByUserId,
     getVenuesByUserIdLoader,
     getVenuesByUserIdError
@@ -119,7 +128,7 @@ const mapDispatchToProps = dispatch => {
   return {
     isLoggedInAction: payload => dispatch(authAction.isLoggedIn(payload)),
     getVenuesByUserIdDetails: payload =>
-      dispatch(venueAction.getVenuesByUserId(payload)),
+      dispatch(venueAction.getVenuesByUserId(payload))
   };
 };
 

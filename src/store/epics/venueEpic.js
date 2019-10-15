@@ -77,6 +77,7 @@ export default class venueEpic {
         .then(doc => {
           if (doc.exists) {
             return venueAction.getVenueSuccess({ ...doc.data(), vid: doc.id });
+            // venueAction.getVenuesByUserId({uid: doc.id.userId})
           } else {
             return venueAction.getVenueFailure(`No such document!`);
           }
@@ -108,25 +109,33 @@ export default class venueEpic {
 
   static getVenuesByUserId = action$ =>
     action$.ofType(GET_VENUES_BY_USER_ID).mergeMap(({ payload }) => {
-      return db
-        .collection("services")
-        .where("userId", "==", auth.currentUser.uid)
-        .doc(payload)
-        .get()
-        .then(doc => {
-          if (doc.exists) {
-            return venueAction.getVenuesByUserIdSuccess({
-              ...doc.data(),
-              vid: doc.id
-            });
-          } else {
-            return venueAction.getVenuesByUserIdFailure(`No such document!`);
-          }
-        })
-        .catch(error => {
-          return venueAction.getVenuesByUserIdFailure(
-            `Error in getting venue! ${error}`
-          );
-        });
+      const { userId } = payload;
+      debugger
+      return (
+        db
+          .collection("services")
+          .where("userId", "==", userId)
+          // .doc(payload)
+          .get()
+          .then(doc => {
+            debugger
+            console.log(payload);
+            if (doc.exists) {
+              console.log(doc.data());
+
+              return venueAction.getVenuesByUserIdSuccess({
+                ...doc.data(),
+                vid: doc.id
+              });
+            } else {
+              return venueAction.getVenuesByUserIdFailure(`No such document!`);
+            }
+          })
+          .catch(error => {
+            return venueAction.getVenuesByUserIdFailure(
+              `Error in getting venue! ${error}`
+            );
+          })
+      );
     });
 }
