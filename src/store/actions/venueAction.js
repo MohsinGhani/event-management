@@ -141,11 +141,11 @@ export class venueAction {
     };
   }
 
-  static getVenuesByUserIdSuccess(getVenues) {
+  static getVenuesByUserIdSuccess(getVenuesByUserId) {
     debugger;
     return {
       type: GET_VENUES_BY_USER_ID_SUCCESS,
-      payload: getVenues
+      payload: getVenuesByUserId
     };
   }
 

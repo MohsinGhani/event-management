@@ -77,7 +77,6 @@ export default class venueEpic {
         .then(doc => {
           if (doc.exists) {
             return venueAction.getVenueSuccess({ ...doc.data(), vid: doc.id });
-            // venueAction.getVenuesByUserId({uid: doc.id.userId})
           } else {
             return venueAction.getVenueFailure(`No such document!`);
           }
@@ -109,33 +108,89 @@ export default class venueEpic {
 
   static getVenuesByUserId = action$ =>
     action$.ofType(GET_VENUES_BY_USER_ID).mergeMap(({ payload }) => {
-      const { userId } = payload;
-      debugger
-      return (
-        db
-          .collection("services")
-          .where("userId", "==", userId)
-          // .doc(payload)
-          .get()
-          .then(doc => {
-            debugger
-            console.log(payload);
-            if (doc.exists) {
-              console.log(doc.data());
+      // let user = auth.currentUser.uid;
+    const {userId} = payload
+    const ven = []
+      debugger;
+      return db
+        .collection("services")
+        .where("userId", "==",userId)
+        .get()
+        .then(function(querySnapshot) {
+          debugger;
+          querySnapshot.forEach(function(doc) {
+            // doc.data() is never undefined for query doc snapshots
+            ven.push({ ...doc.data(), vid: doc.id });
+            // alert("venue get");
+            console.log(doc.id, " => ", doc.data());
+            // props.getMyProducts(doc.data());
+          });
+          return venueAction.getVenuesByUserIdSuccess(ven);
 
-              return venueAction.getVenuesByUserIdSuccess({
-                ...doc.data(),
-                vid: doc.id
-              });
-            } else {
-              return venueAction.getVenuesByUserIdFailure(`No such document!`);
-            }
-          })
-          .catch(error => {
-            return venueAction.getVenuesByUserIdFailure(
-              `Error in getting venue! ${error}`
-            );
-          })
-      );
+        })
+        .catch(function(error) {
+          console.log("Error getting documents: ", error);
+          alert("ops no product Add some product");
+          venueAction.getVenuesByUserIdFailure(
+            `Error in getting venue! ${error}`
+          );
+        });
+
+      // return db
+      //   .collection("services")
+      //   .where("userId", "==", "1ptQjKiE2vQ0kTpolw2Bb3FHYxy2")
+      //   // .doc('aWiECEKr8oVEJFnTOQhL')
+      //   .get()
+      //   .then(doc => {
+      //     if (doc.exists) {
+      //       debugger
+      //       console.log(doc.data())
+
+      //       return venueAction.getVenuesByUserIdSuccess({
+      //         ...doc.data(),
+      //       });
+      //     } else {
+      //       return venueAction.getVenuesByUserIdFailure(`No such document!`);
+      //     }
+      //   })
+      //   .catch(error => {
+      //     return venueAction.getVenuesByUserIdFailure(
+      //       `Error in getting venue! ${error}`
+      //     );
+      //   });
     });
 }
+
+// static getVenuesByUserId = action$ =>
+//     action$.ofType(GET_VENUES_BY_USER_ID).mergeMap(({ payload }) => {
+//       // const { userId, getVenue } = payload;
+// const { user } = auth.currentUser;
+//       debugger;
+//       return (
+//         db
+//           .collection("services")
+//           // .where(userId.uid, "==",getVenue.userId )
+//           // .doc(payload)
+//           .where("userId", "==", user.uid)
+//           .get()
+//           .then(doc => {
+//             debugger;
+//             console.log(payload);
+//             if (doc.exists) {
+//               console.log(doc.data());
+//               debugger;
+//               console.log(doc.data());
+//               return venueAction.getVenuesByUserIdSuccess({
+//                 ...doc.data()
+//               });
+//             } else {
+//               return venueAction.getVenuesByUserIdFailure(`No such document!`);
+//             }
+//           })
+//           .catch(error => {
+//             debugger;
+//             return venueAction.getVenuesByUserIdFailure(
+//               `Error in getting venue! ${error}`
+//             );
+//           })
+//       );

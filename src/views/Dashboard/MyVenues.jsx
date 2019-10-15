@@ -79,9 +79,9 @@ class MyVenues extends Component {
 
   componentDidMount() {
     const { getVenuesByUserIdDetails, user } = this.props;
-    getVenuesByUserIdDetails({ userId: venues.userId });
+    getVenuesByUserIdDetails({ userId: user.uid });
 
-    console.log(venues.userId);
+    console.log(user);
   }
 
   render() {
