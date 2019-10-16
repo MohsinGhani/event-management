@@ -13,9 +13,13 @@ import Info from "dashboard-components/Typography/Info.jsx";
 import Success from "dashboard-components/Typography/Success.jsx";
 import Warning from "dashboard-components/Typography/Warning.jsx";
 import Danger from "dashboard-components/Typography/Danger.jsx";
+import GridContainer from "components/Grid/GridContainer";
+import GridItem from "components/Grid/GridItem";
+import Button from "components/CustomButtons/Button.jsx";
 import Card from "dashboard-components/Card/Card.jsx";
 import CardHeader from "dashboard-components/Card/CardHeader.jsx";
 import CardBody from "dashboard-components/Card/CardBody.jsx";
+import GlobleLoader from "./GlobleLoader";
 
 const style = {
   typo: {
@@ -63,32 +67,33 @@ class MyVenues extends Component {
   }
 
   render() {
-    const { classes, getVenuesByUserId } = this.props;
+    const { classes, getVenuesByUserId, getVenuesByUserIdLoader } = this.props;
     console.log("getVenuesByUserId: ", getVenuesByUserId);
     return (
-      <Card>
-        <CardHeader color="primary">
-          <h4 className={classes.cardTitleWhite}>My Data Collection</h4>
-        </CardHeader>
-        <CardBody>
-          <div className={classes.typo}>
-            {getVenuesByUserId &&
-              getVenuesByUserId.map((venue, index) => {
-                console.log("getVenues: ", venue);
-                debugger;
+      <div>
+        <GlobleLoader getVenuesByUserIdLoader={getVenuesByUserIdLoader} />
+        {getVenuesByUserId &&
+          getVenuesByUserId.map((venue, index) => {
+            console.log("getVenues: ", venue);
+            debugger;
 
-                return (
+            return (
+              <Card>
+                <CardHeader color="primary">
+                  <h4 className={classes.cardTitleWhite}>My Data Collection</h4>
+                </CardHeader>
+                <CardBody>
                   <div key={index}>
                     <li>{venue.name}</li>
                     <br />
                     <li>{venue.phone}</li>
                     <br />
                   </div>
-                );
-              })}
-          </div>
-        </CardBody>
-      </Card>
+                </CardBody>
+              </Card>
+            );
+          })}
+      </div>
     );
   }
 }
@@ -126,5 +131,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(withRouter(withStyles(style)(MyVenues)));
-
-// export default withStyles(style)(MyVenues)

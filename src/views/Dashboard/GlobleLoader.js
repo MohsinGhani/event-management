@@ -3,10 +3,10 @@ import ReactLoading from "react-loading";
 
 export default class GlobleLoader extends Component {
   render() {
-    const { getVenuesLoader } = this.props;
+    const { getVenuesByUserIdLoader } = this.props;
     return (
       <div>
-        {getVenuesLoader ? (
+        {getVenuesByUserIdLoader ? (
           <div
             style={{
               margin: "0 auto",
