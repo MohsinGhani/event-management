@@ -134,7 +134,6 @@ export class venueAction {
   /////////////////
 
   static getVenuesByUserId(payload) {
-    debugger;
     return {
       type: GET_VENUES_BY_USER_ID,
       payload
@@ -142,7 +141,6 @@ export class venueAction {
   }
 
   static getVenuesByUserIdSuccess(getVenuesByUserId) {
-    debugger;
     return {
       type: GET_VENUES_BY_USER_ID_SUCCESS,
       payload: getVenuesByUserId
@@ -150,7 +148,6 @@ export class venueAction {
   }
 
   static getVenuesByUserIdFailure(error) {
-    debugger;
     return {
       type: GET_VENUES_BY_USER_ID_FAILURE,
       payload: error

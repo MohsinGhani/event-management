@@ -109,24 +109,22 @@ export default class venueEpic {
   static getVenuesByUserId = action$ =>
     action$.ofType(GET_VENUES_BY_USER_ID).mergeMap(({ payload }) => {
       // let user = auth.currentUser.uid;
-    const {userId} = payload
-    const ven = []
-      debugger;
+      const { userId } = payload;
+      const ven = [];
+
       return db
         .collection("services")
-        .where("userId", "==",userId)
+        .where("userId", "==", userId)
         .get()
         .then(function(querySnapshot) {
-          debugger;
           querySnapshot.forEach(function(doc) {
             // doc.data() is never undefined for query doc snapshots
             ven.push({ ...doc.data(), vid: doc.id });
             // alert("venue get");
-            console.log(doc.id, " => ", doc.data());
+            // console.log(doc.id, " => ", doc.data());
             // props.getMyProducts(doc.data());
           });
           return venueAction.getVenuesByUserIdSuccess(ven);
-
         })
         .catch(function(error) {
           console.log("Error getting documents: ", error);
@@ -165,7 +163,7 @@ export default class venueEpic {
 //     action$.ofType(GET_VENUES_BY_USER_ID).mergeMap(({ payload }) => {
 //       // const { userId, getVenue } = payload;
 // const { user } = auth.currentUser;
-//       debugger;
+//
 //       return (
 //         db
 //           .collection("services")
@@ -174,11 +172,11 @@ export default class venueEpic {
 //           .where("userId", "==", user.uid)
 //           .get()
 //           .then(doc => {
-//             debugger;
+//
 //             console.log(payload);
 //             if (doc.exists) {
 //               console.log(doc.data());
-//               debugger;
+//
 //               console.log(doc.data());
 //               return venueAction.getVenuesByUserIdSuccess({
 //                 ...doc.data()
@@ -188,7 +186,7 @@ export default class venueEpic {
 //             }
 //           })
 //           .catch(error => {
-//             debugger;
+//
 //             return venueAction.getVenuesByUserIdFailure(
 //               `Error in getting venue! ${error}`
 //             );

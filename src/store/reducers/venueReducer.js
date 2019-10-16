@@ -176,7 +176,6 @@ export default function venueReducer(state = initialState, action) {
     ///////////////////
 
     case GET_VENUES_BY_USER_ID:
-      debugger;
       return {
         ...state,
         getVenuesByUserId: null,
@@ -185,7 +184,6 @@ export default function venueReducer(state = initialState, action) {
       };
 
     case GET_VENUES_BY_USER_ID_SUCCESS:
-      debugger;
       return {
         ...state,
         getVenuesByUserId: action.payload,
@@ -194,7 +192,6 @@ export default function venueReducer(state = initialState, action) {
       };
 
     case GET_VENUES_BY_USER_ID_FAILURE:
-      debugger;
       return {
         ...state,
         getVenuesByUserId: null,

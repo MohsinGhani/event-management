@@ -55,28 +55,6 @@ const style = {
 };
 
 class MyVenues extends Component {
-  // componentDidUpdate(prevProps) {
-  //   const {
-  //     user,
-  //     isLoggedIn,
-  //     getVenuesByUserIdDetails,
-  //     getVenuesByUserId,
-  //   } = this.props;
-  //   if (prevProps.isLoggedIn !== isLoggedIn && isLoggedIn) {
-  //     console.log(user && user.uid)
-  //     console.log("userID: ", getVenuesByUserId);
-  //     console.log("details: ", getVenuesByUserIdDetails);
-  //   }
-  // }
-
-  // componentDidMount() {
-  //   const { isLoggedIn, user } = this.props;
-  //   this.props.isLoggedInAction();
-  //   console.log("hello");
-  //   console.log(user && user.uid);
-  //   console.log(isLoggedIn);
-  // }
-
   componentDidMount() {
     const { getVenuesByUserIdDetails, user } = this.props;
     getVenuesByUserIdDetails({ userId: user.uid });
@@ -85,8 +63,8 @@ class MyVenues extends Component {
   }
 
   render() {
-    const { classes } = this.props;
-
+    const { classes, getVenuesByUserId } = this.props;
+    console.log("getVenuesByUserId: ", getVenuesByUserId);
     return (
       <Card>
         <CardHeader color="primary">
@@ -94,8 +72,20 @@ class MyVenues extends Component {
         </CardHeader>
         <CardBody>
           <div className={classes.typo}>
-            {/* <div className={classes.note}>Header 1</div> */}
-            <h1>The Life of Material Dashboard</h1>
+            {getVenuesByUserId &&
+              getVenuesByUserId.map((venue, index) => {
+                console.log("getVenues: ", venue);
+                debugger;
+
+                return (
+                  <div key={index}>
+                    <li>{venue.name}</li>
+                    <br />
+                    <li>{venue.phone}</li>
+                    <br />
+                  </div>
+                );
+              })}
           </div>
         </CardBody>
       </Card>
