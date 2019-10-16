@@ -29,21 +29,24 @@ class ListView extends React.Component {
     this.props.history.push(path);
   };
 
-    componentDidUpdate(prevProps) {
-      const {venues} = this.props
-      if ((prevProps.venues && prevProps.venues.length )!== (venues && venues.length)) {
-        this.setState({
-          venues: venues
-        });
-      }
+  componentDidUpdate(prevProps) {
+    const { venues } = this.props;
+    if (
+      (prevProps.venues && prevProps.venues.length) !==
+      (venues && venues.length)
+    ) {
+      this.setState({
+        venues: venues
+      });
     }
+  }
 
   componentDidMount() {
     this.props.getVenues();
   }
 
   render() {
-    const { getVenuesLoader} = this.props;
+    const { getVenuesLoader } = this.props;
     const { venues } = this.state;
 
     return (
@@ -61,7 +64,7 @@ class ListView extends React.Component {
           <GlobleLoader getVenuesLoader={getVenuesLoader} />
           {venues &&
             venues.map((venue, i) => {
-              console.log("venues=>", venue)
+              console.log("venues=>", venue);
               return (
                 <GridItem md={4} key={i}>
                   <Card
@@ -114,7 +117,6 @@ class ListView extends React.Component {
                           </Carousel>
                           <div className="card-body-info">
                             <div>
-
                               <div
                                 className="address"
                                 style={{ display: "flex", paddingTop: "5px" }}
