@@ -102,7 +102,6 @@ class VenueDetail extends React.Component {
             bookingPrice={servicesBookingPrice}
             bookingDate={bookingDate}
             saveCustomBookingLoader={saveCustomBookingLoader}
-            goto={this.goto}
             handleToggle={this.handleToggleOnService}
             saveCustomBooking={this.saveCustomBooking}
             handleOnDateChange={this.handleOnDateChange}

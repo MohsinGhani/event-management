@@ -17,7 +17,7 @@ import RegisterPage from "views/LoginPage/RegisterPage.jsx";
 import LoginPage from "views/LoginPage/LoginPage.jsx";
 import VenueDetail from "./views/VenueDetail";
 import AddVenue from "./views/AddVenue";
-import UpdateVenue from "./views/UpdateVenues/UpdateVenue"
+import UpdateVenue from "./views/UpdateVenue/UpdateVenue"
 
 import Dashboard from 'views/Dashboard/Dashboard.jsx'
 import Admin from "layouts/Admin.jsx";
@@ -37,7 +37,7 @@ ReactDOM.render(
           <PrivateRoute exact path="/list-view" component={ListView} />
           <PrivateRoute exact path="/venue-detail/:vid" component={VenueDetail} />
           <PrivateRoute exact path="/add-venue" component={AddVenue} />
-          <PrivateRoute exact path="update-venue/:vid" component={UpdateVenue} />
+          <PrivateRoute exact path="/update-venue/:vid" component={UpdateVenue} />
           <PrivateRoute path="/admin" component={Admin} />
           <Route path="/register" exact component={RegisterPage} />
           <Route path="/login" exact component={LoginPage} />

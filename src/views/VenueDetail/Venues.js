@@ -19,9 +19,12 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Check from "@material-ui/icons/Check";
 import Button from "components/CustomButtons/Button.jsx";
-
+import { withRouter } from "react-router-dom";
 
 class Venues extends Component {
+  goto = path => {
+    this.props.history.push(path);
+  };
   render() {
     const {
       classes,
@@ -33,8 +36,7 @@ class Venues extends Component {
       bookingDate,
       handleOnDateChange,
       saveCustomBookingLoader,
-      successNotifiy,
-      goto
+      successNotifiy
     } = this.props;
     return (
       <div>
@@ -44,9 +46,9 @@ class Venues extends Component {
           <div className="edit_button">
             <Button
               color="warning"
-              size="large"
+              size="lg"
               round
-              onClick={() => goto(`/update-venue/${venue.vid}`)}
+              onClick={() => this.goto(`/update-venue/${venue.vid}`)}
             >
               Edit
             </Button>
@@ -206,4 +208,6 @@ class Venues extends Component {
     );
   }
 }
-export default withStyles({ ...basicsStyle, ...typographyStyle })(Venues);
+export default withRouter(
+  withStyles({ ...basicsStyle, ...typographyStyle })(Venues)
+);

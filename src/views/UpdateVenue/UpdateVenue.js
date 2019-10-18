@@ -1,58 +1,41 @@
 import React, { Component } from "react";
+import { venueAction } from "./../../store/actions";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import withStyles from "@material-ui/core/styles/withStyles";
-import { authAction, venueAction } from "./../../store/actions";
+
+import AuthenticatedNavbar from "./../../components/common/AuthenticatedNavbar";
 
 class UpdateVenue extends Component {
   componentDidMount() {
-      debugger
     const { vid } = this.props.match.params;
     this.props.getVenue(vid);
-    console.log(this.props.getVenue())
   }
   render() {
-    debugger
-    
-    return <div></div>;
+
+    return (
+      <div>
+        <AuthenticatedNavbar />
+        <h1>Helloooooooooooooo World</h1>
+      </div>
+    );
   }
 }
 const mapStateToProps = state => {
-    const {
-      authReducer: { user, isLoggedIn },
-      venueReducer: {
-        venue,
-        getVenueLoader,
-        getVenueError,
-        saveCustomBooking,
-        saveCustomBookingLoader,
-        saveCustomBookingError
-      }
-    } = state;
-    return {
-      venue,
-      getVenueLoader,
-      getVenueError,
-  
-      saveCustomBooking,
-      saveCustomBookingLoader,
-      saveCustomBookingError,
-  
-      user,
-      isLoggedIn
-    };
+  const {
+    venueReducer: { venue, getVenueLoader, getVenueError }
+  } = state;
+  return {
+    venue,
+    getVenueLoader,
+    getVenueError
   };
-  
-  const mapDispatchToProps = dispatch => {
-    return {
-      isLoggedInAction: payload => dispatch(authAction.isLoggedIn(payload)),
-      getVenue: vid => dispatch(venueAction.getVenue(vid)),
-      saveCustomBooking: payload =>
-        dispatch(venueAction.saveCustomBooking(payload))
-    };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getVenue: vid => dispatch(venueAction.getVenue(vid))
   };
-  
-  export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(withRouter(withStyles(UpdateVenue)));
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(UpdateVenue);
