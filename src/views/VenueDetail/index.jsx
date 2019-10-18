@@ -30,8 +30,13 @@ class VenueDetail extends React.Component {
       bookingDate: date
     });
   };
+  
   successNotifiy = message => toast.success(message);
-
+  
+  goto = path => {
+    this.props.history.push(path);
+  };
+  
   saveCustomBooking = () => {
     const { vid } = this.props.match.params;
     let user = this.props.user;
@@ -80,11 +85,7 @@ class VenueDetail extends React.Component {
   };
 
   render() {
-    const {
-      venue,
-      getVenueLoader,
-      saveCustomBookingLoader
-    } = this.props;
+    const { venue, user, getVenueLoader, saveCustomBookingLoader } = this.props;
     const { servicesBookingPrice, bookingDate } = this.state;
     return (
       <div>
@@ -97,9 +98,11 @@ class VenueDetail extends React.Component {
         {venue ? (
           <Venues
             venue={venue}
+            user={user}
             bookingPrice={servicesBookingPrice}
             bookingDate={bookingDate}
             saveCustomBookingLoader={saveCustomBookingLoader}
+            goto={this.goto}
             handleToggle={this.handleToggleOnService}
             saveCustomBooking={this.saveCustomBooking}
             handleOnDateChange={this.handleOnDateChange}

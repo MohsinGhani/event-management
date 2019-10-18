@@ -18,24 +18,42 @@ import MapLocation from "./MapLocation";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Check from "@material-ui/icons/Check";
+import Button from "components/CustomButtons/Button.jsx";
+
 
 class Venues extends Component {
   render() {
     const {
       classes,
       venue,
+      user,
       bookingPrice,
       handleToggle,
       saveCustomBooking,
       bookingDate,
       handleOnDateChange,
       saveCustomBookingLoader,
-      successNotifiy
+      successNotifiy,
+      goto
     } = this.props;
     return (
       <div>
         <ImageCarousel venue={venue} />
 
+        {venue.userId === user.uid ? (
+          <div className="edit_button">
+            <Button
+              color="warning"
+              size="large"
+              round
+              onClick={() => goto(`/update-venue/${venue.vid}`)}
+            >
+              Edit
+            </Button>
+          </div>
+        ) : (
+          <span></span>
+        )}
         <GridContainer
           className={classes.section}
           style={{
