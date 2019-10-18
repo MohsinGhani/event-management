@@ -376,7 +376,6 @@ class UpdateVenue extends Component {
                         />
                       </GridItem>
                     </GridContainer>
-                    ); })}
                   </GridItem>
                 </GridContainer>
               </CardBody>
