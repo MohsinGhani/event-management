@@ -21,6 +21,10 @@ class MyVenues extends React.Component {
     const { getVenuesByUserIdDetails, user } = this.props;
     getVenuesByUserIdDetails({ userId: user.uid });
   }
+  goto = path => {
+    this.props.history.push(path);
+  };
+
   render() {
     const { classes, getVenuesByUserId, getVenuesByUserIdLoader } = this.props;
     console.log("getVenuesByUserId: ", getVenuesByUserId);
