@@ -1,83 +1,46 @@
-import React, { Component, Fragment } from "react";
+import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { authAction, venueAction } from "./../../store/actions";
-import auth from "../../firebase/FireBase";
-// @material-ui/core dashboard-components
 import withStyles from "@material-ui/core/styles/withStyles";
-// core dashboard-components
-import Quote from "dashboard-components/Typography/Quote.jsx";
-import Muted from "dashboard-components/Typography/Muted.jsx";
-import Primary from "dashboard-components/Typography/Primary.jsx";
-import Info from "dashboard-components/Typography/Info.jsx";
-import Success from "dashboard-components/Typography/Success.jsx";
-import Warning from "dashboard-components/Typography/Warning.jsx";
-import Danger from "dashboard-components/Typography/Danger.jsx";
+import loginPageStyle from "assets/jss/material-kit-react/views/loginPage.jsx";
+import { authAction, venueAction } from "./../../store/actions";
+import Card from "components/Card/Card";
+import CardHeader from "components/Card/CardHeader";
+import CardBody from "components/Card/CardBody";
 import GridContainer from "components/Grid/GridContainer";
 import GridItem from "components/Grid/GridItem";
 import Button from "components/CustomButtons/Button.jsx";
-import Card from "dashboard-components/Card/Card.jsx";
-import CardHeader from "dashboard-components/Card/CardHeader.jsx";
-import CardBody from "dashboard-components/Card/CardBody.jsx";
-import GlobleLoader from "./GlobleLoader";
+import AuthenticatedNavbar from "./../../components/common/AuthenticatedNavbar";
+
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
-const style = {
-  typo: {
-    paddingLeft: "25%",
-    marginBottom: "40px",
-    position: "relative"
-  },
-  note: {
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-    bottom: "10px",
-    color: "#c0c1c2",
-    display: "block",
-    fontWeight: "400",
-    fontSize: "13px",
-    lineHeight: "13px",
-    left: "0",
-    marginLeft: "20px",
-    position: "absolute",
-    width: "260px"
-  },
-  cardCategoryWhite: {
-    color: "rgba(255,255,255,.62)",
-    margin: "0",
-    fontSize: "14px",
-    marginTop: "0",
-    marginBottom: "0"
-  },
-  cardTitleWhite: {
-    color: "#FFFFFF",
-    marginTop: "0px",
-    minHeight: "auto",
-    fontWeight: "300",
-    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-    marginBottom: "3px",
-    textDecoration: "none"
-  }
-};
+import GlobleLoader from "./GlobleLoader";
 
-class MyVenues extends Component {
+class MyVenues extends React.Component {
   componentDidMount() {
     const { getVenuesByUserIdDetails, user } = this.props;
     getVenuesByUserIdDetails({ userId: user.uid });
   }
-
   render() {
     const { classes, getVenuesByUserId, getVenuesByUserIdLoader } = this.props;
     console.log("getVenuesByUserId: ", getVenuesByUserId);
     return (
       <div>
-        <h2>My Data Collection</h2>
-        <GlobleLoader getVenuesByUserIdLoader={getVenuesByUserIdLoader} />
-        {getVenuesByUserId &&
-          getVenuesByUserId.map((venue, index) => {
-            console.log("getVenues: ", venue);
-            return (
-              <GridContainer>
-                <GridItem xs={12} sm={2} md={2} lg={3} key={index}>
+        <h1>My Collection Data</h1>
+        <GridContainer
+          style={{
+            padding: "0 15px",
+            maxWidth: "1024px",
+            margin: "0 auto",
+            marginTop: "15px"
+          }}
+        >
+          <GlobleLoader getVenuesByUserIdLoader={getVenuesByUserIdLoader} />
+          {getVenuesByUserId &&
+            getVenuesByUserId.map((venue, i) => {
+              console.log("venues=>", venue);
+              return (
+                <GridItem md={4} key={i}>
                   <Card
                     children={
                       <Fragment>
@@ -199,9 +162,9 @@ class MyVenues extends Component {
                     }
                   />
                 </GridItem>
-              </GridContainer>
-            );
-          })}
+              );
+            })}
+        </GridContainer>
       </div>
     );
   }
@@ -239,4 +202,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(withStyles(style)(MyVenues)));
+)(withRouter(withStyles(loginPageStyle)(MyVenues)));
