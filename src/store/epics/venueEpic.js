@@ -7,6 +7,7 @@ import credentials from "../../config/credentials";
 
 import {
   SAVE_VENUES,
+  UPDATE_VENUE,
   GET_VENUES,
   GET_VENUE,
   SAVE_CUSTOM_BOOKING,
@@ -49,6 +50,27 @@ export default class venueEpic {
         })
         .catch(err => {
           return venueAction.saveVenueFailure(`Error in Save venue! ${err}`);
+        });
+    });
+
+  static updateVenue = action$ =>
+    action$.ofType(UPDATE_VENUE).switchMap(({ payload }) => {
+      // const vid = payload;
+
+      debugger;
+      return Observable.fromPromise(
+        db
+          .collection("services")
+          .doc("bTCulXMK0GKQAiDONz2c")
+          .set(payload)
+      )
+        .switchMap(() => {
+          return Observable.of(venueAction.updateVenueSuccess(payload));
+        })
+        .catch(err => {
+          return venueAction.updateVenueFailure(
+            `Error in update venue! ${err}`
+          );
         });
     });
 
@@ -133,29 +155,6 @@ export default class venueEpic {
             `Error in getting venue! ${error}`
           );
         });
-
-      // return db
-      //   .collection("services")
-      //   .where("userId", "==", "1ptQjKiE2vQ0kTpolw2Bb3FHYxy2")
-      //   // .doc('aWiECEKr8oVEJFnTOQhL')
-      //   .get()
-      //   .then(doc => {
-      //     if (doc.exists) {
-      //       debugger
-      //       console.log(doc.data())
-
-      //       return venueAction.getVenuesByUserIdSuccess({
-      //         ...doc.data(),
-      //       });
-      //     } else {
-      //       return venueAction.getVenuesByUserIdFailure(`No such document!`);
-      //     }
-      //   })
-      //   .catch(error => {
-      //     return venueAction.getVenuesByUserIdFailure(
-      //       `Error in getting venue! ${error}`
-      //     );
-      //   });
     });
 }
 

@@ -17,7 +17,7 @@ import RegisterPage from "views/LoginPage/RegisterPage.jsx";
 import LoginPage from "views/LoginPage/LoginPage.jsx";
 import VenueDetail from "./views/VenueDetail";
 import AddVenue from "./views/AddVenue";
-import UpdateVenue from "./views/UpdateVenue/UpdateVenue"
+import UpdateVenue from "./views/UpdateVenue"
 
 import Dashboard from 'views/Dashboard/Dashboard.jsx'
 import Admin from "layouts/Admin.jsx";

@@ -8,6 +8,9 @@ import {
   SAVE_VENUES,
   SAVE_VENUES_SUCCESS,
   SAVE_VENUES_FAILURE,
+  UPDATE_VENUE,
+  UPDATE_VENUE_SUCCESS,
+  UPDATE_VENUE_FAILURE,
   REVERSE_GEOCODING,
   REVERSE_GEOCODING_SUCCESS,
   REVERSE_GEOCODING_FAILURE,
@@ -43,7 +46,11 @@ const initialState = {
 
   getVenuesByUserId: null,
   getVenuesByUserIdLoader: false,
-  getVenuesByUserIdError: null
+  getVenuesByUserIdError: null,
+
+  updatedVenue: null,
+  updateVenueLoader: false,
+  updateVenueError: null
 };
 
 export default function venueReducer(state = initialState, action) {
@@ -120,6 +127,34 @@ export default function venueReducer(state = initialState, action) {
         savedVenue: null,
         saveVenueLoader: false,
         saveVenueError: action.payload
+      };
+
+    ///////////////////////
+    case UPDATE_VENUE:
+      debugger;
+      return {
+        ...state,
+        updatedVenue: null,
+        updateVenueLoader: true,
+        updateVenueError: null
+      };
+
+    case UPDATE_VENUE_SUCCESS:
+      debugger;
+      return {
+        ...state,
+        updatedVenue: action.payload,
+        updateVenueLoader: false,
+        updateVenueError: null
+      };
+
+    case UPDATE_VENUE_FAILURE:
+      debugger;
+      return {
+        ...state,
+        updatedVenue: null,
+        updateVenueLoader: false,
+        updateVenueError: action.payload
       };
 
     //////////////////////// By vId ////////////////////////

@@ -16,7 +16,10 @@ import {
   SAVE_CUSTOM_BOOKING_FAILURE,
   GET_VENUES_BY_USER_ID,
   GET_VENUES_BY_USER_ID_SUCCESS,
-  GET_VENUES_BY_USER_ID_FAILURE
+  GET_VENUES_BY_USER_ID_FAILURE,
+  UPDATE_VENUE,
+  UPDATE_VENUE_SUCCESS,
+  UPDATE_VENUE_FAILURE,
 } from "./../constants";
 
 export class venueAction {
@@ -106,6 +109,29 @@ export class venueAction {
   static saveVenueFailure(error) {
     return {
       type: SAVE_VENUES_FAILURE,
+      error
+    };
+  }
+
+  ///////////////
+
+  static updateVenue(payload) {
+    return {
+      type: UPDATE_VENUE,
+      payload
+    };
+  }
+
+  static updateVenueSuccess(payload) {
+    return {
+      type: UPDATE_VENUE_SUCCESS,
+      payload
+    };
+  }
+
+  static updateVenueFailure(error) {
+    return {
+      type: UPDATE_VENUE_FAILURE,
       error
     };
   }

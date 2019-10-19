@@ -36,6 +36,10 @@ export const SAVE_CUSTOM_BOOKING = "SAVE_CUSTOM_BOOKING";
 export const SAVE_CUSTOM_BOOKING_SUCCESS = "SAVE_CUSTOM_BOOKING_SUCCESS";
 export const SAVE_CUSTOM_BOOKING_FAILURE = "SAVE_CUSTOM_BOOKING_FAILURE";
 
+export const UPDATE_VENUE = "UPDATE_VENUES";
+export const UPDATE_VENUE_SUCCESS = "UPDATE_VENUES_SUCCESS";
+export const UPDATE_VENUE_FAILURE = "UPDATE_VENUES_FAILURE";
+
 /*****************************  Map Constants  *************************************/
 
 export const REVERSE_GEOCODING = "REVERSE_GEOCODING";
