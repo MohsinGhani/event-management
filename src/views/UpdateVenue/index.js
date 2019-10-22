@@ -160,9 +160,9 @@ class UpdateVenue extends Component {
 
   componentDidMount() {
     const { vid } = this.props.match.params;
-    const {getVenue, updateVenueFunc} = this.props
+    const {getVenue, updateVenueFunc, venue} = this.props
     getVenue(vid);
-    // updateVenueFunc(vid);
+    updateVenueFunc(venue);
     
   }
 

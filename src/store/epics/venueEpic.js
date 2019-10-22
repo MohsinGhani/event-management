@@ -55,19 +55,20 @@ export default class venueEpic {
 
   static updateVenue = action$ =>
     action$.ofType(UPDATE_VENUE).switchMap(({ payload }) => {
-      // const vid = payload;
-
+      // const {vid} = payload;
       debugger;
       return Observable.fromPromise(
         db
           .collection("services")
-          .doc("bTCulXMK0GKQAiDONz2c")
+          .doc()
           .set(payload)
       )
         .switchMap(() => {
+          debugger;
           return Observable.of(venueAction.updateVenueSuccess(payload));
         })
         .catch(err => {
+          debugger;
           return venueAction.updateVenueFailure(
             `Error in update venue! ${err}`
           );

@@ -154,7 +154,7 @@ export default function venueReducer(state = initialState, action) {
         ...state,
         updatedVenue: null,
         updateVenueLoader: false,
-        updateVenueError: action.payload
+        updateVenueError: "cant update your item"
       };
 
     //////////////////////// By vId ////////////////////////

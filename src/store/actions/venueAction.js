@@ -116,6 +116,7 @@ export class venueAction {
   ///////////////
 
   static updateVenue(payload) {
+    debugger
     return {
       type: UPDATE_VENUE,
       payload
@@ -123,6 +124,7 @@ export class venueAction {
   }
 
   static updateVenueSuccess(payload) {
+    debugger
     return {
       type: UPDATE_VENUE_SUCCESS,
       payload
@@ -130,6 +132,7 @@ export class venueAction {
   }
 
   static updateVenueFailure(error) {
+    debugger
     return {
       type: UPDATE_VENUE_FAILURE,
       error
