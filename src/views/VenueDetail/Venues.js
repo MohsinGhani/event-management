@@ -24,7 +24,6 @@ import Archive from "@material-ui/icons/Archive";
 import Edit from "@material-ui/icons/Edit";
 import Delete from "@material-ui/icons/Delete";
 
-
 class Venues extends Component {
   goto = path => {
     this.props.history.push(path);
@@ -41,7 +40,8 @@ class Venues extends Component {
       handleOnDateChange,
       saveCustomBookingLoader,
       successNotifiy,
-      handleDeleteStatus
+      handleDeleteStatus,
+      handleArchiveStatus
     } = this.props;
     return (
       <div>
@@ -58,19 +58,15 @@ class Venues extends Component {
                 <Edit className={classes.icons} />
                 Edit
               </Button>
-              <Button
-                color="danger"
-                round
-                onClick={() => handleDeleteStatus()}
-              >
+              <Button color="danger" round onClick={() => handleDeleteStatus()}>
                 <Delete className={classes.icons} />
                 Delete
               </Button>
-         
+
               <Button
                 color="warning"
                 round
-                onClick={() => this.goto(`/update-venue/${venue.vid}`)}
+                onClick={() => handleArchiveStatus()}
               >
                 <Archive className={classes.icons} />
                 Archive

@@ -47,21 +47,33 @@ class VenueDetail extends React.Component {
       bookingDate: date
     });
   };
+
   handleDeleteStatus = () => {
-    debugger
     const { user, venue } = this.props;
     const { objStatus, vid } = this.state;
-    debugger
-    console.log(objStatus)
+    console.log(objStatus);
     const newObjStatus = {
       ...venue,
       objStatus: 0,
       vid,
       userId: user && user.uid
     };
-    debugger
     this.props.changeObjStatus(newObjStatus);
-    console.log(objStatus)
+    console.log(objStatus);
+  };
+
+  handleArchiveStatus = () => {
+    const { user, venue } = this.props;
+    const { objStatus, vid } = this.state;
+    console.log(objStatus);
+    const newObjStatus = {
+      ...venue,
+      objStatus: 2,
+      vid,
+      userId: user && user.uid
+    };
+    this.props.changeObjStatus(newObjStatus);
+    console.log(objStatus);
   };
   successNotifiy = message => toast.success(message);
 
@@ -139,6 +151,7 @@ class VenueDetail extends React.Component {
             handleOnDateChange={this.handleOnDateChange}
             successNotifiy={this.successNotifiy}
             handleDeleteStatus={this.handleDeleteStatus}
+            handleArchiveStatus={this.handleArchiveStatus}
           />
         ) : null}
       </div>
