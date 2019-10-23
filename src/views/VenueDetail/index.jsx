@@ -16,8 +16,25 @@ class VenueDetail extends React.Component {
     this.state = {
       eventId: "",
       servicesBookingPrice: [],
-      bookingDate: new Date()
+      bookingDate: new Date(),
+      objStatus: 0
     };
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { venue } = this.props;
+    if (prevProps.venue !== venue && venue) {
+      debugger;
+      console.log(venue);
+      const { vid } = this.props.match.params;
+      console.log(vid);
+      debugger;
+      this.setState({
+        ...venue,
+        objStatus: venue.objStatus,
+        vid: vid
+      });
+    }
   }
 
   componentDidMount() {
@@ -30,13 +47,28 @@ class VenueDetail extends React.Component {
       bookingDate: date
     });
   };
-  
+  handleDeleteStatus = () => {
+    debugger
+    const { user, venue } = this.props;
+    const { objStatus, vid } = this.state;
+    debugger
+    console.log(objStatus)
+    const newObjStatus = {
+      ...venue,
+      objStatus: 0,
+      vid,
+      userId: user && user.uid
+    };
+    debugger
+    this.props.changeObjStatus(newObjStatus);
+    console.log(objStatus)
+  };
   successNotifiy = message => toast.success(message);
-  
+
   goto = path => {
     this.props.history.push(path);
   };
-  
+
   saveCustomBooking = () => {
     const { vid } = this.props.match.params;
     let user = this.props.user;
@@ -106,6 +138,7 @@ class VenueDetail extends React.Component {
             saveCustomBooking={this.saveCustomBooking}
             handleOnDateChange={this.handleOnDateChange}
             successNotifiy={this.successNotifiy}
+            handleDeleteStatus={this.handleDeleteStatus}
           />
         ) : null}
       </div>
@@ -144,7 +177,8 @@ const mapDispatchToProps = dispatch => {
     isLoggedInAction: payload => dispatch(authAction.isLoggedIn(payload)),
     getVenue: vid => dispatch(venueAction.getVenue(vid)),
     saveCustomBooking: payload =>
-      dispatch(venueAction.saveCustomBooking(payload))
+      dispatch(venueAction.saveCustomBooking(payload)),
+    changeObjStatus: payload => dispatch(venueAction.changeObjStatus(payload))
   };
 };
 

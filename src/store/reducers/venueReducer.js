@@ -19,7 +19,10 @@ import {
   SAVE_CUSTOM_BOOKING_FAILURE,
   GET_VENUES_BY_USER_ID,
   GET_VENUES_BY_USER_ID_SUCCESS,
-  GET_VENUES_BY_USER_ID_FAILURE
+  GET_VENUES_BY_USER_ID_FAILURE,
+  CHANGE_OBJ_STATUS,
+  CHANGE_OBJ_STATUS_SUCCESS,
+  CHANGE_OBJ_STATUS_FAILURE
 } from "./../constants";
 // import { venues } from "./../../assets/venus";
 
@@ -50,7 +53,11 @@ const initialState = {
 
   updatedVenue: null,
   updateVenueLoader: false,
-  updateVenueError: null
+  updateVenueError: null,
+
+  objStatusHideData: 0,
+  objStatusHideDataLoader: false,
+  objStatusHideDataError: null
 };
 
 export default function venueReducer(state = initialState, action) {
@@ -232,6 +239,33 @@ export default function venueReducer(state = initialState, action) {
         getVenuesByUserId: null,
         getVenuesByUserIdLoader: false,
         getVenuesByUserIdError: "Can not Get Venues"
+      };
+
+
+      ///////////////////
+
+    case CHANGE_OBJ_STATUS:
+      return {
+        ...state,
+        changeObjStatus: 0,
+        changeObjStatusLoader: true,
+        changeObjStatusError: null
+      };
+
+    case CHANGE_OBJ_STATUS_SUCCESS:
+      return {
+        ...state,
+        changeObjStatus: action.payload,
+        changeObjStatusLoader: false,
+        changeObjStatusError: null
+      };
+
+    case CHANGE_OBJ_STATUS_FAILURE:
+      return {
+        ...state,
+        changeObjStatus: 0,
+        changeObjStatusLoader: false,
+        changeObjStatusError: "Can not Get Venues"
       };
 
     default:

@@ -290,6 +290,7 @@ class AddVenue extends Component {
                   url,
                   userId: user && user.uid,
                   status: 0,
+                  objStatus: 1,
                   createdTimestamp: new Date().getTime()
                 };
                 this.props.saveVenue(newDetails);

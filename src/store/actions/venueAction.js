@@ -20,6 +20,9 @@ import {
   UPDATE_VENUE,
   UPDATE_VENUE_SUCCESS,
   UPDATE_VENUE_FAILURE,
+  CHANGE_OBJ_STATUS,
+  CHANGE_OBJ_STATUS_SUCCESS,
+  CHANGE_OBJ_STATUS_FAILURE
 } from "./../constants";
 
 export class venueAction {
@@ -116,7 +119,7 @@ export class venueAction {
   ///////////////
 
   static updateVenue(payload) {
-    debugger
+    debugger;
     return {
       type: UPDATE_VENUE,
       payload
@@ -124,7 +127,7 @@ export class venueAction {
   }
 
   static updateVenueSuccess(payload) {
-    debugger
+    debugger;
     return {
       type: UPDATE_VENUE_SUCCESS,
       payload
@@ -132,7 +135,7 @@ export class venueAction {
   }
 
   static updateVenueFailure(error) {
-    debugger
+    debugger;
     return {
       type: UPDATE_VENUE_FAILURE,
       error
@@ -179,6 +182,29 @@ export class venueAction {
   static getVenuesByUserIdFailure(error) {
     return {
       type: GET_VENUES_BY_USER_ID_FAILURE,
+      payload: error
+    };
+  }
+
+  /////////////////
+
+  static changeObjStatus(payload) {
+    return {
+      type: CHANGE_OBJ_STATUS,
+      payload
+    };
+  }
+
+  static changeObjStatusSuccess(payload) {
+    return {
+      type: CHANGE_OBJ_STATUS_SUCCESS,
+      payload: payload
+    };
+  }
+
+  static changeObjStatusFailure(error) {
+    return {
+      type: CHANGE_OBJ_STATUS_FAILURE,
       payload: error
     };
   }

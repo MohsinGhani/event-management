@@ -11,7 +11,8 @@ import {
   GET_VENUES,
   GET_VENUE,
   SAVE_CUSTOM_BOOKING,
-  GET_VENUES_BY_USER_ID
+  GET_VENUES_BY_USER_ID,
+  CHANGE_OBJ_STATUS
 } from "../constants";
 import { db } from "../../firebase/FireBase";
 import auth from "../../firebase/FireBase";
@@ -45,7 +46,7 @@ export default class venueEpic {
           .doc()
           .set(payload)
       )
-        .switchMap((doc) => {
+        .switchMap(doc => {
           return Observable.of(venueAction.saveVenueSuccess(payload));
         })
         .catch(err => {
@@ -55,7 +56,7 @@ export default class venueEpic {
 
   static updateVenue = action$ =>
     action$.ofType(UPDATE_VENUE).switchMap(({ payload }) => {
-      const {vid} = payload;
+      const { vid } = payload;
       debugger;
       return Observable.fromPromise(
         db
@@ -75,10 +76,36 @@ export default class venueEpic {
         });
     });
 
+  static changeObjStatus = action$ =>
+    action$.ofType(CHANGE_OBJ_STATUS).switchMap(({ payload }) => {
+      debugger;
+      const { vid } = payload;
+      debugger;
+      return Observable.fromPromise(
+        db
+          .collection("services")
+          .doc(vid)
+          .set(payload)
+      )
+        .switchMap(() => {
+          debugger;
+          return Observable.of(venueAction.changeObjStatusSuccess(payload));
+        })
+        .catch(err => {
+          debugger;
+          return venueAction.changeObjStatusFailure(
+            `Error in update venue! ${err}`
+          );
+        });
+    });
+
   static getVenues = action$ =>
     action$.ofType(GET_VENUES).mergeMap(async () => {
       try {
-        const querySnapshot = await db.collection("services").get();
+        const querySnapshot = await db
+          .collection("services")
+          .where("objStatus", "==", "1")
+          .get();
         let services = [];
         querySnapshot.forEach(doc => {
           services.push({ ...doc.data(), vid: doc.id });
@@ -138,6 +165,7 @@ export default class venueEpic {
       return db
         .collection("services")
         .where("userId", "==", userId)
+        .where("objStatus", "==", "1")
         .get()
         .then(function(querySnapshot) {
           querySnapshot.forEach(function(doc) {

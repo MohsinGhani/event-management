@@ -52,6 +52,10 @@ export const GET_VENUES_BY_USER_ID = "GET_VENUES_BY_USER_ID";
 export const GET_VENUES_BY_USER_ID_SUCCESS = "GET_VENUES_BY_USER_ID_SUCCESS";
 export const GET_VENUES_BY_USER_ID_FAILURE = "GET_VENUES_BY_USER_ID_FAILURE";
 
+export const CHANGE_OBJ_STATUS = "CHANGE_OBJ_STATUS";
+export const CHANGE_OBJ_STATUS_SUCCESS = "CHANGE_OBJ_STATUS_SUCCESS";
+export const CHANGE_OBJ_STATUS_FAILURE = "CHANGE_OBJ_STATUS_FAILURE";
+
 /*****************************  Get User Constants  *************************************/
 
 export const GET_USER_BY_ID = "GET_USER_BY_ID";

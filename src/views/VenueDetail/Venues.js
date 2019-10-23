@@ -40,7 +40,8 @@ class Venues extends Component {
       bookingDate,
       handleOnDateChange,
       saveCustomBookingLoader,
-      successNotifiy
+      successNotifiy,
+      handleDeleteStatus
     } = this.props;
     return (
       <div>
@@ -60,7 +61,7 @@ class Venues extends Component {
               <Button
                 color="danger"
                 round
-                onClick={() => this.goto(`/update-venue/${venue.vid}`)}
+                onClick={() => handleDeleteStatus()}
               >
                 <Delete className={classes.icons} />
                 Delete
