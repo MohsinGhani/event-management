@@ -20,7 +20,8 @@ class ImageUploader extends Component {
       handleUploadSave,
       handleUploadClose,
       handleUploadOpen,
-      files
+      files,
+      url
     } = this.props;
     return (
       <div>
@@ -32,11 +33,11 @@ class ImageUploader extends Component {
               <h4 className={classes.cardTitleWhite}>Upload Image</h4>
             </CardHeader>
             <CardBody>
-              {files.map((file, i) => {
+              {url.map((url, i) => {
                 return (
                   <div key={i}>
                     <img
-                      src={`./${file.name}`}
+                      src={url}
                       alt="upload images"
                       width="100px"
                       height="100px"

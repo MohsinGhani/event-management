@@ -45,7 +45,7 @@ export default class venueEpic {
           .doc()
           .set(payload)
       )
-        .switchMap(() => {
+        .switchMap((doc) => {
           return Observable.of(venueAction.saveVenueSuccess(payload));
         })
         .catch(err => {
@@ -55,12 +55,12 @@ export default class venueEpic {
 
   static updateVenue = action$ =>
     action$.ofType(UPDATE_VENUE).switchMap(({ payload }) => {
-      // const {vid} = payload;
+      const {vid} = payload;
       debugger;
       return Observable.fromPromise(
         db
           .collection("services")
-          .doc()
+          .doc(vid)
           .set(payload)
       )
         .switchMap(() => {

@@ -13,7 +13,8 @@ import { storage } from "../../firebase/FireBase";
 import PickLocation from "./PickLocation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import Button from "components/CustomButtons/Button.jsx";
+import ReactLoading from "react-loading";
 const dummyCategories = [
   { title: "Venue", id: "venue" },
   { title: "Decorator", id: "decorator" },
@@ -45,7 +46,7 @@ class UpdateVenue extends Component {
       address: "",
       description: "",
       bookingPerDay: "",
-
+      vid: "",
       isDetailsButtonDisable: true,
 
       error: {
@@ -143,27 +144,31 @@ class UpdateVenue extends Component {
     }
 
     if (prevProps.venue !== venue && venue) {
+      debugger;
       console.log(venue);
+      const { vid } = this.props.match.params;
+      console.log(vid);
+      debugger;
       this.setState({
         name: venue.name,
         phone: venue.phone,
         email: venue.email,
         address: venue.address,
         description: venue.description,
+        vid: vid,
         bookingPerDay: venue.bookingPerDay,
         serviesFacilities: venue.serviesFacilities,
         categorySelect: venue.categorySelect,
         picked: venue.picked
       });
     }
+    console.log(this.state.vid);
   }
 
   componentDidMount() {
     const { vid } = this.props.match.params;
-    const {getVenue, updateVenueFunc, venue} = this.props
+    const { getVenue } = this.props;
     getVenue(vid);
-    updateVenueFunc(venue);
-    
   }
 
   handleClickOpen = modal => {
@@ -251,92 +256,140 @@ class UpdateVenue extends Component {
   };
 
   handelOnSaveAndUpload = () => {
-    var storageRef = storage.ref();
-    var urls = [];
-    let user = this.props.user;
-
-    this.state.files.map((file, index) => {
-      return storageRef
-        .child(`events images/${file.name}`)
-        .put(file)
-        .then(response => {
-          var progresss =
-            (response.task.snapshot.bytesTransferred /
-              response.task.snapshot.totalBytes) *
-            100;
-
-          console.log("Upload is " + this.state.progress + "% done");
-          console.log(progresss);
-
-          response.task.snapshot.ref
-            .getDownloadURL()
-            .then(downloadURL => {
-              urls.push(downloadURL);
-
-              console.log(urls);
-            })
-            .then(() => {
-              this.setState({
-                url: urls
-              });
-
-              console.log("file.length", this.state.files.length);
-              console.log("index=", index);
-              var sum = index + 1;
-
-              console.log("sum=", sum);
-
-              console.log("second iteration");
-
-              if (this.state.files.length === sum) {
-                const {
-                  name,
-                  phone,
-                  email,
-                  address,
-                  description,
-                  bookingPerDay,
-                  serviesFacilities,
-                  url,
-                  categorySelect,
-                  picked
-                } = this.state;
-                const newDetails = {
-                  name,
-                  phone,
-                  email,
-                  address,
-                  description,
-                  bookingPerDay,
-                  serviesFacilities,
-                  objType: categorySelect,
-                  location: picked,
-                  url,
-                  userId: user && user.uid,
-                  createdTimestamp: new Date().getTime()
-                };
-                this.props.updateVenueFunc(newDetails);
-                this.setState({
-                  name: "",
-                  phone: "",
-                  email: "",
-                  address: "",
-                  description: "",
-                  bookingPerDay: "",
-                  url: [],
-                  categorySelect: [],
-                  files: [],
-                  serviesFacilities: [],
-                  picked: null
-                });
-              }
-            })
-            .catch(error => {
-              alert(error);
-            });
-        });
+    const { user } = this.props;
+    const {
+      name,
+      phone,
+      email,
+      address,
+      description,
+      bookingPerDay,
+      serviesFacilities,
+      url,
+      categorySelect,
+      picked,
+      vid
+    } = this.state;
+    const newDetails = {
+      name,
+      phone,
+      email,
+      address,
+      description,
+      bookingPerDay,
+      serviesFacilities,
+      objType: categorySelect,
+      location: picked,
+      url,
+      vid,
+      userId: user && user.uid,
+      createdTimestamp: new Date().getTime()
+    };
+    debugger;
+    this.props.updateVenueFunc(newDetails);
+    this.setState({
+      name: "",
+      phone: "",
+      email: "",
+      address: "",
+      description: "",
+      bookingPerDay: "",
+      url: [],
+      categorySelect: [],
+      files: [],
+      serviesFacilities: [],
+      picked: null
     });
   };
+
+  //   handelOnSaveAndUpload = () => {
+  //     var storageRef = storage.ref();
+  //     var urls = [];
+  //     let user = this.props.user;
+
+  //     this.state.files.map((file, index) => {
+  //       return storageRef
+  //         .child(`events images/${file.name}`)
+  //         .put(file)
+  //         .then(response => {
+  //           var progresss =
+  //             (response.task.snapshot.bytesTransferred /
+  //               response.task.snapshot.totalBytes) *
+  //             100;
+
+  //           console.log("Upload is " + this.state.progress + "% done");
+  //           console.log(progresss);
+
+  //           response.task.snapshot.ref
+  //             .getDownloadURL()
+  //             .then(downloadURL => {
+  //               urls.push(downloadURL);
+
+  //               console.log(urls);
+  //             })
+  //             .then(() => {
+  //               this.setState({
+  //                 url: urls
+  //               });
+
+  //               console.log("file.length", this.state.files.length);
+  //               console.log("index=", index);
+  //               var sum = index + 1;
+
+  //               console.log("sum=", sum);
+
+  //               console.log("second iteration");
+  // debugger;
+  //               if (this.state.files.length === sum) {
+  //                 debugger;
+  // const {
+  //   name,
+  //   phone,
+  //   email,
+  //   address,
+  //   description,
+  //   bookingPerDay,
+  //   serviesFacilities,
+  //   url,
+  //   categorySelect,
+  //   picked
+  // } = this.state;
+  // const newDetails = {
+  //   name,
+  //   phone,
+  //   email,
+  //   address,
+  //   description,
+  //   bookingPerDay,
+  //   serviesFacilities,
+  //   objType: categorySelect,
+  //   location: picked,
+  //   url,
+  //   userId: user && user.uid,
+  //   createdTimestamp: new Date().getTime()
+  // };
+  // this.props.updateVenueFunc(newDetails);
+  // this.setState({
+  //   name: "",
+  //   phone: "",
+  //   email: "",
+  //   address: "",
+  //   description: "",
+  //   bookingPerDay: "",
+  //   url: [],
+  //   categorySelect: [],
+  //   files: [],
+  //   serviesFacilities: [],
+  //   picked: null
+  // });
+  //               }
+  //             })
+  //             .catch(error => {
+  //               alert(error);
+  //             });
+  //         });
+  //     });
+  //   };
 
   render() {
     const {
@@ -406,22 +459,52 @@ class UpdateVenue extends Component {
         />
 
         <PickLocation
-          isDetailsButtonDisable={isDetailsButtonDisable}
-          saveVenueLoader={saveVenueLoader}
-          successNotifiy={this.successNotifiy}
-          handelOnSaveAndUpload={this.handelOnSaveAndUpload}
           parestSetState={picked =>
             this.setState({
               picked
             })
           }
         />
+
+        <div
+          style={{
+            padding: "0",
+            maxWidth: "1024px",
+            margin: "0 auto",
+            display: "flex",
+            justifyContent: "flex-end",
+            marginTop: '10px'
+          }}
+        >
+          {" "}
+          <Button
+            variant="outlined"
+            color="success"
+            disabled={isDetailsButtonDisable}
+            onClick={() => {
+              this.handelOnSaveAndUpload();
+              this.successNotifiy("Form Successfully Submited...!");
+            }}
+          >
+            {saveVenueLoader ? (
+              <ReactLoading
+                type={"spin"}
+                color={"#ffff"}
+                // height={'100px'}
+                // width={'100px'}
+              />
+            ) : (
+              "Submit"
+            )}
+          </Button>
+        </div>
       </div>
     );
   }
 }
 const mapStateToProps = state => {
   const {
+    authReducer: { user, isLoggedIn },
     venueReducer: {
       venue,
       getVenueLoader,
@@ -432,6 +515,8 @@ const mapStateToProps = state => {
     }
   } = state;
   return {
+    user,
+    isLoggedIn,
     venue,
     getVenueLoader,
     getVenueError,

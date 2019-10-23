@@ -7,8 +7,8 @@ import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Button from "components/CustomButtons/Button.jsx";
-import withStyles from "@material-ui/core/styles/withStyles";
 import ReactLoading from "react-loading";
+import withStyles from "@material-ui/core/styles/withStyles";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import javascriptStyles from "assets/jss/material-kit-react/views/componentsSections/javascriptStyles.jsx";
 import basicsStyle from "assets/jss/material-kit-react/views/componentsSections/basicsStyle.jsx";
@@ -132,35 +132,6 @@ class PickLocation extends Component {
               )}
             </CardBody>
           </Card>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "flex-end",
-              height: "50px"
-            }}
-          >
-            {" "}
-            <Button
-              variant="outlined"
-              color="success"
-              disabled={isDetailsButtonDisable}
-              onClick={() => {
-                handelOnSaveAndUpload();
-                successNotifiy("Form Successfully Submited...!");
-              }}
-            >
-              {saveVenueLoader ? (
-                <ReactLoading
-                  type={"spin"}
-                  color={"#ffff"}
-                  // height={'100px'}
-                  // width={'100px'}
-                />
-              ) : (
-                "Submit"
-              )}
-            </Button>
-          </div>
 
           <PickLocationModal
             mapModal={mapModal}
