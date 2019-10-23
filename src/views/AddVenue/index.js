@@ -13,7 +13,8 @@ import { storage } from "../../firebase/FireBase";
 import PickLocation from "./PickLocation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import Button from "components/CustomButtons/Button.jsx";
+import ReactLoading from "react-loading";
 const dummyCategories = [
   { title: "Venue", id: "venue" },
   { title: "Decorator", id: "decorator" },
@@ -377,16 +378,12 @@ class AddVenue extends Component {
           progress={progress}
           files={files}
           url={url}
-          saveVenueLoader={saveVenueLoader}
           handleUploadOpen={this.handleUploadOpen}
           handleUploadClose={this.handleUploadClose}
           handleUploadSave={this.handleUploadSave}
         />
 
         <PickLocation
-          isDetailsButtonDisable={isDetailsButtonDisable}
-          saveVenueLoader={saveVenueLoader}
-          successNotifiy={this.successNotifiy}
           handelOnSaveAndUpload={this.handelOnSaveAndUpload}
           parestSetState={picked =>
             this.setState({
@@ -394,6 +391,38 @@ class AddVenue extends Component {
             })
           }
         />
+        <div
+            style={{
+              padding: "0",
+              maxWidth: "1024px",
+              margin: "0 auto",
+              display: "flex",
+              justifyContent: "flex-end",
+              marginTop: "10px"
+            }}
+          >
+            {" "}
+            <Button
+              variant="outlined"
+              color="success"
+              disabled={isDetailsButtonDisable}
+              onClick={() => {
+                this.handelOnSaveAndUpload();
+                this.successNotifiy("Form Successfully Submited...!");
+              }}
+            >
+              {saveVenueLoader ? (
+                <ReactLoading
+                  type={"spin"}
+                  color={"#ffff"}
+                  // height={'100px'}
+                  // width={'100px'}
+                />
+              ) : (
+                "Submit"
+              )}
+            </Button>
+          </div>
       </div>
     );
   }

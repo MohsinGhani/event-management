@@ -58,7 +58,15 @@ class Venues extends Component {
                 <Edit className={classes.icons} />
                 Edit
               </Button>
-              <Button color="danger" round onClick={() => handleDeleteStatus()}>
+              <Button
+                color="danger"
+                round
+                onClick={() => {
+                  handleDeleteStatus();
+                  this.goto("/list-view");
+                  successNotifiy("Form Successfully Submited...!");
+                }}
+              >
                 <Delete className={classes.icons} />
                 Delete
               </Button>
@@ -66,7 +74,11 @@ class Venues extends Component {
               <Button
                 color="warning"
                 round
-                onClick={() => handleArchiveStatus()}
+                onClick={() => {
+                  handleArchiveStatus();
+                  this.goto("/list-view");
+                  successNotifiy("Form Successfully Submited...!");
+                }}
               >
                 <Archive className={classes.icons} />
                 Archive

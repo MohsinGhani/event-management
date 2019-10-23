@@ -41,13 +41,7 @@ class PickLocation extends Component {
   };
 
   render() {
-    let {
-      saveVenueLoader,
-      successNotifiy,
-      classes,
-      handelOnSaveAndUpload,
-      isDetailsButtonDisable
-    } = this.props;
+    let { classes } = this.props;
     const { mapModal, picked } = this.state;
     return (
       <div>
@@ -132,35 +126,6 @@ class PickLocation extends Component {
               )}
             </CardBody>
           </Card>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "flex-end",
-              height: "50px"
-            }}
-          >
-            {" "}
-            <Button
-              variant="outlined"
-              color="success"
-              disabled={isDetailsButtonDisable}
-              onClick={() => {
-                handelOnSaveAndUpload();
-                successNotifiy("Form Successfully Submited...!");
-              }}
-            >
-              {saveVenueLoader ? (
-                <ReactLoading
-                  type={"spin"}
-                  color={"#ffff"}
-                  // height={'100px'}
-                  // width={'100px'}
-                />
-              ) : (
-                "Submit"
-              )}
-            </Button>
-          </div>
 
           <PickLocationModal
             mapModal={mapModal}

@@ -13,8 +13,8 @@ import { storage } from "../../firebase/FireBase";
 import PickLocation from "./PickLocation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Button from "components/CustomButtons/Button.jsx";
 import ReactLoading from "react-loading";
+import Button from "components/CustomButtons/Button.jsx";
 const dummyCategories = [
   { title: "Venue", id: "venue" },
   { title: "Decorator", id: "decorator" },
@@ -367,6 +367,8 @@ class UpdateVenue extends Component {
                   location: picked,
                   url,
                   vid,
+                  status: 0,
+                  objStatus: 1,
                   userId: user && user.uid,
                   updatedTimestamp: new Date().getTime()
                 };
@@ -424,7 +426,7 @@ class UpdateVenue extends Component {
       isDetailsButtonDisable
     } = this.state;
 
-    const { saveVenueLoader } = this.props;
+    const { updateVenueLoader } = this.props;
     return (
       <div>
         <AuthenticatedNavbar />
@@ -462,7 +464,6 @@ class UpdateVenue extends Component {
           progress={progress}
           files={files}
           url={url}
-          saveVenueLoader={saveVenueLoader}
           handleUploadOpen={this.handleUploadOpen}
           handleUploadClose={this.handleUploadClose}
           handleUploadSave={this.handleUploadSave}
@@ -497,12 +498,12 @@ class UpdateVenue extends Component {
               this.successNotifiy("Form Successfully Submited...!");
             }}
           >
-            {saveVenueLoader ? (
+            {updateVenueLoader ? (
               <ReactLoading
                 type={"spin"}
                 color={"#ffff"}
-                height={'64px'}
-                width={'64px'}
+                // height={"64px"}
+                // width={"64px"}
               />
             ) : (
               "Update"

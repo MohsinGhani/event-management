@@ -30,3 +30,4 @@ yarn-error.log*
 # config files
 awsConfig.js
 credentials.js
+*.log

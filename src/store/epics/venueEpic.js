@@ -104,7 +104,7 @@ export default class venueEpic {
       try {
         const querySnapshot = await db
           .collection("services")
-          .where("objStatus", "==", "1")
+          .where("objStatus", "==", 1)
           .get();
         let services = [];
         querySnapshot.forEach(doc => {
@@ -165,7 +165,7 @@ export default class venueEpic {
       return db
         .collection("services")
         .where("userId", "==", userId)
-        .where("objStatus", "==", "1")
+        .where("objStatus", "==", 1)
         .get()
         .then(function(querySnapshot) {
           querySnapshot.forEach(function(doc) {
