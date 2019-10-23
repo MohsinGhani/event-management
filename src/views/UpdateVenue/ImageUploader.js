@@ -9,6 +9,8 @@ import CardBody from "dashboard-components/Card/CardBody.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 import { DropzoneDialog } from "material-ui-dropzone";
+import DeleteIcon from "@material-ui/icons/Delete";
+import IconButton from "@material-ui/core/IconButton";
 
 import basicsStyle from "assets/jss/material-kit-react/views/componentsSections/basicsStyle.jsx";
 
@@ -20,6 +22,7 @@ class ImageUploader extends Component {
       handleUploadSave,
       handleUploadClose,
       handleUploadOpen,
+      handelOnDeleteImage,
       files,
       url
     } = this.props;
@@ -33,18 +36,31 @@ class ImageUploader extends Component {
               <h4 className={classes.cardTitleWhite}>Upload Image</h4>
             </CardHeader>
             <CardBody>
-              {url.map((url, i) => {
-                return (
-                  <div key={i}>
-                    <img
-                      src={url}
-                      alt="upload images"
-                      width="100px"
-                      height="100px"
-                    />
-                  </div>
-                );
-              })}
+              <div
+                className={"image-view-class"}
+                style={{ display: "flex", justifyContent: "space-evenly" }}
+              >
+                {url.map((url, i) => {
+                  return (
+                    <div key={i}>
+                      <img
+                        src={url}
+                        alt="upload images"
+                        width="100px"
+                        height="100px"
+                      />
+                      <IconButton
+                        aria-label="delete"
+                        className={classes.margin}
+                        onClick={() => handelOnDeleteImage(i)}
+                      >
+                        <DeleteIcon fontSize="large" />
+                      </IconButton>
+                    </div>
+                  );
+                })}
+              </div>
+
               <Button
                 variant="outlined"
                 color="primary"
