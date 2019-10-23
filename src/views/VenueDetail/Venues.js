@@ -20,6 +20,10 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Check from "@material-ui/icons/Check";
 import Button from "components/CustomButtons/Button.jsx";
 import { withRouter } from "react-router-dom";
+import Archive from "@material-ui/icons/Archive";
+import Edit from "@material-ui/icons/Edit";
+import Delete from "@material-ui/icons/Delete";
+
 
 class Venues extends Component {
   goto = path => {
@@ -43,15 +47,34 @@ class Venues extends Component {
         <ImageCarousel venue={venue} />
 
         {venue.userId === user.uid ? (
-          <div className="edit_button">
-            <Button
-              color="warning"
-              size="lg"
-              round
-              onClick={() => this.goto(`/update-venue/${venue.vid}`)}
-            >
-              Edit
-            </Button>
+          <div className="action-button">
+            <div className="edit_button">
+              <Button
+                color="rose"
+                round
+                onClick={() => this.goto(`/update-venue/${venue.vid}`)}
+              >
+                <Edit className={classes.icons} />
+                Edit
+              </Button>
+              <Button
+                color="danger"
+                round
+                onClick={() => this.goto(`/update-venue/${venue.vid}`)}
+              >
+                <Delete className={classes.icons} />
+                Delete
+              </Button>
+         
+              <Button
+                color="warning"
+                round
+                onClick={() => this.goto(`/update-venue/${venue.vid}`)}
+              >
+                <Archive className={classes.icons} />
+                Archive
+              </Button>
+            </div>
           </div>
         ) : (
           <span></span>
