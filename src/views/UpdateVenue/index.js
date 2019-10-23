@@ -156,6 +156,7 @@ class UpdateVenue extends Component {
         address: venue.address,
         description: venue.description,
         vid: vid,
+        url: venue.url,
         bookingPerDay: venue.bookingPerDay,
         serviesFacilities: venue.serviesFacilities,
         categorySelect: venue.categorySelect,
@@ -283,9 +284,8 @@ class UpdateVenue extends Component {
       url,
       vid,
       userId: user && user.uid,
-      createdTimestamp: new Date().getTime()
+      updatedTimestamp: new Date().getTime()
     };
-    debugger;
     this.props.updateVenueFunc(newDetails);
     this.setState({
       name: "",
@@ -302,94 +302,104 @@ class UpdateVenue extends Component {
     });
   };
 
-  //   handelOnSaveAndUpload = () => {
-  //     var storageRef = storage.ref();
-  //     var urls = [];
-  //     let user = this.props.user;
+  handelOnSaveAndUpload = () => {
+    var storageRef = storage.ref();
+    var urls = [];
+    let user = this.props.user;
 
-  //     this.state.files.map((file, index) => {
-  //       return storageRef
-  //         .child(`events images/${file.name}`)
-  //         .put(file)
-  //         .then(response => {
-  //           var progresss =
-  //             (response.task.snapshot.bytesTransferred /
-  //               response.task.snapshot.totalBytes) *
-  //             100;
+    this.state.files.map((file, index) => {
+      return storageRef
+        .child(`events images/${file.name}`)
+        .put(file)
+        .then(response => {
+          var progresss =
+            (response.task.snapshot.bytesTransferred /
+              response.task.snapshot.totalBytes) *
+            100;
 
-  //           console.log("Upload is " + this.state.progress + "% done");
-  //           console.log(progresss);
+          console.log("Upload is " + this.state.progress + "% done");
+          console.log(progresss);
 
-  //           response.task.snapshot.ref
-  //             .getDownloadURL()
-  //             .then(downloadURL => {
-  //               urls.push(downloadURL);
+          response.task.snapshot.ref
+            .getDownloadURL()
+            .then(downloadURL => {
+              urls.push(downloadURL);
 
-  //               console.log(urls);
-  //             })
-  //             .then(() => {
-  //               this.setState({
-  //                 url: urls
-  //               });
+              console.log(urls);
+            })
+            .then(() => {
+              this.setState({
+                url: urls
+              });
 
-  //               console.log("file.length", this.state.files.length);
-  //               console.log("index=", index);
-  //               var sum = index + 1;
+              console.log("file.length", this.state.files.length);
+              console.log("index=", index);
+              var sum = index + 1;
 
-  //               console.log("sum=", sum);
+              console.log("sum=", sum);
 
-  //               console.log("second iteration");
-  // debugger;
-  //               if (this.state.files.length === sum) {
-  //                 debugger;
-  // const {
-  //   name,
-  //   phone,
-  //   email,
-  //   address,
-  //   description,
-  //   bookingPerDay,
-  //   serviesFacilities,
-  //   url,
-  //   categorySelect,
-  //   picked
-  // } = this.state;
-  // const newDetails = {
-  //   name,
-  //   phone,
-  //   email,
-  //   address,
-  //   description,
-  //   bookingPerDay,
-  //   serviesFacilities,
-  //   objType: categorySelect,
-  //   location: picked,
-  //   url,
-  //   userId: user && user.uid,
-  //   createdTimestamp: new Date().getTime()
-  // };
-  // this.props.updateVenueFunc(newDetails);
-  // this.setState({
-  //   name: "",
-  //   phone: "",
-  //   email: "",
-  //   address: "",
-  //   description: "",
-  //   bookingPerDay: "",
-  //   url: [],
-  //   categorySelect: [],
-  //   files: [],
-  //   serviesFacilities: [],
-  //   picked: null
-  // });
-  //               }
-  //             })
-  //             .catch(error => {
-  //               alert(error);
-  //             });
-  //         });
-  //     });
-  //   };
+              console.log("second iteration");
+              debugger;
+              if (this.state.files.length === sum) {
+                debugger;
+                const {
+                  name,
+                  phone,
+                  email,
+                  address,
+                  description,
+                  bookingPerDay,
+                  serviesFacilities,
+                  url,
+                  categorySelect,
+                  picked,
+                  vid
+                } = this.state;
+                const newDetails = {
+                  name,
+                  phone,
+                  email,
+                  address,
+                  description,
+                  bookingPerDay,
+                  serviesFacilities,
+                  objType: categorySelect,
+                  location: picked,
+                  url,
+                  vid,
+                  userId: user && user.uid,
+                  updatedTimestamp: new Date().getTime()
+                };
+                this.props.updateVenueFunc(newDetails);
+                this.setState({
+                  name: "",
+                  phone: "",
+                  email: "",
+                  address: "",
+                  description: "",
+                  bookingPerDay: "",
+                  url: [],
+                  categorySelect: [],
+                  files: [],
+                  serviesFacilities: [],
+                  picked: null
+                });
+              }
+            })
+            .catch(error => {
+              alert(error);
+            });
+        });
+    });
+  };
+
+  handelOnDeleteImage = index => {
+    this.state.url.splice(index, 1);
+    this.setState({
+      url: this.state.url
+    });
+    console.log(this.state.url);
+  };
 
   render() {
     const {
@@ -456,6 +466,7 @@ class UpdateVenue extends Component {
           handleUploadOpen={this.handleUploadOpen}
           handleUploadClose={this.handleUploadClose}
           handleUploadSave={this.handleUploadSave}
+          handelOnDeleteImage={this.handelOnDeleteImage}
         />
 
         <PickLocation
@@ -473,7 +484,7 @@ class UpdateVenue extends Component {
             margin: "0 auto",
             display: "flex",
             justifyContent: "flex-end",
-            marginTop: '10px'
+            marginTop: "10px"
           }}
         >
           {" "}
@@ -490,11 +501,11 @@ class UpdateVenue extends Component {
               <ReactLoading
                 type={"spin"}
                 color={"#ffff"}
-                // height={'100px'}
-                // width={'100px'}
+                height={'64px'}
+                width={'64px'}
               />
             ) : (
-              "Submit"
+              "Update"
             )}
           </Button>
         </div>
