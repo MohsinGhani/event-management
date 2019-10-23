@@ -64,7 +64,7 @@ class Venues extends Component {
                 onClick={() => {
                   handleDeleteStatus();
                   this.goto("/list-view");
-                  successNotifiy("Form Successfully Submited...!");
+                  successNotifiy("Form Successfully Deleted...!");
                 }}
               >
                 <Delete className={classes.icons} />
@@ -77,7 +77,7 @@ class Venues extends Component {
                 onClick={() => {
                   handleArchiveStatus();
                   this.goto("/list-view");
-                  successNotifiy("Form Successfully Submited...!");
+                  successNotifiy("Form Successfully Archive...!");
                 }}
               >
                 <Archive className={classes.icons} />

@@ -27,7 +27,7 @@ class AuthenticatedNavbar extends React.Component {
   logout = () => {
     this.props.logout();
   };
-  
+
   render() {
     const { classes } = this.props;
     return (
@@ -92,14 +92,7 @@ class AuthenticatedNavbar extends React.Component {
                         >
                           <Icon className={classes.icons}>list</Icon> List View
                         </Button>,
-                        <Button
-                          className={classes.navLink}
-                          // className={classes.navLink + " " + classes.navLinkActive}
-                          onClick={e => this.goto("/")}
-                          color="transparent"
-                        >
-                          <Icon className={classes.icons}>map</Icon> Map View
-                        </Button>
+                        
                       ]}
                     />
                   </ListItem>
@@ -138,7 +131,24 @@ class AuthenticatedNavbar extends React.Component {
                           color="transparent"
                         >
                           <Icon className={classes.icons}>map</Icon> Map View
-                        </Button>
+                        </Button>,
+                        <Button
+                          className={classes.navLink}
+                          // className={classes.navLink + " " + classes.navLinkActive}
+                          onClick={e => this.goto("/")}
+                          color="transparent"
+                        >
+                          <Icon className={classes.icons}>Archive</Icon> Archive
+                          List
+                        </Button>,
+                        <Button
+                        className={classes.navLink}
+                        // className={classes.navLink + " " + classes.navLinkActive}
+                        onClick={e => this.goto("/archive-view")}
+                        color="transparent"
+                      >
+                        <Icon className={classes.icons}>map</Icon> Map View
+                      </Button>
                       ]}
                     />
                   </ListItem>
@@ -186,7 +196,7 @@ const mapDispatchToProps = dispatch => {
   return {
     // isLoggedInAction: payload => dispatch(authAction.isLoggedIn(payload)),
     logout: () => dispatch(authAction.logout()),
-    switchUserMode: () => dispatch(authAction.switchUserMode()),
+    switchUserMode: () => dispatch(authAction.switchUserMode())
   };
 };
 

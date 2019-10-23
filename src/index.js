@@ -13,6 +13,7 @@ import "assets/scss/material-kit-react.scss?v=1.4.0";
 // pages for this product
 import Home from "views/Home";
 import ListView from "views/Home/ListView.jsx";
+import ArchiveView from "views/Home/ArchiveView.jsx";
 import RegisterPage from "views/LoginPage/RegisterPage.jsx";
 import LoginPage from "views/LoginPage/LoginPage.jsx";
 import VenueDetail from "./views/VenueDetail";
@@ -35,6 +36,7 @@ ReactDOM.render(
           {/* <Route exact path="/" component={Components} /> */}
           <PrivateRoute exact path="/" component={Home} />
           <PrivateRoute exact path="/list-view" component={ListView} />
+          <PrivateRoute exact path="/archive-view" component={ArchiveView} />
           <PrivateRoute exact path="/venue-detail/:vid" component={VenueDetail} />
           <PrivateRoute exact path="/add-venue" component={AddVenue} />
           <PrivateRoute exact path="/update-venue/:vid" component={UpdateVenue} />
