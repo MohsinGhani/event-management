@@ -16,6 +16,7 @@ import { connect } from "react-redux";
 import { authAction } from "./../../store/actions";
 import { withRouter } from "react-router-dom";
 import navbarsStyle from "assets/jss/material-kit-react/views/componentsSections/navbarsStyle.jsx";
+import Archive from "@material-ui/icons/Archive";
 
 import "./index.css";
 
@@ -33,18 +34,6 @@ class AuthenticatedNavbar extends React.Component {
     return (
       <div className={classes.section}>
         <div id="navbar" className={classes.navbar}>
-          {/* <Header
-                    absolute
-                    color="rose"
-                    brand="Event Management"
-                    {...rest}
-                    rightLinks={
-                        <Fragment>
-                            <Button onClick={() => this.goto('/list-view')} color={'white'}>List View</Button>
-                            <Button onClick={this.logout} color={'white'}>Logout</Button>
-                        </Fragment>
-                    }
-                /> */}
           <Header
             fixed
             color="rose"
@@ -54,7 +43,7 @@ class AuthenticatedNavbar extends React.Component {
                 <ListItem className={classes.listItem}>
                   <Button
                     className={"switch-button"}
-                    // variant="outline-success"
+                    variant="outline-success"
                     onClick={this.props.switchUserMode}
                     color="transparent"
                   >
@@ -75,15 +64,6 @@ class AuthenticatedNavbar extends React.Component {
                       }}
                       buttonIcon={Apps}
                       dropdownList={[
-                        // <Button
-                        //   className={classes.navLink}
-                        //   // className={classes.navLink + " " + classes.navLinkActive}
-                        //   onClick={e => this.goto("/add-venue")}
-                        //   color="transparent"
-                        // >
-                        //   <Icon className={classes.icons}>add_rounded</Icon>
-                        //   Create
-                        // </Button>,
                         <Button
                           className={classes.navLink}
                           // className={classes.navLink + " " + classes.navLinkActive}
@@ -92,7 +72,14 @@ class AuthenticatedNavbar extends React.Component {
                         >
                           <Icon className={classes.icons}>list</Icon> List View
                         </Button>,
-                        
+                        <Button
+                          className={classes.navLink}
+                          // className={classes.navLink + " " + classes.navLinkActive}
+                          onClick={e => this.goto("/")}
+                          color="transparent"
+                        >
+                          <Icon className={classes.icons}>map</Icon> Map View
+                        </Button>
                       ]}
                     />
                   </ListItem>
@@ -119,11 +106,21 @@ class AuthenticatedNavbar extends React.Component {
                         <Button
                           className={classes.navLink}
                           // className={classes.navLink + " " + classes.navLinkActive}
+                          onClick={e => this.goto("/archive-view")}
+                          color="transparent"
+                        >
+                          <Archive className={classes.icons} />
+                          Archive List
+                        </Button>,
+                        <Button
+                          className={classes.navLink}
+                          // className={classes.navLink + " " + classes.navLinkActive}
                           onClick={e => this.goto("/list-view")}
                           color="transparent"
                         >
                           <Icon className={classes.icons}>list</Icon> List View
                         </Button>,
+
                         <Button
                           className={classes.navLink}
                           // className={classes.navLink + " " + classes.navLinkActive}
@@ -131,24 +128,7 @@ class AuthenticatedNavbar extends React.Component {
                           color="transparent"
                         >
                           <Icon className={classes.icons}>map</Icon> Map View
-                        </Button>,
-                        <Button
-                          className={classes.navLink}
-                          // className={classes.navLink + " " + classes.navLinkActive}
-                          onClick={e => this.goto("/")}
-                          color="transparent"
-                        >
-                          <Icon className={classes.icons}>Archive</Icon> Archive
-                          List
-                        </Button>,
-                        <Button
-                        className={classes.navLink}
-                        // className={classes.navLink + " " + classes.navLinkActive}
-                        onClick={e => this.goto("/archive-view")}
-                        color="transparent"
-                      >
-                        <Icon className={classes.icons}>map</Icon> Map View
-                      </Button>
+                        </Button>
                       ]}
                     />
                   </ListItem>
