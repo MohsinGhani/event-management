@@ -6,7 +6,7 @@ import { Router, Route, Switch } from "react-router-dom";
 // import awsConfig from "./config/awsConfig";
 import { Provider } from "react-redux";
 import store from "./store/store";
-import PrivateRoute from './components/common/PrivateRoute';
+import PrivateRoute from "./components/common/PrivateRoute";
 // import './index.css'
 import "assets/scss/material-kit-react.scss?v=1.4.0";
 
@@ -18,9 +18,9 @@ import RegisterPage from "views/LoginPage/RegisterPage.jsx";
 import LoginPage from "views/LoginPage/LoginPage.jsx";
 import VenueDetail from "./views/VenueDetail";
 import AddVenue from "./views/AddVenue";
-import UpdateVenue from "./views/UpdateVenue"
+import UpdateVenue from "./views/UpdateVenue";
 
-import Dashboard from 'views/Dashboard/Dashboard.jsx'
+import Dashboard from "views/Dashboard/Dashboard.jsx";
 import Admin from "layouts/Admin.jsx";
 
 // import Components from "./views/Components/Components"
@@ -37,9 +37,17 @@ ReactDOM.render(
           <PrivateRoute exact path="/" component={Home} />
           <PrivateRoute exact path="/list-view" component={ListView} />
           <PrivateRoute exact path="/archive-view" component={ArchiveView} />
-          <PrivateRoute exact path="/venue-detail/:vid" component={VenueDetail} />
+          <PrivateRoute
+            exact
+            path="/venue-detail/:vid"
+            component={VenueDetail}
+          />
           <PrivateRoute exact path="/add-venue" component={AddVenue} />
-          <PrivateRoute exact path="/update-venue/:vid" component={UpdateVenue} />
+          <PrivateRoute
+            exact
+            path="/update-venue/:vid"
+            component={UpdateVenue}
+          />
           <PrivateRoute path="/admin" component={Admin} />
           <Route path="/register" exact component={RegisterPage} />
           <Route path="/login" exact component={LoginPage} />

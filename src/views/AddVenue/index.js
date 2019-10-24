@@ -392,37 +392,37 @@ class AddVenue extends Component {
           }
         />
         <div
-            style={{
-              padding: "0",
-              maxWidth: "1024px",
-              margin: "0 auto",
-              display: "flex",
-              justifyContent: "flex-end",
-              marginTop: "10px"
+          style={{
+            padding: "0",
+            maxWidth: "1024px",
+            margin: "0 auto",
+            display: "flex",
+            justifyContent: "flex-end",
+            marginTop: "10px"
+          }}
+        >
+          {" "}
+          <Button
+            variant="outlined"
+            color="success"
+            disabled={isDetailsButtonDisable}
+            onClick={() => {
+              this.handelOnSaveAndUpload();
+              this.successNotifiy("Form Successfully Submited...!");
             }}
           >
-            {" "}
-            <Button
-              variant="outlined"
-              color="success"
-              disabled={isDetailsButtonDisable}
-              onClick={() => {
-                this.handelOnSaveAndUpload();
-                this.successNotifiy("Form Successfully Submited...!");
-              }}
-            >
-              {saveVenueLoader ? (
-                <ReactLoading
-                  type={"spin"}
-                  color={"#ffff"}
-                  // height={'100px'}
-                  // width={'100px'}
-                />
-              ) : (
-                "Submit"
-              )}
-            </Button>
-          </div>
+            {saveVenueLoader ? (
+              <ReactLoading
+                type={"spin"}
+                color={"#ffff"}
+                // height={'100px'}
+                // width={'100px'}
+              />
+            ) : (
+              "Submit"
+            )}
+          </Button>
+        </div>
       </div>
     );
   }

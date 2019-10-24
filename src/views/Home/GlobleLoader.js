@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import ReactLoading from 'react-loading';
+import ReactLoading from "react-loading";
 
 export default class GlobleLoader extends Component {
   render() {
-    const { getVenuesLoader } = this.props;
+    const { getVenuesLoader, getArchiveVenuesLoader } = this.props;
     return (
       <div>
-        {getVenuesLoader ? (
+        {getVenuesLoader || getArchiveVenuesLoader ? (
           <div
             style={{
               margin: "0 auto",
@@ -22,7 +22,7 @@ export default class GlobleLoader extends Component {
               color={"#e91e63"}
               height={"20%"}
               width={"100%"}
-            />  
+            />
           </div>
         ) : (
           ""

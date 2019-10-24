@@ -19,53 +19,17 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 class ArchiveView extends React.Component {
-  constructor(props) {
-    super(props);
-    // we use this to make the card to appear after the page has been rendered
-    this.state = {
-      // archiveVenues: [],
-      objStatus: 0
-    };
-  }
-
   goto = path => {
     this.props.history.push(path);
   };
 
-  // componentDidUpdate(prevProps) {
-  //   const { archiveVenues } = this.props;
-
-  //   if (prevProps.archiveVenues !== archiveVenues && archiveVenues) {
-  //     console.log(archiveVenues);
-  //     debugger;
-  //     const { vid } = this.props.archiveVenues;
-  //     console.log(vid);
-  //     debugger;
-  //     this.setState({
-  //       ...archiveVenues,
-  //       objStatus: archiveVenues.objStatus,
-  //       vid: vid
-  //     });
-  //   }
-  // }
-  
   componentDidMount() {
     this.props.getArchiveVenues();
   }
 
-  handleUnArchiveStatus = (vid) => {
-    debugger
-    const { user, archiveVenues } = this.props;
-    const { objStatus } = this.state;
-    console.log(objStatus);
-    const newObjStatus = {
-      ...archiveVenues,
-      objStatus: 1,
-      vid,
-      userId: user && user.uid
-    };
-    this.props.changeObjStatus(newObjStatus);
-    console.log(objStatus);
+  handleUnArchiveStatus = venue => {
+    this.props.changeObjStatus({ ...venue, objStatus: 1 });
+    this.goto("/list-view");
   };
   successNotifiy = message => toast.success(message);
 
@@ -75,12 +39,10 @@ class ArchiveView extends React.Component {
 
   render() {
     const { getArchiveVenuesLoader, classes, archiveVenues } = this.props;
-    // const { archiveVenues } = this.state;
 
     return (
       <div>
         <AuthenticatedNavbar />
-
         <GridContainer
           style={{
             padding: "0 15px",
@@ -89,8 +51,24 @@ class ArchiveView extends React.Component {
             marginTop: "15px"
           }}
         >
+          <ToastContainer />
           <GlobleLoader getArchiveVenuesLoader={getArchiveVenuesLoader} />
-          {archiveVenues &&
+          {archiveVenues && archiveVenues.length == 0 ? (
+            <Card style={{ padding: "15px", margin: 0, marginTop: "20px" }}>
+              <CardBody>
+                <h1
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    color: "red"
+                  }}
+                >
+                  No Archive Items
+                </h1>
+              </CardBody>
+            </Card>
+          ) : (
+            archiveVenues &&
             archiveVenues.map((archiveVenue, i) => {
               console.log("archiveVenues=>", archiveVenue);
               return (
@@ -203,12 +181,7 @@ class ArchiveView extends React.Component {
                                   size="sm"
                                   round
                                   onClick={() => {
-                                    this.successNotifiy(
-                                      "Form Successfully UnArchive...!"
-                                    );
-
-                                    this.handleUnArchiveStatus(archiveVenue.vid);
-                                    this.goto("/list-view");
+                                    this.handleUnArchiveStatus(archiveVenue);
                                   }}
                                 >
                                   <Archive className={classes.icons} />
@@ -223,7 +196,8 @@ class ArchiveView extends React.Component {
                   />
                 </GridItem>
               );
-            })}
+            })
+          )}
         </GridContainer>
       </div>
     );

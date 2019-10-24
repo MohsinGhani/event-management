@@ -25,7 +25,7 @@ import {
   CHANGE_OBJ_STATUS_FAILURE,
   GET_ARCHIVE_VENUES,
   GET_ARCHIVE_VENUES_SUCCESS,
-  GET_ARCHIVE_VENUES_FAILURE,
+  GET_ARCHIVE_VENUES_FAILURE
 } from "./../constants";
 // import { venues } from "./../../assets/venus";
 
@@ -118,9 +118,8 @@ export default function venueReducer(state = initialState, action) {
         getVenuesError: "Can not Get Venues"
       };
 
-      //////////////
+    //////////////
     case GET_ARCHIVE_VENUES:
-      debugger
       return {
         ...state,
         archiveVenues: null,
@@ -129,8 +128,7 @@ export default function venueReducer(state = initialState, action) {
       };
 
     case GET_ARCHIVE_VENUES_SUCCESS:
-        debugger  
-    return {
+      return {
         ...state,
         archiveVenues: action.payload,
         getArchiveVenuesLoader: false,
@@ -138,7 +136,6 @@ export default function venueReducer(state = initialState, action) {
       };
 
     case GET_ARCHIVE_VENUES_FAILURE:
-        debugger
       return {
         ...state,
         archiveVenues: null,
@@ -173,7 +170,6 @@ export default function venueReducer(state = initialState, action) {
 
     ///////////////////////
     case UPDATE_VENUE:
-      debugger;
       return {
         ...state,
         updatedVenue: null,
@@ -182,7 +178,6 @@ export default function venueReducer(state = initialState, action) {
       };
 
     case UPDATE_VENUE_SUCCESS:
-      debugger;
       return {
         ...state,
         updatedVenue: action.payload,
@@ -191,7 +186,6 @@ export default function venueReducer(state = initialState, action) {
       };
 
     case UPDATE_VENUE_FAILURE:
-      debugger;
       return {
         ...state,
         updatedVenue: null,
@@ -276,8 +270,7 @@ export default function venueReducer(state = initialState, action) {
         getVenuesByUserIdError: "Can not Get Venues"
       };
 
-
-      ///////////////////
+    ///////////////////
 
     case CHANGE_OBJ_STATUS:
       return {
