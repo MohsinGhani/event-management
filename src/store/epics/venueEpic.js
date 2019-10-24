@@ -12,7 +12,8 @@ import {
   GET_VENUE,
   SAVE_CUSTOM_BOOKING,
   GET_VENUES_BY_USER_ID,
-  CHANGE_OBJ_STATUS
+  CHANGE_OBJ_STATUS,
+  GET_ARCHIVE_VENUES
 } from "../constants";
 import { db } from "../../firebase/FireBase";
 import auth from "../../firebase/FireBase";
@@ -117,6 +118,46 @@ export default class venueEpic {
         );
       }
     });
+
+    static getArchiveVenues = action$ =>
+    action$.ofType(GET_ARCHIVE_VENUES).mergeMap(async () => {
+      try {
+        const querySnapshot = await db
+          .collection("services")
+          .where("objStatus", "==", 2)
+          .get();
+        let services = [];
+        querySnapshot.forEach(doc => {
+          services.push({ ...doc.data(), vid: doc.id });
+        });
+        debugger
+        return venueAction.getArchiveVenuesSuccess(services);
+      } catch (err) {
+        return venueAction.getArchiveVenuesFailure(
+          `Error in getting services! ${err}`
+        );
+      }
+    });
+
+    // static getDeletedVenues = action$ =>
+    // action$.ofType(GET_DELETED_VENUES).mergeMap(async () => {
+    //   try {
+    //     const querySnapshot = await db
+    //       .collection("services")
+    //       .where("objStatus", "==", 0)
+    //       .get();
+    //     let services = [];
+    //     querySnapshot.forEach(doc => {
+    //       services.push({ ...doc.data(), vid: doc.id });
+    //     });
+    //     return venueAction.getDeletedVenuesSuccess(services);
+    //   } catch (err) {
+    //     return venueAction.getDeletedVenuesFailure(
+    //       `Error in getting services! ${err}`
+    //     );
+    //   }
+    // });
+    
 
   static getVenue = action$ =>
     action$.ofType(GET_VENUE).mergeMap(({ payload }) => {

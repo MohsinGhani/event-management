@@ -40,6 +40,10 @@ export const UPDATE_VENUE = "UPDATE_VENUES";
 export const UPDATE_VENUE_SUCCESS = "UPDATE_VENUES_SUCCESS";
 export const UPDATE_VENUE_FAILURE = "UPDATE_VENUES_FAILURE";
 
+export const GET_ARCHIVE_VENUES = "GET_ARCHIVE_VENUES";
+export const GET_ARCHIVE_VENUES_SUCCESS = "GET_ARCHIVE_VENUES_SUCCESS";
+export const GET_ARCHIVE_VENUES_FAILURE = "GET_ARCHIVE_VENUES_FAILURE";
+
 /*****************************  Map Constants  *************************************/
 
 export const REVERSE_GEOCODING = "REVERSE_GEOCODING";

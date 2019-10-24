@@ -22,7 +22,11 @@ import {
   UPDATE_VENUE_FAILURE,
   CHANGE_OBJ_STATUS,
   CHANGE_OBJ_STATUS_SUCCESS,
-  CHANGE_OBJ_STATUS_FAILURE
+  CHANGE_OBJ_STATUS_FAILURE,
+  GET_ARCHIVE_VENUES,
+  GET_ARCHIVE_VENUES_SUCCESS,
+  GET_ARCHIVE_VENUES_FAILURE,
+
 } from "./../constants";
 
 export class venueAction {
@@ -66,6 +70,29 @@ export class venueAction {
   static getVenuesFailure(error) {
     return {
       type: GET_VENUES_FAILURE,
+      payload: error
+    };
+  }
+
+  ////////////////
+
+  static getArchiveVenues(payload) {
+    return {
+      type: GET_ARCHIVE_VENUES,
+      payload
+    };
+  }
+
+  static getArchiveVenuesSuccess(archiveVenues) {
+    return {
+      type: GET_ARCHIVE_VENUES_SUCCESS,
+      payload: archiveVenues
+    };
+  }
+
+  static getArchiveVenuesFailure(error) {
+    return {
+      type: GET_ARCHIVE_VENUES_FAILURE,
       payload: error
     };
   }

@@ -11,17 +11,20 @@ import GridContainer from "components/Grid/GridContainer";
 import GridItem from "components/Grid/GridItem";
 import Button from "components/CustomButtons/Button.jsx";
 import AuthenticatedNavbar from "./../../components/common/AuthenticatedNavbar";
-
+import Archive from "@material-ui/icons/Unarchive";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import GlobleLoader from "./GlobleLoader";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 class ArchiveView extends React.Component {
   constructor(props) {
     super(props);
     // we use this to make the card to appear after the page has been rendered
     this.state = {
-      venues: []
+      // archiveVenues: [],
+      objStatus: 0
     };
   }
 
@@ -29,25 +32,50 @@ class ArchiveView extends React.Component {
     this.props.history.push(path);
   };
 
-  componentDidUpdate(prevProps) {
-    const { venues } = this.props;
-    if (
-      (prevProps.venues && prevProps.venues.length) !==
-      (venues && venues.length)
-    ) {
-      this.setState({
-        venues: venues
-      });
-    }
+  // componentDidUpdate(prevProps) {
+  //   const { archiveVenues } = this.props;
+
+  //   if (prevProps.archiveVenues !== archiveVenues && archiveVenues) {
+  //     console.log(archiveVenues);
+  //     debugger;
+  //     const { vid } = this.props.archiveVenues;
+  //     console.log(vid);
+  //     debugger;
+  //     this.setState({
+  //       ...archiveVenues,
+  //       objStatus: archiveVenues.objStatus,
+  //       vid: vid
+  //     });
+  //   }
+  // }
+  
+  componentDidMount() {
+    this.props.getArchiveVenues();
   }
 
-  componentDidMount() {
-    this.props.getVenues();
-  }
+  handleUnArchiveStatus = (vid) => {
+    debugger
+    const { user, archiveVenues } = this.props;
+    const { objStatus } = this.state;
+    console.log(objStatus);
+    const newObjStatus = {
+      ...archiveVenues,
+      objStatus: 1,
+      vid,
+      userId: user && user.uid
+    };
+    this.props.changeObjStatus(newObjStatus);
+    console.log(objStatus);
+  };
+  successNotifiy = message => toast.success(message);
+
+  goto = path => {
+    this.props.history.push(path);
+  };
 
   render() {
-    const { getVenuesLoader } = this.props;
-    const { venues } = this.state;
+    const { getArchiveVenuesLoader, classes, archiveVenues } = this.props;
+    // const { archiveVenues } = this.state;
 
     return (
       <div>
@@ -61,10 +89,10 @@ class ArchiveView extends React.Component {
             marginTop: "15px"
           }}
         >
-          <GlobleLoader getVenuesLoader={getVenuesLoader} />
-          {venues &&
-            venues.map((venue, i) => {
-              console.log("venues=>", venue);
+          <GlobleLoader getArchiveVenuesLoader={getArchiveVenuesLoader} />
+          {archiveVenues &&
+            archiveVenues.map((archiveVenue, i) => {
+              console.log("archiveVenues=>", archiveVenue);
               return (
                 <GridItem md={4} key={i}>
                   <Card
@@ -79,7 +107,7 @@ class ArchiveView extends React.Component {
                           color={"primary"}
                         >
                           <p
-                            title={venue.name}
+                            title={archiveVenue.name}
                             style={{
                               width: "100%",
                               overflow: "hidden",
@@ -88,7 +116,7 @@ class ArchiveView extends React.Component {
                               margin: "5px 0 5px 0"
                             }}
                           >
-                            {venue.name}
+                            {archiveVenue.name}
                           </p>
                         </CardHeader>
                         <CardBody
@@ -101,7 +129,7 @@ class ArchiveView extends React.Component {
                             autoPlay={true}
                             infiniteLoop={true}
                           >
-                            {venue.url.map(source => (
+                            {archiveVenue.url.map(source => (
                               <img
                                 src={source}
                                 alt="some-img"
@@ -126,7 +154,7 @@ class ArchiveView extends React.Component {
                                   style={{ padding: "10px 5px 0 0" }}
                                 ></i>
                                 <p
-                                  title={venue.address}
+                                  title={archiveVenue.address}
                                   style={{
                                     width: "100%",
                                     overflow: "hidden",
@@ -135,7 +163,7 @@ class ArchiveView extends React.Component {
                                     margin: "5px 0 0 0"
                                   }}
                                 >
-                                  {venue.address}
+                                  {archiveVenue.address}
                                 </p>
                               </div>
 
@@ -144,21 +172,21 @@ class ArchiveView extends React.Component {
                                   class="fas fa-phone"
                                   style={{ padding: "10px 5px 0 0" }}
                                 ></i>
-                                {venue.phone}
+                                {archiveVenue.phone}
                               </div>
                               <div className="email">
                                 <i
                                   class="fas fa-envelope"
                                   style={{ padding: "10px 5px 0 0" }}
                                 ></i>
-                                {venue.email}
+                                {archiveVenue.email}
                               </div>
                               <div className="type">
                                 <i
                                   class="fas fa-list-ul"
                                   style={{ padding: "10px 5px 0 0" }}
                                 ></i>
-                                {venue.objType.title}
+                                {archiveVenue.objType.title}
                               </div>
                             </div>
 
@@ -174,11 +202,17 @@ class ArchiveView extends React.Component {
                                   color="warning"
                                   size="sm"
                                   round
-                                  onClick={() =>
-                                    this.goto(`/venue-detail/${venue.vid}`)
-                                  }
+                                  onClick={() => {
+                                    this.successNotifiy(
+                                      "Form Successfully UnArchive...!"
+                                    );
+
+                                    this.handleUnArchiveStatus(archiveVenue.vid);
+                                    this.goto("/list-view");
+                                  }}
                                 >
-                                  Detail
+                                  <Archive className={classes.icons} />
+                                  Un Archive
                                 </Button>
                               </div>
                             </div>
@@ -198,13 +232,17 @@ class ArchiveView extends React.Component {
 
 const mapStateToProps = state => {
   const {
-    venueReducer: { venues, getVenuesLoader, getVenuesError },
+    venueReducer: {
+      archiveVenues,
+      getArchiveVenuesLoader,
+      getArchiveVenuesError
+    },
     authReducer: { user, isLoggedIn }
   } = state;
   return {
-    venues,
-    getVenuesLoader,
-    getVenuesError,
+    archiveVenues,
+    getArchiveVenuesLoader,
+    getArchiveVenuesError,
     user,
     isLoggedIn
   };
@@ -213,7 +251,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     isLoggedInAction: payload => dispatch(authAction.isLoggedIn(payload)),
-    getVenues: () => dispatch(venueAction.getVenues())
+    getArchiveVenues: () => dispatch(venueAction.getArchiveVenues()),
+    changeObjStatus: payload => dispatch(venueAction.changeObjStatus(payload))
   };
 };
 

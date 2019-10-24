@@ -22,7 +22,10 @@ import {
   GET_VENUES_BY_USER_ID_FAILURE,
   CHANGE_OBJ_STATUS,
   CHANGE_OBJ_STATUS_SUCCESS,
-  CHANGE_OBJ_STATUS_FAILURE
+  CHANGE_OBJ_STATUS_FAILURE,
+  GET_ARCHIVE_VENUES,
+  GET_ARCHIVE_VENUES_SUCCESS,
+  GET_ARCHIVE_VENUES_FAILURE,
 } from "./../constants";
 // import { venues } from "./../../assets/venus";
 
@@ -30,6 +33,10 @@ const initialState = {
   venues: null,
   getVenuesLoader: false,
   getVenuesError: null,
+
+  archiveVenues: null,
+  getArchiveVenuesLoader: false,
+  getArchiveVenuesError: null,
 
   venue: null,
   getVenueLoader: false,
@@ -109,6 +116,34 @@ export default function venueReducer(state = initialState, action) {
         venues: null,
         getVenuesLoader: false,
         getVenuesError: "Can not Get Venues"
+      };
+
+      //////////////
+    case GET_ARCHIVE_VENUES:
+      debugger
+      return {
+        ...state,
+        archiveVenues: null,
+        getArchiveVenuesLoader: true,
+        getArchiveVenuesError: null
+      };
+
+    case GET_ARCHIVE_VENUES_SUCCESS:
+        debugger  
+    return {
+        ...state,
+        archiveVenues: action.payload,
+        getArchiveVenuesLoader: false,
+        getArchiveVenuesError: null
+      };
+
+    case GET_ARCHIVE_VENUES_FAILURE:
+        debugger
+      return {
+        ...state,
+        archiveVenues: null,
+        getArchiveVenuesLoader: false,
+        getArchiveVenuesError: "Can not Get Venues"
       };
 
     ///////////////////////

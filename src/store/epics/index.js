@@ -20,7 +20,8 @@ const rootEpic = combineEpics(
   venueEpic.saveCustomBooking,
   venueEpic.getVenuesByUserId,
   venueEpic.updateVenue,
-  venueEpic.changeObjStatus
+  venueEpic.changeObjStatus,
+  venueEpic.getArchiveVenues
 );
 
 export default rootEpic;
