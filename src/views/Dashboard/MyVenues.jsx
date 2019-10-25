@@ -12,6 +12,7 @@ import GridItem from "components/Grid/GridItem";
 import Button from "components/CustomButtons/Button.jsx";
 import AuthenticatedNavbar from "./../../components/common/AuthenticatedNavbar";
 
+
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import GlobleLoader from "./GlobleLoader";
@@ -30,6 +31,7 @@ class MyVenues extends React.Component {
     console.log("getVenuesByUserId: ", getVenuesByUserId);
     return (
       <div>
+        <AuthenticatedNavbar />
         <h1>My Collection Data</h1>
         <GridContainer
           style={{

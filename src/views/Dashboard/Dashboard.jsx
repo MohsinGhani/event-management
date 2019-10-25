@@ -29,6 +29,7 @@ import CardHeader from "dashboard-components/Card/CardHeader.jsx";
 import CardIcon from "dashboard-components/Card/CardIcon.jsx";
 import CardBody from "dashboard-components/Card/CardBody.jsx";
 import CardFooter from "dashboard-components/Card/CardFooter.jsx";
+import AuthenticatedNavbar from "./../../components/common/AuthenticatedNavbar";
 
 import { bugs, website, server } from "variables/general.jsx";
 
@@ -55,6 +56,8 @@ class Dashboard extends React.Component {
     const { classes } = this.props;
     return (
       <div>
+        <AuthenticatedNavbar />
+
         <GridContainer>
           <GridItem xs={12} sm={6} md={3}>
             <Card>
@@ -64,7 +67,10 @@ class Dashboard extends React.Component {
                 </CardIcon>
                 <p className={classes.cardCategory}>Rating</p>
                 <h3 className={classes.cardTitle}>
-                  4.5/5 <small><Icon className={classes.icons}>star</Icon></small>
+                  4.5/5{" "}
+                  <small>
+                    <Icon className={classes.icons}>star</Icon>
+                  </small>
                 </h3>
               </CardHeader>
               <CardFooter stats>
@@ -72,7 +78,6 @@ class Dashboard extends React.Component {
                   <Danger>
                     <Icon>content_copy</Icon>
                   </Danger>
-
                 </div>
               </CardFooter>
             </Card>
@@ -106,7 +111,6 @@ class Dashboard extends React.Component {
               <CardFooter stats>
                 <div className={classes.stats}>
                   <LocalOffer />
-
                 </div>
               </CardFooter>
             </Card>
@@ -171,9 +175,7 @@ class Dashboard extends React.Component {
               </CardHeader>
               <CardBody>
                 <h4 className={classes.cardTitle}>Monthly Sales</h4>
-                <p className={classes.cardCategory}>
-
-                </p>
+                <p className={classes.cardCategory}></p>
               </CardBody>
               <CardFooter chart>
                 <div className={classes.stats}>
@@ -195,9 +197,7 @@ class Dashboard extends React.Component {
               </CardHeader>
               <CardBody>
                 <h4 className={classes.cardTitle}>Monthly Ratings</h4>
-                <p className={classes.cardCategory}>
-                  Performance
-                </p>
+                <p className={classes.cardCategory}>Performance</p>
               </CardBody>
               <CardFooter chart>
                 <div className={classes.stats}>
