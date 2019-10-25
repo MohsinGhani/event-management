@@ -58,7 +58,7 @@ export default class venueEpic {
   static updateVenue = action$ =>
     action$.ofType(UPDATE_VENUE).switchMap(({ payload }) => {
       const { vid } = payload;
-      
+
       return Observable.fromPromise(
         db
           .collection("services")
@@ -66,11 +66,9 @@ export default class venueEpic {
           .set(payload)
       )
         .switchMap(() => {
-          
           return Observable.of(venueAction.updateVenueSuccess(payload));
         })
         .catch(err => {
-          
           return venueAction.updateVenueFailure(
             `Error in update venue! ${err}`
           );
@@ -79,9 +77,8 @@ export default class venueEpic {
 
   static changeObjStatus = action$ =>
     action$.ofType(CHANGE_OBJ_STATUS).switchMap(({ payload }) => {
-      
       const { vid } = payload;
-      
+
       return Observable.fromPromise(
         db
           .collection("services")
@@ -89,11 +86,9 @@ export default class venueEpic {
           .set(payload)
       )
         .switchMap(() => {
-          
           return Observable.of(venueAction.changeObjStatusSuccess(payload));
         })
         .catch(err => {
-          
           return venueAction.changeObjStatusFailure(
             `Error in update venue! ${err}`
           );
@@ -119,45 +114,75 @@ export default class venueEpic {
       }
     });
 
-    static getArchiveVenues = action$ =>
-    action$.ofType(GET_ARCHIVE_VENUES).mergeMap(async () => {
-      try {
-        const querySnapshot = await db
-          .collection("services")
-          .where("objStatus", "==", 2)
-          .get();
-        let services = [];
-        querySnapshot.forEach(doc => {
-          services.push({ ...doc.data(), vid: doc.id });
+  // static getArchiveVenues = action$ =>
+  // action$.ofType(GET_ARCHIVE_VENUES).mergeMap(async () => {
+  //   try {
+  //     const querySnapshot = await db
+  //       .collection("services")
+  //       .where("objStatus", "==", 2)
+  //       .get();
+  //     let services = [];
+  //     querySnapshot.forEach(doc => {
+  //       services.push({ ...doc.data(), vid: doc.id });
+  //     });
+  //     debugger
+  //     return venueAction.getArchiveVenuesSuccess(services);
+  //   } catch (err) {
+  //     return venueAction.getArchiveVenuesFailure(
+  //       `Error in getting services! ${err}`
+  //     );
+  //   }
+  // });
+
+  static getArchiveVenues = action$ =>
+    action$.ofType(GET_ARCHIVE_VENUES).mergeMap(({ payload }) => {
+      // let user = auth.currentUser.uid;
+      debugger;
+      const { userId } = payload;
+      let services = [];
+      debugger;
+      return db
+        .collection("services")
+        .where("userId", "==", userId)
+        .where("objStatus", "==", 2)
+        .get()
+        .then(function(querySnapshot) {
+          debugger;
+          querySnapshot.forEach(function(doc) {
+            // doc.data() is never undefined for query doc snapshots
+            services.push({ ...doc.data(), vid: doc.id });
+            // alert("venue get");
+            // console.log(doc.id, " => ", doc.data());
+            // props.getMyProducts(doc.data());
+          });
+          return venueAction.getArchiveVenuesSuccess(services);
+        })
+        .catch(function(error) {
+          console.log("Error getting documents: ", error);
+          venueAction.getArchiveVenuesFailure(
+            `Error in getting archive venue! ${error}`
+          );
         });
-        debugger
-        return venueAction.getArchiveVenuesSuccess(services);
-      } catch (err) {
-        return venueAction.getArchiveVenuesFailure(
-          `Error in getting services! ${err}`
-        );
-      }
     });
 
-    // static getDeletedVenues = action$ =>
-    // action$.ofType(GET_DELETED_VENUES).mergeMap(async () => {
-    //   try {
-    //     const querySnapshot = await db
-    //       .collection("services")
-    //       .where("objStatus", "==", 0)
-    //       .get();
-    //     let services = [];
-    //     querySnapshot.forEach(doc => {
-    //       services.push({ ...doc.data(), vid: doc.id });
-    //     });
-    //     return venueAction.getDeletedVenuesSuccess(services);
-    //   } catch (err) {
-    //     return venueAction.getDeletedVenuesFailure(
-    //       `Error in getting services! ${err}`
-    //     );
-    //   }
-    // });
-    
+  // static getDeletedVenues = action$ =>
+  // action$.ofType(GET_DELETED_VENUES).mergeMap(async () => {
+  //   try {
+  //     const querySnapshot = await db
+  //       .collection("services")
+  //       .where("objStatus", "==", 0)
+  //       .get();
+  //     let services = [];
+  //     querySnapshot.forEach(doc => {
+  //       services.push({ ...doc.data(), vid: doc.id });
+  //     });
+  //     return venueAction.getDeletedVenuesSuccess(services);
+  //   } catch (err) {
+  //     return venueAction.getDeletedVenuesFailure(
+  //       `Error in getting services! ${err}`
+  //     );
+  //   }
+  // });
 
   static getVenue = action$ =>
     action$.ofType(GET_VENUE).mergeMap(({ payload }) => {

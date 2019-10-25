@@ -24,7 +24,9 @@ class ArchiveView extends React.Component {
   };
 
   componentDidMount() {
-    this.props.getArchiveVenues();
+    const { getArchiveVenues, user } = this.props;
+    getArchiveVenues({ userId: user.uid });
+    // getArchiveVenues()
   }
 
   handleUnArchiveStatus = venue => {
@@ -166,31 +168,27 @@ class ArchiveView extends React.Component {
                                 {archiveVenue.objType.title}
                               </div>
                             </div>
-                            {archiveVenue.userId === user.uid ? (
-                              <div className="right-panel">
-                                <div
-                                  className="dtl-btn-wrapper"
-                                  style={{
-                                    display: "flex",
-                                    justifyContent: "flex-end"
+                            <div className="right-panel">
+                              <div
+                                className="dtl-btn-wrapper"
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "flex-end"
+                                }}
+                              >
+                                <Button
+                                  color="warning"
+                                  size="sm"
+                                  round
+                                  onClick={() => {
+                                    this.handleUnArchiveStatus(archiveVenue);
                                   }}
                                 >
-                                  <Button
-                                    color="warning"
-                                    size="sm"
-                                    round
-                                    onClick={() => {
-                                      this.handleUnArchiveStatus(archiveVenue);
-                                    }}
-                                  >
-                                    <Archive className={classes.icons} />
-                                    Un Archive
-                                  </Button>
-                                </div>
+                                  <Archive className={classes.icons} />
+                                  Un Archive
+                                </Button>
                               </div>
-                            ) : (
-                              <span></span>
-                            )}
+                            </div>
                           </div>
                         </CardBody>
                       </Fragment>
@@ -227,7 +225,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     isLoggedInAction: payload => dispatch(authAction.isLoggedIn(payload)),
-    getArchiveVenues: () => dispatch(venueAction.getArchiveVenues()),
+    getArchiveVenues: payload =>
+      dispatch(venueAction.getArchiveVenues(payload)),
     changeObjStatus: payload => dispatch(venueAction.changeObjStatus(payload))
   };
 };

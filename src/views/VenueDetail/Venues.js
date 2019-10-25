@@ -221,6 +221,7 @@ class Venues extends Component {
             <GridContainer>
               <Booking
                 venue={venue}
+                user={user}
                 bookingPrice={bookingPrice}
                 saveCustomBooking={saveCustomBooking}
                 bookingDate={bookingDate}
