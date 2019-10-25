@@ -267,7 +267,7 @@ export default function venueReducer(state = initialState, action) {
         ...state,
         getVenuesByUserId: null,
         getVenuesByUserIdLoader: false,
-        getVenuesByUserIdError: "Can not Get Venues"
+        getVenuesByUserIdError: "Can not Get Venues by user id"
       };
 
     ///////////////////

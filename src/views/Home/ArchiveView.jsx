@@ -44,6 +44,30 @@ class ArchiveView extends React.Component {
     return (
       <div>
         <AuthenticatedNavbar />
+        <ToastContainer />
+        <div
+          style={{
+            disply: "flex",
+            justifyContent: "center",
+            padding: "0 15px",
+            maxWidth: "1024px",
+            margin: "0 auto",
+            marginTop: "15px"
+          }}
+        >
+          <CardHeader color="primary">
+            <h4
+              className={classes.cardTitleWhite}
+              style={{
+                textAlign: "center",
+                marginTop: "10px",
+                padding: "20px"
+              }}
+            >
+              Archive Items
+            </h4>
+          </CardHeader>
+        </div>
         <GridContainer
           style={{
             padding: "0 15px",
@@ -52,7 +76,6 @@ class ArchiveView extends React.Component {
             marginTop: "15px"
           }}
         >
-          <ToastContainer />
           <GlobleLoader getArchiveVenuesLoader={getArchiveVenuesLoader} />
           {archiveVenues && archiveVenues.length == 0 ? (
             <Card style={{ padding: "15px", margin: 0, marginTop: "20px" }}>
@@ -126,7 +149,10 @@ class ArchiveView extends React.Component {
                             <div>
                               <div
                                 className="address"
-                                style={{ display: "flex", paddingTop: "5px" }}
+                                style={{
+                                  display: "flex",
+                                  paddingTop: "5px"
+                                }}
                               >
                                 <i
                                   class="fas fa-map-marker-alt"
