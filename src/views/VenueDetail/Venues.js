@@ -76,7 +76,7 @@ class Venues extends Component {
                 round
                 onClick={() => {
                   handleArchiveStatus();
-                  this.goto("/list-view");
+                  this.goto("/archive-view");
                   successNotifiy("Card Successfully Archive...!");
                 }}
               >
