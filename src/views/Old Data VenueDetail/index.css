@@ -1,0 +1,51 @@
+/* alice carousel setting */
+
+.alice-carousel__dots {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+.alice-carousel__prev-btn, .alice-carousel__next-btn {
+    margin-top: -15px;
+}
+.alice-carousel__next-btn, .alice-carousel__next-btn {
+    margin-top: -15px;
+}
+
+/* typograpy */
+
+/* .FoodCaterers-section-256 {
+    padding : 0 !important;
+}
+
+.FoodCaterers-typo-257 {
+    padding-left: 0 !important;
+}
+
+.FoodCaterers-title-227 {
+    margin-top: -30px !important;
+    margin-left: -20px !important;
+} */
+
+.typo_section {
+    padding : 0 !important;
+}
+
+.typo {
+    padding-left: 0 !important;
+}
+
+.typo-title {
+    margin-top: -30px !important;
+    margin-left: -20px !important;
+    padding-left: 5px !important;
+}
+
+/* 
+.GridContainer-grid-269 {
+    margin-right: 0px !important;
+} */
+/* 
+.mapAlign {
+    display: flex;
+     justify-content: center
+} */
