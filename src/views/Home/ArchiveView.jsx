@@ -38,8 +38,7 @@ class ArchiveView extends React.Component {
   };
 
   render() {
-    const { getArchiveVenuesLoader, classes, archiveVenues } = this.props;
-
+    const { getArchiveVenuesLoader, classes, archiveVenues, user } = this.props;
     return (
       <div>
         <AuthenticatedNavbar />
@@ -167,28 +166,31 @@ class ArchiveView extends React.Component {
                                 {archiveVenue.objType.title}
                               </div>
                             </div>
-
-                            <div className="right-panel">
-                              <div
-                                className="dtl-btn-wrapper"
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "flex-end"
-                                }}
-                              >
-                                <Button
-                                  color="warning"
-                                  size="sm"
-                                  round
-                                  onClick={() => {
-                                    this.handleUnArchiveStatus(archiveVenue);
+                            {archiveVenue.userId === user.uid ? (
+                              <div className="right-panel">
+                                <div
+                                  className="dtl-btn-wrapper"
+                                  style={{
+                                    display: "flex",
+                                    justifyContent: "flex-end"
                                   }}
                                 >
-                                  <Archive className={classes.icons} />
-                                  Un Archive
-                                </Button>
+                                  <Button
+                                    color="warning"
+                                    size="sm"
+                                    round
+                                    onClick={() => {
+                                      this.handleUnArchiveStatus(archiveVenue);
+                                    }}
+                                  >
+                                    <Archive className={classes.icons} />
+                                    Un Archive
+                                  </Button>
+                                </div>
                               </div>
-                            </div>
+                            ) : (
+                              <span></span>
+                            )}
                           </div>
                         </CardBody>
                       </Fragment>
