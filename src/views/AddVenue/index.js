@@ -22,6 +22,17 @@ const dummyCategories = [
   { title: "Food And Caterers", id: "food_and_caterers" }
 ];
 
+const validEmailRegex = RegExp(
+  /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+);
+const validateForm = errors => {
+  debugger;
+  let valid = true;
+  debugger;
+  Object.values(errors).forEach(val => val.length > 0 && (valid = false));
+  return valid;
+};
+
 class AddVenue extends Component {
   constructor(props) {
     super(props);
@@ -64,84 +75,72 @@ class AddVenue extends Component {
     };
   }
 
-  validatesAddDetailsForm = () => {
-    let {
-      name,
-      phone,
-      email,
-      address,
-      description,
-      bookingPerDay,
-      error
-    } = this.state;
+  // validatesAddDetailsForm = () => {
+  //   let {
+  //     name,
+  //     phone,
+  //     email,
+  //     address,
+  //     description,
+  //     bookingPerDay,
+  //     error
+  //   } = this.state;
 
-    if (
-      name &&
-      name.length >= 3 &&
-      (phone && phone.length >= 11) &&
-      email &&
-      (address && address.length >= 10) &&
-      (description && description.length >= 10) &&
-      (bookingPerDay && bookingPerDay.length >= 1)
-    ) {
-      error = {
-        name: null,
-        phone: null,
-        email: null,
-        address: null,
-        description: null,
-        bookingPerDay: null
-      };
-      this.setState({
-        isDetailsButtonDisable: false,
-        error
-      });
-    } else {
-      error = {
-        categorySelect: null,
-        name: null,
-        phone: null,
-        email: null,
-        address: null,
-        description: null,
-        bookingPerDay: null,
-        serviesFacilities: null,
-        files: null,
-        picked: null
-      };
-      this.setState({
-        isDetailsButtonDisable: true,
-        error
-      });
-    }
-  };
+  //   if (
+  //     name &&
+  //     name.length >= 3 &&
+  //     (phone && phone.length >= 7) &&
+  //     email &&
+  //     (address && address.length >= 10) &&
+  //     (description && description.length >= 10) &&
+  //     (bookingPerDay && bookingPerDay.length >= 1)
+  //   ) {
+  //     this.handleDetailInput()
+  //     this.setState({
+  //       isDetailsButtonDisable: false,
+  //       error
+  //     });
+  //   } else {
+  //     error = {
+  //       categorySelect: null,
+  //       name: null,
+  //       phone: null,
+  //       email: null,
+  //       address: null,
+  //       description: null,
+  //       bookingPerDay: null,
+  //       serviesFacilities: null,
+  //       files: null,
+  //       picked: null
+  //     };
+  //     this.setState({
+  //       isDetailsButtonDisable: true,
+  //       error
+  //     });
+  //   }
+  // };
 
-  componentDidUpdate(prevProps, prevState) {
-    const {
-      name,
-      phone,
-      email,
-      address,
-      description,
-      bookingPerDay,
-      serviesFacilities,
-      categorySelect,
-      picked
-    } = this.state;
-    if (
-      prevState.name !== name ||
-      prevState.phone !== phone ||
-      prevState.email !== email ||
-      prevState.address !== address ||
-      prevState.description !== description ||
-      prevState.bookingPerDay !== bookingPerDay ||
-      prevState.serviesFacilities !== serviesFacilities ||
-      prevState.categorySelect !== categorySelect ||
-      prevState.picked !== picked
-    ) {
-      this.validatesAddDetailsForm();
-    }
-  }
+  // componentDidUpdate(prevProps, prevState) {
+  //   const {
+  //     name,
+  //     phone,
+  //     email,
+  //     address,
+  //     description,
+  //     bookingPerDay,
+  //   } = this.state;
+  //   if (
+  //     (prevState.name !=
+  //     name.length >= 3) &&
+  //     (prevState.phone != phone.length >= 7) &&
+  //     email &&
+  //     (prevState.address != address.length >= 10) &&
+  //     (prevState.description != description.length >= 10) &&
+  //     (prevState.bookingPerDay != bookingPerDay.length >= 1)
+  //   ) {
+  //     this.setState({isDetailsButtonDisable: false})
+  //   }
+  // }
 
   handleClickOpen = modal => {
     var x = [];
@@ -195,9 +194,38 @@ class AddVenue extends Component {
   };
 
   handleDetailInput = event => {
-    this.setState({
-      [event.target.name]: event.target.value
-    });
+    // event.preventDefault();
+    const { name, value } = event.target;
+    let error = this.state.error;
+
+    switch (name) {
+      case "name":
+        error.name = value.length < 3 ? "Name must be 3 characters long..!" : "";
+        break;
+      case "phone":
+        error.phone =
+          value.length < 7 ? "Phone must be 7 characters long..!" : "";
+        break;
+      case "email":
+        error.email = validEmailRegex.test(value) ? "" : "Email is not valid..!";
+        break;
+      case "address":
+        error.address =
+          value.length < 10 ? "Address must be 10 characters long..!" : "";
+        break;
+      case "description":
+        error.description =
+          value.length < 10 ? "description must be 10 characters long..!" : "";
+        break;
+      case "bookingPerDay":
+        error.bookingPerDay =
+          value.length < 1 ? "BookingPerDay must be 1 characters long..!" : "";
+        break;
+      default:
+        break;
+    }
+
+    this.setState({ error, [name]: value, isDetailsButtonDisable: false});
   };
 
   handleChangeOnServiceFacilites = (event, i) => {
@@ -337,6 +365,7 @@ class AddVenue extends Component {
       progress,
       files,
       url,
+      error,
       isDetailsButtonDisable
     } = this.state;
 
@@ -361,6 +390,7 @@ class AddVenue extends Component {
           description={description}
           bookingPerDay={bookingPerDay}
           handleDetailInput={this.handleDetailInput}
+          error={error}
         />
 
         <CreateServiceFacilities

@@ -30,7 +30,8 @@ class Details extends Component {
       address,
       description,
       bookingPerDay,
-      handleDetailInput
+      handleDetailInput,
+      error
     } = this.props;
     return (
       <div>
@@ -55,6 +56,7 @@ class Details extends Component {
                       value: name,
                       type: "text",
                       onChange: handleDetailInput,
+
                       endAdornment: (
                         <InputAdornment position="end">
                           <People />
@@ -62,6 +64,9 @@ class Details extends Component {
                       )
                     }}
                   />
+                  {error.name && error.name.length > 0 && (
+                    <span className="error">{error.name}</span>
+                  )}
                 </GridItem>
                 <GridItem xs={12} sm={2} md={2} lg={6}>
                   <CustomInput
@@ -82,6 +87,9 @@ class Details extends Component {
                       )
                     }}
                   />
+                  {error.phone && error.phone.length > 0 && (
+                    <span className="error">{error.phone}</span>
+                  )}
                 </GridItem>
                 <GridItem xs={12} sm={2} md={2} lg={6}>
                   <CustomInput
@@ -102,6 +110,9 @@ class Details extends Component {
                       )
                     }}
                   />
+                  {error.email && error.email.length > 0 && (
+                    <span className="error">{error.email}</span>
+                  )}
                 </GridItem>
                 <GridItem xs={12} sm={2} md={2} lg={6}>
                   <CustomInput
@@ -122,6 +133,9 @@ class Details extends Component {
                       )
                     }}
                   />
+                  {error.address && error.address.length > 0 && (
+                    <span className="error">{error.address}</span>
+                  )}
                 </GridItem>
                 <GridItem xs={12} sm={2} md={2} lg={6}>
                   <TextField
@@ -136,6 +150,9 @@ class Details extends Component {
                     fullWidth
                     style={{ marginTop: "10px" }}
                   />
+                  {error.description && error.description.length > 0 && (
+                    <span className="error">{error.description}</span>
+                  )}
                 </GridItem>
                 <GridItem xs={12} sm={2} md={2} lg={6}>
                   <CustomInput
@@ -156,6 +173,9 @@ class Details extends Component {
                       )
                     }}
                   />
+                  {error.bookingPerDay && error.bookingPerDay.length > 0 && (
+                    <span className="error">{error.bookingPerDay}</span>
+                  )}
                 </GridItem>
               </GridContainer>
             </CardBody>
