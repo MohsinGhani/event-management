@@ -169,7 +169,7 @@ class CreateServiceFacilities extends Component {
                         handlerServicesFieldAdd(event);
                       }}
                     >
-                      Add Services
+                      Add another field
                     </Button>
                     <Button
                       onClick={() => handleClose("classicModal")}
