@@ -5,6 +5,8 @@ import { withRouter } from "react-router-dom";
 import { authAction, venueAction } from "./../../store/actions";
 import AuthenticatedNavbar from "./../../components/common/AuthenticatedNavbar";
 import basicsStyle from "assets/jss/material-kit-react/views/componentsSections/basicsStyle.jsx";
+import javascriptStyles from "assets/jss/material-kit-react/views/componentsSections/javascriptStyles.jsx";
+
 import Selectbar from "./Selectbar";
 import Details from "./Details";
 import CreateServiceFacilities from "./CreateServiceFacilities";
@@ -15,23 +17,23 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Button from "components/CustomButtons/Button.jsx";
 import ReactLoading from "react-loading";
+import ConfirmationModal from "./ConfirmationModal";
 const dummyCategories = [
   { title: "Venue", id: "venue" },
   { title: "Decorator", id: "decorator" },
   { title: "Photographer", id: "photographer" },
   { title: "Food And Caterers", id: "food_and_caterers" }
 ];
-
 const validEmailRegex = RegExp(
   /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
 );
-const validateForm = errors => {
-  debugger;
-  let valid = true;
-  debugger;
-  Object.values(errors).forEach(val => val.length > 0 && (valid = false));
-  return valid;
-};
+// const validateForm = errors => {
+//   debugger;
+//   let valid = true;
+//   debugger;
+//   Object.values(errors).forEach(val => val.length > 0 && (valid = false));
+//   return valid;
+// };
 
 class AddVenue extends Component {
   constructor(props) {
@@ -40,7 +42,7 @@ class AddVenue extends Component {
     this.state = {
       categorySelect: { title: "", id: "" },
       classicModal: false,
-
+      confirmModal: false,
       picked: null,
 
       serviesFacilities: [{ title: "", price: "" }],
@@ -166,6 +168,18 @@ class AddVenue extends Component {
     this.setState(mapModal);
   };
 
+  handleClickAddVenueOpen = modal => {
+    var x = [];
+    x[modal] = true;
+    this.setState(x);
+  };
+
+  handleAddVenueClose = modal => {
+    var x = [];
+    x[modal] = false;
+    this.setState(x);
+  };
+
   successNotifiy = message => toast.success(message);
 
   handleUploadClose = () => {
@@ -200,14 +214,17 @@ class AddVenue extends Component {
 
     switch (name) {
       case "name":
-        error.name = value.length < 3 ? "Name must be 3 characters long..!" : "";
+        error.name =
+          value.length < 3 ? "Name must be 3 characters long..!" : "";
         break;
       case "phone":
         error.phone =
           value.length < 7 ? "Phone must be 7 characters long..!" : "";
         break;
       case "email":
-        error.email = validEmailRegex.test(value) ? "" : "Email is not valid..!";
+        error.email = validEmailRegex.test(value)
+          ? ""
+          : "Email is not valid..!";
         break;
       case "address":
         error.address =
@@ -225,7 +242,7 @@ class AddVenue extends Component {
         break;
     }
 
-    this.setState({ error, [name]: value, isDetailsButtonDisable: false});
+    this.setState({ error, [name]: value, isDetailsButtonDisable: false });
   };
 
   handleChangeOnServiceFacilites = (event, i) => {
@@ -350,6 +367,7 @@ class AddVenue extends Component {
       categorySelect,
 
       classicModal,
+      confirmModal,
 
       name,
       phone,
@@ -369,7 +387,7 @@ class AddVenue extends Component {
       isDetailsButtonDisable
     } = this.state;
 
-    const { saveVenueLoader } = this.props;
+    const { saveVenueLoader, classes } = this.props;
     return (
       <div>
         <AuthenticatedNavbar />
@@ -432,7 +450,7 @@ class AddVenue extends Component {
           }}
         >
           {" "}
-          <Button
+          {/* <Button
             variant="outlined"
             color="success"
             disabled={isDetailsButtonDisable}
@@ -451,7 +469,11 @@ class AddVenue extends Component {
             ) : (
               "Submit"
             )}
-          </Button>
+          </Button> */}
+          <ConfirmationModal 
+          confirmModal={confirmModal}
+          handleClickAddVenueOpen={this.handleClickAddVenueOpen}
+          handleAddVenueClose={this.handleAddVenueClose} />
         </div>
       </div>
     );
@@ -482,4 +504,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(withStyles(basicsStyle)(AddVenue)));
+)(withRouter(withStyles({ ...basicsStyle, ...javascriptStyles })(AddVenue)));
