@@ -128,7 +128,40 @@ class Booking extends Component {
             ]}
           />
         ) : (
-          <span></span>
+          <CustomTabs
+            headerColor="danger"
+            tabs={[
+              {
+                tabName: "Create Packages",
+                tabIcon: Book,
+                tabContent: (
+                  <GridContainer>
+                    <GridItem xs={12} sm={12} md={12}>
+                      <h6>You can Create multiple pacakges from here...!</h6>
+
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "flex-end",
+                          height: "50px"
+                        }}
+                      >
+                        <Button
+                          variant="outlined"
+                          color="success"
+                          // onClick={() => {
+
+                          // }}
+                        >
+                          Create Package
+                        </Button>
+                      </div>
+                    </GridItem>
+                  </GridContainer>
+                )
+              }
+            ]}
+          />
         )}
       </>
     );
