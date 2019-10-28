@@ -17,9 +17,25 @@ class VenueDetail extends React.Component {
       eventId: "",
       servicesBookingPrice: [],
       bookingDate: new Date(),
-      objStatus: 0
+      objStatus: 0,
+
+      ConfirmModal: false
     };
   }
+
+  handleClickCreatePackageOpen = modal => {
+    debugger
+    var x = [];
+    x[modal] = true;
+    this.setState(x);
+  };
+
+  handleCreatePackageClose = modal => {
+    debugger
+    var x = [];
+    x[modal] = false;
+    this.setState(x);
+  };
 
   componentDidUpdate(prevProps, prevState) {
     const { venue } = this.props;
@@ -130,7 +146,7 @@ class VenueDetail extends React.Component {
 
   render() {
     const { venue, user, getVenueLoader, saveCustomBookingLoader } = this.props;
-    const { servicesBookingPrice, bookingDate } = this.state;
+    const { servicesBookingPrice, bookingDate, ConfirmModal } = this.state;
     return (
       <div>
         <div>
@@ -146,6 +162,9 @@ class VenueDetail extends React.Component {
             bookingPrice={servicesBookingPrice}
             bookingDate={bookingDate}
             saveCustomBookingLoader={saveCustomBookingLoader}
+            ConfirmModal={ConfirmModal}
+            handleClickCreatePackageOpen={this.handleClickCreatePackageOpen}
+            handleCreatePackageClose={this.handleCreatePackageClose}
             handleToggle={this.handleToggleOnService}
             saveCustomBooking={this.saveCustomBooking}
             handleOnDateChange={this.handleOnDateChange}

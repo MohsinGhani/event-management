@@ -19,6 +19,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "react-datepicker/dist/react-datepicker.css";
 import "flatpickr/dist/themes/material_green.css";
 import Flatpickr from "react-flatpickr";
+import PackageModal from "./PackageModal"
 
 class Booking extends Component {
   render() {
@@ -30,7 +31,10 @@ class Booking extends Component {
       successNotifiy,
       saveCustomBookingLoader,
       venue,
-      user
+      user,
+      ConfirmModal,
+      handleClickCreatePackageOpen,
+      handleCreatePackageClose
     } = this.props;
     let totalPrice = 0;
     return (
@@ -146,7 +150,14 @@ class Booking extends Component {
                           height: "50px"
                         }}
                       >
-                        <Button
+                        <PackageModal
+                          ConfirmModal={ConfirmModal}
+                          handleClickCreatePackageOpen={
+                            handleClickCreatePackageOpen
+                          }
+                          handleCreatePackageClose={handleCreatePackageClose}
+                        />
+                        {/* <Button
                           variant="outlined"
                           color="success"
                           // onClick={() => {
@@ -154,7 +165,7 @@ class Booking extends Component {
                           // }}
                         >
                           Create Package
-                        </Button>
+                        </Button> */}
                       </div>
                     </GridItem>
                   </GridContainer>
