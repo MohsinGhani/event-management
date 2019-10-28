@@ -38,10 +38,8 @@ class ConfirmationModal extends Component {
       isDetailsButtonDisable,
       handelOnSaveAndUpload,
       saveVenueLoader,
-      successNotifiy,
       confirmModal,
       handleAddVenueClose,
-      handleClickAddVenueOpen
     } = this.props;
     return (
       <div>
