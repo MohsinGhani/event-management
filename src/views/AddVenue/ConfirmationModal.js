@@ -21,6 +21,7 @@ import CardBody from "dashboard-components/Card/CardBody.jsx";
 import TextField from "@material-ui/core/TextField";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
+import ReactLoading from "react-loading";
 import Button from "components/CustomButtons/Button.jsx";
 import javascriptStyles from "assets/jss/material-kit-react/views/componentsSections/javascriptStyles.jsx";
 import basicsStyle from "assets/jss/material-kit-react/views/componentsSections/basicsStyle.jsx";
@@ -33,6 +34,11 @@ class ConfirmationModal extends Component {
   render() {
     const { classes } = this.props;
     let {
+      goto,
+      isDetailsButtonDisable,
+      handelOnSaveAndUpload,
+      saveVenueLoader,
+      successNotifiy,
       confirmModal,
       handleAddVenueClose,
       handleClickAddVenueOpen
@@ -42,10 +48,22 @@ class ConfirmationModal extends Component {
         <Button
           color="primary"
           block
-          onClick={() => handleClickAddVenueOpen("confirmModal")}
+          disabled={isDetailsButtonDisable}
+          onClick={() => handelOnSaveAndUpload()}
         >
-          <LibraryBooks className={classes.icon} />
-          Submit
+          {saveVenueLoader ? (
+            <ReactLoading
+              type={"spin"}
+              color={"#ffff"}
+              height={"20px"}
+              width={"20px"}
+            />
+          ) : (
+            <>
+              <LibraryBooks className={classes.icon} />
+              "Submit"
+            </>
+          )}
         </Button>
         <Dialog
           classes={{
@@ -68,14 +86,14 @@ class ConfirmationModal extends Component {
           </DialogTitle>
 
           <DialogActions className={classes.modalFooter}>
-            <Button color="transparent" simple>
+            <Button
+              color="transparent"
+              simple
+              onClick={() => handleAddVenueClose("confirmModal")}
+            >
               Yes
             </Button>
-            <Button
-              onClick={() => handleAddVenueClose("confirmModal")}
-              color="danger"
-              simple
-            >
+            <Button onClick={() => goto("/list-view")} color="danger" simple>
               No
             </Button>
           </DialogActions>

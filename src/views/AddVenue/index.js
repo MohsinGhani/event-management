@@ -207,6 +207,10 @@ class AddVenue extends Component {
     });
   };
 
+  goto = path => {
+    this.props.history.push(path);
+  };
+
   handleDetailInput = event => {
     // event.preventDefault();
     const { name, value } = event.target;
@@ -340,6 +344,8 @@ class AddVenue extends Component {
                   createdTimestamp: new Date().getTime()
                 };
                 this.props.saveVenue(newDetails);
+                this.successNotifiy("Form Successfully Submited...!");
+                this.handleClickAddVenueOpen("confirmModal");
                 this.setState({
                   name: "",
                   phone: "",
@@ -360,6 +366,7 @@ class AddVenue extends Component {
             });
         });
     });
+    this.successNotifiy("Form is Submitting...!");
   };
 
   render() {
@@ -470,10 +477,16 @@ class AddVenue extends Component {
               "Submit"
             )}
           </Button> */}
-          <ConfirmationModal 
-          confirmModal={confirmModal}
-          handleClickAddVenueOpen={this.handleClickAddVenueOpen}
-          handleAddVenueClose={this.handleAddVenueClose} />
+          <ConfirmationModal
+            goto={this.goto}
+            isDetailsButtonDisable={isDetailsButtonDisable}
+            handelOnSaveAndUpload={this.handelOnSaveAndUpload}
+            saveVenueLoader={saveVenueLoader}
+            successNotifiy={this.successNotifiy}
+            confirmModal={confirmModal}
+            handleClickAddVenueOpen={this.handleClickAddVenueOpen}
+            handleAddVenueClose={this.handleAddVenueClose}
+          />
         </div>
       </div>
     );
