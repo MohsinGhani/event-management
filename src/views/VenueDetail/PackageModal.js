@@ -19,26 +19,34 @@ import Card from "components/Card/Card";
 import CardHeader from "dashboard-components/Card/CardHeader.jsx";
 import CardBody from "dashboard-components/Card/CardBody.jsx";
 import TextField from "@material-ui/core/TextField";
+import Grid from "@material-ui/core/Grid";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import Check from "@material-ui/icons/Check";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import ReactLoading from "react-loading";
 import Button from "components/CustomButtons/Button.jsx";
 import javascriptStyles from "assets/jss/material-kit-react/views/componentsSections/javascriptStyles.jsx";
 import basicsStyle from "assets/jss/material-kit-react/views/componentsSections/basicsStyle.jsx";
-
+import PackageRadioButton from "./PackageRadioButton";
 function Transition(props) {
   return <Slide direction="down" {...props} />;
 }
 
 class PackageModal extends Component {
   render() {
-    debugger
+    debugger;
     const { classes } = this.props;
     let {
       goto,
       ConfirmModal,
       handleCreatePackageClose,
-      handleClickCreatePackageOpen
+      handleClickCreatePackageOpen,
+      packageCategories,
+      handleChangeEnabled,
+      venue,
+      handleToggle
     } = this.props;
     return (
       <div>
@@ -66,8 +74,57 @@ class PackageModal extends Component {
             disableTypography
             className={classes.modalHeader}
           >
-            <h4 className={classes.modalTitle}>Do you want another venue.?</h4>
+            <h4 className={classes.modalTitle}>Select your package category</h4>
+            <PackageRadioButton
+              packageCategories={packageCategories}
+              handleChangeEnabled={handleChangeEnabled}
+            />
           </DialogTitle>
+
+          <DialogContent
+            id="classic-modal-slide-description"
+            className={classes.modalBody}
+          >
+            <h4 className={classes.modalTitle}>Services List....!</h4>
+
+            <Grid
+              container
+              direction="row"
+              justify="flex-start"
+              alignItems="flex-start"
+            >
+              {venue.serviesFacilities &&
+                venue.serviesFacilities.map((service, index) => (
+                  <GridContainer>
+                    <GridItem xs={12} sm={6} md={4} lg={3} key={index}>
+                      <div
+                        className={
+                          classes.checkboxAndRadio +
+                          " " +
+                          classes.checkboxAndRadioHorizontal
+                        }
+                      >
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              tabIndex={-1}
+                              onClick={() => handleToggle(service)}
+                              checkedIcon={
+                                <Check className={classes.checkedIcon} />
+                              }
+                              icon={<Check className={classes.uncheckedIcon} />}
+                              classes={{ checked: classes.checked }}
+                            />
+                          }
+                          classes={{ label: classes.label }}
+                          label={`${service.title} ${service.price}`}
+                        />
+                      </div>
+                    </GridItem>
+                  </GridContainer>
+                ))}
+            </Grid>
+          </DialogContent>
 
           <DialogActions className={classes.modalFooter}>
             <Button

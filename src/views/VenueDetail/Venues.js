@@ -44,7 +44,9 @@ class Venues extends Component {
       handleArchiveStatus,
       ConfirmModal,
       handleClickCreatePackageOpen,
-      handleCreatePackageClose
+      handleCreatePackageClose,
+      handleChangeEnabled,
+      packageCategories
     } = this.props;
     return (
       <div>
@@ -163,9 +165,9 @@ class Venues extends Component {
                         alignItems="flex-start"
                       >
                         {venue.serviesFacilities &&
-                          venue.serviesFacilities.map(service => (
+                          venue.serviesFacilities.map((service, index) => (
                             <GridContainer>
-                              <GridItem xs={12} sm={6} md={4} lg={3}>
+                              <GridItem xs={12} sm={6} md={4} lg={3} key={index}>
                                 <div
                                   className={
                                     classes.checkboxAndRadio +
@@ -234,6 +236,9 @@ class Venues extends Component {
                 ConfirmModal={ConfirmModal}
                 handleClickCreatePackageOpen={handleClickCreatePackageOpen}
                 handleCreatePackageClose={handleCreatePackageClose}
+                handleChangeEnabled={handleChangeEnabled}
+                packageCategories={packageCategories}
+                handleToggle={handleToggle}
               />
             </GridContainer>
             <GridContainer

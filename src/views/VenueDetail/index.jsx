@@ -10,11 +10,22 @@ import GlobleLoader from "./GlobleLoader";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+// const packageCategories =  [
+//   { title: "Platinum", id: "platinum" },
+//   { title: "Gold", id: "gold" },
+//   { title: "Silver", id: "sliver" }
+// ];
+
 class VenueDetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       eventId: "",
+      packageCategories: [
+        { title: "Platinum", id: "platinum" },
+        { title: "Gold", id: "gold" },
+        { title: "Silver", id: "sliver" }
+      ],
       servicesBookingPrice: [],
       bookingDate: new Date(),
       objStatus: 0,
@@ -24,18 +35,23 @@ class VenueDetail extends React.Component {
   }
 
   handleClickCreatePackageOpen = modal => {
-    debugger
+    debugger;
     var x = [];
     x[modal] = true;
     this.setState(x);
   };
 
   handleCreatePackageClose = modal => {
-    debugger
+    debugger;
     var x = [];
     x[modal] = false;
     this.setState(x);
   };
+
+  handleChangeEnabled(event) {
+    this.setState({ name: event.target.value });
+  }
+
 
   componentDidUpdate(prevProps, prevState) {
     const { venue } = this.props;
@@ -146,7 +162,7 @@ class VenueDetail extends React.Component {
 
   render() {
     const { venue, user, getVenueLoader, saveCustomBookingLoader } = this.props;
-    const { servicesBookingPrice, bookingDate, ConfirmModal } = this.state;
+    const { servicesBookingPrice, bookingDate, ConfirmModal,packageCategories } = this.state;
     return (
       <div>
         <div>
@@ -165,12 +181,15 @@ class VenueDetail extends React.Component {
             ConfirmModal={ConfirmModal}
             handleClickCreatePackageOpen={this.handleClickCreatePackageOpen}
             handleCreatePackageClose={this.handleCreatePackageClose}
+            handleChangeEnabled={this.handleChangeEnabled}
             handleToggle={this.handleToggleOnService}
             saveCustomBooking={this.saveCustomBooking}
             handleOnDateChange={this.handleOnDateChange}
             successNotifiy={this.successNotifiy}
             handleDeleteStatus={this.handleDeleteStatus}
             handleArchiveStatus={this.handleArchiveStatus}
+            handleChangeEnabled={this.handleChangeEnabled}
+            packageCategories={packageCategories}
           />
         ) : null}
       </div>

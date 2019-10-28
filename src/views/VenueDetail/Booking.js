@@ -34,7 +34,10 @@ class Booking extends Component {
       user,
       ConfirmModal,
       handleClickCreatePackageOpen,
-      handleCreatePackageClose
+      handleCreatePackageClose,
+      handleChangeEnabled,
+      packageCategories,
+      handleToggle
     } = this.props;
     let totalPrice = 0;
     return (
@@ -151,11 +154,15 @@ class Booking extends Component {
                         }}
                       >
                         <PackageModal
+                          venue={venue}
                           ConfirmModal={ConfirmModal}
                           handleClickCreatePackageOpen={
                             handleClickCreatePackageOpen
                           }
                           handleCreatePackageClose={handleCreatePackageClose}
+                          handleChangeEnabled={handleChangeEnabled}
+                          packageCategories={packageCategories}
+                          handleToggle={handleToggle}
                         />
                         {/* <Button
                           variant="outlined"

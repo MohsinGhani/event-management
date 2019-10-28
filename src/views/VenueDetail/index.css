@@ -47,6 +47,11 @@
     margin: 0 auto;
 }
 
+.radio_button {
+    display: flex;
+    justify-content: space-between;
+}
+
 /* 
 .GridContainer-grid-269 {
     margin-right: 0px !important;
