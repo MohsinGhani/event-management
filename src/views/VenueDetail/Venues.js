@@ -46,7 +46,12 @@ class Venues extends Component {
       handleClickCreatePackageOpen,
       handleCreatePackageClose,
       handleChangeEnabled,
-      packageCategories
+      packageCategories,
+      packageObj,
+      servicePackages,
+      handleToggleOnServicePackages,
+      discountAmount,
+      handleOnChange
     } = this.props;
     return (
       <div>
@@ -167,7 +172,13 @@ class Venues extends Component {
                         {venue.serviesFacilities &&
                           venue.serviesFacilities.map((service, index) => (
                             <GridContainer>
-                              <GridItem xs={12} sm={6} md={4} lg={3} key={index}>
+                              <GridItem
+                                xs={12}
+                                sm={6}
+                                md={4}
+                                lg={3}
+                                key={index}
+                              >
                                 <div
                                   className={
                                     classes.checkboxAndRadio +
@@ -206,7 +217,20 @@ class Venues extends Component {
                 ]}
               />
             </GridContainer>
-
+            <GridContainer style={{ marginRight: 0 }}>
+              <CustomTabs
+                headerColor="danger"
+                tabs={[
+                  {
+                    tabName: "Packages",
+                    tabIcon: Description,
+                    tabContent: (
+                      <p className={classes.textCenter}>Packages deatails</p>
+                    )
+                  }
+                ]}
+              />
+            </GridContainer>
             <GridContainer style={{ marginRight: 0 }}>
               <CustomTabs
                 headerColor="danger"
@@ -239,6 +263,11 @@ class Venues extends Component {
                 handleChangeEnabled={handleChangeEnabled}
                 packageCategories={packageCategories}
                 handleToggle={handleToggle}
+                packageObj={packageObj}
+                servicePackages={servicePackages}
+                handleToggleOnServicePackages={handleToggleOnServicePackages}
+                discountAmount={discountAmount}
+                handleOnChange={handleOnChange}
               />
             </GridContainer>
             <GridContainer

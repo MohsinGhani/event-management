@@ -19,7 +19,13 @@ import basicsStyle from "assets/jss/material-kit-react/views/componentsSections/
 
 class PackageRadioButton extends Component {
   render() {
-    const { classes, packageCategories, handleChangeEnabled } = this.props;
+    const {
+      classes,
+      packageCategories,
+      handleChangeEnabled,
+      packageObj,
+      
+    } = this.props;
     return (
       <div className="radio_button">
         {packageCategories.map((packageCategory, index) => (
@@ -35,7 +41,7 @@ class PackageRadioButton extends Component {
                 key={index}
                 control={
                   <Radio
-                    checked={packageCategory === packageCategory.title}
+                    checked={packageObj === packageCategory.title}
                     onChange={handleChangeEnabled}
                     value={packageCategory.title}
                     name="packageCategory"

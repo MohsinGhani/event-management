@@ -19,7 +19,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "react-datepicker/dist/react-datepicker.css";
 import "flatpickr/dist/themes/material_green.css";
 import Flatpickr from "react-flatpickr";
-import PackageModal from "./PackageModal"
+import PackageModal from "./PackageModal";
 
 class Booking extends Component {
   render() {
@@ -37,7 +37,12 @@ class Booking extends Component {
       handleCreatePackageClose,
       handleChangeEnabled,
       packageCategories,
-      handleToggle
+      handleToggle,
+      packageObj,
+      servicePackages,
+      handleToggleOnServicePackages,
+      discountAmount,
+      handleOnChange
     } = this.props;
     let totalPrice = 0;
     return (
@@ -163,6 +168,13 @@ class Booking extends Component {
                           handleChangeEnabled={handleChangeEnabled}
                           packageCategories={packageCategories}
                           handleToggle={handleToggle}
+                          packageObj={packageObj}
+                          servicePackages={servicePackages}
+                          handleToggleOnServicePackages={
+                            handleToggleOnServicePackages
+                          }
+                          discountAmount={discountAmount}
+                          handleOnChange={handleOnChange}
                         />
                         {/* <Button
                           variant="outlined"

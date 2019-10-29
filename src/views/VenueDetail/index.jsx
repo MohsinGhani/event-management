@@ -10,17 +10,12 @@ import GlobleLoader from "./GlobleLoader";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-// const packageCategories =  [
-//   { title: "Platinum", id: "platinum" },
-//   { title: "Gold", id: "gold" },
-//   { title: "Silver", id: "sliver" }
-// ];
-
 class VenueDetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       eventId: "",
+      packageObj: "",
       packageCategories: [
         { title: "Platinum", id: "platinum" },
         { title: "Gold", id: "gold" },
@@ -29,38 +24,36 @@ class VenueDetail extends React.Component {
       servicesBookingPrice: [],
       bookingDate: new Date(),
       objStatus: 0,
-
-      ConfirmModal: false
+      servicePackages: [],
+      ConfirmModal: false,
+      discountAmount: ""
     };
   }
 
   handleClickCreatePackageOpen = modal => {
-    debugger;
     var x = [];
     x[modal] = true;
     this.setState(x);
   };
 
   handleCreatePackageClose = modal => {
-    debugger;
     var x = [];
     x[modal] = false;
     this.setState(x);
   };
 
-  handleChangeEnabled(event) {
-    this.setState({ name: event.target.value });
-  }
-
+  handleChangeEnabled = event => {
+    debugger;
+    this.setState({ packageObj: event.target.value });
+  };
 
   componentDidUpdate(prevProps, prevState) {
     const { venue } = this.props;
     if (prevProps.venue !== venue && venue) {
-      debugger;
       console.log(venue);
       const { vid } = this.props.match.params;
       console.log(vid);
-      debugger;
+
       this.setState({
         ...venue,
         objStatus: venue.objStatus,
@@ -138,7 +131,7 @@ class VenueDetail extends React.Component {
     let { servicesBookingPrice } = this.state;
 
     // check the value in array thorugh filter
-
+    debugger;
     var isExist = servicesBookingPrice.filter(service => {
       return service.title === value.title;
     });
@@ -159,10 +152,53 @@ class VenueDetail extends React.Component {
       });
     }
   };
+  
+  
+  handleToggleOnServicePackages = value => {
+    let { servicePackages } = this.state;
+
+    // check the value in array thorugh filter
+    debugger;
+    var isExist = servicePackages.filter(service => {
+      return service.title === value.title;
+    });
+
+    if (isExist.length) {
+      // remove array is exit through filter
+
+      var removePrice = servicePackages.filter(service => {
+        return service.title !== value.title;
+      });
+      this.setState({
+        servicePackages: removePrice
+      });
+    } else {
+      servicePackages.push(value);
+      this.setState({
+        servicePackages
+      });
+    }
+  };
+
+  handleOnChange=(event) => {
+    debugger
+    this.setState({
+      [event.target.name]:event.target.value
+    })
+  }
+
 
   render() {
-    const { venue, user, getVenueLoader, saveCustomBookingLoader } = this.props;
-    const { servicesBookingPrice, bookingDate, ConfirmModal,packageCategories } = this.state;
+    const { venue, user, getVenueLoader, saveCustomBookingLoader,  } = this.props;
+    const {
+      servicesBookingPrice,
+      bookingDate,
+      ConfirmModal,
+      packageCategories,
+      packageObj,
+      servicePackages,
+      discountAmount
+    } = this.state;
     return (
       <div>
         <div>
@@ -181,6 +217,7 @@ class VenueDetail extends React.Component {
             ConfirmModal={ConfirmModal}
             handleClickCreatePackageOpen={this.handleClickCreatePackageOpen}
             handleCreatePackageClose={this.handleCreatePackageClose}
+            packageObj={packageObj}
             handleChangeEnabled={this.handleChangeEnabled}
             handleToggle={this.handleToggleOnService}
             saveCustomBooking={this.saveCustomBooking}
@@ -190,6 +227,10 @@ class VenueDetail extends React.Component {
             handleArchiveStatus={this.handleArchiveStatus}
             handleChangeEnabled={this.handleChangeEnabled}
             packageCategories={packageCategories}
+            servicePackages={servicePackages}
+            handleToggleOnServicePackages={this.handleToggleOnServicePackages}
+            discountAmount={discountAmount}
+            handleOnChange={this.handleOnChange}
           />
         ) : null}
       </div>
@@ -206,7 +247,10 @@ const mapStateToProps = state => {
       getVenueError,
       saveCustomBooking,
       saveCustomBookingLoader,
-      saveCustomBookingError
+      saveCustomBookingError,
+      createPackages,
+      createPackagesLoader,
+      createPackagesError
     }
   } = state;
   return {
@@ -217,6 +261,10 @@ const mapStateToProps = state => {
     saveCustomBooking,
     saveCustomBookingLoader,
     saveCustomBookingError,
+
+    createPackages,
+    createPackagesLoader,
+    createPackagesError,
 
     user,
     isLoggedIn
@@ -229,7 +277,9 @@ const mapDispatchToProps = dispatch => {
     getVenue: vid => dispatch(venueAction.getVenue(vid)),
     saveCustomBooking: payload =>
       dispatch(venueAction.saveCustomBooking(payload)),
-    changeObjStatus: payload => dispatch(venueAction.changeObjStatus(payload))
+    changeObjStatus: payload => dispatch(venueAction.changeObjStatus(payload)),
+    createCustomPackages: payload =>
+      dispatch(venueAction.createPackages(payload))
   };
 };
 

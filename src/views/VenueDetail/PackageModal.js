@@ -7,6 +7,8 @@ import Slide from "@material-ui/core/Slide";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
+import InputAdornment from "@material-ui/core/InputAdornment";
+
 // @material-ui/icons
 import LibraryBooks from "@material-ui/icons/LibraryBooks";
 import Close from "@material-ui/icons/Close";
@@ -30,6 +32,8 @@ import Button from "components/CustomButtons/Button.jsx";
 import javascriptStyles from "assets/jss/material-kit-react/views/componentsSections/javascriptStyles.jsx";
 import basicsStyle from "assets/jss/material-kit-react/views/componentsSections/basicsStyle.jsx";
 import PackageRadioButton from "./PackageRadioButton";
+import CustomInput from "components/CustomInput/CustomInput.jsx";
+
 function Transition(props) {
   return <Slide direction="down" {...props} />;
 }
@@ -46,8 +50,15 @@ class PackageModal extends Component {
       packageCategories,
       handleChangeEnabled,
       venue,
-      handleToggle
+      handleOnChange,
+      packageObj,
+      servicePackages,
+      handleToggleOnServicePackages,
+      discountAmount
     } = this.props;
+    console.log("service Package =>", servicePackages);
+    let packagePrice = 0;
+    let afterDiscountPrice = 0;
     return (
       <div>
         <Button
@@ -78,6 +89,7 @@ class PackageModal extends Component {
             <PackageRadioButton
               packageCategories={packageCategories}
               handleChangeEnabled={handleChangeEnabled}
+              packageObj={packageObj}
             />
           </DialogTitle>
 
@@ -85,7 +97,9 @@ class PackageModal extends Component {
             id="classic-modal-slide-description"
             className={classes.modalBody}
           >
-            <h4 className={classes.modalTitle}>Services List....!</h4>
+            <h4 className={classes.modalTitle} style={{ fontWeight: "500" }}>
+              Services List....!
+            </h4>
 
             <Grid
               container
@@ -108,7 +122,9 @@ class PackageModal extends Component {
                           control={
                             <Checkbox
                               tabIndex={-1}
-                              onClick={() => handleToggle(service)}
+                              onClick={() =>
+                                handleToggleOnServicePackages(service)
+                              }
                               checkedIcon={
                                 <Check className={classes.checkedIcon} />
                               }
@@ -124,6 +140,59 @@ class PackageModal extends Component {
                   </GridContainer>
                 ))}
             </Grid>
+            <div style={{ marginTop: "10px" }}>
+              <Grid
+                container
+                direction="row"
+                justify="flex-end"
+                alignItems="flex-end"
+              >
+                {servicePackages
+                  ? servicePackages.map(p => {
+                      packagePrice += parseInt(p.price);
+                    })
+                  : null}
+                <div> Total Price: Rs:{packagePrice}</div>
+              </Grid>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-end"
+              }}
+            >
+              <CustomInput
+                labelText="Discount Percentage"
+                id="material"
+                formControlProps={{
+                  fullWidth: false
+                }}
+                inputProps={{
+                  name: "discountAmount",
+                  value: discountAmount,
+                  type: "text",
+                  onChange: handleOnChange,
+
+                  endAdornment: (
+                    <InputAdornment position="end">%</InputAdornment>
+                  )
+                }}
+              />
+            </div>
+            <div>
+              <Grid
+                container
+                direction="row"
+                justify="flex-end"
+                alignItems="flex-end"
+              >
+                Discount Price: Rs:
+                {
+                  (afterDiscountPrice =
+                    packagePrice - (packagePrice / 100) * discountAmount)
+                }
+              </Grid>
+            </div>
           </DialogContent>
 
           <DialogActions className={classes.modalFooter}>
