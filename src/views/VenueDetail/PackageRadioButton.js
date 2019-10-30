@@ -23,8 +23,7 @@ class PackageRadioButton extends Component {
       classes,
       packageCategories,
       handleChangeEnabled,
-      packageObj,
-      
+      packageObj
     } = this.props;
     return (
       <div className="radio_button">

@@ -51,7 +51,10 @@ class Venues extends Component {
       servicePackages,
       handleToggleOnServicePackages,
       discountAmount,
-      handleOnChange
+      handleOnChange,
+      packagePrice,
+      afterDiscountPrice,
+      saveCustomPackages
     } = this.props;
     return (
       <div>
@@ -268,6 +271,9 @@ class Venues extends Component {
                 handleToggleOnServicePackages={handleToggleOnServicePackages}
                 discountAmount={discountAmount}
                 handleOnChange={handleOnChange}
+                packagePrice={packagePrice}
+                afterDiscountPrice={afterDiscountPrice}
+                saveCustomPackages={saveCustomPackages}
               />
             </GridContainer>
             <GridContainer

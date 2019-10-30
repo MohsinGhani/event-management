@@ -25,7 +25,10 @@ import {
   CHANGE_OBJ_STATUS_FAILURE,
   GET_ARCHIVE_VENUES,
   GET_ARCHIVE_VENUES_SUCCESS,
-  GET_ARCHIVE_VENUES_FAILURE
+  GET_ARCHIVE_VENUES_FAILURE,
+  CREATE_PACKAGES,
+  CREATE_PACKAGES_SUCCESS,
+  CREATE_PACKAGES_FAILURE,
 } from "./../constants";
 // import { venues } from "./../../assets/venus";
 
@@ -64,7 +67,11 @@ const initialState = {
 
   objStatusHideData: 0,
   objStatusHideDataLoader: false,
-  objStatusHideDataError: null
+  objStatusHideDataError: null,
+
+  createPackages: null,
+  createPackagesLoader: false,
+  createPackagesError: null,
 };
 
 export default function venueReducer(state = initialState, action) {
@@ -217,6 +224,33 @@ export default function venueReducer(state = initialState, action) {
         venue: null,
         getVenueLoader: false,
         getVenueError: "Can not Get Venue by id"
+      };
+
+
+      //////////////////////// Create Package ////////////////////////
+
+    case CREATE_PACKAGES:
+      return {
+        ...state,
+        createPackages: null,
+        createPackagesLoader: true,
+        createPackagesError: null
+      };
+
+    case CREATE_PACKAGES_SUCCESS:
+      return {
+        ...state,
+        createPackages: action.payload,
+        createPackagesLoader: false,
+        createPackagesError: null
+      };
+
+    case CREATE_PACKAGES_FAILURE:
+      return {
+        ...state,
+        createPackages: null,
+        createPackagesLoader: false,
+        createPackagesError: "Can't create Packages"
       };
 
     ////////////////////

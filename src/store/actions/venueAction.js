@@ -25,7 +25,10 @@ import {
   CHANGE_OBJ_STATUS_FAILURE,
   GET_ARCHIVE_VENUES,
   GET_ARCHIVE_VENUES_SUCCESS,
-  GET_ARCHIVE_VENUES_FAILURE
+  GET_ARCHIVE_VENUES_FAILURE,
+  CREATE_PACKAGES,
+  CREATE_PACKAGES_SUCCESS,
+  CREATE_PACKAGES_FAILURE,
 } from "./../constants";
 
 export class venueAction {
@@ -228,6 +231,29 @@ export class venueAction {
   static changeObjStatusFailure(error) {
     return {
       type: CHANGE_OBJ_STATUS_FAILURE,
+      payload: error
+    };
+  }
+
+   /////////////////
+
+   static createPackages(payload) {
+    return {
+      type: CREATE_PACKAGES,
+      payload
+    };
+  }
+
+  static createPackagesSuccess(payload) {
+    return {
+      type: CREATE_PACKAGES_SUCCESS,
+      payload: payload
+    };
+  }
+
+  static createPackagesFailure(error) {
+    return {
+      type: CREATE_PACKAGES_FAILURE,
       payload: error
     };
   }

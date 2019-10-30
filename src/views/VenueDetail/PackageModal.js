@@ -40,7 +40,6 @@ function Transition(props) {
 
 class PackageModal extends Component {
   render() {
-    debugger;
     const { classes } = this.props;
     let {
       goto,
@@ -54,11 +53,14 @@ class PackageModal extends Component {
       packageObj,
       servicePackages,
       handleToggleOnServicePackages,
-      discountAmount
+      discountAmount,
+      packagePrice,
+      afterDiscountPrice,
+      saveCustomPackages
     } = this.props;
-    console.log("service Package =>", servicePackages);
-    let packagePrice = 0;
-    let afterDiscountPrice = 0;
+    // console.log("service Package =>", servicePackages);
+    // let packagePrice = 0;
+    // let afterDiscountPrice = 0;
     return (
       <div>
         <Button
@@ -188,7 +190,7 @@ class PackageModal extends Component {
               >
                 Discount Price: Rs:
                 {
-                  (afterDiscountPrice =
+                  (afterDiscountPrice +=
                     packagePrice - (packagePrice / 100) * discountAmount)
                 }
               </Grid>
@@ -199,7 +201,7 @@ class PackageModal extends Component {
             <Button
               color="transparent"
               simple
-              onClick={() => handleCreatePackageClose("ConfirmModal")}
+              onClick={() => saveCustomPackages()}
             >
               Yes
             </Button>

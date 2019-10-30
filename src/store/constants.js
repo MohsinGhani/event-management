@@ -44,6 +44,10 @@ export const GET_ARCHIVE_VENUES = "GET_ARCHIVE_VENUES";
 export const GET_ARCHIVE_VENUES_SUCCESS = "GET_ARCHIVE_VENUES_SUCCESS";
 export const GET_ARCHIVE_VENUES_FAILURE = "GET_ARCHIVE_VENUES_FAILURE";
 
+export const CREATE_PACKAGES = "CREATE_PACKAGES";
+export const CREATE_PACKAGES_SUCCESS = "CREATE_PACKAGES_SUCCESS";
+export const CREATE_PACKAGES_FAILURE = "CREATE_PACKAGES_FAILURE";
+
 /*****************************  Map Constants  *************************************/
 
 export const REVERSE_GEOCODING = "REVERSE_GEOCODING";

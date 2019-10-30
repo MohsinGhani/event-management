@@ -1,4 +1,3 @@
-import { REVERSE_GEOCODING } from "./../constants";
 import { Observable } from "rxjs/Rx";
 import { venueAction } from "./../actions/index";
 import { HttpService } from "../../services/http";
@@ -6,6 +5,7 @@ import path from "./../../config/path";
 import credentials from "../../config/credentials";
 
 import {
+  REVERSE_GEOCODING,
   SAVE_VENUES,
   UPDATE_VENUE,
   GET_VENUES,
@@ -13,7 +13,8 @@ import {
   SAVE_CUSTOM_BOOKING,
   GET_VENUES_BY_USER_ID,
   CHANGE_OBJ_STATUS,
-  GET_ARCHIVE_VENUES
+  GET_ARCHIVE_VENUES,
+  CREATE_PACKAGES
 } from "../constants";
 import { db } from "../../firebase/FireBase";
 import auth from "../../firebase/FireBase";
@@ -52,6 +53,24 @@ export default class venueEpic {
         })
         .catch(err => {
           return venueAction.saveVenueFailure(`Error in Save venue! ${err}`);
+        });
+    });
+
+  static createPackages = action$ =>
+    action$.ofType(CREATE_PACKAGES).switchMap(({ payload }) => {
+      return Observable.fromPromise(
+        db
+          .collection("packages")
+          .doc()
+          .set(payload)
+      )
+        .switchMap(doc => {
+          return Observable.of(venueAction.createPackagesSuccess(payload));
+        })
+        .catch(err => {
+          return venueAction.createPackagesFailure(
+            `Error in create package! ${err}`
+          );
         });
     });
 
@@ -114,26 +133,6 @@ export default class venueEpic {
       }
     });
 
-  // static getArchiveVenues = action$ =>
-  // action$.ofType(GET_ARCHIVE_VENUES).mergeMap(async () => {
-  //   try {
-  //     const querySnapshot = await db
-  //       .collection("services")
-  //       .where("objStatus", "==", 2)
-  //       .get();
-  //     let services = [];
-  //     querySnapshot.forEach(doc => {
-  //       services.push({ ...doc.data(), vid: doc.id });
-  //     });
-  //     debugger
-  //     return venueAction.getArchiveVenuesSuccess(services);
-  //   } catch (err) {
-  //     return venueAction.getArchiveVenuesFailure(
-  //       `Error in getting services! ${err}`
-  //     );
-  //   }
-  // });
-
   static getArchiveVenues = action$ =>
     action$.ofType(GET_ARCHIVE_VENUES).mergeMap(({ payload }) => {
       // let user = auth.currentUser.uid;
@@ -164,25 +163,6 @@ export default class venueEpic {
           );
         });
     });
-
-  // static getDeletedVenues = action$ =>
-  // action$.ofType(GET_DELETED_VENUES).mergeMap(async () => {
-  //   try {
-  //     const querySnapshot = await db
-  //       .collection("services")
-  //       .where("objStatus", "==", 0)
-  //       .get();
-  //     let services = [];
-  //     querySnapshot.forEach(doc => {
-  //       services.push({ ...doc.data(), vid: doc.id });
-  //     });
-  //     return venueAction.getDeletedVenuesSuccess(services);
-  //   } catch (err) {
-  //     return venueAction.getDeletedVenuesFailure(
-  //       `Error in getting services! ${err}`
-  //     );
-  //   }
-  // });
 
   static getVenue = action$ =>
     action$.ofType(GET_VENUE).mergeMap(({ payload }) => {
@@ -286,3 +266,42 @@ export default class venueEpic {
 //             );
 //           })
 //       );
+
+// static getDeletedVenues = action$ =>
+// action$.ofType(GET_DELETED_VENUES).mergeMap(async () => {
+//   try {
+//     const querySnapshot = await db
+//       .collection("services")
+//       .where("objStatus", "==", 0)
+//       .get();
+//     let services = [];
+//     querySnapshot.forEach(doc => {
+//       services.push({ ...doc.data(), vid: doc.id });
+//     });
+//     return venueAction.getDeletedVenuesSuccess(services);
+//   } catch (err) {
+//     return venueAction.getDeletedVenuesFailure(
+//       `Error in getting services! ${err}`
+//     );
+//   }
+// });
+
+// static getArchiveVenues = action$ =>
+// action$.ofType(GET_ARCHIVE_VENUES).mergeMap(async () => {
+//   try {
+//     const querySnapshot = await db
+//       .collection("services")
+//       .where("objStatus", "==", 2)
+//       .get();
+//     let services = [];
+//     querySnapshot.forEach(doc => {
+//       services.push({ ...doc.data(), vid: doc.id });
+//     });
+//     debugger
+//     return venueAction.getArchiveVenuesSuccess(services);
+//   } catch (err) {
+//     return venueAction.getArchiveVenuesFailure(
+//       `Error in getting services! ${err}`
+//     );
+//   }
+// });

@@ -42,7 +42,10 @@ class Booking extends Component {
       servicePackages,
       handleToggleOnServicePackages,
       discountAmount,
-      handleOnChange
+      handleOnChange,
+      packagePrice,
+      afterDiscountPrice,
+      saveCustomPackages
     } = this.props;
     let totalPrice = 0;
     return (
@@ -175,6 +178,9 @@ class Booking extends Component {
                           }
                           discountAmount={discountAmount}
                           handleOnChange={handleOnChange}
+                          packagePrice={packagePrice}
+                          afterDiscountPrice={afterDiscountPrice}
+                          saveCustomPackages={saveCustomPackages}
                         />
                         {/* <Button
                           variant="outlined"

@@ -26,7 +26,9 @@ class VenueDetail extends React.Component {
       objStatus: 0,
       servicePackages: [],
       ConfirmModal: false,
-      discountAmount: ""
+      discountAmount: "",
+      packagePrice: 0,
+      afterDiscountPrice: 0
     };
   }
 
@@ -152,8 +154,7 @@ class VenueDetail extends React.Component {
       });
     }
   };
-  
-  
+
   handleToggleOnServicePackages = value => {
     let { servicePackages } = this.state;
 
@@ -180,16 +181,40 @@ class VenueDetail extends React.Component {
     }
   };
 
-  handleOnChange=(event) => {
-    debugger
+  handleOnChange = event => {
     this.setState({
-      [event.target.name]:event.target.value
-    })
-  }
+      [event.target.name]: event.target.value
+    });
+  };
 
+  saveCustomPackages = () => {
+    debugger;
+    const { vid } = this.props.match.params;
+    debugger;
+    const { packageObj, servicePackages, discountAmount } = this.state;
+    debugger;
+    const { createCustomPackages, user } = this.props;
+    debugger;
+    const newPackage = {
+      packageObj,
+      servicePackages,
+      discountAmount,
+      eventId: vid,
+      userId: user && user.uid
+    };
+    debugger;
+    createCustomPackages(newPackage);
+    console.log(newPackage);
+    this.setState({
+      packageObj: "",
+      servicePackages: "",
+      discountAmount: ""
+    });
+    this.handleCreatePackageClose("ConfirmModal");
+  };
 
   render() {
-    const { venue, user, getVenueLoader, saveCustomBookingLoader,  } = this.props;
+    const { venue, user, getVenueLoader, saveCustomBookingLoader } = this.props;
     const {
       servicesBookingPrice,
       bookingDate,
@@ -197,7 +222,9 @@ class VenueDetail extends React.Component {
       packageCategories,
       packageObj,
       servicePackages,
-      discountAmount
+      discountAmount,
+      packagePrice,
+      afterDiscountPrice
     } = this.state;
     return (
       <div>
@@ -231,6 +258,9 @@ class VenueDetail extends React.Component {
             handleToggleOnServicePackages={this.handleToggleOnServicePackages}
             discountAmount={discountAmount}
             handleOnChange={this.handleOnChange}
+            packagePrice={packagePrice}
+            afterDiscountPrice={afterDiscountPrice}
+            saveCustomPackages={this.saveCustomPackages}
           />
         ) : null}
       </div>
