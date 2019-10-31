@@ -48,6 +48,10 @@ export const CREATE_PACKAGES = "CREATE_PACKAGES";
 export const CREATE_PACKAGES_SUCCESS = "CREATE_PACKAGES_SUCCESS";
 export const CREATE_PACKAGES_FAILURE = "CREATE_PACKAGES_FAILURE";
 
+export const GET_PACKAGES = "GET_PACKAGES";
+export const GET_PACKAGES_SUCCESS = "GET_PACKAGES_SUCCESS";
+export const GET_PACKAGES_FAILURE = "GET_PACKAGES_FAILURE";
+
 /*****************************  Map Constants  *************************************/
 
 export const REVERSE_GEOCODING = "REVERSE_GEOCODING";

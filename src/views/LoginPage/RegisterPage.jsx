@@ -159,7 +159,8 @@ class RegisterPage extends React.Component {
                         lastName,
                         userEmail: email,
                         userPass: password,
-                        confirmPassword
+                        confirmPassword,
+                        displayName: `${firstName} ${lastName}`
                       });
                     }}
                     render={({ errors, status, touched }) => (

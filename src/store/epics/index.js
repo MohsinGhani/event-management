@@ -22,7 +22,8 @@ const rootEpic = combineEpics(
   venueEpic.updateVenue,
   venueEpic.changeObjStatus,
   venueEpic.getArchiveVenues,
-  venueEpic.createPackages
+  venueEpic.createPackages,
+  venueEpic.getPackages,
 );
 
 export default rootEpic;

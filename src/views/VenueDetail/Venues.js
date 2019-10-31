@@ -54,8 +54,11 @@ class Venues extends Component {
       handleOnChange,
       packagePrice,
       afterDiscountPrice,
-      saveCustomPackages
+      saveCustomPackages,
+      packages,
+      handleToggleOnService
     } = this.props;
+    // let totalPrice = 0;
     return (
       <div>
         <ImageCarousel venue={venue} />
@@ -220,20 +223,59 @@ class Venues extends Component {
                 ]}
               />
             </GridContainer>
-            <GridContainer style={{ marginRight: 0 }}>
-              <CustomTabs
-                headerColor="danger"
-                tabs={[
-                  {
-                    tabName: "Packages",
-                    tabIcon: Description,
-                    tabContent: (
-                      <p className={classes.textCenter}>Packages deatails</p>
-                    )
+
+            {packages && packages.length ? (
+              <GridContainer style={{ marginRight: 0 }}>
+                <CustomTabs
+                  headerColor="danger"
+                  tabs={
+                    packages && packages.length
+                      ? packages.map((pack, i) => {
+                        let totalPrice = 0
+                        return {
+                          tabName: pack.packageObj,
+                          tabIcon: Description,
+                          tabContent: (
+                            <div className={classes.textCenter} key={i}>
+                              {pack.servicePackages.map((service, index) => {
+                                totalPrice += parseInt(service.price);
+                                return (
+                                  <div
+                                    key={index}
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "space-between"
+                                    }}
+                                  >
+                                    <li>{service.title.toUpperCase()}</li>
+                                    Rs: {service.price}
+                                  </div>
+                                );
+                              })}
+                              <div>Total Amout: Rs: {totalPrice}</div>
+                              <div>
+                                Discount Amount:{" "}
+                                {totalPrice -
+                                  (totalPrice / 100) * pack.discountAmount}
+                              </div>
+                              <div style={{
+                                      display: "flex",
+                                      justifyContent: "flex-end"
+                                    }}>
+                                <Button onClick={()=> handleToggleOnServicePackages(totalPrice)}>Add Package</Button>
+                              </div>
+                            </div>
+                          )
+                        }
+                      })
+                      : []
                   }
-                ]}
-              />
-            </GridContainer>
+                />
+              </GridContainer>
+            ) : (
+              <span></span>
+            )}
+
             <GridContainer style={{ marginRight: 0 }}>
               <CustomTabs
                 headerColor="danger"
@@ -268,6 +310,7 @@ class Venues extends Component {
                 handleToggle={handleToggle}
                 packageObj={packageObj}
                 servicePackages={servicePackages}
+                handleToggleOnService={handleToggleOnService}
                 handleToggleOnServicePackages={handleToggleOnServicePackages}
                 discountAmount={discountAmount}
                 handleOnChange={handleOnChange}

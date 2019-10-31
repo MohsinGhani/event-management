@@ -29,6 +29,9 @@ import {
   CREATE_PACKAGES,
   CREATE_PACKAGES_SUCCESS,
   CREATE_PACKAGES_FAILURE,
+  GET_PACKAGES,
+  GET_PACKAGES_SUCCESS,
+  GET_PACKAGES_FAILURE
 } from "./../constants";
 
 export class venueAction {
@@ -235,9 +238,9 @@ export class venueAction {
     };
   }
 
-   /////////////////
+  /////////////////
 
-   static createPackages(payload) {
+  static createPackages(payload) {
     return {
       type: CREATE_PACKAGES,
       payload
@@ -254,6 +257,32 @@ export class venueAction {
   static createPackagesFailure(error) {
     return {
       type: CREATE_PACKAGES_FAILURE,
+      payload: error
+    };
+  }
+
+  /////////////////
+
+  static getPackages(payload) {
+    
+    return {
+      type: GET_PACKAGES,
+      payload
+    };
+  }
+
+  static getPackagesSuccess(packages) {
+        
+    return {
+      type: GET_PACKAGES_SUCCESS,
+      payload: packages
+    };
+  }
+
+  static getPackagesFailure(error) {
+        
+    return {
+      type: GET_PACKAGES_FAILURE,
       payload: error
     };
   }

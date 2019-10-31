@@ -28,7 +28,7 @@ class VenueDetail extends React.Component {
       ConfirmModal: false,
       discountAmount: "",
       packagePrice: 0,
-      afterDiscountPrice: 0
+      afterDiscountPrice: 0,
     };
   }
 
@@ -45,7 +45,6 @@ class VenueDetail extends React.Component {
   };
 
   handleChangeEnabled = event => {
-    debugger;
     this.setState({ packageObj: event.target.value });
   };
 
@@ -65,8 +64,13 @@ class VenueDetail extends React.Component {
   }
 
   componentDidMount() {
+    
     const { vid } = this.props.match.params;
-    this.props.getVenue(vid);
+    const { getVenue, getPackages } = this.props;
+    
+    getVenue(vid);
+    
+    getPackages({ vid: vid && vid});
   }
 
   handleOnDateChange = date => {
@@ -133,7 +137,7 @@ class VenueDetail extends React.Component {
     let { servicesBookingPrice } = this.state;
 
     // check the value in array thorugh filter
-    debugger;
+    
     var isExist = servicesBookingPrice.filter(service => {
       return service.title === value.title;
     });
@@ -155,11 +159,12 @@ class VenueDetail extends React.Component {
     }
   };
 
+
   handleToggleOnServicePackages = value => {
     let { servicePackages } = this.state;
 
     // check the value in array thorugh filter
-    debugger;
+    
     var isExist = servicePackages.filter(service => {
       return service.title === value.title;
     });
@@ -181,6 +186,7 @@ class VenueDetail extends React.Component {
     }
   };
 
+
   handleOnChange = event => {
     this.setState({
       [event.target.name]: event.target.value
@@ -188,13 +194,9 @@ class VenueDetail extends React.Component {
   };
 
   saveCustomPackages = () => {
-    debugger;
     const { vid } = this.props.match.params;
-    debugger;
     const { packageObj, servicePackages, discountAmount } = this.state;
-    debugger;
     const { createCustomPackages, user } = this.props;
-    debugger;
     const newPackage = {
       packageObj,
       servicePackages,
@@ -202,7 +204,6 @@ class VenueDetail extends React.Component {
       eventId: vid,
       userId: user && user.uid
     };
-    debugger;
     createCustomPackages(newPackage);
     console.log(newPackage);
     this.setState({
@@ -214,7 +215,7 @@ class VenueDetail extends React.Component {
   };
 
   render() {
-    const { venue, user, getVenueLoader, saveCustomBookingLoader } = this.props;
+    const { venue, user, getVenueLoader, saveCustomBookingLoader,packages } = this.props;
     const {
       servicesBookingPrice,
       bookingDate,
@@ -226,6 +227,7 @@ class VenueDetail extends React.Component {
       packagePrice,
       afterDiscountPrice
     } = this.state;
+    console.log("packages=>",packages)
     return (
       <div>
         <div>
@@ -261,6 +263,8 @@ class VenueDetail extends React.Component {
             packagePrice={packagePrice}
             afterDiscountPrice={afterDiscountPrice}
             saveCustomPackages={this.saveCustomPackages}
+            handleToggleOnService={this.handleToggleOnService}
+            packages={packages}
           />
         ) : null}
       </div>
@@ -280,7 +284,11 @@ const mapStateToProps = state => {
       saveCustomBookingError,
       createPackages,
       createPackagesLoader,
-      createPackagesError
+      createPackagesError,
+
+      packages,
+      getPackagesLoader,
+      getPackagesError
     }
   } = state;
   return {
@@ -296,6 +304,10 @@ const mapStateToProps = state => {
     createPackagesLoader,
     createPackagesError,
 
+    packages,
+    getPackagesLoader,
+    getPackagesError,
+
     user,
     isLoggedIn
   };
@@ -309,7 +321,8 @@ const mapDispatchToProps = dispatch => {
       dispatch(venueAction.saveCustomBooking(payload)),
     changeObjStatus: payload => dispatch(venueAction.changeObjStatus(payload)),
     createCustomPackages: payload =>
-      dispatch(venueAction.createPackages(payload))
+      dispatch(venueAction.createPackages(payload)),
+    getPackages: (vid) => dispatch(venueAction.getPackages(vid))
   };
 };
 

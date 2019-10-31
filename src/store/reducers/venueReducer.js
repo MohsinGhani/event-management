@@ -29,6 +29,9 @@ import {
   CREATE_PACKAGES,
   CREATE_PACKAGES_SUCCESS,
   CREATE_PACKAGES_FAILURE,
+  GET_PACKAGES,
+  GET_PACKAGES_SUCCESS,
+  GET_PACKAGES_FAILURE
 } from "./../constants";
 // import { venues } from "./../../assets/venus";
 
@@ -72,6 +75,10 @@ const initialState = {
   createPackages: null,
   createPackagesLoader: false,
   createPackagesError: null,
+
+  packages: null,
+  getPackagesLoader: false,
+  getPackagesError: null
 };
 
 export default function venueReducer(state = initialState, action) {
@@ -226,8 +233,7 @@ export default function venueReducer(state = initialState, action) {
         getVenueError: "Can not Get Venue by id"
       };
 
-
-      //////////////////////// Create Package ////////////////////////
+    //////////////////////// Create Package ////////////////////////
 
     case CREATE_PACKAGES:
       return {
@@ -251,6 +257,35 @@ export default function venueReducer(state = initialState, action) {
         createPackages: null,
         createPackagesLoader: false,
         createPackagesError: "Can't create Packages"
+      };
+
+    //////////////////////////////////////////////
+
+    case GET_PACKAGES:
+      
+      return {
+        ...state,
+        packages: null,
+        getPackagesLoader: true,
+        getPackagesError: null
+      };
+
+    case GET_PACKAGES_SUCCESS:
+        
+      return {
+        ...state,
+        packages: action.payload,
+        getPackagesLoader: false,
+        getPackagesError: null
+      };
+
+    case GET_PACKAGES_FAILURE:
+              
+    return {
+        ...state,
+        packages: null,
+        getPackagesLoader: false,
+        getPackagesError: "Can not Get Venue by id"
       };
 
     ////////////////////

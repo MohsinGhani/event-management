@@ -25,6 +25,7 @@ export default class authEpic {
       )
         .switchMap(response => {
           payload["uid"] = response.user.uid;
+          payload["display name"]= response.user.displayName
           if (response.type && response.type === "SIGNUP_FAILURE") {
             return Observable.of(authAction.signUpFailure(response.error));
           } else {

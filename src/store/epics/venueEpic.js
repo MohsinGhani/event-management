@@ -14,7 +14,8 @@ import {
   GET_VENUES_BY_USER_ID,
   CHANGE_OBJ_STATUS,
   GET_ARCHIVE_VENUES,
-  CREATE_PACKAGES
+  CREATE_PACKAGES,
+  GET_PACKAGES
 } from "../constants";
 import { db } from "../../firebase/FireBase";
 import auth from "../../firebase/FireBase";
@@ -35,7 +36,9 @@ export default class venueEpic {
         })
         .catch(err => {
           return Observable.of(
-            venueAction.likeProductFailure({ error: err.message })
+            venueAction.likeProductFailure({
+              error: err.message
+            })
           );
         });
     });
@@ -133,20 +136,47 @@ export default class venueEpic {
       }
     });
 
+  static getPackages = action$ =>
+    action$.ofType(GET_PACKAGES).mergeMap(({ payload }) => {
+      
+      const {vid}  = payload;
+      debugger
+      let packages = [];
+      
+      return db
+        .collection("packages")
+        .where("vid", "==", vid)
+        .get()
+        .then(function(querySnapshot) {
+          
+          querySnapshot.forEach(doc => {
+            packages.push({ ...doc.data(), pid: doc.id });
+          });
+          console.log(packages);
+          return venueAction.getPackagesSuccess(packages);
+        })
+        .catch(function(err) {
+          
+          return venueAction.getPackagesFailure(
+            `Error in getting packages! ${err}`
+          );
+        });
+    });
+
   static getArchiveVenues = action$ =>
     action$.ofType(GET_ARCHIVE_VENUES).mergeMap(({ payload }) => {
       // let user = auth.currentUser.uid;
-      debugger;
+      
       const { userId } = payload;
       let services = [];
-      debugger;
+      
       return db
         .collection("services")
         .where("userId", "==", userId)
         .where("objStatus", "==", 2)
         .get()
         .then(function(querySnapshot) {
-          debugger;
+          
           querySnapshot.forEach(function(doc) {
             // doc.data() is never undefined for query doc snapshots
             services.push({ ...doc.data(), vid: doc.id });
@@ -172,7 +202,10 @@ export default class venueEpic {
         .get()
         .then(doc => {
           if (doc.exists) {
-            return venueAction.getVenueSuccess({ ...doc.data(), vid: doc.id });
+            return venueAction.getVenueSuccess({
+              ...doc.data(),
+              vid: doc.id
+            });
           } else {
             return venueAction.getVenueFailure(`No such document!`);
           }
