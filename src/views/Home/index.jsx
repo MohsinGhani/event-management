@@ -16,7 +16,7 @@ import venuePin from "../../assets/icons/venuePin.svg";
 import decoration from "../../assets/icons/decoration.svg";
 import foood from "../../assets/icons/foood.svg";
 import photo from "../../assets/icons/photo.svg";
-
+import MapMarkerIdentity from "./MapMarkerIdentity";
 const Map = ReactMapboxGl({
   accessToken: credentials.MAP_ACCESS_TOCKEN
 });
@@ -30,7 +30,8 @@ class Home extends React.Component {
         longitude: 67.06985544,
         latitude: 24.86053553
       },
-      popupInfo: null
+      popupInfo: null,
+      selectedType: "all"
     };
   }
 
@@ -56,6 +57,10 @@ class Home extends React.Component {
     this.goto("/login");
   };
 
+  handleOnChange = event => {
+    debugger;
+    this.setState({ selectedType: event });
+  };
   _renderCityMarker = (venue, index) => {
     return (
       <Marker
@@ -182,7 +187,7 @@ class Home extends React.Component {
   };
   render() {
     const { venues } = this.props;
-    const { center } = this.state;
+    const { center, selectedType } = this.state;
     return (
       <div style={{ position: "fixed" }}>
         <AuthenticatedNavbar />
@@ -196,11 +201,16 @@ class Home extends React.Component {
           movingMethod={"jumpTo"}
           center={[center.longitude, center.latitude]}
         >
-          <MapMarkerIdentity />
+          <MapMarkerIdentity handleOnChange={this.handleOnChange} />
           {venues
             ? venues.map((venue, index) => {
                 const { location, objType } = venue;
-                if (objType.id === "food_and_caterers") {
+                debugger;
+                if (
+                  (objType.id === "food_and_caterers" &&
+                    selectedType === "food_and_caterers") ||
+                  selectedType === "all"
+                ) {
                   return (
                     <Marker
                       key={index}
@@ -222,7 +232,11 @@ class Home extends React.Component {
                       />
                     </Marker>
                   );
-                } else if (objType.id === "decorator") {
+                } else if (
+                  (objType.id === "decorator" &&
+                    selectedType === "decorator") ||
+                  selectedType === "all"
+                ) {
                   return (
                     <Marker
                       key={index}
@@ -244,7 +258,10 @@ class Home extends React.Component {
                       />
                     </Marker>
                   );
-                } else if (objType.id === "venue") {
+                } else if (
+                  (objType.id === "venue" && selectedType === "venue") ||
+                  selectedType === "all"
+                ) {
                   return (
                     <Marker
                       key={index}
@@ -266,7 +283,11 @@ class Home extends React.Component {
                       />
                     </Marker>
                   );
-                } else if (objType.id === "photographer") {
+                } else if (
+                  (objType.id === "photographer" &&
+                    selectedType === "photographer") ||
+                  selectedType === "all"
+                ) {
                   return (
                     <Marker
                       key={index}
@@ -299,57 +320,6 @@ class Home extends React.Component {
   }
 }
 
-const MapMarkerIdentity = () => {
-  return (
-    <div
-      className="map-marker-position"
-      style={{ display: "flex", justifyContent: "flex-end", padding: "5px" }}
-    >
-      <div
-        className="map-marker-identity"
-        style={{
-          position: "absolute",
-          border: "2px solid red",
-          backgroundColor: "lightgray",
-          padding: "5px"
-        }}
-      >
-        <div style={{ padding: "5px" }}>
-          <img
-            style={{ height: "20px", width: "20px" }}
-            src={photo}
-            alt={"current location"}
-          />
-          <span>Photographers</span>
-        </div>
-        <div style={{ padding: "5px" }}>
-          <img
-            style={{ height: "20px", width: "20px" }}
-            src={venuePin}
-            alt={"current location"}
-          />
-          <span>Venues</span>
-        </div>
-        <div style={{ padding: "5px" }}>
-          <img
-            style={{ height: "20px", width: "20px" }}
-            src={decoration}
-            alt={"current location"}
-          />
-          <span>Decorators</span>
-        </div>
-        <div style={{ padding: "5px" }}>
-          <img
-            style={{ height: "20px", width: "20px" }}
-            src={foood}
-            alt={"current location"}
-          />
-          <span>Food And Caterers</span>
-        </div>
-      </div>
-    </div>
-  );
-};
 const mapStateToProps = state => {
   const {
     venueReducer: { venues, getVenuesLoader, getVenuesError },
