@@ -302,6 +302,10 @@ class UpdateVenue extends Component {
     });
   };
 
+  goto = path => {
+    this.props.history.push(path);
+  };
+
   handelOnSaveAndUpload = () => {
     var storageRef = storage.ref();
     var urls = [];
@@ -373,6 +377,8 @@ class UpdateVenue extends Component {
                   updatedTimestamp: new Date().getTime()
                 };
                 this.props.updateVenueFunc(newDetails);
+              this.successNotifiy("Form Successfully Submited...!");
+
                 this.setState({
                   name: "",
                   phone: "",
@@ -386,7 +392,9 @@ class UpdateVenue extends Component {
                   serviesFacilities: [],
                   picked: null
                 });
+                this.goto("/list-view")
               }
+
             })
             .catch(error => {
               alert(error);
@@ -495,7 +503,6 @@ class UpdateVenue extends Component {
             disabled={isDetailsButtonDisable}
             onClick={() => {
               this.handelOnSaveAndUpload();
-              this.successNotifiy("Form Successfully Submited...!");
             }}
           >
             {updateVenueLoader ? (
@@ -547,4 +554,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withStyles(basicsStyle)(UpdateVenue));
+)(withRouter(withStyles(basicsStyle)(UpdateVenue)));
