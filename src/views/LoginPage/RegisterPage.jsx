@@ -133,7 +133,7 @@ class RegisterPage extends React.Component {
                         .email("Email is invalid")
                         .required("Email is required"),
                       password: Yup.string()
-                        .min(6, "Seems a bit week...")
+                        .min(6, "Seems a bit weak...")
                         .max(
                           15,
                           "We prefer insecure system, try a shorter password."
