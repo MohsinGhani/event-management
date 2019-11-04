@@ -140,12 +140,11 @@ export default class venueEpic {
     action$.ofType(GET_PACKAGES).mergeMap(({ payload }) => {
       
       const {vid}  = payload;
-      debugger
       let packages = [];
       
       return db
         .collection("packages")
-        .where("vid", "==", vid)
+        .where("eventId", "==", vid)
         .get()
         .then(function(querySnapshot) {
           
@@ -330,7 +329,7 @@ export default class venueEpic {
 //     querySnapshot.forEach(doc => {
 //       services.push({ ...doc.data(), vid: doc.id });
 //     });
-//     debugger
+//     
 //     return venueAction.getArchiveVenuesSuccess(services);
 //   } catch (err) {
 //     return venueAction.getArchiveVenuesFailure(

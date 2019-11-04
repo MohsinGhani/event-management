@@ -29,6 +29,7 @@ class VenueDetail extends React.Component {
       discountAmount: "",
       packagePrice: 0,
       afterDiscountPrice: 0,
+      packageArray: []
     };
   }
 
@@ -64,13 +65,12 @@ class VenueDetail extends React.Component {
   }
 
   componentDidMount() {
-    
     const { vid } = this.props.match.params;
     const { getVenue, getPackages } = this.props;
-    
+
     getVenue(vid);
-    
-    getPackages({ vid: vid && vid});
+
+    getPackages({ vid: vid && vid });
   }
 
   handleOnDateChange = date => {
@@ -137,7 +137,7 @@ class VenueDetail extends React.Component {
     let { servicesBookingPrice } = this.state;
 
     // check the value in array thorugh filter
-    
+
     var isExist = servicesBookingPrice.filter(service => {
       return service.title === value.title;
     });
@@ -159,12 +159,11 @@ class VenueDetail extends React.Component {
     }
   };
 
-
   handleToggleOnServicePackages = value => {
     let { servicePackages } = this.state;
 
     // check the value in array thorugh filter
-    
+
     var isExist = servicePackages.filter(service => {
       return service.title === value.title;
     });
@@ -186,6 +185,60 @@ class VenueDetail extends React.Component {
     }
   };
 
+  // handleToggleOnPackage = (value, index) => {
+  //   debugger;
+  //   const {packageArray } =this.state
+  //   let { packages } = this.props;
+  //   debugger;
+
+  //   // check the value in array thorugh filter
+
+  //   var isExist = packages.filter(service => {
+  //     debugger;
+
+  //     return service.packageObj === value.packages[value.i].packageObj;
+  //   });
+
+  //   if (isExist.length) {
+  //     debugger;
+  //     this.setState({
+  //       packageArray
+  //     });
+  //   }
+  //   console.log(packageArray)
+  // };
+
+  handleToggleOnPackage = (value) => {
+    let { packageArray } = this.state;
+    debugger;
+    // check the value in array thorugh filter
+    debugger;
+    var isExist = packageArray.filter(pack => {
+      debugger;
+      return pack.packageObj === value.packageObj;
+    });
+    console.log(isExist);
+    if (isExist.length) {
+      // remove array is exit through filter
+      var removePrice = packageArray.filter(pack => {
+        debugger;
+        return pack.packageObj !== value.packageObj;
+      });
+      debugger;
+      this.setState({
+        packageArray: removePrice
+      });
+    } else {
+      debugger;
+      packageArray.push(value);
+      debugger;
+      this.setState({
+        packageArray
+      });
+      console.log(packageArray);
+    }
+    console.log(packageArray);
+  };
 
   handleOnChange = event => {
     this.setState({
@@ -215,7 +268,13 @@ class VenueDetail extends React.Component {
   };
 
   render() {
-    const { venue, user, getVenueLoader, saveCustomBookingLoader,packages } = this.props;
+    const {
+      venue,
+      user,
+      getVenueLoader,
+      saveCustomBookingLoader,
+      packages
+    } = this.props;
     const {
       servicesBookingPrice,
       bookingDate,
@@ -225,9 +284,10 @@ class VenueDetail extends React.Component {
       servicePackages,
       discountAmount,
       packagePrice,
-      afterDiscountPrice
+      afterDiscountPrice,
+      packageArray
     } = this.state;
-    console.log("packages=>",packages)
+    console.log("packages=>", packages);
     return (
       <div>
         <div>
@@ -265,6 +325,8 @@ class VenueDetail extends React.Component {
             saveCustomPackages={this.saveCustomPackages}
             handleToggleOnService={this.handleToggleOnService}
             packages={packages}
+            handleToggleOnPackage={this.handleToggleOnPackage}
+            packageArray={packageArray}
           />
         ) : null}
       </div>
@@ -322,7 +384,7 @@ const mapDispatchToProps = dispatch => {
     changeObjStatus: payload => dispatch(venueAction.changeObjStatus(payload)),
     createCustomPackages: payload =>
       dispatch(venueAction.createPackages(payload)),
-    getPackages: (vid) => dispatch(venueAction.getPackages(vid))
+    getPackages: vid => dispatch(venueAction.getPackages(vid))
   };
 };
 

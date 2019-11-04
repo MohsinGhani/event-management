@@ -43,11 +43,28 @@ class Booking extends Component {
       handleToggleOnServicePackages,
       discountAmount,
       handleOnChange,
-      packagePrice,
+      // packagePrice,
       afterDiscountPrice,
-      saveCustomPackages
+      saveCustomPackages,
+      handleToggleOnPackage,
+      packages,
+      packageArray
     } = this.props;
     let totalPrice = 0;
+    let packagePrice = 0;
+
+    // let card = packageArray
+    //   ? packageArray.map(p => {
+    //       debugger;
+    //       p.servicePackages.map(s => {
+    //         debugger;
+    //         packagePrice += (parseInt(s.price) / 100) * p.discountAmount;
+    //         debugger;
+    //         return <li>{s.price}</li>;
+    //       });
+    //     })
+    //   : null;
+    // console.log(card);
     return (
       <>
         {venue.userId !== user.uid ? (
@@ -88,24 +105,60 @@ class Booking extends Component {
                     </GridItem>
                     <GridItem xs={12} sm={12} md={12}>
                       <div className="booking">
-                        {bookingPrice
-                          ? bookingPrice.map(p => {
-                              totalPrice += parseInt(p.price);
-                              return <li>Rs: {p.price}</li>;
-                            })
-                          : null}
-                        <div
-                          className="totalPrice"
-                          style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            borderTop: "2px solid #727272",
-                            borderBottom: "2px solid #727272",
-                            margin: "5px 0px 10px 0px"
-                          }}
-                        >
-                          <div>Total Price: </div>
-                          <div>Rs: {totalPrice}</div>
+                        <div className="custom-booking">
+                          {bookingPrice
+                            ? bookingPrice.map(p => {
+                                totalPrice += parseInt(p.price);
+                                return <li>Rs: {p.price}</li>;
+                              })
+                            : null}
+
+                          <div
+                            className="totalPrice"
+                            style={{
+                              display: "flex",
+                              justifyContent: "space-between",
+                              borderTop: "2px solid #727272",
+                              borderBottom: "2px solid #727272",
+                              margin: "5px 0px 10px 0px"
+                            }}
+                          >
+                            <div>
+                              <div>Total Price: </div>
+                              <div>Rs: {totalPrice}</div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="package-booking">
+                          {packageArray
+                            ? packageArray.map(pack => {
+                                debugger;
+                                return (
+                                  <div>
+                                    <li>{pack.packageObj}</li>
+                                    {pack.servicePackages.map(service => {
+                                      packagePrice += parseInt(service.price);
+                                    })}
+                                    <div
+                                      className="totalPrice"
+                                      style={{
+                                        display: "flex",
+                                        justifyContent: "space-between",
+                                        borderTop: "2px solid #727272",
+                                        borderBottom: "2px solid #727272",
+                                        margin: "5px 0px 10px 0px"
+                                      }}
+                                    >
+                                      Package Price: Rs:{" "}
+                                      {packagePrice -
+                                        (packagePrice / 100) *
+                                          pack.discountAmount}
+                                    </div>
+                                  </div>
+                                );
+                              })
+                            : null}
                         </div>
 
                         <div

@@ -56,7 +56,9 @@ class Venues extends Component {
       afterDiscountPrice,
       saveCustomPackages,
       packages,
-      handleToggleOnService
+      handleToggleOnService,
+      handleToggleOnPackage,
+      packageArray
     } = this.props;
     // let totalPrice = 0;
     return (
@@ -231,43 +233,52 @@ class Venues extends Component {
                   tabs={
                     packages && packages.length
                       ? packages.map((pack, i) => {
-                        let totalPrice = 0
-                        return {
-                          tabName: pack.packageObj,
-                          tabIcon: Description,
-                          tabContent: (
-                            <div className={classes.textCenter} key={i}>
-                              {pack.servicePackages.map((service, index) => {
-                                totalPrice += parseInt(service.price);
-                                return (
-                                  <div
-                                    key={index}
-                                    style={{
-                                      display: "flex",
-                                      justifyContent: "space-between"
-                                    }}
+                          let totalPrice = 0;
+                          return {
+                            tabName: pack.packageObj,
+                            tabIcon: Description,
+                            tabContent: (
+                              <div className={classes.textCenter} key={i}>
+                                {pack.servicePackages &&
+                                  pack.servicePackages.map((service, index) => {
+                                    totalPrice += parseInt(service.price);
+                                    return (
+                                      <div
+                                        key={index}
+                                        style={{
+                                          display: "flex",
+                                          justifyContent: "space-between"
+                                        }}
+                                      >
+                                        <li>{service.title.toUpperCase()}</li>
+                                        Rs: {service.price}
+                                      </div>
+                                    );
+                                  })}
+                                <div>Total Amout: Rs: {totalPrice}</div>
+                                <div>
+                                  Discount Amount: Rs:
+                                  {totalPrice -
+                                    (totalPrice / 100) * pack.discountAmount}
+                                </div>
+                                <div
+                                  style={{
+                                    display: "flex",
+                                    justifyContent: "flex-end"
+                                  }}
+                                >
+                                  <Button
+                                    onClick={() =>
+                                      handleToggleOnPackage(pack)
+                                    }
                                   >
-                                    <li>{service.title.toUpperCase()}</li>
-                                    Rs: {service.price}
-                                  </div>
-                                );
-                              })}
-                              <div>Total Amout: Rs: {totalPrice}</div>
-                              <div>
-                                Discount Amount:{" "}
-                                {totalPrice -
-                                  (totalPrice / 100) * pack.discountAmount}
+                                    Add Package
+                                  </Button>
+                                </div>
                               </div>
-                              <div style={{
-                                      display: "flex",
-                                      justifyContent: "flex-end"
-                                    }}>
-                                <Button onClick={()=> handleToggleOnServicePackages(totalPrice)}>Add Package</Button>
-                              </div>
-                            </div>
-                          )
-                        }
-                      })
+                            )
+                          };
+                        })
                       : []
                   }
                 />
@@ -317,6 +328,9 @@ class Venues extends Component {
                 packagePrice={packagePrice}
                 afterDiscountPrice={afterDiscountPrice}
                 saveCustomPackages={saveCustomPackages}
+                handleToggleOnPackage={handleToggleOnPackage}
+                packages={packages}
+                packageArray={packageArray}
               />
             </GridContainer>
             <GridContainer

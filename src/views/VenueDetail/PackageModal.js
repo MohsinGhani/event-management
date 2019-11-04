@@ -205,7 +205,8 @@ class PackageModal extends Component {
             >
               Yes
             </Button>
-            <Button onClick={() => goto("/list-view")} color="danger" simple>
+      
+            <Button onClick={() => handleCreatePackageClose("ConfirmModal")} color="danger" simple>
               No
             </Button>
           </DialogActions>
