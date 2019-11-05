@@ -13,9 +13,9 @@ import CardBody from "components/Card/CardBody";
 import Layout_style from "../../assets/icons/Layout_style.svg";
 import Venue_type from "../../assets/icons/Venue_type.svg";
 import venuePin from "../../assets/icons/venuePin.svg";
-import decoration from "../../assets/icons/decoration.svg";
-import foood from "../../assets/icons/foood.svg";
-import photo from "../../assets/icons/photo.svg";
+import decorationPin from "../../assets/icons/decoration.svg";
+import foodPin from "../../assets/icons/foood.svg";
+import photoPin from "../../assets/icons/photo.svg";
 import MapMarkerIdentity from "./MapMarkerIdentity";
 const Map = ReactMapboxGl({
   accessToken: credentials.MAP_ACCESS_TOCKEN
@@ -58,7 +58,6 @@ class Home extends React.Component {
   };
 
   handleOnChange = event => {
-    debugger;
     this.setState({ selectedType: event });
   };
   _renderCityMarker = (venue, index) => {
@@ -175,6 +174,21 @@ class Home extends React.Component {
     );
   }
 
+  showPin = data => {
+    switch (data.id) {
+      case "venue":
+        return venuePin;
+      case "food_and_caterers":
+        return foodPin;
+      case "decorator":
+        return decorationPin;
+      case "photographer":
+        return photoPin;
+      default:
+        return venuePin;
+    }
+  };
+
   _renderFullStars = () => {
     const stars = Math.ceil(this.state.venues[0].rating.overall);
     return stars !== 0
@@ -185,9 +199,24 @@ class Home extends React.Component {
           })
       : "";
   };
+
   render() {
     const { venues } = this.props;
     const { center, selectedType } = this.state;
+
+    let mapMarker = [];
+
+    if (venues && venues.length) {
+      mapMarker = [...venues];
+
+      if (selectedType !== "all") {
+        mapMarker = venues.filter(venue => {
+          const { objType } = venue;
+          return objType.id === selectedType;
+        });
+      }
+    }
+
     return (
       <div style={{ position: "fixed" }}>
         <AuthenticatedNavbar />
@@ -202,10 +231,37 @@ class Home extends React.Component {
           center={[center.longitude, center.latitude]}
         >
           <MapMarkerIdentity handleOnChange={this.handleOnChange} />
-          {venues
+
+          {mapMarker
+            ? mapMarker.map((marker, index) => {
+                const { location, objType } = marker;
+                return (
+                  <Marker
+                    key={index}
+                    coordinates={[
+                      Number(location.longitude),
+                      Number(location.latitude)
+                    ]}
+                  >
+                    <img
+                      style={{
+                        height: "25px",
+                        width: "30px",
+                        cursor: "pointer"
+                      }}
+                      src={this.showPin(objType)}
+                      title={objType.id}
+                      alt={"current location"}
+                      onClick={() => this.goto(`/venue-detail/${marker.vid}`)}
+                    />
+                  </Marker>
+                );
+              })
+            : null}
+
+          {/* {venues
             ? venues.map((venue, index) => {
                 const { location, objType } = venue;
-                debugger;
                 if (
                   (objType.id === "food_and_caterers" &&
                     selectedType === "food_and_caterers") ||
@@ -313,7 +369,7 @@ class Home extends React.Component {
                   return null;
                 }
               })
-            : null}
+            : null} */}
         </Map>
       </div>
     );

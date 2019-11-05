@@ -20,9 +20,38 @@ class MapMarkerIdentity extends Component {
             position: "absolute",
             border: "2px solid red",
             backgroundColor: "lightgray",
-            padding: "5px"
+            padding: "5px",
+            cursor: "pointer"
           }}
         >
+           <div
+            style={{ padding: "5px" }}
+            onClick={() => {
+              handleOnChange("all");
+            }}
+          >
+            <img
+              style={{ height: "20px", width: "20px" }}
+              src={foood}
+              alt={"current location"}
+            />
+            <img
+              style={{ height: "20px", width: "20px" }}
+              src={decoration}
+              alt={"current location"}
+            />
+            <img
+              style={{ height: "20px", width: "20px" }}
+              src={photo}
+              alt={"current location"}
+            />
+            <img
+              style={{ height: "20px", width: "20px" }}
+              src={venuePin}
+              alt={"current location"}
+            />
+            <span>All</span>
+          </div>
           <div
             style={{ padding: "5px" }}
             onClick={e => {
@@ -75,6 +104,7 @@ class MapMarkerIdentity extends Component {
             />
             <span>Food And Caterers</span>
           </div>
+         
         </div>
       </div>
     );
