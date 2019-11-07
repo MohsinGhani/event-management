@@ -39,7 +39,8 @@ class CreateServiceFacilities extends Component {
       serviesFacilities,
       handleChangeOnServiceFacilites,
       handlerServicesFieldAdd,
-      handlerServicesFieldDelete
+      handlerServicesFieldDelete,
+      isDetailsButtonDisable
     } = this.props;
     return (
       <div>
@@ -125,10 +126,11 @@ class CreateServiceFacilities extends Component {
                         >
                           <TextField
                             id="standard-name"
+                            type="text"
                             label="Title"
                             className={classes.textField}
                             name="title"
-                            value={ser.name}
+                            value={ser.title}
                             onChange={event => {
                               handleChangeOnServiceFacilites(event, index);
                             }}
@@ -140,6 +142,7 @@ class CreateServiceFacilities extends Component {
                             id="standard-name"
                             label="Price"
                             name="price"
+                            type="number"
                             className={classes.textField}
                             value={ser.price}
                             onChange={event => {
@@ -168,6 +171,8 @@ class CreateServiceFacilities extends Component {
                       onClick={event => {
                         handlerServicesFieldAdd(event);
                       }}
+                      // disabled={!(serviesFacilities.title && serviesFacilities.price)}
+                      disabled={isDetailsButtonDisable}
                     >
                       Add another field
                     </Button>
