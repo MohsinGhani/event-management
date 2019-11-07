@@ -31,7 +31,13 @@ import {
   CREATE_PACKAGES_FAILURE,
   GET_PACKAGES,
   GET_PACKAGES_SUCCESS,
-  GET_PACKAGES_FAILURE
+  GET_PACKAGES_FAILURE,
+  GET_BOOKING_ITEM,
+  GET_BOOKING_ITEM_SUCCESS,
+  GET_BOOKING_ITEM_FAILURE,
+  GET_ORDER_CONFIRMATION_ITEM,
+  GET_ORDER_CONFIRMATION_ITEM_SUCCESS,
+  GET_ORDER_CONFIRMATION_ITEM_FAILURE
 } from "./../constants";
 // import { venues } from "./../../assets/venus";
 
@@ -78,7 +84,11 @@ const initialState = {
 
   packages: null,
   getPackagesLoader: false,
-  getPackagesError: null
+  getPackagesError: null,
+
+  bookingItem: null,
+  getBookingItemLoader: false,
+  getBookingItemError: null
 };
 
 export default function venueReducer(state = initialState, action) {
@@ -262,7 +272,6 @@ export default function venueReducer(state = initialState, action) {
     //////////////////////////////////////////////
 
     case GET_PACKAGES:
-      
       return {
         ...state,
         packages: null,
@@ -271,7 +280,6 @@ export default function venueReducer(state = initialState, action) {
       };
 
     case GET_PACKAGES_SUCCESS:
-        
       return {
         ...state,
         packages: action.payload,
@@ -280,8 +288,7 @@ export default function venueReducer(state = initialState, action) {
       };
 
     case GET_PACKAGES_FAILURE:
-              
-    return {
+      return {
         ...state,
         packages: null,
         getPackagesLoader: false,
@@ -313,7 +320,35 @@ export default function venueReducer(state = initialState, action) {
         saveCustomBookingError: "Can Not Booked"
       };
 
-    ///////////////////
+    ////////////////////
+
+    case GET_BOOKING_ITEM:
+        debugger
+      return {
+        ...state,
+        bookingItem: null,
+        getBookingItemLoader: true,
+        getBookingItemError: null
+      };
+
+    case GET_BOOKING_ITEM_SUCCESS:
+        debugger
+      return {
+        ...state,
+        bookingItem: action.payload,
+        getBookingItemLoader: false,
+        getBookingItemError: null
+      };
+    case GET_BOOKING_ITEM_FAILURE:
+        debugger
+      return {
+        ...state,
+        bookingItem: null,
+        getBookingItemLoader: false,
+        getBookingItemError: "No Booking Items Shows"
+      };
+
+    ////////////////////
 
     case GET_VENUES_BY_USER_ID:
       return {

@@ -31,7 +31,13 @@ import {
   CREATE_PACKAGES_FAILURE,
   GET_PACKAGES,
   GET_PACKAGES_SUCCESS,
-  GET_PACKAGES_FAILURE
+  GET_PACKAGES_FAILURE,
+  GET_BOOKING_ITEM,
+  GET_BOOKING_ITEM_SUCCESS,
+  GET_BOOKING_ITEM_FAILURE,
+  GET_ORDER_CONFIRMATION_ITEM,
+  GET_ORDER_CONFIRMATION_ITEM_SUCCESS,
+  GET_ORDER_CONFIRMATION_ITEM_FAILURE
 } from "./../constants";
 
 export class venueAction {
@@ -264,7 +270,6 @@ export class venueAction {
   /////////////////
 
   static getPackages(payload) {
-    
     return {
       type: GET_PACKAGES,
       payload
@@ -272,7 +277,6 @@ export class venueAction {
   }
 
   static getPackagesSuccess(packages) {
-        
     return {
       type: GET_PACKAGES_SUCCESS,
       payload: packages
@@ -280,9 +284,34 @@ export class venueAction {
   }
 
   static getPackagesFailure(error) {
-        
     return {
       type: GET_PACKAGES_FAILURE,
+      payload: error
+    };
+  }
+
+  /////////////////
+
+  static getBookingItem(payload) {
+    debugger
+    return {
+      type: GET_BOOKING_ITEM,
+      payload
+    };
+  }
+
+  static getBookingItemSuccess(bookingItem) {
+    debugger
+    return {
+      type: GET_BOOKING_ITEM_SUCCESS,
+      payload: bookingItem
+    };
+  }
+
+  static getBookingItemFailure(error) {
+    debugger
+    return {
+      type: GET_BOOKING_ITEM_FAILURE,
       payload: error
     };
   }

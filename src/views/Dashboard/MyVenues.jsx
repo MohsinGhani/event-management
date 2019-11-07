@@ -26,7 +26,6 @@ class MyVenues extends React.Component {
 
   render() {
     const { classes, getVenuesByUserId, getVenuesByUserIdLoader } = this.props;
-    console.log("getVenuesByUserId: ", getVenuesByUserId);
     return (
       <div style={{margin: 'auto 0'}}>
         {/* <AuthenticatedNavbar /> */}
@@ -52,7 +51,6 @@ class MyVenues extends React.Component {
         >
           {getVenuesByUserId &&
             getVenuesByUserId.map((venue, i) => {
-              console.log("venues=>", venue);
               return (
                 <GridItem md={4} key={i}>
                   <Card

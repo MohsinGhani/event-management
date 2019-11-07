@@ -1,7 +1,6 @@
 // @material-ui/icons
 import Dashboard from "@material-ui/icons/Dashboard";
 import Person from "@material-ui/icons/Person";
-import LibraryBooks from "@material-ui/icons/LibraryBooks";
 import BubbleChart from "@material-ui/icons/BubbleChart";
 import LocationOn from "@material-ui/icons/LocationOn";
 import Notifications from "@material-ui/icons/Notifications";
@@ -18,9 +17,9 @@ import Typography from "views/Typography/Typography.jsx";
 import Icons from "views/Icons/Icons.jsx";
 import Maps from "views/Maps/Maps.jsx";
 import NotificationsPage from "views/Notifications/Notifications.jsx";
-
-import list from "../src/assets/icons/list.svg"
-import order from "../src/assets/icons/order.svg"
+import List from "@material-ui/icons/List";
+import BookingList from "@material-ui/icons/Event"
+import Feedback from "@material-ui/icons/Feedback"
 // core components/views for RTL layout
 
 const dashboardRoutes = [
@@ -60,7 +59,7 @@ const dashboardRoutes = [
     path: "/my-venues",
     name: "My Venues",
     rtlName: "الرموز",
-    icon: LibraryBooks,
+    icon: List,
     component: MyVenues,
     layout: "/admin"
   },
@@ -68,15 +67,15 @@ const dashboardRoutes = [
     path: "/my-booking-item",
     name: "My Booking Item",
     rtlName: "الرموز",
-    icon: LibraryBooks,
+    icon: BookingList,
     component: MyBookingItems,
     layout: "/admin"
   },
   {
     path: "/order-confirmation",
-    name: "Order Comfermation",
+    name: "Order Confirmation",
     rtlName: "الرموز",
-    icon: LibraryBooks,
+    icon: Feedback,
     component: OrderConfirmation,
     layout: "/admin"
   },
