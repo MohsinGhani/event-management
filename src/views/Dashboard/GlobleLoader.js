@@ -11,7 +11,6 @@ export default class GlobleLoader extends Component {
             style={{
               margin: "0 auto",
               width: "20%",
-              position: "absolute",
               top: "25%",
               left: "25%",
               right: "25%"
@@ -20,7 +19,7 @@ export default class GlobleLoader extends Component {
             <ReactLoading
               type={"cylon"}
               color={"#e91e63"}
-              height={"20%"}
+              height={"30%"}
               width={"100%"}
             />
           </div>
