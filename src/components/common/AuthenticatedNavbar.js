@@ -137,7 +137,7 @@ class AuthenticatedNavbar extends React.Component {
                 <ListItem className={classes.listItem}>
                   <Button
                     className={classes.navLink}
-                    onClick={e => this.goto("/admin/dashboard")}
+                    onClick={e => this.goto("/admin/my-venues")}
                     color="transparent"
                   >
                     <Icon className={classes.icons}>dashboard</Icon> Dashboard
