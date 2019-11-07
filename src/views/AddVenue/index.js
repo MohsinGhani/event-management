@@ -253,7 +253,8 @@ class AddVenue extends Component {
     let service = this.state.serviesFacilities;
     service[i][event.target.name] = event.target.value;
     this.setState({
-      serviesFacilities: service
+      serviesFacilities: service,
+      isDetailsButtonDisable: false
     });
   };
 
@@ -427,6 +428,7 @@ class AddVenue extends Component {
           handleClickOpen={this.handleClickOpen}
           handleClose={this.handleClose}
           handlerServicesFieldDelete={this.handlerServicesFieldDelete}
+          isDetailsButtonDisable={isDetailsButtonDisable}
         />
         <ImageUploader
           open={open}
