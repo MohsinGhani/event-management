@@ -55,13 +55,12 @@ class ArchiveView extends React.Component {
             marginTop: "15px"
           }}
         >
-          <CardHeader color="primary">
+          <CardHeader color="primary" style={{ marginTop: "25px" }}>
             <h4
               className={classes.cardTitleWhite}
               style={{
                 textAlign: "center",
-                marginTop: "10px",
-                padding: "20px"
+                marginTop: "10px"
               }}
             >
               Archive Items
