@@ -11,8 +11,6 @@ import GridContainer from "components/Grid/GridContainer";
 import GridItem from "components/Grid/GridItem";
 import Button from "components/CustomButtons/Button.jsx";
 import AuthenticatedNavbar from "./../../components/common/AuthenticatedNavbar";
-
-
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import GlobleLoader from "./GlobleLoader";
@@ -30,9 +28,20 @@ class MyVenues extends React.Component {
     const { classes, getVenuesByUserId, getVenuesByUserIdLoader } = this.props;
     console.log("getVenuesByUserId: ", getVenuesByUserId);
     return (
-      <div>
-        <AuthenticatedNavbar />
-        <h1>My Collection Data</h1>
+      <div style={{margin: 'auto 0'}}>
+        {/* <AuthenticatedNavbar /> */}
+        <CardHeader color="primary" style={{marginTop: "2px"}}>
+          <h4
+            className={classes.cardTitleWhite}
+            style={{
+              textAlign: "center",
+              marginTop: "10px"
+            }}
+          >
+            My Venues
+          </h4>
+        </CardHeader>
+            <GlobleLoader getVenuesByUserIdLoader={getVenuesByUserIdLoader} />
         <GridContainer
           style={{
             padding: "0 15px",
@@ -41,7 +50,6 @@ class MyVenues extends React.Component {
             marginTop: "15px"
           }}
         >
-          <GlobleLoader getVenuesByUserIdLoader={getVenuesByUserIdLoader} />
           {getVenuesByUserId &&
             getVenuesByUserId.map((venue, i) => {
               console.log("venues=>", venue);
