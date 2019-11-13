@@ -22,7 +22,7 @@ class VenueDetail extends React.Component {
         { title: "Silver", id: "sliver" }
       ],
       servicesBookingPrice: [],
-      bookingDate: new Date(),
+      bookingDate: new Date().getTime(),
       objStatus: 0,
       servicePackages: [],
       ConfirmModal: false,
@@ -66,16 +66,22 @@ class VenueDetail extends React.Component {
 
   componentDidMount() {
     const { vid } = this.props.match.params;
-    const { getVenue, getPackages } = this.props;
+    const { getVenue, getPackages,
+      bookingItem,
+      allBookingItem } = this.props;
 
     getVenue(vid);
 
     getPackages({ vid: vid && vid });
+
+    allBookingItem()
+
   }
 
   handleOnDateChange = date => {
+    let dateInTimestamp = new Date(date[0]).getTime();
     this.setState({
-      bookingDate: date
+      bookingDate: dateInTimestamp
     });
   };
 
@@ -126,9 +132,10 @@ class VenueDetail extends React.Component {
       servicesBookingPrice,
       bookingDate,
       packageArray,
-      createdTimestamp: new Date().getTime(),
+      createdTimestamp: new Date().getTime()
     };
     this.props.saveCustomBooking(bookingDetail);
+    this.goto("/admin/my-booking-item");
     this.setState({
       servicesBookingPrice: [],
       packageArray: []
@@ -188,21 +195,21 @@ class VenueDetail extends React.Component {
   };
 
   // handleToggleOnPackage = (value, index) => {
-  //   debugger;
+  //   
   //   const {packageArray } =this.state
   //   let { packages } = this.props;
-  //   debugger;
+  //   
 
   //   // check the value in array thorugh filter
 
   //   var isExist = packages.filter(service => {
-  //     debugger;
+  //     
 
   //     return service.packageObj === value.packages[value.i].packageObj;
   //   });
 
   //   if (isExist.length) {
-  //     debugger;
+  //     
   //     this.setState({
   //       packageArray
   //     });
@@ -210,30 +217,30 @@ class VenueDetail extends React.Component {
   //   console.log(packageArray)
   // };
 
-  handleToggleOnPackage = (value) => {
+  handleToggleOnPackage = value => {
     let { packageArray } = this.state;
-    debugger;
+    
     // check the value in array thorugh filter
-    debugger;
+    
     var isExist = packageArray.filter(pack => {
-      debugger;
+      
       return pack.packageObj === value.packageObj;
     });
     console.log(isExist);
     if (isExist.length) {
       // remove array is exit through filter
       var removePrice = packageArray.filter(pack => {
-        debugger;
+        
         return pack.packageObj !== value.packageObj;
       });
-      debugger;
+      
       this.setState({
         packageArray: removePrice
       });
     } else {
-      debugger;
+      
       packageArray.push(value);
-      debugger;
+      
       this.setState({
         packageArray
       });
@@ -275,7 +282,9 @@ class VenueDetail extends React.Component {
       user,
       getVenueLoader,
       saveCustomBookingLoader,
-      packages
+      packages,
+      bookingItem,
+      allBookingItem
     } = this.props;
     const {
       servicesBookingPrice,
@@ -289,7 +298,8 @@ class VenueDetail extends React.Component {
       afterDiscountPrice,
       packageArray
     } = this.state;
-    console.log("packages=>", packages);
+    // console.log("packages=>", packages);
+    console.log("item: ", bookingItem)
     return (
       <div>
         <div>
@@ -329,6 +339,8 @@ class VenueDetail extends React.Component {
             packages={packages}
             handleToggleOnPackage={this.handleToggleOnPackage}
             packageArray={packageArray}
+            bookingItem={bookingItem}
+            allBookingItem={allBookingItem}
           />
         ) : null}
       </div>
@@ -349,6 +361,10 @@ const mapStateToProps = state => {
       createPackages,
       createPackagesLoader,
       createPackagesError,
+
+      bookingItem,
+      getBookingItemLoader,
+      getBookingItemError,
 
       packages,
       getPackagesLoader,
@@ -372,6 +388,10 @@ const mapStateToProps = state => {
     getPackagesLoader,
     getPackagesError,
 
+    bookingItem,
+    getBookingItemLoader,
+    getBookingItemError,
+
     user,
     isLoggedIn
   };
@@ -386,7 +406,8 @@ const mapDispatchToProps = dispatch => {
     changeObjStatus: payload => dispatch(venueAction.changeObjStatus(payload)),
     createCustomPackages: payload =>
       dispatch(venueAction.createPackages(payload)),
-    getPackages: vid => dispatch(venueAction.getPackages(vid))
+    getPackages: vid => dispatch(venueAction.getPackages(vid)),
+    allBookingItem: () => dispatch(venueAction.getBookingItem())
   };
 };
 

@@ -22,6 +22,50 @@ import Flatpickr from "react-flatpickr";
 import PackageModal from "./PackageModal";
 
 class Booking extends Component {
+  state = {
+    disableDates: []
+  };
+
+  makeDateFormate = items => {
+    
+    return items.map(item => {
+      return makeFormate(item.bookingDate);
+    });
+
+    function makeFormate(date) {
+      
+      return (
+        new Date(date).getFullYear() +
+        "-" +
+        (new Date(date).getMonth() + 1) +
+        "-" +
+        new Date(date).getDate()
+      );
+    }
+  };
+
+  componentDidMount() {
+    const { bookingItem } = this.props;
+    
+    if (bookingItem && bookingItem.length) {
+      const newData = this.makeDateFormate(bookingItem);
+      this.setState({
+        disableDates: newData
+      });
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    const { bookingItem } = this.props;
+    
+    if (bookingItem && bookingItem !== prevProps.bookingItem) {
+      const newData = this.makeDateFormate(bookingItem);
+      this.setState({
+        disableDates: newData
+      });
+    }
+  }
+
   render() {
     const {
       bookingPrice,
@@ -48,18 +92,22 @@ class Booking extends Component {
       saveCustomPackages,
       handleToggleOnPackage,
       packages,
-      packageArray
+      packageArray,
+      bookingItem,
+      allBookingItem
     } = this.props;
     let totalPrice = 0;
     let packagePrice = 0;
 
+    console.log("bookingItem: ", bookingItem);
+    const { disableDates } = this.state;
     // let card = packageArray
     //   ? packageArray.map(p => {
-    //       debugger;
+    //       
     //       p.servicePackages.map(s => {
-    //         debugger;
+    //         
     //         packagePrice += (parseInt(s.price) / 100) * p.discountAmount;
-    //         debugger;
+    //         
     //         return <li>{s.price}</li>;
     //       });
     //     })
@@ -90,6 +138,9 @@ class Booking extends Component {
                           >
                             <Flatpickr
                               data-enable-time
+                              options={{
+                                disable: [...disableDates]
+                              }}
                               value={bookingDate}
                               onChange={handleOnDateChange}
                               style={{
@@ -133,7 +184,7 @@ class Booking extends Component {
                         <div className="package-booking">
                           {packageArray
                             ? packageArray.map(pack => {
-                                debugger;
+                                
                                 return (
                                   <div>
                                     <li>{pack.packageObj}</li>
@@ -172,8 +223,8 @@ class Booking extends Component {
                             variant="outlined"
                             color="success"
                             onClick={() => {
-                              saveCustomBooking();
                               successNotifiy("Booking Successfully Done....!");
+                              saveCustomBooking();
                             }}
                           >
                             {saveCustomBookingLoader ? (

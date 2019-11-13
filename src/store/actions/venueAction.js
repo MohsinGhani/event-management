@@ -35,9 +35,13 @@ import {
   GET_BOOKING_ITEM,
   GET_BOOKING_ITEM_SUCCESS,
   GET_BOOKING_ITEM_FAILURE,
+  GET_VENUE_FOR_BOOKED_DETAILS,
+  GET_VENUE_FOR_BOOKED_DETAILS_SUCCESS,
+  GET_VENUE_FOR_BOOKED_DETAILS_FAILURE,
   GET_ORDER_CONFIRMATION_ITEM,
   GET_ORDER_CONFIRMATION_ITEM_SUCCESS,
-  GET_ORDER_CONFIRMATION_ITEM_FAILURE
+  GET_ORDER_CONFIRMATION_ITEM_FAILURE,
+
 } from "./../constants";
 
 export class venueAction {
@@ -293,7 +297,7 @@ export class venueAction {
   /////////////////
 
   static getBookingItem(payload) {
-    debugger
+    
     return {
       type: GET_BOOKING_ITEM,
       payload
@@ -301,7 +305,7 @@ export class venueAction {
   }
 
   static getBookingItemSuccess(bookingItem) {
-    debugger
+    
     return {
       type: GET_BOOKING_ITEM_SUCCESS,
       payload: bookingItem
@@ -309,10 +313,36 @@ export class venueAction {
   }
 
   static getBookingItemFailure(error) {
-    debugger
+    
     return {
       type: GET_BOOKING_ITEM_FAILURE,
       payload: error
     };
   }
+
+    /////////////////
+
+    static getVenueForBookedDetails(payload) {
+      
+      return {
+        type: GET_VENUE_FOR_BOOKED_DETAILS,
+        payload
+      };
+    }
+  
+    static getVenueForBookedDetailsSuccess(bookedVenue) {
+      
+      return {
+        type: GET_VENUE_FOR_BOOKED_DETAILS_SUCCESS,
+        payload: bookedVenue
+      };
+    }
+  
+    static getVenueForBookedDetailsFailure(error) {
+      
+      return {
+        type: GET_VENUE_FOR_BOOKED_DETAILS_FAILURE,
+        payload: error
+      };
+    }
 }

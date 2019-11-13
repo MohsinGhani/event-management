@@ -24,7 +24,8 @@ const rootEpic = combineEpics(
   venueEpic.getArchiveVenues,
   venueEpic.createPackages,
   venueEpic.getPackages,
-  venueEpic.getBookingItem
+  venueEpic.getBookingItem,
+  venueEpic.getVenueForBookedDetails
 );
 
 export default rootEpic;

@@ -35,6 +35,9 @@ import {
   GET_BOOKING_ITEM,
   GET_BOOKING_ITEM_SUCCESS,
   GET_BOOKING_ITEM_FAILURE,
+  GET_VENUE_FOR_BOOKED_DETAILS,
+  GET_VENUE_FOR_BOOKED_DETAILS_SUCCESS,
+  GET_VENUE_FOR_BOOKED_DETAILS_FAILURE,
   GET_ORDER_CONFIRMATION_ITEM,
   GET_ORDER_CONFIRMATION_ITEM_SUCCESS,
   GET_ORDER_CONFIRMATION_ITEM_FAILURE
@@ -88,7 +91,11 @@ const initialState = {
 
   bookingItem: null,
   getBookingItemLoader: false,
-  getBookingItemError: null
+  getBookingItemError: null,
+
+  bookedVenue: null,
+  getVenueForBookedDetailsLoader: false,
+  getVenueForBookedDetailsError: null
 };
 
 export default function venueReducer(state = initialState, action) {
@@ -323,7 +330,7 @@ export default function venueReducer(state = initialState, action) {
     ////////////////////
 
     case GET_BOOKING_ITEM:
-        debugger
+        
       return {
         ...state,
         bookingItem: null,
@@ -332,7 +339,7 @@ export default function venueReducer(state = initialState, action) {
       };
 
     case GET_BOOKING_ITEM_SUCCESS:
-        debugger
+        
       return {
         ...state,
         bookingItem: action.payload,
@@ -340,13 +347,42 @@ export default function venueReducer(state = initialState, action) {
         getBookingItemError: null
       };
     case GET_BOOKING_ITEM_FAILURE:
-        debugger
+        
       return {
         ...state,
         bookingItem: null,
         getBookingItemLoader: false,
         getBookingItemError: "No Booking Items Shows"
       };
+
+    ////////////////////
+
+    case GET_VENUE_FOR_BOOKED_DETAILS:
+        
+      return {
+        ...state,
+        bookedVenue: null,
+        getVenueForBookedDetailsLoader: true,
+        getVenueForBookedDetailsError: null
+      };
+
+    case GET_VENUE_FOR_BOOKED_DETAILS_SUCCESS:
+        
+      return {
+        ...state,
+        bookedVenue: action.payload,
+        getVenueForBookedDetailsLoader: false,
+        getVenueForBookedDetailsError: null
+      };
+    case GET_VENUE_FOR_BOOKED_DETAILS_FAILURE:
+        
+      return {
+        ...state,
+        bookedVenue: null,
+        getVenueForBookedDetailsLoader: false,
+        getVenueForBookedDetailsError: "No Booking Items Shows"
+      };
+
 
     ////////////////////
 

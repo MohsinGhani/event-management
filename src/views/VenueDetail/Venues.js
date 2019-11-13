@@ -58,7 +58,9 @@ class Venues extends Component {
       packages,
       handleToggleOnService,
       handleToggleOnPackage,
-      packageArray
+      packageArray,
+      bookingItem,
+      allBookingItem
     } = this.props;
     // let totalPrice = 0;
     return (
@@ -331,6 +333,8 @@ class Venues extends Component {
                 handleToggleOnPackage={handleToggleOnPackage}
                 packages={packages}
                 packageArray={packageArray}
+                bookingItem={bookingItem}
+                allBookingItem={allBookingItem}
               />
             </GridContainer>
             <GridContainer

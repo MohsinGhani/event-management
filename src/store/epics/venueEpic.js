@@ -17,6 +17,7 @@ import {
   CREATE_PACKAGES,
   GET_PACKAGES,
   GET_BOOKING_ITEM,
+  GET_VENUE_FOR_BOOKED_DETAILS,
   GET_ORDER_CONFIRMATION_ITEM
 } from "../constants";
 import { db } from "../../firebase/FireBase";
@@ -214,6 +215,29 @@ export default class venueEpic {
         });
     });
 
+  static getVenueForBookedDetails = action$ =>
+    action$.ofType(GET_VENUE_FOR_BOOKED_DETAILS).mergeMap(({ payload }) => {
+      const { vid } = payload;
+      let venue = [];
+
+      return db
+        .collection("services")
+        .where("vid", "==", vid)
+        .get()
+        .then(function(querySnapshot) {
+          querySnapshot.forEach(doc => {
+            venue.push({ ...doc.data(), vid: doc.id });
+          });
+          console.log(venue);
+          return venueAction.getVenueForBookedDetailsSuccess(venue);
+        })
+        .catch(function(err) {
+          return venueAction.getVenueForBookedDetailsFailure(
+            `Error in getting venue! ${err}`
+          );
+        });
+    });
+
   static saveCustomBooking = action$ =>
     action$.ofType(SAVE_CUSTOM_BOOKING).mergeMap(({ payload }) => {
       return Observable.fromPromise(
@@ -263,33 +287,34 @@ export default class venueEpic {
     });
 
   static getBookingItem = action$ =>
-    action$.ofType(GET_BOOKING_ITEM).mergeMap(({ payload }) => {
-      debugger;
+    action$.ofType(GET_BOOKING_ITEM).mergeMap(({}) => {
       // let user = auth.currentUser.uid;
-      const { userId } = payload;
+      // const { userId } = payload;
       const bookingItem = [];
-      debugger;
-      return db
-        .collection("booking")
-        .where("userId", "==", userId)
-        .get()
-        .then(function(querySnapshot) {
-          debugger;
-          querySnapshot.forEach(function(doc) {
-            // doc.data() is never undefined for query doc snapshots
-            bookingItem.push({ ...doc.data(), vid: doc.id });
-            console.log(doc.id, " => ", doc.data());
-            // props.getMyProducts(doc.data());
-          });
-          debugger;
-          return venueAction.getBookingItemSuccess(bookingItem);
-        })
-        .catch(function(error) {
-          debugger;
-          console.log("Error getting documents: ", error);
-          alert("ops no product Add some product");
-          venueAction.getBookingItemFailure(`Error in getting venue! ${error}`);
-        });
+
+      return (
+        db
+          .collection("booking")
+          // .where("userId", "==", userId)
+          .get()
+          .then(function(querySnapshot) {
+            querySnapshot.forEach(function(doc) {
+              // doc.data() is never undefined for query doc snapshots
+              bookingItem.push({ ...doc.data(), vid: doc.id });
+              console.log(doc.id, " => ", doc.data());
+              // props.getMyProducts(doc.data());
+            });
+
+            return venueAction.getBookingItemSuccess(bookingItem);
+          })
+          .catch(function(error) {
+            console.log("Error getting documents: ", error);
+            alert("ops no product Add some product");
+            venueAction.getBookingItemFailure(
+              `Error in getting venue! ${error}`
+            );
+          })
+      );
     });
 }
 
