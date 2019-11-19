@@ -29,7 +29,9 @@ class VenueDetail extends React.Component {
       discountAmount: "",
       packagePrice: 0,
       afterDiscountPrice: 0,
-      packageArray: []
+      packageArray: [],
+
+      isBookingButtonDisable: true
     };
   }
 
@@ -81,7 +83,8 @@ class VenueDetail extends React.Component {
   handleOnDateChange = date => {
     let dateInTimestamp = new Date(date[0]).getTime();
     this.setState({
-      bookingDate: dateInTimestamp
+      bookingDate: dateInTimestamp,
+      isBookingButtonDisable: false
     });
   };
 
@@ -296,7 +299,8 @@ class VenueDetail extends React.Component {
       discountAmount,
       packagePrice,
       afterDiscountPrice,
-      packageArray
+      packageArray,
+      isBookingButtonDisable
     } = this.state;
     // console.log("packages=>", packages);
     console.log("item: ", bookingItem)
@@ -341,6 +345,7 @@ class VenueDetail extends React.Component {
             packageArray={packageArray}
             bookingItem={bookingItem}
             allBookingItem={allBookingItem}
+            isBookingButtonDisable={isBookingButtonDisable}
           />
         ) : null}
       </div>

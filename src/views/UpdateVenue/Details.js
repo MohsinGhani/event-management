@@ -17,7 +17,6 @@ import TextField from "@material-ui/core/TextField";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
-
 import basicsStyle from "assets/jss/material-kit-react/views/componentsSections/basicsStyle.jsx";
 
 class Details extends Component {
@@ -30,7 +29,9 @@ class Details extends Component {
       address,
       description,
       bookingPerDay,
-      handleDetailInput
+      handleDetailInput,
+
+      getVenueLoader
     } = this.props;
     return (
       <div>

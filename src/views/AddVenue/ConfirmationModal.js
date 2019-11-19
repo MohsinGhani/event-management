@@ -39,7 +39,7 @@ class ConfirmationModal extends Component {
       handelOnSaveAndUpload,
       saveVenueLoader,
       confirmModal,
-      handleAddVenueClose,
+      handleAddVenueClose
     } = this.props;
     return (
       <div>
@@ -91,7 +91,11 @@ class ConfirmationModal extends Component {
             >
               Yes
             </Button>
-            <Button onClick={() => goto("/list-view")} color="danger" simple>
+            <Button
+              onClick={() => goto("/admin/pending-venue-status")}
+              color="danger"
+              simple
+            >
               No
             </Button>
           </DialogActions>

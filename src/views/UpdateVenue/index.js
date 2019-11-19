@@ -15,6 +15,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ReactLoading from "react-loading";
 import Button from "components/CustomButtons/Button.jsx";
+import ContentLoader, { Facebook } from "react-content-loader";
+
 const dummyCategories = [
   { title: "Venue", id: "venue" },
   { title: "Decorator", id: "decorator" },
@@ -78,11 +80,15 @@ class UpdateVenue extends Component {
     if (
       name &&
       name.length >= 3 &&
-      (phone && phone.length >= 11) &&
+      phone &&
+      phone.length >= 11 &&
       email &&
-      (address && address.length >= 10) &&
-      (description && description.length >= 10) &&
-      (bookingPerDay && bookingPerDay.length >= 1)
+      address &&
+      address.length >= 10 &&
+      description &&
+      description.length >= 10 &&
+      bookingPerDay &&
+      bookingPerDay.length >= 1
     ) {
       error = {
         name: null,
@@ -377,7 +383,7 @@ class UpdateVenue extends Component {
                   updatedTimestamp: new Date().getTime()
                 };
                 this.props.updateVenueFunc(newDetails);
-              this.successNotifiy("Form Successfully Submited...!");
+                this.successNotifiy("Form Successfully Submited...!");
 
                 this.setState({
                   name: "",
@@ -392,9 +398,8 @@ class UpdateVenue extends Component {
                   serviesFacilities: [],
                   picked: null
                 });
-                this.goto("/list-view")
+                this.goto("/list-view");
               }
-
             })
             .catch(error => {
               alert(error);
@@ -434,89 +439,120 @@ class UpdateVenue extends Component {
       isDetailsButtonDisable
     } = this.state;
 
-    const { updateVenueLoader } = this.props;
+    const { updateVenueLoader, getVenueLoader } = this.props;
     return (
       <div>
         <AuthenticatedNavbar />
         <br />
 
-        <Selectbar
-          categorySelect={categorySelect}
-          categoryHandler={this.categoryHandler}
-          categories={dummyCategories}
-        />
-        <ToastContainer />
-
-        <Details
-          name={name}
-          phone={phone}
-          email={email}
-          address={address}
-          description={description}
-          bookingPerDay={bookingPerDay}
-          handleDetailInput={this.handleDetailInput}
-        />
-
-        <CreateServiceFacilities
-          serviesFacilities={serviesFacilities}
-          addSpec={addSpec}
-          handleChangeOnServiceFacilites={this.handleChangeOnServiceFacilites}
-          handlerServicesFieldAdd={this.handlerServicesFieldAdd}
-          classicModal={classicModal}
-          handleClickOpen={this.handleClickOpen}
-          handleClose={this.handleClose}
-          handlerServicesFieldDelete={this.handlerServicesFieldDelete}
-        />
-        <ImageUploader
-          open={open}
-          progress={progress}
-          files={files}
-          url={url}
-          handleUploadOpen={this.handleUploadOpen}
-          handleUploadClose={this.handleUploadClose}
-          handleUploadSave={this.handleUploadSave}
-          handelOnDeleteImage={this.handelOnDeleteImage}
-        />
-
-        <PickLocation
-          parestSetState={picked =>
-            this.setState({
-              picked
-            })
-          }
-        />
-
-        <div
-          style={{
-            padding: "0",
-            maxWidth: "1024px",
-            margin: "0 auto",
-            display: "flex",
-            justifyContent: "flex-end",
-            marginTop: "10px"
-          }}
-        >
-          {" "}
-          <Button
-            variant="outlined"
-            color="success"
-            disabled={isDetailsButtonDisable}
-            onClick={() => {
-              this.handelOnSaveAndUpload();
-            }}
+        {getVenueLoader ? (
+          <ContentLoader
+            height={150}
+            width={400}
+            speed={1}
+            primaryColor="#e40358"
+            secondaryColor="#ecebeb"
           >
-            {updateVenueLoader ? (
-              <ReactLoading
-                type={"spin"}
-                color={"#ffff"}
-                // height={"64px"}
-                // width={"64px"}
-              />
-            ) : (
-              "Update"
-            )}
-          </Button>
-        </div>
+            <rect x="80" y="0" rx="3" ry="3" width="250" height="05" />
+            <rect x="100" y="20" rx="3" ry="3" width="220" height="05" />
+            <rect x="100" y="40" rx="3" ry="3" width="170" height="05" />
+            <rect x="80" y="60" rx="3" ry="3" width="250" height="05" />
+            <rect x="100" y="80" rx="3" ry="3" width="200" height="05" />
+            <rect x="100" y="100" rx="3" ry="3" width="80" height="05" />
+
+            <rect x="100" y="120" rx="3" ry="3" width="220" height="05" />
+            <rect x="100" y="140" rx="3" ry="3" width="170" height="05" />
+            <rect x="80" y="160" rx="3" ry="3" width="250" height="05" />
+            <rect x="100" y="180" rx="3" ry="3" width="200" height="05" />
+            <rect x="100" y="200" rx="3" ry="3" width="80" height="05" />
+
+            <rect x="100" y="220" rx="3" ry="3" width="200" height="05" />
+            <rect x="100" y="240" rx="3" ry="3" width="80" height="05" />
+          </ContentLoader>
+        ) : (
+          <>
+            <Selectbar
+              categorySelect={categorySelect}
+              categoryHandler={this.categoryHandler}
+              categories={dummyCategories}
+            />
+            <ToastContainer />
+
+            <Details
+              name={name}
+              phone={phone}
+              email={email}
+              address={address}
+              description={description}
+              bookingPerDay={bookingPerDay}
+              handleDetailInput={this.handleDetailInput}
+              getVenueLoader={getVenueLoader}
+            />
+
+            <CreateServiceFacilities
+              serviesFacilities={serviesFacilities}
+              addSpec={addSpec}
+              handleChangeOnServiceFacilites={
+                this.handleChangeOnServiceFacilites
+              }
+              handlerServicesFieldAdd={this.handlerServicesFieldAdd}
+              classicModal={classicModal}
+              handleClickOpen={this.handleClickOpen}
+              handleClose={this.handleClose}
+              handlerServicesFieldDelete={this.handlerServicesFieldDelete}
+            />
+            <ImageUploader
+              open={open}
+              progress={progress}
+              files={files}
+              url={url}
+              handleUploadOpen={this.handleUploadOpen}
+              handleUploadClose={this.handleUploadClose}
+              handleUploadSave={this.handleUploadSave}
+              handelOnDeleteImage={this.handelOnDeleteImage}
+            />
+
+            <PickLocation
+              parestSetState={picked =>
+                this.setState({
+                  picked
+                })
+              }
+            />
+
+            <div
+              style={{
+                padding: "0",
+                maxWidth: "1024px",
+                margin: "0 auto",
+                display: "flex",
+                justifyContent: "flex-end",
+                marginTop: "10px"
+              }}
+            >
+              {" "}
+              <Button
+                variant="outlined"
+                color="success"
+                disabled={isDetailsButtonDisable}
+                onClick={() => {
+                  this.handelOnSaveAndUpload();
+                }}
+              >
+                {updateVenueLoader ? (
+                  <ReactLoading
+                    type={"spin"}
+                    color={"#ffff"}
+                    // height={"64px"}
+                    // width={"64px"}
+                  />
+                ) : (
+                  "Update"
+                )}
+              </Button>
+            </div>
+          </>
+        )}
       </div>
     );
   }
