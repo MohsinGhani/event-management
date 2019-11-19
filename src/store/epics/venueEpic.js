@@ -18,10 +18,13 @@ import {
   GET_PACKAGES,
   GET_BOOKING_ITEM,
   GET_VENUE_FOR_BOOKED_DETAILS,
-  GET_ORDER_CONFIRMATION_ITEM
+  GET_ORDER_CONFIRMATION_ITEM,
+  GET_PENDING_STATUS_VENUES
 } from "../constants";
 import { db } from "../../firebase/FireBase";
 import auth from "../../firebase/FireBase";
+
+/////////////////////////// Get location latitude and logitude
 
 export default class venueEpic {
   static reverseGeoCoding = action$ =>
@@ -46,6 +49,8 @@ export default class venueEpic {
         });
     });
 
+  /////////////////////////// save form detail in our database
+
   static saveVenue = action$ =>
     action$.ofType(SAVE_VENUES).switchMap(({ payload }) => {
       return Observable.fromPromise(
@@ -61,6 +66,8 @@ export default class venueEpic {
           return venueAction.saveVenueFailure(`Error in Save venue! ${err}`);
         });
     });
+
+  /////////////////////////// create packages in database
 
   static createPackages = action$ =>
     action$.ofType(CREATE_PACKAGES).switchMap(({ payload }) => {
@@ -79,6 +86,8 @@ export default class venueEpic {
           );
         });
     });
+
+  /////////////////////////// update or edit your form details
 
   static updateVenue = action$ =>
     action$.ofType(UPDATE_VENUE).switchMap(({ payload }) => {
@@ -100,6 +109,8 @@ export default class venueEpic {
         });
     });
 
+  /////////////////////////// change status of venue for delete, archive and unarchive
+
   static changeObjStatus = action$ =>
     action$.ofType(CHANGE_OBJ_STATUS).switchMap(({ payload }) => {
       const { vid } = payload;
@@ -120,6 +131,8 @@ export default class venueEpic {
         });
     });
 
+  /////////////////////////// get all venue in main page
+
   static getVenues = action$ =>
     action$.ofType(GET_VENUES).mergeMap(async () => {
       try {
@@ -138,6 +151,8 @@ export default class venueEpic {
         );
       }
     });
+
+  /////////////////////////// get packages on venue details page
 
   static getPackages = action$ =>
     action$.ofType(GET_PACKAGES).mergeMap(({ payload }) => {
@@ -161,6 +176,8 @@ export default class venueEpic {
           );
         });
     });
+
+  /////////////////////////// get archive venue on archive section
 
   static getArchiveVenues = action$ =>
     action$.ofType(GET_ARCHIVE_VENUES).mergeMap(({ payload }) => {
@@ -192,6 +209,8 @@ export default class venueEpic {
         });
     });
 
+  ///////////////////////////get venue if venue present in database
+
   static getVenue = action$ =>
     action$.ofType(GET_VENUE).mergeMap(({ payload }) => {
       return db
@@ -214,6 +233,8 @@ export default class venueEpic {
           );
         });
     });
+
+  /////////////////////////// get venue booked detail
 
   static getVenueForBookedDetails = action$ =>
     action$.ofType(GET_VENUE_FOR_BOOKED_DETAILS).mergeMap(({ payload }) => {
@@ -238,6 +259,8 @@ export default class venueEpic {
         });
     });
 
+  /////////////////////////// save booking in database
+
   static saveCustomBooking = action$ =>
     action$.ofType(SAVE_CUSTOM_BOOKING).mergeMap(({ payload }) => {
       return Observable.fromPromise(
@@ -255,6 +278,8 @@ export default class venueEpic {
           );
         });
     });
+
+  ///////////////////////////  get user venue on dashboard
 
   static getVenuesByUserId = action$ =>
     action$.ofType(GET_VENUES_BY_USER_ID).mergeMap(({ payload }) => {
@@ -286,6 +311,8 @@ export default class venueEpic {
         });
     });
 
+  /////////////////////////// get booking item on deshboard section
+
   static getBookingItem = action$ =>
     action$.ofType(GET_BOOKING_ITEM).mergeMap(({}) => {
       // let user = auth.currentUser.uid;
@@ -316,6 +343,39 @@ export default class venueEpic {
           })
       );
     });
+
+  /////////////////////////// get pending status venues in dashboard section
+
+    static getPendingStatusVenues = action$ =>
+    action$.ofType(GET_PENDING_STATUS_VENUES).mergeMap(({ payload }) => {
+      // let user = auth.currentUser.uid;
+      const { userId } = payload;
+      const ven = [];
+
+      return db
+        .collection("services")
+        .where("userId", "==", userId)
+        .where("objStatus", "==", 0)
+        .get()
+        .then(function(querySnapshot) {
+          querySnapshot.forEach(function(doc) {
+            // doc.data() is never undefined for query doc snapshots
+            ven.push({ ...doc.data(), vid: doc.id });
+            // alert("venue get");
+            // console.log(doc.id, " => ", doc.data());
+            // props.getMyProducts(doc.data());
+          });
+          return venueAction.getPendingStatusVenuesSuccess(ven);
+        })
+        .catch(function(error) {
+          console.log("Error getting documents: ", error);
+          alert("ops no product Add some product");
+          venueAction.getPendingStatusVenuesFailure(
+            `Error in getting venue! ${error}`
+          );
+        });
+    });
+
 }
 
 // static getVenuesByUserId = action$ =>

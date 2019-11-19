@@ -41,11 +41,16 @@ import {
   GET_ORDER_CONFIRMATION_ITEM,
   GET_ORDER_CONFIRMATION_ITEM_SUCCESS,
   GET_ORDER_CONFIRMATION_ITEM_FAILURE,
-
+  GET_PENDING_STATUS_VENUES,
+  GET_PENDING_STATUS_VENUES_SUCCESS,
+  GET_PENDING_STATUS_VENUES_FAILURE, 
 } from "./../constants";
 
 export class venueAction {
-  /////////////////
+
+  /////////////////////////// Get location latitude and logitude
+
+  
   static reverseGeoCoding(payload) {
     return {
       type: REVERSE_GEOCODING,
@@ -66,7 +71,9 @@ export class venueAction {
       error
     };
   }
-  ////////////////
+
+    /////////////////////////// get all venue in main page
+
 
   static getVenues(payload) {
     return {
@@ -89,7 +96,7 @@ export class venueAction {
     };
   }
 
-  ////////////////
+    /////////////////////////// get archive venue on archive section
 
   static getArchiveVenues(payload) {
     return {
@@ -112,7 +119,7 @@ export class venueAction {
     };
   }
 
-  ////////////////
+    ///////////////////////////get venue if venue present in database
 
   static getVenue(payload) {
     return {
@@ -135,7 +142,8 @@ export class venueAction {
     };
   }
 
-  ////////////////
+  /////////////////////////// save form detail in our database
+
 
   static saveVenue(payload) {
     return {
@@ -158,7 +166,8 @@ export class venueAction {
     };
   }
 
-  ///////////////
+  /////////////////////////// update or edit your form details
+
 
   static updateVenue(payload) {
     return {
@@ -181,7 +190,8 @@ export class venueAction {
     };
   }
 
-  ///////////////
+  /////////////////////////// save booking in database
+
 
   static saveCustomBooking(payload) {
     return {
@@ -202,7 +212,8 @@ export class venueAction {
     };
   }
 
-  /////////////////
+   ///////////////////////////  get user venue on dashboard
+
 
   static getVenuesByUserId(payload) {
     return {
@@ -225,7 +236,31 @@ export class venueAction {
     };
   }
 
-  /////////////////
+    ///////////////////////////  get user pending status venues on dashboard
+
+
+    static getPendingStatusVenues(payload) {
+      return {
+        type: GET_PENDING_STATUS_VENUES,
+        payload
+      };
+    }
+  
+    static getPendingStatusVenuesSuccess(getPendingStatusVenues) {
+      return {
+        type: GET_PENDING_STATUS_VENUES_SUCCESS,
+        payload: getPendingStatusVenues
+      };
+    }
+  
+    static getPendingStatusVenuesFailure(error) {
+      return {
+        type: GET_PENDING_STATUS_VENUES_FAILURE,
+        payload: error
+      };
+    }
+
+    /////////////////////////// change status of venue for delete, archive and unarchive
 
   static changeObjStatus(payload) {
     return {
@@ -248,7 +283,8 @@ export class venueAction {
     };
   }
 
-  /////////////////
+    /////////////////////////// create packages in database
+
 
   static createPackages(payload) {
     return {
@@ -271,7 +307,8 @@ export class venueAction {
     };
   }
 
-  /////////////////
+  /////////////////////////// get packages on venue details page
+
 
   static getPackages(payload) {
     return {
@@ -294,7 +331,7 @@ export class venueAction {
     };
   }
 
-  /////////////////
+    /////////////////////////// get booking item on deshboard section
 
   static getBookingItem(payload) {
     

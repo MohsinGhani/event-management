@@ -40,7 +40,10 @@ import {
   GET_VENUE_FOR_BOOKED_DETAILS_FAILURE,
   GET_ORDER_CONFIRMATION_ITEM,
   GET_ORDER_CONFIRMATION_ITEM_SUCCESS,
-  GET_ORDER_CONFIRMATION_ITEM_FAILURE
+  GET_ORDER_CONFIRMATION_ITEM_FAILURE,
+  GET_PENDING_STATUS_VENUES,
+  GET_PENDING_STATUS_VENUES_SUCCESS,
+  GET_PENDING_STATUS_VENUES_FAILURE, 
 } from "./../constants";
 // import { venues } from "./../../assets/venus";
 
@@ -95,7 +98,11 @@ const initialState = {
 
   bookedVenue: null,
   getVenueForBookedDetailsLoader: false,
-  getVenueForBookedDetailsError: null
+  getVenueForBookedDetailsError: null,
+
+  pendingStatusVenues: null,
+  getPendingStatusVenuesLoader: false,
+  getPendingStatusVenuesError: null
 };
 
 export default function venueReducer(state = initialState, action) {
@@ -248,6 +255,32 @@ export default function venueReducer(state = initialState, action) {
         venue: null,
         getVenueLoader: false,
         getVenueError: "Can not Get Venue by id"
+      };
+
+      //////////////////////// Get Pending Venues ////////////////////////
+
+    case GET_PENDING_STATUS_VENUES:
+      return {
+        ...state,
+        pendingStatusVenues: null,
+        getpendingStatusVenuesLoader: true,
+        getpendingStatusVenuesError: null
+      };
+
+    case GET_PENDING_STATUS_VENUES_SUCCESS:
+      return {
+        ...state,
+        pendingStatusVenues: action.payload,
+        getpendingStatusVenuesLoader: false,
+        getpendingStatusVenuesError: null
+      };
+
+    case GET_PENDING_STATUS_VENUES_FAILURE:
+      return {
+        ...state,
+        pendingStatusVenues: null,
+        getpendingStatusVenuesLoader: false,
+        getpendingStatusVenuesError: "Can not Get Pending Venue by id"
       };
 
     //////////////////////// Create Package ////////////////////////

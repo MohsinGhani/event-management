@@ -18,6 +18,8 @@ import { confirm } from "../../services/AuthService";
 import { db } from "../../firebase/FireBase";
 
 export default class authEpic {
+  /////////////////////////// signup user and add user date in database
+
   static signUp = action$ =>
     action$.ofType(SIGNUP).switchMap(({ payload }) => {
       return Observable.fromPromise(
@@ -25,7 +27,7 @@ export default class authEpic {
       )
         .switchMap(response => {
           payload["uid"] = response.user.uid;
-          payload["display name"]= response.user.displayName
+          payload["display name"] = response.user.displayName;
           if (response.type && response.type === "SIGNUP_FAILURE") {
             return Observable.of(authAction.signUpFailure(response.error));
           } else {
@@ -45,6 +47,8 @@ export default class authEpic {
         });
     });
 
+  /////////////////////////// signin user
+
   static signIn = action$ =>
     action$.ofType(SIGNIN).switchMap(({ payload }) => {
       const { userEmail, userPass } = payload;
@@ -63,6 +67,8 @@ export default class authEpic {
         });
     });
 
+  /////////////////////////// GLogout user
+
   static logout = action$ =>
     action$.ofType(LOGOUT).switchMap(() => {
       return Observable.fromPromise(auth.signOut())
@@ -77,6 +83,8 @@ export default class authEpic {
           return Observable.of(authAction.logoutFailure(err));
         });
     });
+
+  /////////////////////////// check user if user isLogedin or not
 
   static isLoggedIn = action$ =>
     action$.ofType(IS_LOGGED_IN).switchMap(() => {
@@ -105,6 +113,8 @@ export default class authEpic {
           return Observable.of(authAction.isLoggedInFailure(err));
         });
     });
+
+  /////////////////////////// Get user by user userId
 
   static getUserById = action$ =>
     action$.ofType(GET_USER_BY_ID).mergeMap(({ payload }) => {
