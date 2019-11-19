@@ -19,15 +19,19 @@ import RatingSystem from "./RatingSystem";
 
 class MyVenues extends React.Component {
   componentDidMount() {
-    const { getVenuesByUserIdDetails, user } = this.props;
-    getVenuesByUserIdDetails({ userId: user.uid });
+    const { getPendingStatusVenuesDetails, user } = this.props;
+    getPendingStatusVenuesDetails({ userId: user.uid });
   }
   goto = path => {
     this.props.history.push(path);
   };
 
   render() {
-    const { classes, getVenuesByUserId, getVenuesByUserIdLoader } = this.props;
+    const {
+      classes,
+      pendingStatusVenues,
+      getPendingStatusVenuesLoader
+    } = this.props;
     return (
       <div style={{ margin: "auto 0" }}>
         {/* <AuthenticatedNavbar /> */}
@@ -39,10 +43,12 @@ class MyVenues extends React.Component {
               marginTop: "10px"
             }}
           >
-            My Venues
+            Pending Venues Status
           </h4>
         </CardHeader>
-        <GlobleLoader getVenuesByUserIdLoader={getVenuesByUserIdLoader} />
+        <GlobleLoader
+          getPendingStatusVenuesLoader={getPendingStatusVenuesLoader}
+        />
         <GridContainer
           style={{
             padding: "0 15px",
@@ -51,7 +57,7 @@ class MyVenues extends React.Component {
             marginTop: "15px"
           }}
         >
-          {getVenuesByUserId && getVenuesByUserId.length == 0 ? (
+          {pendingStatusVenues && pendingStatusVenues.length == 0 ? (
             <Card style={{ padding: "15px", margin: 0, marginTop: "20px" }}>
               <CardBody>
                 <h1
@@ -61,13 +67,13 @@ class MyVenues extends React.Component {
                     color: "red"
                   }}
                 >
-                  No Items
+                  No Pending Request For Venue
                 </h1>
               </CardBody>
             </Card>
           ) : (
-            getVenuesByUserId &&
-            getVenuesByUserId.map((venue, i) => {
+            pendingStatusVenues &&
+            pendingStatusVenues.map((pendingVenue, i) => {
               return (
                 <GridItem md={4} key={i}>
                   <Card
@@ -82,7 +88,7 @@ class MyVenues extends React.Component {
                           color={"primary"}
                         >
                           <p
-                            title={venue.name}
+                            title={pendingVenue.name}
                             style={{
                               width: "100%",
                               overflow: "hidden",
@@ -91,7 +97,7 @@ class MyVenues extends React.Component {
                               margin: "5px 0 5px 0"
                             }}
                           >
-                            {venue.name}
+                            {pendingVenue.name}
                           </p>
                         </CardHeader>
                         <CardBody
@@ -104,7 +110,7 @@ class MyVenues extends React.Component {
                             autoPlay={true}
                             infiniteLoop={true}
                           >
-                            {venue.url.map(source => (
+                            {pendingVenue.url.map(source => (
                               <img
                                 src={source}
                                 alt="some-img"
@@ -129,7 +135,7 @@ class MyVenues extends React.Component {
                                   style={{ padding: "10px 5px 0 0" }}
                                 ></i>
                                 <p
-                                  title={venue.address}
+                                  title={pendingVenue.address}
                                   style={{
                                     width: "100%",
                                     overflow: "hidden",
@@ -138,7 +144,7 @@ class MyVenues extends React.Component {
                                     margin: "5px 0 0 0"
                                   }}
                                 >
-                                  {venue.address}
+                                  {pendingVenue.address}
                                 </p>
                               </div>
 
@@ -147,21 +153,21 @@ class MyVenues extends React.Component {
                                   class="fas fa-phone"
                                   style={{ padding: "10px 5px 0 0" }}
                                 ></i>
-                                {venue.phone}
+                                {pendingVenue.phone}
                               </div>
                               <div className="email">
                                 <i
                                   class="fas fa-envelope"
                                   style={{ padding: "10px 5px 0 0" }}
                                 ></i>
-                                {venue.email}
+                                {pendingVenue.email}
                               </div>
                               <div className="type">
                                 <i
                                   class="fas fa-list-ul"
                                   style={{ padding: "10px 5px 0 0" }}
                                 ></i>
-                                {venue.objType.title}
+                                {pendingVenue.objType.title}
                               </div>
                             </div>
 
@@ -181,7 +187,9 @@ class MyVenues extends React.Component {
                                   size="sm"
                                   round
                                   onClick={() =>
-                                    this.goto(`/venue-detail/${venue.vid}`)
+                                    this.goto(
+                                      `/venue-detail/${pendingVenue.vid}`
+                                    )
                                   }
                                 >
                                   Detail
@@ -207,28 +215,26 @@ const mapStateToProps = state => {
   const {
     authReducer: { user, isLoggedIn },
     venueReducer: {
-      venues,
-      getVenuesByUserId,
-      getVenuesByUserIdLoader,
-      getVenuesByUserIdError
+      pendingStatusVenues,
+      getPendingStatusVenuesLoader,
+      getPendingStatusVenuesError
     }
   } = state;
   return {
     user,
     isLoggedIn,
 
-    venues,
-    getVenuesByUserId,
-    getVenuesByUserIdLoader,
-    getVenuesByUserIdError
+    pendingStatusVenues,
+    getPendingStatusVenuesLoader,
+    getPendingStatusVenuesError
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     isLoggedInAction: payload => dispatch(authAction.isLoggedIn(payload)),
-    getVenuesByUserIdDetails: payload =>
-      dispatch(venueAction.getVenuesByUserId(payload))
+    getPendingStatusVenuesDetails: payload =>
+      dispatch(venueAction.getPendingStatusVenues(payload))
   };
 };
 

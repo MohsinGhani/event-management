@@ -11,26 +11,43 @@ import GridContainer from "components/Grid/GridContainer";
 import GridItem from "components/Grid/GridItem";
 import Button from "components/CustomButtons/Button.jsx";
 import AuthenticatedNavbar from "./../../components/common/AuthenticatedNavbar";
+import Archive from "@material-ui/icons/Unarchive";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import GlobleLoader from "./GlobleLoader";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import RatingSystem from "./RatingSystem";
 
-class MyVenues extends React.Component {
+class ArchiveView extends React.Component {
   componentDidMount() {
-    const { getVenuesByUserIdDetails, user } = this.props;
-    getVenuesByUserIdDetails({ userId: user.uid });
+    const { getArchiveVenues, user } = this.props;
+    getArchiveVenues({ userId: user.uid });
+    // getArchiveVenues()
   }
+
+  handleUnArchiveStatus = venue => {
+    this.props.changeObjStatus({ ...venue, objStatus: 1 });
+    this.goto("/admin/my-venues");
+  };
+  successNotifiy = message => toast.success(message);
+
   goto = path => {
     this.props.history.push(path);
   };
 
   render() {
-    const { classes, getVenuesByUserId, getVenuesByUserIdLoader } = this.props;
+    const { getArchiveVenuesLoader, classes, archiveVenues, user } = this.props;
     return (
-      <div style={{ margin: "auto 0" }}>
+      <div
+        style={{
+          margin: "0 auto"
+        }}
+      >
         {/* <AuthenticatedNavbar /> */}
+        <ToastContainer />
+
         <CardHeader color="primary" style={{ marginTop: "2px" }}>
           <h4
             className={classes.cardTitleWhite}
@@ -39,10 +56,11 @@ class MyVenues extends React.Component {
               marginTop: "10px"
             }}
           >
-            My Venues
+            Archive Items
           </h4>
         </CardHeader>
-        <GlobleLoader getVenuesByUserIdLoader={getVenuesByUserIdLoader} />
+        <GlobleLoader getArchiveVenuesLoader={getArchiveVenuesLoader} />
+
         <GridContainer
           style={{
             padding: "0 15px",
@@ -51,7 +69,7 @@ class MyVenues extends React.Component {
             marginTop: "15px"
           }}
         >
-          {getVenuesByUserId && getVenuesByUserId.length == 0 ? (
+          {archiveVenues && archiveVenues.length == 0 ? (
             <Card style={{ padding: "15px", margin: 0, marginTop: "20px" }}>
               <CardBody>
                 <h1
@@ -61,13 +79,14 @@ class MyVenues extends React.Component {
                     color: "red"
                   }}
                 >
-                  No Items
+                  No Archive Items
                 </h1>
               </CardBody>
             </Card>
           ) : (
-            getVenuesByUserId &&
-            getVenuesByUserId.map((venue, i) => {
+            archiveVenues &&
+            archiveVenues.map((archiveVenue, i) => {
+              console.log("archiveVenues=>", archiveVenue);
               return (
                 <GridItem md={4} key={i}>
                   <Card
@@ -82,7 +101,7 @@ class MyVenues extends React.Component {
                           color={"primary"}
                         >
                           <p
-                            title={venue.name}
+                            title={archiveVenue.name}
                             style={{
                               width: "100%",
                               overflow: "hidden",
@@ -91,7 +110,7 @@ class MyVenues extends React.Component {
                               margin: "5px 0 5px 0"
                             }}
                           >
-                            {venue.name}
+                            {archiveVenue.name}
                           </p>
                         </CardHeader>
                         <CardBody
@@ -104,7 +123,7 @@ class MyVenues extends React.Component {
                             autoPlay={true}
                             infiniteLoop={true}
                           >
-                            {venue.url.map(source => (
+                            {archiveVenue.url.map(source => (
                               <img
                                 src={source}
                                 alt="some-img"
@@ -122,14 +141,17 @@ class MyVenues extends React.Component {
                             <div>
                               <div
                                 className="address"
-                                style={{ display: "flex", paddingTop: "5px" }}
+                                style={{
+                                  display: "flex",
+                                  paddingTop: "5px"
+                                }}
                               >
                                 <i
                                   class="fas fa-map-marker-alt"
                                   style={{ padding: "10px 5px 0 0" }}
                                 ></i>
                                 <p
-                                  title={venue.address}
+                                  title={archiveVenue.address}
                                   style={{
                                     width: "100%",
                                     overflow: "hidden",
@@ -138,7 +160,7 @@ class MyVenues extends React.Component {
                                     margin: "5px 0 0 0"
                                   }}
                                 >
-                                  {venue.address}
+                                  {archiveVenue.address}
                                 </p>
                               </div>
 
@@ -147,24 +169,23 @@ class MyVenues extends React.Component {
                                   class="fas fa-phone"
                                   style={{ padding: "10px 5px 0 0" }}
                                 ></i>
-                                {venue.phone}
+                                {archiveVenue.phone}
                               </div>
                               <div className="email">
                                 <i
                                   class="fas fa-envelope"
                                   style={{ padding: "10px 5px 0 0" }}
                                 ></i>
-                                {venue.email}
+                                {archiveVenue.email}
                               </div>
                               <div className="type">
                                 <i
                                   class="fas fa-list-ul"
                                   style={{ padding: "10px 5px 0 0" }}
                                 ></i>
-                                {venue.objType.title}
+                                {archiveVenue.objType.title}
                               </div>
                             </div>
-
                             <div className="right-panel">
                               <div
                                 className="dtl-btn-wrapper"
@@ -180,11 +201,12 @@ class MyVenues extends React.Component {
                                   color="warning"
                                   size="sm"
                                   round
-                                  onClick={() =>
-                                    this.goto(`/venue-detail/${venue.vid}`)
-                                  }
+                                  onClick={() => {
+                                    this.handleUnArchiveStatus(archiveVenue);
+                                  }}
                                 >
-                                  Detail
+                                  {/* <Archive className={classes.icons} /> */}
+                                  Un Archive
                                 </Button>
                               </div>
                             </div>
@@ -205,34 +227,32 @@ class MyVenues extends React.Component {
 
 const mapStateToProps = state => {
   const {
-    authReducer: { user, isLoggedIn },
     venueReducer: {
-      venues,
-      getVenuesByUserId,
-      getVenuesByUserIdLoader,
-      getVenuesByUserIdError
-    }
+      archiveVenues,
+      getArchiveVenuesLoader,
+      getArchiveVenuesError
+    },
+    authReducer: { user, isLoggedIn }
   } = state;
   return {
+    archiveVenues,
+    getArchiveVenuesLoader,
+    getArchiveVenuesError,
     user,
-    isLoggedIn,
-
-    venues,
-    getVenuesByUserId,
-    getVenuesByUserIdLoader,
-    getVenuesByUserIdError
+    isLoggedIn
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     isLoggedInAction: payload => dispatch(authAction.isLoggedIn(payload)),
-    getVenuesByUserIdDetails: payload =>
-      dispatch(venueAction.getVenuesByUserId(payload))
+    getArchiveVenues: payload =>
+      dispatch(venueAction.getArchiveVenues(payload)),
+    changeObjStatus: payload => dispatch(venueAction.changeObjStatus(payload))
   };
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(withStyles(loginPageStyle)(MyVenues)));
+)(withRouter(withStyles(loginPageStyle)(ArchiveView)));
