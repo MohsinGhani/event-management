@@ -12,7 +12,8 @@ import UserProfile from "views/UserProfile/UserProfile.jsx";
 import TableList from "views/TableList/TableList.jsx";
 import MyVenues from "views/Dashboard/MyVenues.jsx";
 import MyBookingItems from "views/Dashboard/MyBookingItems.js";
-import OrderConfirmation from "views/Dashboard/OrderConfirmation.js";
+import PendingVenuesStatus from "views/Dashboard/PendingVenuesStatus.js";
+import ArchiveVenues from "views/Dashboard/ArchiveVenues.js";
 import Typography from "views/Typography/Typography.jsx";
 import Icons from "views/Icons/Icons.jsx";
 import Maps from "views/Maps/Maps.jsx";
@@ -20,9 +21,40 @@ import NotificationsPage from "views/Notifications/Notifications.jsx";
 import List from "@material-ui/icons/List";
 import BookingList from "@material-ui/icons/Event"
 import Feedback from "@material-ui/icons/Feedback"
+import Archive from "@material-ui/icons/Archive"
+
 // core components/views for RTL layout
 
 const dashboardRoutes = [
+
+  {
+    path: "/my-venues",
+    name: "My Venues",
+    icon: List,
+    component: MyVenues,
+    layout: "/admin"
+  },
+  {
+    path: "/archive-venues",
+    name: "Archive Venues",
+    icon: Archive,
+    component: ArchiveVenues,
+    layout: "/admin"
+  },
+  {
+    path: "/my-booking-item",
+    name: "My Booking Item",
+    icon: BookingList,
+    component: MyBookingItems,
+    layout: "/admin"
+  },
+  {
+    path: "/pending-venue-status",
+    name: "Pending Venue Status",
+    icon: Feedback,
+    component: PendingVenuesStatus,
+    layout: "/admin"
+  },
   // {
   //   path: "/dashboard",
   //   name: "Dashboard",
@@ -55,30 +87,7 @@ const dashboardRoutes = [
   //   component: Typography,
   //   layout: "/admin"
   // },
-  {
-    path: "/my-venues",
-    name: "My Venues",
-    rtlName: "الرموز",
-    icon: List,
-    component: MyVenues,
-    layout: "/admin"
-  },
-  {
-    path: "/my-booking-item",
-    name: "My Booking Item",
-    rtlName: "الرموز",
-    icon: BookingList,
-    component: MyBookingItems,
-    layout: "/admin"
-  },
-  {
-    path: "/order-confirmation",
-    name: "Order Confirmation",
-    rtlName: "الرموز",
-    icon: Feedback,
-    component: OrderConfirmation,
-    layout: "/admin"
-  },
+
   // {
   //   path: "/maps",
   //   name: "Maps",
