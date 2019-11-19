@@ -24,7 +24,22 @@ import Archive from "@material-ui/icons/Archive";
 import Edit from "@material-ui/icons/Edit";
 import Delete from "@material-ui/icons/Delete";
 
+import RatingSystem from "./RatingSystem";
+
 class Venues extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      rating: 0
+    };
+  }
+
+  changeRating = (newRating, name) => {
+    this.setState({
+      rating: newRating
+    });
+  };
   goto = path => {
     this.props.history.push(path);
   };
@@ -60,7 +75,8 @@ class Venues extends Component {
       handleToggleOnPackage,
       packageArray,
       bookingItem,
-      allBookingItem
+      allBookingItem,
+      isBookingButtonDisable
     } = this.props;
     // let totalPrice = 0;
     return (
@@ -96,7 +112,7 @@ class Venues extends Component {
                 round
                 onClick={() => {
                   handleArchiveStatus();
-                  this.goto("/archive-view");
+                  this.goto("/admin/archive-venues");
                   successNotifiy("Card Successfully Archive...!");
                 }}
               >
@@ -126,6 +142,10 @@ class Venues extends Component {
                       <h2 className={classes.title + " typo-title"}>
                         {venue.name}
                       </h2>
+                      <p style={{ display: "flex", alignItems: "center" }}>
+                        <RatingSystem />
+                      </p>
+
                       <p style={{ display: "flex", alignItems: "center" }}>
                         <img
                           src={call}
@@ -270,9 +290,7 @@ class Venues extends Component {
                                   }}
                                 >
                                   <Button
-                                    onClick={() =>
-                                      handleToggleOnPackage(pack)
-                                    }
+                                    onClick={() => handleToggleOnPackage(pack)}
                                   >
                                     Add Package
                                   </Button>
@@ -335,6 +353,7 @@ class Venues extends Component {
                 packageArray={packageArray}
                 bookingItem={bookingItem}
                 allBookingItem={allBookingItem}
+                isBookingButtonDisable={isBookingButtonDisable}
               />
             </GridContainer>
             <GridContainer

@@ -16,6 +16,8 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import GlobleLoader from "./GlobleLoader";
 
+import RatingSystem from "./RatingSystem";
+
 class ListView extends React.Component {
   constructor(props) {
     super(props);
@@ -167,9 +169,13 @@ class ListView extends React.Component {
                                 className="dtl-btn-wrapper"
                                 style={{
                                   display: "flex",
-                                  justifyContent: "flex-end"
+                                  justifyContent: "space-between"
                                 }}
                               >
+                                <div style={{ marginTop: "8px" }}>
+                                  <RatingSystem />
+                                </div>
+
                                 <Button
                                   color="warning"
                                   size="sm"
