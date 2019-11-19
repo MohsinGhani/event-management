@@ -94,7 +94,8 @@ class Booking extends Component {
       packages,
       packageArray,
       bookingItem,
-      allBookingItem
+      allBookingItem,
+      isBookingButtonDisable
     } = this.props;
     let totalPrice = 0;
     let packagePrice = 0;
@@ -222,6 +223,7 @@ class Booking extends Component {
                           <Button
                             variant="outlined"
                             color="success"
+                            disabled={isBookingButtonDisable}
                             onClick={() => {
                               successNotifiy("Booking Successfully Done....!");
                               saveCustomBooking();
