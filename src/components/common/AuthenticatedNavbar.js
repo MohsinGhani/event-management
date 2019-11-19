@@ -16,7 +16,7 @@ import { connect } from "react-redux";
 import { authAction } from "./../../store/actions";
 import { withRouter } from "react-router-dom";
 import navbarsStyle from "assets/jss/material-kit-react/views/componentsSections/navbarsStyle.jsx";
-import Archive from "@material-ui/icons/Archive";
+// import Archive from "@material-ui/icons/Archive";
 
 import "./index.css";
 
@@ -103,15 +103,15 @@ class AuthenticatedNavbar extends React.Component {
                           <Icon className={classes.icons}>add_rounded</Icon>
                           Create
                         </Button>,
-                        <Button
-                          className={classes.navLink}
-                          // className={classes.navLink + " " + classes.navLinkActive}
-                          onClick={e => this.goto("/archive-view")}
-                          color="transparent"
-                        >
-                          <Archive className={classes.icons} />
-                          Archive List
-                        </Button>,
+                        // <Button
+                        //   className={classes.navLink}
+                        //   // className={classes.navLink + " " + classes.navLinkActive}
+                        //   onClick={e => this.goto("/archive-view")}
+                        //   color="transparent"
+                        // >
+                        //   <Archive className={classes.icons} />
+                        //   Archive List
+                        // </Button>,
                         <Button
                           className={classes.navLink}
                           // className={classes.navLink + " " + classes.navLinkActive}
