@@ -181,6 +181,7 @@ class AddVenue extends Component {
   };
 
   successNotifiy = message => toast.success(message);
+  warningNotifiy = message => toast.warning(message);
 
   handleUploadClose = () => {
     this.setState({
@@ -341,11 +342,13 @@ class AddVenue extends Component {
                   url,
                   userId: user && user.uid,
                   status: 0,
-                  objStatus: 1,
+                  objStatus: 0,
                   createdTimestamp: new Date().getTime()
                 };
                 this.props.saveVenue(newDetails);
-                this.successNotifiy("Form Successfully Submited...!");
+                this.successNotifiy(
+                  "Form Successfully Submited...!"
+                );
                 this.handleClickAddVenueOpen("confirmModal");
                 this.setState({
                   name: "",
@@ -367,7 +370,7 @@ class AddVenue extends Component {
             });
         });
     });
-    this.successNotifiy("Form is Submitting...!");
+    this.warningNotifiy("But in few movenment Admin will aproved");
   };
 
   render() {
