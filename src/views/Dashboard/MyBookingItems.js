@@ -5,7 +5,9 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import { authAction, venueAction } from "../../store/actions";
 import GlobleLoader from "./GlobleLoader";
 import GridContainer from "components/Grid/GridContainer";
+import Card from "components/Card/Card";
 import CardHeader from "components/Card/CardHeader";
+import CardBody from "components/Card/CardBody"
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import Button from "components/CustomButtons/Button.jsx";
@@ -84,7 +86,21 @@ class MyBookingItems extends Component {
             My Booking Items
           </h4>
         </CardHeader>
-        {getBookingItemLoader ? (
+        {bookingItem && bookingItem.length == 0 ? (
+          <Card style={{ padding: "15px", margin: 0, marginTop: "20px" }}>
+            <CardBody>
+              <h1
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  color: "red"
+                }}
+              >
+                No Booking Items
+              </h1>
+            </CardBody>
+          </Card>
+        ) : getBookingItemLoader ? (
           <GlobleLoader getBookingItemLoader={getBookingItemLoader} />
         ) : (
           <ExpansionPanel>

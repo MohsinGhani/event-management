@@ -314,15 +314,14 @@ export default class venueEpic {
   /////////////////////////// get booking item on deshboard section
 
   static getBookingItem = action$ =>
-    action$.ofType(GET_BOOKING_ITEM).mergeMap(({}) => {
+    action$.ofType(GET_BOOKING_ITEM).mergeMap(({ payload }) => {
       // let user = auth.currentUser.uid;
-      // const { userId } = payload;
+      const { userId, vid } = payload;
       const bookingItem = [];
-
-      return (
-        db
+      if (userId) {
+        return db
           .collection("booking")
-          // .where("userId", "==", userId)
+          .where("userId", "==", userId)
           .get()
           .then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
@@ -340,13 +339,35 @@ export default class venueEpic {
             venueAction.getBookingItemFailure(
               `Error in getting venue! ${error}`
             );
+          });
+      } else if (vid) {
+        return db
+          .collection("booking")
+          .where("eventId", "==", vid)
+          .get()
+          .then(function(querySnapshot) {
+            querySnapshot.forEach(function(doc) {
+              // doc.data() is never undefined for query doc snapshots
+              bookingItem.push({ ...doc.data(), vid: doc.id });
+              console.log(doc.id, " => ", doc.data());
+              // props.getMyProducts(doc.data());
+            });
+
+            return venueAction.getBookingItemSuccess(bookingItem);
           })
-      );
+          .catch(function(error) {
+            console.log("Error getting documents: ", error);
+            alert("ops no product Add some product");
+            venueAction.getBookingItemFailure(
+              `Error in getting venue! ${error}`
+            );
+          });
+      }
     });
 
   /////////////////////////// get pending status venues in dashboard section
 
-    static getPendingStatusVenues = action$ =>
+  static getPendingStatusVenues = action$ =>
     action$.ofType(GET_PENDING_STATUS_VENUES).mergeMap(({ payload }) => {
       // let user = auth.currentUser.uid;
       const { userId } = payload;
@@ -375,7 +396,6 @@ export default class venueEpic {
           );
         });
     });
-
 }
 
 // static getVenuesByUserId = action$ =>

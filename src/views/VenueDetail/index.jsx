@@ -76,7 +76,7 @@ class VenueDetail extends React.Component {
 
     getPackages({ vid: vid && vid });
 
-    allBookingItem()
+    allBookingItem({vid: vid && vid})
 
   }
 
@@ -412,7 +412,7 @@ const mapDispatchToProps = dispatch => {
     createCustomPackages: payload =>
       dispatch(venueAction.createPackages(payload)),
     getPackages: vid => dispatch(venueAction.getPackages(vid)),
-    allBookingItem: () => dispatch(venueAction.getBookingItem())
+    allBookingItem: (payload) => dispatch(venueAction.getBookingItem(payload))
   };
 };
 
