@@ -43,7 +43,7 @@ import {
   GET_ORDER_CONFIRMATION_ITEM_FAILURE,
   GET_PENDING_STATUS_VENUES,
   GET_PENDING_STATUS_VENUES_SUCCESS,
-  GET_PENDING_STATUS_VENUES_FAILURE, 
+  GET_PENDING_STATUS_VENUES_FAILURE
 } from "./../constants";
 // import { venues } from "./../../assets/venus";
 
@@ -257,30 +257,30 @@ export default function venueReducer(state = initialState, action) {
         getVenueError: "Can not Get Venue by id"
       };
 
-      //////////////////////// Get Pending Venues ////////////////////////
+    //////////////////////// Get Pending Venues ////////////////////////
 
     case GET_PENDING_STATUS_VENUES:
       return {
         ...state,
         pendingStatusVenues: null,
-        getpendingStatusVenuesLoader: true,
-        getpendingStatusVenuesError: null
+        getPendingStatusVenuesLoader: true,
+        getPendingStatusVenuesError: null
       };
 
     case GET_PENDING_STATUS_VENUES_SUCCESS:
       return {
         ...state,
         pendingStatusVenues: action.payload,
-        getpendingStatusVenuesLoader: false,
-        getpendingStatusVenuesError: null
+        getPendingStatusVenuesLoader: false,
+        getPendingStatusVenuesError: null
       };
 
     case GET_PENDING_STATUS_VENUES_FAILURE:
       return {
         ...state,
         pendingStatusVenues: null,
-        getpendingStatusVenuesLoader: false,
-        getpendingStatusVenuesError: "Can not Get Pending Venue by id"
+        getPendingStatusVenuesLoader: false,
+        getPendingStatusVenuesError: "Can not Get Pending Venue by id"
       };
 
     //////////////////////// Create Package ////////////////////////
@@ -363,7 +363,6 @@ export default function venueReducer(state = initialState, action) {
     ////////////////////
 
     case GET_BOOKING_ITEM:
-        
       return {
         ...state,
         bookingItem: null,
@@ -372,7 +371,6 @@ export default function venueReducer(state = initialState, action) {
       };
 
     case GET_BOOKING_ITEM_SUCCESS:
-        
       return {
         ...state,
         bookingItem: action.payload,
@@ -380,7 +378,6 @@ export default function venueReducer(state = initialState, action) {
         getBookingItemError: null
       };
     case GET_BOOKING_ITEM_FAILURE:
-        
       return {
         ...state,
         bookingItem: null,
@@ -391,7 +388,6 @@ export default function venueReducer(state = initialState, action) {
     ////////////////////
 
     case GET_VENUE_FOR_BOOKED_DETAILS:
-        
       return {
         ...state,
         bookedVenue: null,
@@ -400,7 +396,6 @@ export default function venueReducer(state = initialState, action) {
       };
 
     case GET_VENUE_FOR_BOOKED_DETAILS_SUCCESS:
-        
       return {
         ...state,
         bookedVenue: action.payload,
@@ -408,14 +403,12 @@ export default function venueReducer(state = initialState, action) {
         getVenueForBookedDetailsError: null
       };
     case GET_VENUE_FOR_BOOKED_DETAILS_FAILURE:
-        
       return {
         ...state,
         bookedVenue: null,
         getVenueForBookedDetailsLoader: false,
         getVenueForBookedDetailsError: "No Booking Items Shows"
       };
-
 
     ////////////////////
 
