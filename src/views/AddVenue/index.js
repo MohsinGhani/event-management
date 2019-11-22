@@ -18,6 +18,8 @@ import "react-toastify/dist/ReactToastify.css";
 import Button from "components/CustomButtons/Button.jsx";
 import ReactLoading from "react-loading";
 import ConfirmationModal from "./ConfirmationModal";
+
+
 const dummyCategories = [
   { title: "Venue", id: "venue" },
   { title: "Decorator", id: "decorator" },
@@ -346,9 +348,7 @@ class AddVenue extends Component {
                   createdTimestamp: new Date().getTime()
                 };
                 this.props.saveVenue(newDetails);
-                this.successNotifiy(
-                  "Form Successfully Submited...!"
-                );
+                this.successNotifiy("Form Successfully Submited...!");
                 this.handleClickAddVenueOpen("confirmModal");
                 this.setState({
                   name: "",
@@ -410,7 +410,6 @@ class AddVenue extends Component {
           categories={dummyCategories}
         />
         <ToastContainer />
-
         <Details
           name={name}
           phone={phone}
