@@ -29,7 +29,13 @@ class ArchiveView extends React.Component {
 
   handleUnArchiveStatus = venue => {
     this.props.changeObjStatus({ ...venue, objStatus: 1 });
+    this.successNotifiy("Venue is Successfully Un-Archive")
+
     this.goto("/admin/my-venues");
+
+    this.successNotifiy(
+      "Form Successfully Submited...!"
+    );
   };
   successNotifiy = message => toast.success(message);
 
@@ -46,7 +52,7 @@ class ArchiveView extends React.Component {
         }}
       >
         {/* <AuthenticatedNavbar /> */}
-        <ToastContainer />
+          <ToastContainer />
 
         <CardHeader color="primary" style={{ marginTop: "2px" }}>
           <h4
@@ -203,6 +209,7 @@ class ArchiveView extends React.Component {
                                   round
                                   onClick={() => {
                                     this.handleUnArchiveStatus(archiveVenue);
+                                    this.successNotifiy("Venue is Successfully Un-Archive...........!")
                                   }}
                                 >
                                   {/* <Archive className={classes.icons} /> */}
