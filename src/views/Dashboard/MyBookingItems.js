@@ -7,7 +7,7 @@ import GlobleLoader from "./GlobleLoader";
 import GridContainer from "components/Grid/GridContainer";
 import Card from "components/Card/Card";
 import CardHeader from "components/Card/CardHeader";
-import CardBody from "components/Card/CardBody"
+import CardBody from "components/Card/CardBody";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import Button from "components/CustomButtons/Button.jsx";
@@ -25,14 +25,13 @@ import loginPageStyle from "assets/jss/material-kit-react/views/loginPage.jsx";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-
 import CountDownTimer from "./CountDownTimer";
 
 import { TinyButton as ScrollUpButton } from "react-scroll-up-button";
 
 const StyledTableCell = withStyles(theme => ({
   head: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: theme.palette.primary.main,
     color: theme.palette.common.white
   },
   body: {
@@ -43,7 +42,7 @@ const StyledTableCell = withStyles(theme => ({
 const StyledTableRow = withStyles(theme => ({
   root: {
     "&:nth-of-type(odd)": {
-      backgroundColor: theme.palette.background.default
+      backgroundColor: theme.palette.text.hint
     }
   }
 }))(TableRow);
@@ -158,9 +157,9 @@ class MyBookingItems extends Component {
                           <TableBody>
                             <StyledTableRow key={index}>
                               <StyledTableCell component="th" scope="row">
-                                
-                                <CountDownTimer remainingTime={item.bookingDate}/>
-
+                                <CountDownTimer
+                                  remainingTime={item.bookingDate}
+                                />
                               </StyledTableCell>
                               <StyledTableCell>
                                 {new Intl.DateTimeFormat(
@@ -169,7 +168,8 @@ class MyBookingItems extends Component {
                                 ).format(item.bookingDate)}
                               </StyledTableCell>
                               <StyledTableCell>
-                                {item.servicesBookingPrice ? (
+                                {item.servicesBookingPrice.length &&
+                                item.servicesBookingPrice ? (
                                   item.servicesBookingPrice.map((ser, i) => {
                                     return <li key={i}>{ser.title}</li>;
                                   })
@@ -178,11 +178,35 @@ class MyBookingItems extends Component {
                                 )}
                               </StyledTableCell>
                               <StyledTableCell>
-                                {item.packageArray
-                                  ? item.packageArray.map((pack, i) => {
-                                      return (
-                                        <div>
-                                          <h5 key={i}>{pack.packageObj}</h5>
+                                {item.packageArray.length &&
+                                item.packageArray ? (
+                                  item.packageArray.map((pack, i) => {
+                                    return (
+                                      <div>
+                                        <h5 key={i}>{pack.packageObj}</h5>
+                                        {pack.servicePackages ? (
+                                          pack.servicePackages.map(
+                                            (packSer, i) => {
+                                              return (
+                                                <li key={i}>{packSer.title}</li>
+                                              );
+                                            }
+                                          )
+                                        ) : (
+                                          <span>No Package</span>
+                                        )}
+                                      </div>
+                                    );
+                                  })
+                                ) : (
+                                  <span>No Package Select</span>
+                                )}
+                                {/* {item.packageArray &&
+                                item.packageArray.length ? (
+                                  item.packageArray.map((pack, i)=> {
+                                    return(
+                                      <div>
+                                        <h5 key={i}>{pack.packageObj}</h5>
                                           {pack.servicePackages ? (
                                             pack.servicePackages.map(
                                               (packSer, i) => {
@@ -194,12 +218,14 @@ class MyBookingItems extends Component {
                                               }
                                             )
                                           ) : (
-                                            <span>No Package</span>
+                                            <span></span>
                                           )}
-                                        </div>
-                                      );
-                                    })
-                                  : ""}
+                                      </div>
+                                    )
+                                  })
+                                ) : (
+                                  <span></span>
+                                )} */}
                               </StyledTableCell>
                               <StyledTableCell>
                                 <Button
