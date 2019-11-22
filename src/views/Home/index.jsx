@@ -17,6 +17,7 @@ import decorationPin from "../../assets/icons/decoration.svg";
 import foodPin from "../../assets/icons/foood.svg";
 import photoPin from "../../assets/icons/photo.svg";
 import MapMarkerIdentity from "./MapMarkerIdentity";
+
 const Map = ReactMapboxGl({
   accessToken: credentials.MAP_ACCESS_TOCKEN
 });
@@ -231,7 +232,6 @@ class Home extends React.Component {
           center={[center.longitude, center.latitude]}
         >
           <MapMarkerIdentity handleOnChange={this.handleOnChange} />
-
           {mapMarker
             ? mapMarker.map((marker, index) => {
                 const { location, objType } = marker;
