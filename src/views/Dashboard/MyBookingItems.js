@@ -25,6 +25,9 @@ import loginPageStyle from "assets/jss/material-kit-react/views/loginPage.jsx";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+
+import CountDownTimer from "./CountDownTimer";
+
 import { TinyButton as ScrollUpButton } from "react-scroll-up-button";
 
 const StyledTableCell = withStyles(theme => ({
@@ -145,7 +148,7 @@ class MyBookingItems extends Component {
                         <Table style={{ minWidth: "700" }}>
                           <TableHead>
                             <TableRow>
-                              <StyledTableCell>Event Id</StyledTableCell>
+                              <StyledTableCell>Remaining Time</StyledTableCell>
                               <StyledTableCell>Booking Date</StyledTableCell>
                               <StyledTableCell>Custom Services</StyledTableCell>
                               <StyledTableCell>Package Details</StyledTableCell>
@@ -155,7 +158,9 @@ class MyBookingItems extends Component {
                           <TableBody>
                             <StyledTableRow key={index}>
                               <StyledTableCell component="th" scope="row">
-                                {item.eventId}
+                                
+                                <CountDownTimer remainingTime={item.bookingDate}/>
+
                               </StyledTableCell>
                               <StyledTableCell>
                                 {new Intl.DateTimeFormat(
