@@ -114,6 +114,7 @@ class VenueDetail extends React.Component {
     };
     this.props.changeObjStatus(newObjStatus);
     console.log(objStatus);
+    this.successNotifiy("Successfully Archive............!")
   };
   successNotifiy = message => toast.success(message);
 
