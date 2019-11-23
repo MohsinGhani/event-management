@@ -31,8 +31,8 @@ import { TinyButton as ScrollUpButton } from "react-scroll-up-button";
 
 const StyledTableCell = withStyles(theme => ({
   head: {
-    backgroundColor: theme.palette.primary.main,
-    color: theme.palette.common.white
+    backgroundColor: "#C9CDD1",
+    color: theme.palette.common.black
   },
   body: {
     fontSize: 14
@@ -42,7 +42,7 @@ const StyledTableCell = withStyles(theme => ({
 const StyledTableRow = withStyles(theme => ({
   root: {
     "&:nth-of-type(odd)": {
-      backgroundColor: theme.palette.text.hint
+      backgroundColor: theme.palette.common.default
     }
   }
 }))(TableRow);
@@ -105,7 +105,7 @@ class MyBookingItems extends Component {
         ) : getBookingItemLoader ? (
           <GlobleLoader getBookingItemLoader={getBookingItemLoader} />
         ) : (
-          <ExpansionPanel>
+          <ExpansionPanel style={{ margin: "0px 15px 0px 15px" }}>
             <ExpansionPanelSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1bh-content"
@@ -117,12 +117,14 @@ class MyBookingItems extends Component {
               <Typography
                 style={{
                   fontSize: "larger",
-                  fontWeight: "500"
+                  fontWeight: "500",
+                  width: "100%"
                 }}
               >
                 Booked Details
               </Typography>
             </ExpansionPanelSummary>
+
             {bookingItem ? (
               bookingItem.map((item, index) => {
                 var options = {

@@ -1,15 +1,28 @@
 import React, { Component } from "react";
+import Warning from "components/Typography/Warning.jsx";
+import FeedBackForm from "./FeedBackForm";
 import Countdown, { zeroPad } from "react-countdown-now";
 
-export default class CountDownTimer extends Component {
-  // Random component
-  Completionist = () => <span>You are good to go!</span>;
+// Random component
+const Completionist = () => {
+  return (
+    <div>
+      <Warning>Your Event Time Is About To End....!</Warning>
+      <FeedBackForm />
+    </div>
+  );
+};
 
+export default class CountDownTimer extends Component {
   // Renderer callback with condition
   renderer = ({ hours, days, minutes, seconds, completed }) => {
     if (completed) {
       // Render a complete state
-      return <span>{this.Completionist}</span>;
+      return (
+        <span>
+          <Completionist />
+        </span>
+      );
     } else {
       // Render a countdown
       return (
@@ -17,7 +30,7 @@ export default class CountDownTimer extends Component {
           className="counter"
           style={{
             display: "flex",
-            justifyContent: "flex-start",
+            justifyContent: "flex-start"
           }}
         >
           <div
@@ -53,7 +66,8 @@ export default class CountDownTimer extends Component {
     return (
       <div>
         <Countdown
-          date={new Date(remainingTime) + Date.now()}
+          date={new Date(1574511660000) + Date.now()}
+          // date={new Date(remainingTime) + Date.now()}
           renderer={this.renderer}
         />
       </div>
