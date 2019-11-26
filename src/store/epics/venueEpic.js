@@ -19,7 +19,8 @@ import {
   GET_BOOKING_ITEM,
   GET_VENUE_FOR_BOOKED_DETAILS,
   GET_ORDER_CONFIRMATION_ITEM,
-  GET_PENDING_STATUS_VENUES
+  GET_PENDING_STATUS_VENUES,
+  CREATE_FEEDBACK
 } from "../constants";
 import { db } from "../../firebase/FireBase";
 import auth from "../../firebase/FireBase";
@@ -83,6 +84,29 @@ export default class venueEpic {
         .catch(err => {
           return venueAction.createPackagesFailure(
             `Error in create package! ${err}`
+          );
+        });
+    });
+
+  /////////////////////////// cretae feedbacks form
+
+  static createFeedback = action$ =>
+    action$.ofType(CREATE_FEEDBACK).switchMap(({ payload }) => {
+      debugger;
+      return Observable.fromPromise(
+        db
+          .collection("feedback")
+          .doc()
+          .set(payload)
+      )
+        .switchMap(doc => {
+          debugger;
+          return Observable.of(venueAction.createFeedbackSuccess(payload));
+        })
+        .catch(err => {
+          debugger;
+          return venueAction.createFeedbackFailure(
+            `Error in Save venue! ${err}`
           );
         });
     });
@@ -279,6 +303,7 @@ export default class venueEpic {
         });
     });
 
+   
   ///////////////////////////  get user venue on dashboard
 
   static getVenuesByUserId = action$ =>
