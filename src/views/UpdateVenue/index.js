@@ -150,11 +150,11 @@ class UpdateVenue extends Component {
     }
 
     if (prevProps.venue !== venue && venue) {
-      debugger;
+      
       console.log(venue);
       const { vid } = this.props.match.params;
       console.log(vid);
-      debugger;
+      
       this.setState({
         name: venue.name,
         phone: venue.phone,
@@ -349,9 +349,9 @@ class UpdateVenue extends Component {
               console.log("sum=", sum);
 
               console.log("second iteration");
-              debugger;
+              
               if (this.state.files.length === sum) {
-                debugger;
+                
                 const {
                   name,
                   phone,
