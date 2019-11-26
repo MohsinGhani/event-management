@@ -4,11 +4,11 @@ import FeedBackForm from "./FeedBackForm";
 import Countdown, { zeroPad } from "react-countdown-now";
 
 // Random component
-const Completionist = () => {
+const Completionist = ({eventId}) => {
   return (
     <div>
       <Warning>Your Event Time Is About To End....!</Warning>
-      <FeedBackForm />
+      <FeedBackForm eventId={eventId}/>
     </div>
   );
 };
@@ -20,7 +20,7 @@ export default class CountDownTimer extends Component {
       // Render a complete state
       return (
         <span>
-          <Completionist />
+          <Completionist eventId={this.props.eventId} />
         </span>
       );
     } else {
@@ -62,11 +62,11 @@ export default class CountDownTimer extends Component {
     }
   };
   render() {
-    const { remainingTime } = this.props;
+    const { remainingTime, eventId } = this.props;
     return (
       <div>
         <Countdown
-          date={new Date(1574511660000) + Date.now()}
+          date={new Date(1574573657000) + Date.now()}
           // date={new Date(remainingTime) + Date.now()}
           renderer={this.renderer}
         />
