@@ -161,6 +161,7 @@ class MyBookingItems extends Component {
                               <StyledTableCell component="th" scope="row">
                                 <CountDownTimer
                                   remainingTime={item.bookingDate}
+                                  eventId={item.eventId}
                                 />
                               </StyledTableCell>
                               <StyledTableCell>
