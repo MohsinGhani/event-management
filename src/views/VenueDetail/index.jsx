@@ -54,10 +54,7 @@ class VenueDetail extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     const { venue } = this.props;
     if (prevProps.venue !== venue && venue) {
-      console.log(venue);
       const { vid } = this.props.match.params;
-      console.log(vid);
-
       this.setState({
         ...venue,
         objStatus: venue.objStatus,

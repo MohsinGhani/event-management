@@ -341,8 +341,8 @@ class AddVenue extends Component {
                   location: picked,
                   url,
                   userId: user && user.uid,
-                  status: 0,
-                  objStatus: 0,
+                  status: 0,  // delete, archive, unarchive
+                  objStatus: 0,  // pendding status, confirm status
                   createdTimestamp: new Date().getTime()
                 };
                 this.props.saveVenue(newDetails);
