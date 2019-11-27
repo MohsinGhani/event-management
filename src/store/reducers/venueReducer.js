@@ -46,7 +46,10 @@ import {
   GET_PENDING_STATUS_VENUES_FAILURE,
   CREATE_FEEDBACK,
   CREATE_FEEDBACK_SUCCESS,
-  CREATE_FEEDBACK_FAILURE
+  CREATE_FEEDBACK_FAILURE,
+  GET_FEEDBACKS,
+  GET_FEEDBACKS_SUCCESS,
+  GET_FEEDBACKS_FAILURE,
 } from "./../constants";
 // import { venues } from "./../../assets/venus";
 
@@ -109,7 +112,11 @@ const initialState = {
 
   feedback: null,
   createFeedbackLoader: false,
-  createFeedbackError: null
+  createFeedbackError: null,
+
+  feedbacked: null,
+  getFeedbackLoader: false,
+  getFeedbackError: null
 };
 
 export default function venueReducer(state = initialState, action) {
@@ -472,7 +479,6 @@ export default function venueReducer(state = initialState, action) {
     ///////////////////
 
     case CREATE_FEEDBACK:
-      debugger
       return {
         ...state,
         feedback: 0,
@@ -481,7 +487,6 @@ export default function venueReducer(state = initialState, action) {
       };
 
     case CREATE_FEEDBACK_SUCCESS:
-        debugger
       return {
         ...state,
         feedback: action.payload,
@@ -490,12 +495,37 @@ export default function venueReducer(state = initialState, action) {
       };
 
     case CREATE_FEEDBACK_FAILURE:
-        debugger
         return {
         ...state,
         feedback: 0,
         createFeedbackLoader: false,
-        createFeedbackError: "Can not Get Feedbacks"
+        createFeedbackError: "Can not Create Feedbacks"
+      };
+
+       ///////////////////
+
+    case GET_FEEDBACKS:
+      return {
+        ...state,
+        feedbacked: 0,
+        getFeedbackLoader: true,
+        getFeedbackError: null
+      };
+
+    case GET_FEEDBACKS_SUCCESS:
+      return {
+        ...state,
+        feedbacked: action.payload,
+        getFeedbackLoader: false,
+        getFeedbackError: null
+      };
+
+    case GET_FEEDBACKS_FAILURE:
+        return {
+        ...state,
+        feedbacked: 0,
+        getFeedbackLoader: false,
+        getFeedbackError: "Can not Get Feedbacks"
       };
 
     default:

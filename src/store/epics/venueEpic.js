@@ -20,7 +20,8 @@ import {
   GET_VENUE_FOR_BOOKED_DETAILS,
   GET_ORDER_CONFIRMATION_ITEM,
   GET_PENDING_STATUS_VENUES,
-  CREATE_FEEDBACK
+  CREATE_FEEDBACK,
+  GET_FEEDBACKS
 } from "../constants";
 import { db } from "../../firebase/FireBase";
 import auth from "../../firebase/FireBase";
@@ -107,6 +108,31 @@ export default class venueEpic {
           debugger;
           return venueAction.createFeedbackFailure(
             `Error in Save venue! ${err}`
+          );
+        });
+    });
+
+  /////////////////////////// get feedbacks data
+
+  static getFeedbacks = action$ =>
+    action$.ofType(GET_FEEDBACKS).mergeMap(({ payload }) => {
+      debugger;
+      // const { vid } = payload;
+      const feedbacks = [];
+      return db
+        .collection("feedback")
+        // .where("eventId", "==", vid)
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            feedbacks.push({ ...doc.data(), fid: doc.id });
+          });
+          console.log("event id with feedbacks: ", feedbacks);
+          return venueAction.getFeedbacksSuccess(feedbacks);
+        })
+        .catch(err => {
+          return venueAction.getArchiveVenuesFailure(
+            `Error in getting feedbacks! ${err}`
           );
         });
     });
@@ -303,7 +329,6 @@ export default class venueEpic {
         });
     });
 
-   
   ///////////////////////////  get user venue on dashboard
 
   static getVenuesByUserId = action$ =>

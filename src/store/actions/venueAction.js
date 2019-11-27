@@ -46,7 +46,10 @@ import {
   GET_PENDING_STATUS_VENUES_FAILURE,
   CREATE_FEEDBACK,
   CREATE_FEEDBACK_SUCCESS,
-  CREATE_FEEDBACK_FAILURE
+  CREATE_FEEDBACK_FAILURE,
+  GET_FEEDBACKS,
+  GET_FEEDBACKS_SUCCESS,
+  GET_FEEDBACKS_FAILURE,
 } from "./../constants";
 
 export class venueAction {
@@ -370,7 +373,7 @@ export class venueAction {
     };
   }
 
-  ///////////////// Feedbacks and reviews System
+  ///////////////// Creat Feedbacks and reviews System
 
   static createFeedback(payload) {
     debugger
@@ -392,6 +395,32 @@ export class venueAction {
     debugger
     return {
       type: CREATE_FEEDBACK_FAILURE,
+      payload: error
+    };
+  }
+
+  ///////////////// Get Feedbacks and reviews System
+
+  static getFeedbacks(payload) {
+    debugger
+    return {
+      type: GET_FEEDBACKS,
+      payload
+    };
+  }
+
+  static getFeedbacksSuccess(feedbacks) {
+    debugger
+    return {
+      type: GET_FEEDBACKS_SUCCESS,
+      payload: feedbacks
+    };
+  }
+
+  static getFeedbacksFailure(error) {
+    debugger
+    return {
+      type: GET_FEEDBACKS_FAILURE,
       payload: error
     };
   }

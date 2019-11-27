@@ -94,6 +94,10 @@ export const CREATE_FEEDBACK = "CREATE_FEEDBACK";
 export const CREATE_FEEDBACK_SUCCESS = "CREATE_FEEDBACK_SUCCESS";
 export const CREATE_FEEDBACK_FAILURE = "CREATE_FEEDBACK_FAILURE";
 
+export const GET_FEEDBACKS = "GET_FEEDBACKS";
+export const GET_FEEDBACKS_SUCCESS = "GET_FEEDBACKS_SUCCESS";
+export const GET_FEEDBACKS_FAILURE = "GET_FEEDBACKS_FAILURE";
+
 /*****************************  Get User Constants  *************************************/
 
 export const GET_USER_BY_ID = "GET_USER_BY_ID";
