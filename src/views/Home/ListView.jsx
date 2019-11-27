@@ -16,7 +16,9 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import GlobleLoader from "./GlobleLoader";
 
+import { listenEvents } from "react-mapbox-gl/lib/map-events";
 import RatingSystem from "./RatingSystem";
+import Feedback from "./Feedbacks";
 
 class ListView extends React.Component {
   constructor(props) {
@@ -44,13 +46,15 @@ class ListView extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getVenues();
+    const { getRating, getVenues } = this.props;
+    getVenues();
+    getRating();
   }
 
   render() {
-    const { getVenuesLoader } = this.props;
+    const { getVenuesLoader, getRating, feedbacked } = this.props;
     const { venues } = this.state;
-
+    debugger;
     return (
       <div>
         <AuthenticatedNavbar />
@@ -66,7 +70,18 @@ class ListView extends React.Component {
           <GlobleLoader getVenuesLoader={getVenuesLoader} />
           {venues &&
             venues.map((venue, i) => {
-              console.log("venues=>", venue);
+              debugger;
+              let combineRating = 0;
+              
+              if(feedbacked && feedbacked.length) {
+                const rate = feedbacked.filter(feed => venue.vid === feed.eventId);
+                console.log("rate: ",rate)
+
+                combineRating = rate.length ? rate[0].combineRating : 0;
+              }
+              // console.log("venue: ", venue, "feed: ", feed)
+              // console.log("rate: ", rate);
+
               return (
                 <GridItem md={4} key={i}>
                   <Card
@@ -173,7 +188,8 @@ class ListView extends React.Component {
                                 }}
                               >
                                 <div style={{ marginTop: "8px" }}>
-                                  <RatingSystem />
+                                  <RatingSystem combineRating={combineRating} />
+                                  {/* <Feedback vid={venue.vid} getRating={getRating} feedbacked={feedbacked} /> */}
                                 </div>
 
                                 <Button
@@ -204,22 +220,35 @@ class ListView extends React.Component {
 
 const mapStateToProps = state => {
   const {
-    venueReducer: { venues, getVenuesLoader, getVenuesError },
+    venueReducer: {
+      venues,
+      getVenuesLoader,
+      getVenuesError,
+      feedbacked,
+      getFeedbackLoader,
+      getFeedbackError
+    },
     authReducer: { user, isLoggedIn }
   } = state;
   return {
     venues,
     getVenuesLoader,
     getVenuesError,
+
     user,
-    isLoggedIn
+    isLoggedIn,
+
+    feedbacked,
+    getFeedbackLoader,
+    getFeedbackError
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     isLoggedInAction: payload => dispatch(authAction.isLoggedIn(payload)),
-    getVenues: () => dispatch(venueAction.getVenues())
+    getVenues: () => dispatch(venueAction.getVenues()),
+    getRating: payload => dispatch(venueAction.getFeedbacks(payload))
   };
 };
 

@@ -32,6 +32,7 @@ class Home extends React.Component {
         latitude: 24.86053553
       },
       popupInfo: null,
+      
       selectedType: "all"
     };
   }
@@ -41,7 +42,8 @@ class Home extends React.Component {
   };
 
   componentDidMount() {
-    this.props.getVenues();
+    const { getVenues } = this.props;
+    getVenues();
   }
 
   test = (event, object) => {
@@ -202,7 +204,7 @@ class Home extends React.Component {
   };
 
   render() {
-    const { venues } = this.props;
+    const { venues, } = this.props;
     const { center, selectedType } = this.state;
 
     let mapMarker = [];
@@ -378,14 +380,20 @@ class Home extends React.Component {
 
 const mapStateToProps = state => {
   const {
-    venueReducer: { venues, getVenuesLoader, getVenuesError },
+    venueReducer: {
+      venues,
+      getVenuesLoader,
+      getVenuesError,
+    },
     authReducer: { isLoggedIn }
   } = state;
   return {
     venues,
     getVenuesLoader,
     getVenuesError,
-    isLoggedIn
+
+    isLoggedIn,
+
   };
 };
 
@@ -393,7 +401,7 @@ const mapDispatchToProps = dispatch => {
   return {
     isLoggedInAction: payload => dispatch(authAction.isLoggedIn(payload)),
     logout: () => dispatch(authAction.logout()),
-    getVenues: () => dispatch(venueAction.getVenues())
+    getVenues: () => dispatch(venueAction.getVenues()),
   };
 };
 
