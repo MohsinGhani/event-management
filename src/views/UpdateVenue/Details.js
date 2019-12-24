@@ -30,8 +30,7 @@ class Details extends Component {
       description,
       bookingPerDay,
       handleDetailInput,
-
-      getVenueLoader
+      error
     } = this.props;
     return (
       <div>
@@ -47,7 +46,7 @@ class Details extends Component {
                 <GridItem xs={12} sm={2} md={2} lg={6}>
                   <CustomInput
                     labelText="Name"
-                    id="material"
+                    id="name"
                     formControlProps={{
                       fullWidth: true
                     }}
@@ -67,7 +66,7 @@ class Details extends Component {
                 <GridItem xs={12} sm={2} md={2} lg={6}>
                   <CustomInput
                     labelText="Phone"
-                    id="material"
+                    id="phone"
                     formControlProps={{
                       fullWidth: true
                     }}
@@ -87,7 +86,7 @@ class Details extends Component {
                 <GridItem xs={12} sm={2} md={2} lg={6}>
                   <CustomInput
                     labelText="Email"
-                    id="material"
+                    id="email"
                     formControlProps={{
                       fullWidth: true
                     }}
@@ -107,7 +106,7 @@ class Details extends Component {
                 <GridItem xs={12} sm={2} md={2} lg={6}>
                   <CustomInput
                     labelText="Address"
-                    id="material"
+                    id="address"
                     formControlProps={{
                       fullWidth: true
                     }}
@@ -126,7 +125,7 @@ class Details extends Component {
                 </GridItem>
                 <GridItem xs={12} sm={2} md={2} lg={6}>
                   <TextField
-                    id="standard-textarea"
+                    id="description"
                     label="Description"
                     multiline
                     type="text"
@@ -141,7 +140,7 @@ class Details extends Component {
                 <GridItem xs={12} sm={2} md={2} lg={6}>
                   <CustomInput
                     labelText="Booking Per Day"
-                    id="material"
+                    id="booking"
                     formControlProps={{
                       fullWidth: true
                     }}

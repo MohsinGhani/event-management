@@ -36,7 +36,7 @@ class ImageUploader extends Component {
                 return (
                   <div key={i}>
                     <img
-                      src={`./${file.name}`}
+                      src={file}
                       alt="upload images"
                       width="100px"
                       height="100px"

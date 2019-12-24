@@ -59,7 +59,7 @@ class ConfirmationModal extends Component {
           ) : (
             <>
               <LibraryBooks className={classes.icon} />
-              "Submit"
+              Submit
             </>
           )}
         </Button>

@@ -31,7 +31,7 @@ class SelectBar extends React.Component {
                 >
                   <InputLabel htmlFor="age-simple">Form Category</InputLabel>
                   <Select
-                    value={categorySelect.title}
+                    value={categorySelect}
                     onChange={categoryHandler}
                     inputProps={{
                       name: "categorySelect",

@@ -16,7 +16,6 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import GlobleLoader from "./GlobleLoader";
 
-import { listenEvents } from "react-mapbox-gl/lib/map-events";
 import RatingSystem from "./RatingSystem";
 import Feedback from "./Feedbacks";
 
@@ -54,7 +53,6 @@ class ListView extends React.Component {
   render() {
     const { getVenuesLoader, getRating, feedbacked } = this.props;
     const { venues } = this.state;
-    debugger;
     return (
       <div>
         <AuthenticatedNavbar />
@@ -70,7 +68,6 @@ class ListView extends React.Component {
           <GlobleLoader getVenuesLoader={getVenuesLoader} />
           {venues &&
             venues.map((venue, i) => {
-              debugger;
               let combineRating = 0;
               
               if(feedbacked && feedbacked.length) {

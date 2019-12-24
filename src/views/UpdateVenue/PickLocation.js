@@ -7,7 +7,6 @@ import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Button from "components/CustomButtons/Button.jsx";
-import ReactLoading from "react-loading";
 import withStyles from "@material-ui/core/styles/withStyles";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import javascriptStyles from "assets/jss/material-kit-react/views/componentsSections/javascriptStyles.jsx";
@@ -42,11 +41,7 @@ class PickLocation extends Component {
 
   render() {
     let {
-      saveVenueLoader,
-      successNotifiy,
       classes,
-      handelOnSaveAndUpload,
-      isDetailsButtonDisable
     } = this.props;
     const { mapModal, picked } = this.state;
     return (

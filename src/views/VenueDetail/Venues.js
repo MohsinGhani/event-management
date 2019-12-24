@@ -54,7 +54,6 @@ class Venues extends Component {
       bookingDate,
       handleOnDateChange,
       saveCustomBookingLoader,
-      successNotifiy,
       handleDeleteStatus,
       handleArchiveStatus,
       ConfirmModal,
@@ -99,8 +98,6 @@ class Venues extends Component {
                 round
                 onClick={() => {
                   handleDeleteStatus();
-                  this.goto("/list-view");
-                  successNotifiy("Card Successfully Deleted...!");
                 }}
               >
                 <Delete className={classes.icons} />
@@ -112,8 +109,6 @@ class Venues extends Component {
                 round
                 onClick={() => {
                   handleArchiveStatus();
-                  this.goto("/admin/archive-venues");
-                  successNotifiy("Card Successfully Archive...!");
                 }}
               >
                 <Archive className={classes.icons} />
@@ -292,7 +287,7 @@ class Venues extends Component {
                                   <Button
                                     onClick={() => handleToggleOnPackage(pack)}
                                   >
-                                    Add Package
+                                    Add/Remove Package
                                   </Button>
                                 </div>
                               </div>
@@ -332,7 +327,6 @@ class Venues extends Component {
                 bookingDate={bookingDate}
                 handleOnDateChange={handleOnDateChange}
                 saveCustomBookingLoader={saveCustomBookingLoader}
-                successNotifiy={successNotifiy}
                 ConfirmModal={ConfirmModal}
                 handleClickCreatePackageOpen={handleClickCreatePackageOpen}
                 handleCreatePackageClose={handleCreatePackageClose}

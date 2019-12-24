@@ -376,7 +376,6 @@ export class venueAction {
   ///////////////// Creat Feedbacks and reviews System
 
   static createFeedback(payload) {
-    debugger
     return {
       type: CREATE_FEEDBACK,
       payload
@@ -384,7 +383,6 @@ export class venueAction {
   }
 
   static createFeedbackSuccess(feedbacks) {
-    debugger
     return {
       type: CREATE_FEEDBACK_SUCCESS,
       payload: feedbacks
@@ -392,7 +390,6 @@ export class venueAction {
   }
 
   static createFeedbackFailure(error) {
-    debugger
     return {
       type: CREATE_FEEDBACK_FAILURE,
       payload: error
@@ -402,7 +399,6 @@ export class venueAction {
   ///////////////// Get Feedbacks and reviews System
 
   static getFeedbacks(payload) {
-    debugger
     return {
       type: GET_FEEDBACKS,
       payload
@@ -410,7 +406,6 @@ export class venueAction {
   }
 
   static getFeedbacksSuccess(feedbacks) {
-    debugger
     return {
       type: GET_FEEDBACKS_SUCCESS,
       payload: feedbacks
@@ -418,7 +413,6 @@ export class venueAction {
   }
 
   static getFeedbacksFailure(error) {
-    debugger
     return {
       type: GET_FEEDBACKS_FAILURE,
       payload: error

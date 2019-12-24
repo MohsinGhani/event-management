@@ -10,34 +10,25 @@ import CardBody from "components/Card/CardBody";
 import GridContainer from "components/Grid/GridContainer";
 import GridItem from "components/Grid/GridItem";
 import Button from "components/CustomButtons/Button.jsx";
-import AuthenticatedNavbar from "./../../components/common/AuthenticatedNavbar";
-import Archive from "@material-ui/icons/Unarchive";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import GlobleLoader from "./GlobleLoader";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
 import RatingSystem from "./RatingSystem";
+import SuccessTostify from "./../GlobleCompnenets/Tostify/SuccessTostify"
+
 
 class ArchiveView extends React.Component {
   componentDidMount() {
     const { getArchiveVenues, user } = this.props;
     getArchiveVenues({ userId: user.uid });
-    // getArchiveVenues()
   }
 
   handleUnArchiveStatus = venue => {
     this.props.changeObjStatus({ ...venue, objStatus: 1 });
-    this.successNotifiy("Venue is Successfully Un-Archive")
-
+    SuccessTostify("Successfull Un-Archive")
     this.goto("/admin/my-venues");
-
-    this.successNotifiy(
-      "Form Successfully Submited...!"
-    );
   };
-  successNotifiy = message => toast.success(message);
+  
 
   goto = path => {
     this.props.history.push(path);
@@ -51,9 +42,6 @@ class ArchiveView extends React.Component {
           margin: "0 auto"
         }}
       >
-        {/* <AuthenticatedNavbar /> */}
-          <ToastContainer />
-
         <CardHeader color="primary" style={{ marginTop: "2px" }}>
           <h4
             className={classes.cardTitleWhite}
@@ -92,7 +80,6 @@ class ArchiveView extends React.Component {
           ) : (
             archiveVenues &&
             archiveVenues.map((archiveVenue, i) => {
-              console.log("archiveVenues=>", archiveVenue);
               return (
                 <GridItem md={4} key={i}>
                   <Card
@@ -209,10 +196,8 @@ class ArchiveView extends React.Component {
                                   round
                                   onClick={() => {
                                     this.handleUnArchiveStatus(archiveVenue);
-                                    this.successNotifiy("Venue is Successfully Un-Archive...........!")
                                   }}
                                 >
-                                  {/* <Archive className={classes.icons} /> */}
                                   Un Archive
                                 </Button>
                               </div>

@@ -13,12 +13,9 @@ import CreateServiceFacilities from "./CreateServiceFacilities";
 import ImageUploader from "./ImageUploader";
 import { storage } from "../../firebase/FireBase";
 import PickLocation from "./PickLocation";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import Button from "components/CustomButtons/Button.jsx";
-import ReactLoading from "react-loading";
 import ConfirmationModal from "./ConfirmationModal";
-
+import SuccessTostify from "./../GlobleCompnenets/Tostify/SuccessTostify";
+import WarrningTostify from "./../GlobleCompnenets/Tostify/WarrningTostify";
 
 const dummyCategories = [
   { title: "Venue", id: "venue" },
@@ -144,6 +141,15 @@ class AddVenue extends Component {
   //   }
   // }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { saveVenueError, saveVenueLoader } = this.props;
+    if (prevProps.saveVenueLoader !== saveVenueLoader && saveVenueLoader) {
+      SuccessTostify("Success! But wait for few hours Admin will aproved");
+    } else if (prevProps.saveVenueError !== saveVenueError && saveVenueError) {
+      WarrningTostify("Something went wrong.");
+    }
+  }
+
   handleClickOpen = modal => {
     var x = [];
     x[modal] = true;
@@ -179,9 +185,6 @@ class AddVenue extends Component {
     x[modal] = false;
     this.setState(x);
   };
-
-  successNotifiy = message => toast.success(message);
-  warningNotifiy = message => toast.warning(message);
 
   handleUploadClose = () => {
     this.setState({
@@ -341,12 +344,11 @@ class AddVenue extends Component {
                   location: picked,
                   url,
                   userId: user && user.uid,
-                  status: 0,  // delete, archive, unarchive
-                  objStatus: 0,  // pendding status, confirm status
+                  status: 0, // delete, archive, unarchive
+                  objStatus: 0, // pendding status, confirm status
                   createdTimestamp: new Date().getTime()
                 };
                 this.props.saveVenue(newDetails);
-                this.successNotifiy("Form Successfully Submited...!");
                 this.handleClickAddVenueOpen("confirmModal");
                 this.setState({
                   name: "",
@@ -368,7 +370,6 @@ class AddVenue extends Component {
             });
         });
     });
-    this.warningNotifiy("But in few movenment Admin will aproved");
   };
 
   render() {
@@ -396,7 +397,7 @@ class AddVenue extends Component {
       isDetailsButtonDisable
     } = this.state;
 
-    const { saveVenueLoader, classes } = this.props;
+    const { saveVenueLoader } = this.props;
     return (
       <div>
         <AuthenticatedNavbar />
@@ -407,7 +408,6 @@ class AddVenue extends Component {
           categoryHandler={this.categoryHandler}
           categories={dummyCategories}
         />
-        <ToastContainer />
         <Details
           name={name}
           phone={phone}
@@ -458,27 +458,6 @@ class AddVenue extends Component {
             marginTop: "10px"
           }}
         >
-          {" "}
-          {/* <Button
-            variant="outlined"
-            color="success"
-            disabled={isDetailsButtonDisable}
-            onClick={() => {
-              this.handelOnSaveAndUpload();
-              this.successNotifiy("Form Successfully Submited...!");
-            }}
-          >
-            {saveVenueLoader ? (
-              <ReactLoading
-                type={"spin"}
-                color={"#ffff"}
-                // height={'100px'}
-                // width={'100px'}
-              />
-            ) : (
-              "Submit"
-            )}
-          </Button> */}
           <ConfirmationModal
             goto={this.goto}
             isDetailsButtonDisable={isDetailsButtonDisable}

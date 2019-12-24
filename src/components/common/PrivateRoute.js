@@ -23,7 +23,7 @@ class PrivateRoute extends Component {
               <Component {...props} />
             </div>
           ) : (
-            <Redirect to="/login" />
+            <Redirect to={`/login?redirect=${props.location.pathname}${props.location.search}`} />
           )
         }
       />

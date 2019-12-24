@@ -10,14 +10,13 @@ import CardBody from "components/Card/CardBody";
 import GridContainer from "components/Grid/GridContainer";
 import GridItem from "components/Grid/GridItem";
 import Button from "components/CustomButtons/Button.jsx";
-import AuthenticatedNavbar from "./../../components/common/AuthenticatedNavbar";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import GlobleLoader from "./GlobleLoader";
 
 import RatingSystem from "./RatingSystem";
 
-class MyVenues extends React.Component {
+class PendingVenuesStatus extends React.Component {
   componentDidMount() {
     const { getPendingStatusVenuesDetails, user } = this.props;
     getPendingStatusVenuesDetails({ userId: user.uid });
@@ -34,7 +33,6 @@ class MyVenues extends React.Component {
     } = this.props;
     return (
       <div style={{ margin: "auto 0" }}>
-        {/* <AuthenticatedNavbar /> */}
         <CardHeader color="primary" style={{ marginTop: "2px" }}>
           <h4
             className={classes.cardTitleWhite}
@@ -57,7 +55,7 @@ class MyVenues extends React.Component {
             marginTop: "15px"
           }}
         >
-          {pendingStatusVenues && pendingStatusVenues.length == 0 ? (
+          {pendingStatusVenues && pendingStatusVenues.length === 0 ? (
             <Card style={{ padding: "15px", margin: 0, marginTop: "20px" }}>
               <CardBody>
                 <h1
@@ -241,4 +239,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(withStyles(loginPageStyle)(MyVenues)));
+)(withRouter(withStyles(loginPageStyle)(PendingVenuesStatus)));

@@ -72,7 +72,6 @@ class Booking extends Component {
       saveCustomBooking,
       bookingDate,
       handleOnDateChange,
-      successNotifiy,
       saveCustomBookingLoader,
       venue,
       user,
@@ -225,7 +224,6 @@ class Booking extends Component {
                             color="success"
                             disabled={isBookingButtonDisable}
                             onClick={() => {
-                              successNotifiy("Booking Successfully Done....!");
                               saveCustomBooking();
                             }}
                           >

@@ -93,7 +93,6 @@ export default class venueEpic {
 
   static createFeedback = action$ =>
     action$.ofType(CREATE_FEEDBACK).switchMap(({ payload }) => {
-      debugger;
       return Observable.fromPromise(
         db
           .collection("feedback")
@@ -101,11 +100,9 @@ export default class venueEpic {
           .set(payload)
       )
         .switchMap(doc => {
-          debugger;
           return Observable.of(venueAction.createFeedbackSuccess(payload));
         })
         .catch(err => {
-          debugger;
           return venueAction.createFeedbackFailure(
             `Error in Save venue! ${err}`
           );
@@ -116,7 +113,6 @@ export default class venueEpic {
 
   static getFeedbacks = action$ =>
     action$.ofType(GET_FEEDBACKS).mergeMap(({ payload }) => {
-      debugger;
       // const { vid } = payload;
       const feedbacks = [];
       return db
@@ -367,11 +363,13 @@ export default class venueEpic {
     action$.ofType(GET_BOOKING_ITEM).mergeMap(({ payload }) => {
       // let user = auth.currentUser.uid;
       const { userId, vid } = payload;
+      console.log(payload)
       const bookingItem = [];
       if (userId) {
         return db
           .collection("booking")
           .where("userId", "==", userId)
+          .where("bookingStatus", "==", 0)
           .get()
           .then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
@@ -394,6 +392,7 @@ export default class venueEpic {
         return db
           .collection("booking")
           .where("eventId", "==", vid)
+          .where("bookingStatus", "==", 1)
           .get()
           .then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {

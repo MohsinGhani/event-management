@@ -10,7 +10,6 @@ import CardBody from "components/Card/CardBody";
 import GridContainer from "components/Grid/GridContainer";
 import GridItem from "components/Grid/GridItem";
 import Button from "components/CustomButtons/Button.jsx";
-import AuthenticatedNavbar from "./../../components/common/AuthenticatedNavbar";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import GlobleLoader from "./GlobleLoader";
@@ -30,7 +29,6 @@ class MyVenues extends React.Component {
     const { classes, getVenuesByUserId, getVenuesByUserIdLoader } = this.props;
     return (
       <div style={{ margin: "auto 0" }}>
-        {/* <AuthenticatedNavbar /> */}
         <CardHeader color="primary" style={{ marginTop: "2px" }}>
           <h4
             className={classes.cardTitleWhite}
@@ -51,7 +49,7 @@ class MyVenues extends React.Component {
             marginTop: "15px"
           }}
         >
-          {getVenuesByUserId && getVenuesByUserId.length == 0 ? (
+          {getVenuesByUserId && getVenuesByUserId.length === 0 ? (
             <Card style={{ padding: "15px", margin: 0, marginTop: "20px" }}>
               <CardBody>
                 <h1

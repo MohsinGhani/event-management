@@ -116,7 +116,11 @@ const initialState = {
 
   feedbacked: null,
   getFeedbackLoader: false,
-  getFeedbackError: null
+  getFeedbackError: null,
+
+  changeObjStatus: null,
+  changeObjStatusLoader: false,
+  changeObjStatusError: null
 };
 
 export default function venueReducer(state = initialState, action) {

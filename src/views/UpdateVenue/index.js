@@ -11,11 +11,10 @@ import CreateServiceFacilities from "./CreateServiceFacilities";
 import ImageUploader from "./ImageUploader";
 import { storage } from "../../firebase/FireBase";
 import PickLocation from "./PickLocation";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import ReactLoading from "react-loading";
 import Button from "components/CustomButtons/Button.jsx";
-import ContentLoader, { Facebook } from "react-content-loader";
+import GlobleLoader from "./GlobleLoader";
+import SuccessTostify from "./../GlobleCompnenets/Tostify/SuccessTostify";
 
 const dummyCategories = [
   { title: "Venue", id: "venue" },
@@ -50,6 +49,7 @@ class UpdateVenue extends Component {
       bookingPerDay: "",
       vid: "",
       isDetailsButtonDisable: true,
+      objType: "",
 
       error: {
         categorySelect: null,
@@ -132,7 +132,8 @@ class UpdateVenue extends Component {
       bookingPerDay,
       serviesFacilities,
       categorySelect,
-      picked
+      picked,
+      objType
     } = this.state;
     const { venue } = this.props;
     if (
@@ -150,11 +151,10 @@ class UpdateVenue extends Component {
     }
 
     if (prevProps.venue !== venue && venue) {
-      
       console.log(venue);
       const { vid } = this.props.match.params;
       console.log(vid);
-      
+
       this.setState({
         name: venue.name,
         phone: venue.phone,
@@ -166,6 +166,7 @@ class UpdateVenue extends Component {
         bookingPerDay: venue.bookingPerDay,
         serviesFacilities: venue.serviesFacilities,
         categorySelect: venue.categorySelect,
+        objType: venue.objType,
         picked: venue.picked
       });
     }
@@ -201,8 +202,6 @@ class UpdateVenue extends Component {
     mapModal[modal] = false;
     this.setState(mapModal);
   };
-
-  successNotifiy = message => toast.success(message);
 
   handleUploadClose = () => {
     this.setState({
@@ -262,51 +261,51 @@ class UpdateVenue extends Component {
     });
   };
 
-  handelOnSaveAndUpload = () => {
-    const { user } = this.props;
-    const {
-      name,
-      phone,
-      email,
-      address,
-      description,
-      bookingPerDay,
-      serviesFacilities,
-      url,
-      categorySelect,
-      picked,
-      vid
-    } = this.state;
-    const newDetails = {
-      name,
-      phone,
-      email,
-      address,
-      description,
-      bookingPerDay,
-      serviesFacilities,
-      objType: categorySelect,
-      location: picked,
-      url,
-      vid,
-      userId: user && user.uid,
-      updatedTimestamp: new Date().getTime()
-    };
-    this.props.updateVenueFunc(newDetails);
-    this.setState({
-      name: "",
-      phone: "",
-      email: "",
-      address: "",
-      description: "",
-      bookingPerDay: "",
-      url: [],
-      categorySelect: [],
-      files: [],
-      serviesFacilities: [],
-      picked: null
-    });
-  };
+  // handelOnSaveAndUpload = () => {
+  //   const { user } = this.props;
+  //   const {
+  //     name,
+  //     phone,
+  //     email,
+  //     address,
+  //     description,
+  //     bookingPerDay,
+  //     serviesFacilities,
+  //     url,
+  //     categorySelect,
+  //     picked,
+  //     vid
+  //   } = this.state;
+  //   const newDetails = {
+  //     name,
+  //     phone,
+  //     email,
+  //     address,
+  //     description,
+  //     bookingPerDay,
+  //     serviesFacilities,
+  //     objType: categorySelect,
+  //     location: picked,
+  //     url,
+  //     vid,
+  //     userId: user && user.uid,
+  //     updatedTimestamp: new Date().getTime()
+  //   };
+  //   this.props.updateVenueFunc(newDetails);
+  //   this.setState({
+  //     name: "",
+  //     phone: "",
+  //     email: "",
+  //     address: "",
+  //     description: "",
+  //     bookingPerDay: "",
+  //     url: [],
+  //     categorySelect: [],
+  //     files: [],
+  //     serviesFacilities: [],
+  //     picked: null
+  //   });
+  // };
 
   goto = path => {
     this.props.history.push(path);
@@ -349,9 +348,8 @@ class UpdateVenue extends Component {
               console.log("sum=", sum);
 
               console.log("second iteration");
-              
+
               if (this.state.files.length === sum) {
-                
                 const {
                   name,
                   phone,
@@ -383,8 +381,7 @@ class UpdateVenue extends Component {
                   updatedTimestamp: new Date().getTime()
                 };
                 this.props.updateVenueFunc(newDetails);
-                this.successNotifiy("Form Successfully Submited...!");
-
+                SuccessTostify("Form Successfully Submited...!");
                 this.setState({
                   name: "",
                   phone: "",
@@ -436,7 +433,9 @@ class UpdateVenue extends Component {
       progress,
       files,
       url,
-      isDetailsButtonDisable
+      isDetailsButtonDisable,
+
+      objType
     } = this.state;
 
     const { updateVenueLoader, getVenueLoader } = this.props;
@@ -446,37 +445,18 @@ class UpdateVenue extends Component {
         <br />
 
         {getVenueLoader ? (
-          <ContentLoader
-            height={150}
-            width={400}
-            speed={1}
-            primaryColor="#e40358"
-            secondaryColor="#ecebeb"
-          >
-            <rect x="80" y="0" rx="3" ry="3" width="250" height="05" />
-            <rect x="100" y="20" rx="3" ry="3" width="220" height="05" />
-            <rect x="100" y="40" rx="3" ry="3" width="170" height="05" />
-            <rect x="80" y="60" rx="3" ry="3" width="250" height="05" />
-            <rect x="100" y="80" rx="3" ry="3" width="200" height="05" />
-            <rect x="100" y="100" rx="3" ry="3" width="80" height="05" />
-
-            <rect x="100" y="120" rx="3" ry="3" width="220" height="05" />
-            <rect x="100" y="140" rx="3" ry="3" width="170" height="05" />
-            <rect x="80" y="160" rx="3" ry="3" width="250" height="05" />
-            <rect x="100" y="180" rx="3" ry="3" width="200" height="05" />
-            <rect x="100" y="200" rx="3" ry="3" width="80" height="05" />
-
-            <rect x="100" y="220" rx="3" ry="3" width="200" height="05" />
-            <rect x="100" y="240" rx="3" ry="3" width="80" height="05" />
-          </ContentLoader>
+          <GlobleLoader getVenueLoader={getVenueLoader} />
         ) : (
+          //     ""
+          //   )}
+          // </div>
           <>
             <Selectbar
               categorySelect={categorySelect}
               categoryHandler={this.categoryHandler}
               categories={dummyCategories}
+              objType={objType}
             />
-            <ToastContainer />
 
             <Details
               name={name}

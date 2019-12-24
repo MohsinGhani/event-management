@@ -7,8 +7,8 @@ import AuthenticatedNavbar from "./../../components/common/AuthenticatedNavbar";
 import carouselStyle from "assets/jss/material-kit-react/views/componentsSections/carouselStyle.jsx";
 import Venues from "./Venues";
 import GlobleLoader from "./GlobleLoader";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import SuccessTostify from "../GlobleCompnenets/Tostify/SuccessTostify";
+import WarrningTostify from "../GlobleCompnenets/Tostify/WarrningTostify";
 
 class VenueDetail extends React.Component {
   constructor(props) {
@@ -65,16 +65,13 @@ class VenueDetail extends React.Component {
 
   componentDidMount() {
     const { vid } = this.props.match.params;
-    const { getVenue, getPackages,
-      bookingItem,
-      allBookingItem } = this.props;
+    const { getVenue, getPackages, bookingItem, allBookingItem } = this.props;
 
     getVenue(vid);
 
     getPackages({ vid: vid && vid });
 
-    allBookingItem({vid: vid && vid})
-
+    allBookingItem({ vid: vid && vid });
   }
 
   handleOnDateChange = date => {
@@ -88,21 +85,20 @@ class VenueDetail extends React.Component {
   handleDeleteStatus = () => {
     const { user, venue } = this.props;
     const { objStatus, vid } = this.state;
-    console.log(objStatus);
     const newObjStatus = {
       ...venue,
-      objStatus: 0,
+      objStatus: 3,
       vid,
       userId: user && user.uid
     };
     this.props.changeObjStatus(newObjStatus);
-    console.log(objStatus);
+    WarrningTostify("Successfully Deleted");
+    this.goto("/admin/my-venues");
   };
 
   handleArchiveStatus = () => {
     const { user, venue } = this.props;
     const { objStatus, vid } = this.state;
-    console.log(objStatus);
     const newObjStatus = {
       ...venue,
       objStatus: 2,
@@ -110,10 +106,9 @@ class VenueDetail extends React.Component {
       userId: user && user.uid
     };
     this.props.changeObjStatus(newObjStatus);
-    console.log(objStatus);
-    this.successNotifiy("Successfully Archive............!")
+    SuccessTostify("Archive Successfull");
+    this.goto("/admin/archive-venues");
   };
-  successNotifiy = message => toast.success(message);
 
   goto = path => {
     this.props.history.push(path);
@@ -133,8 +128,10 @@ class VenueDetail extends React.Component {
       servicesBookingPrice,
       bookingDate,
       packageArray,
+      bookingStatus: 0,
       createdTimestamp: new Date().getTime()
     };
+    SuccessTostify("Booked Successfull")
     this.props.saveCustomBooking(bookingDetail);
     this.goto("/admin/my-booking-item");
     this.setState({
@@ -196,21 +193,21 @@ class VenueDetail extends React.Component {
   };
 
   // handleToggleOnPackage = (value, index) => {
-  //   
+  //
   //   const {packageArray } =this.state
   //   let { packages } = this.props;
-  //   
+  //
 
   //   // check the value in array thorugh filter
 
   //   var isExist = packages.filter(service => {
-  //     
+  //
 
   //     return service.packageObj === value.packages[value.i].packageObj;
   //   });
 
   //   if (isExist.length) {
-  //     
+  //
   //     this.setState({
   //       packageArray
   //     });
@@ -220,28 +217,25 @@ class VenueDetail extends React.Component {
 
   handleToggleOnPackage = value => {
     let { packageArray } = this.state;
-    
+
     // check the value in array thorugh filter
-    
+
     var isExist = packageArray.filter(pack => {
-      
       return pack.packageObj === value.packageObj;
     });
     console.log(isExist);
     if (isExist.length) {
       // remove array is exit through filter
       var removePrice = packageArray.filter(pack => {
-        
         return pack.packageObj !== value.packageObj;
       });
-      
+
       this.setState({
         packageArray: removePrice
       });
     } else {
-      
       packageArray.push(value);
-      
+
       this.setState({
         packageArray
       });
@@ -300,15 +294,12 @@ class VenueDetail extends React.Component {
       packageArray,
       isBookingButtonDisable
     } = this.state;
-    // console.log("packages=>", packages);
-    console.log("item: ", bookingItem)
     return (
       <div>
         <div>
           <AuthenticatedNavbar />
           <GlobleLoader getVenueLoader={getVenueLoader} />
         </div>
-        <ToastContainer />
 
         {venue ? (
           <Venues
@@ -325,7 +316,6 @@ class VenueDetail extends React.Component {
             handleToggle={this.handleToggleOnService}
             saveCustomBooking={this.saveCustomBooking}
             handleOnDateChange={this.handleOnDateChange}
-            successNotifiy={this.successNotifiy}
             handleDeleteStatus={this.handleDeleteStatus}
             handleArchiveStatus={this.handleArchiveStatus}
             handleChangeEnabled={this.handleChangeEnabled}
@@ -410,7 +400,7 @@ const mapDispatchToProps = dispatch => {
     createCustomPackages: payload =>
       dispatch(venueAction.createPackages(payload)),
     getPackages: vid => dispatch(venueAction.getPackages(vid)),
-    allBookingItem: (payload) => dispatch(venueAction.getBookingItem(payload))
+    allBookingItem: payload => dispatch(venueAction.getBookingItem(payload))
   };
 };
 

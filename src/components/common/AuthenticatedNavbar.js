@@ -44,7 +44,10 @@ class AuthenticatedNavbar extends React.Component {
                   <Button
                     className={"switch-button"}
                     variant="outline-success"
-                    onClick={this.props.switchUserMode}
+                    onClick={() => {
+                      this.goto("/");
+                      this.props.switchUserMode();
+                    }}
                     color="transparent"
                   >
                     <Icon className={classes.icons}>swap_horiz</Icon>{" "}

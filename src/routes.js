@@ -14,19 +14,20 @@ import MyVenues from "views/Dashboard/MyVenues.jsx";
 import MyBookingItems from "views/Dashboard/MyBookingItems.js";
 import PendingVenuesStatus from "views/Dashboard/PendingVenuesStatus.js";
 import ArchiveVenues from "views/Dashboard/ArchiveVenues.js";
+import PendingBookingItems from "./views/Dashboard/PendingBookingItems";
 import Typography from "views/Typography/Typography.jsx";
 import Icons from "views/Icons/Icons.jsx";
 import Maps from "views/Maps/Maps.jsx";
 import NotificationsPage from "views/Notifications/Notifications.jsx";
 import List from "@material-ui/icons/List";
-import BookingList from "@material-ui/icons/Event"
-import Feedback from "@material-ui/icons/Feedback"
-import Archive from "@material-ui/icons/Archive"
+import BookingList from "@material-ui/icons/Event";
+import Feedback from "@material-ui/icons/Feedback";
+import Archive from "@material-ui/icons/Archive";
+import PendingBooking from "@material-ui/icons/Announcement";
 
 // core components/views for RTL layout
 
 const dashboardRoutes = [
-
   {
     path: "/my-venues",
     name: "My Venues",
@@ -42,6 +43,13 @@ const dashboardRoutes = [
     layout: "/admin"
   },
   {
+    path: "/pending-booking-item",
+    name: "Pending Booking Item",
+    icon: PendingBooking,
+    component: PendingBookingItems,
+    layout: "/admin"
+  },
+  {
     path: "/my-booking-item",
     name: "My Booking Item",
     icon: BookingList,
@@ -54,15 +62,7 @@ const dashboardRoutes = [
     icon: Feedback,
     component: PendingVenuesStatus,
     layout: "/admin"
-  },
-  // {
-  //   path: "/dashboard",
-  //   name: "Dashboard",
-  //   rtlName: "لوحة القيادة",
-  //   icon: Dashboard,
-  //   component: DashboardPage,
-  //   layout: "/admin"
-  // },
+  }
   // {
   //   path: "/user",
   //   name: "Profile",

@@ -13,7 +13,13 @@ import CardBody from "dashboard-components/Card/CardBody.jsx";
 
 class SelectBar extends React.Component {
   render() {
-    const { classes, categoryHandler, categorySelect, categories } = this.props
+    const {
+      classes,
+      categoryHandler,
+      categorySelect,
+      categories,
+      objType
+    } = this.props;
     return (
       <GridContainer
         style={{ padding: "0", maxWidth: "1024px", margin: "0 auto" }}
@@ -31,7 +37,13 @@ class SelectBar extends React.Component {
                 >
                   <InputLabel htmlFor="age-simple">Form Category</InputLabel>
                   <Select
-                    value={categorySelect && categorySelect.title ? categorySelect.title : ""}
+                    value={
+                      categorySelect && categorySelect
+                        ? categorySelect
+                        : objType && objType.title
+                        ? objType.title
+                        : ""
+                    }
                     onChange={categoryHandler}
                     inputProps={{
                       name: "categorySelect",
