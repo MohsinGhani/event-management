@@ -50,6 +50,13 @@ import {
   GET_FEEDBACKS,
   GET_FEEDBACKS_SUCCESS,
   GET_FEEDBACKS_FAILURE,
+  GET_PENDING_BOOKING_STATUS,
+  GET_PENDING_BOOKING_STATUS_SUCCESS,
+  GET_PENDING_BOOKING_STATUS_FAILURE,
+  GET_PENDING_BOOKING_APPROVAL,
+  GET_PENDING_BOOKING_APPROVAL_SUCCESS,
+  GET_PENDING_BOOKING_APPROVAL_FAILURE,
+  
 } from "./../constants";
 
 export class venueAction {
@@ -349,6 +356,53 @@ export class venueAction {
       payload: error
     };
   }
+
+    /////////////////////////// get pending booking status on deshboard section
+
+    static getPendingBookingStatus(payload) {
+      return {
+        type: GET_PENDING_BOOKING_STATUS,
+        payload
+      };
+    }
+  
+    static getPendingBookingStatusSuccess(payload) {
+      return {
+        type: GET_PENDING_BOOKING_STATUS_SUCCESS,
+        payload: payload
+      };
+    }
+  
+    static getPendingBookingStatusFailure(error) {
+      return {
+        type: GET_PENDING_BOOKING_STATUS_FAILURE,
+        payload: error
+      };
+    }
+
+    
+    /////////////////////////// get Aproved booking item on deshboard section
+
+    static getPendingBookingApproval(payload) {
+      return {
+        type: GET_PENDING_BOOKING_APPROVAL,
+        payload
+      };
+    }
+  
+    static getPendingBookingApprovalSuccess(payload) {
+      return {
+        type: GET_PENDING_BOOKING_APPROVAL_SUCCESS,
+        payload: payload
+      };
+    }
+  
+    static getPendingBookingApprovalFailure(error) {
+      return {
+        type: GET_PENDING_BOOKING_APPROVAL_FAILURE,
+        payload: error
+      };
+    }
 
   /////////////////
 

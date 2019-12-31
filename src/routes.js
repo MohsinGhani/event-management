@@ -24,6 +24,7 @@ import BookingList from "@material-ui/icons/Event";
 import Feedback from "@material-ui/icons/Feedback";
 import Archive from "@material-ui/icons/Archive";
 import PendingBooking from "@material-ui/icons/Announcement";
+import ApproveBookingItems from "./views/Dashboard/ApproveBookingItems";
 
 // core components/views for RTL layout
 
@@ -50,6 +51,13 @@ const dashboardRoutes = [
     layout: "/admin"
   },
   {
+    path: "/approve-booking-item",
+    name: "Approve Booking Item",
+    icon: PendingBooking,
+    component: ApproveBookingItems,
+    layout: "/admin"
+  },
+  {
     path: "/my-booking-item",
     name: "My Booking Item",
     icon: BookingList,
@@ -62,15 +70,8 @@ const dashboardRoutes = [
     icon: Feedback,
     component: PendingVenuesStatus,
     layout: "/admin"
-  }
-  // {
-  //   path: "/user",
-  //   name: "Profile",
-  //   rtlName: "ملف تعريفي للمستخدم",
-  //   icon: Person,
-  //   component: UserProfile,
-  //   layout: "/admin"
-  // },
+  },
+  
   // {
   //   path: "/table",
   //   name: "Manage Orders",

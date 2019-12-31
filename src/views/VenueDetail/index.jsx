@@ -118,6 +118,8 @@ class VenueDetail extends React.Component {
     const { vid } = this.props.match.params;
     let user = this.props.user;
 
+    const { venue } = this.props;
+
     const { servicesBookingPrice, bookingDate, packageArray } = this.state;
     this.setState({
       eventId: vid
@@ -129,8 +131,9 @@ class VenueDetail extends React.Component {
       bookingDate,
       packageArray,
       bookingStatus: 0,
-      createdTimestamp: new Date().getTime()
-    };
+      createdTimestamp: new Date().getTime(),
+      eventCreatorId: venue && venue.userId
+    }
     SuccessTostify("Booked Successfull")
     this.props.saveCustomBooking(bookingDetail);
     this.goto("/admin/my-booking-item");
@@ -259,7 +262,7 @@ class VenueDetail extends React.Component {
       servicePackages,
       discountAmount,
       eventId: vid,
-      userId: user && user.uid
+      userId: user && user.uid,
     };
     createCustomPackages(newPackage);
     console.log(newPackage);

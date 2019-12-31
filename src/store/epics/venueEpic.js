@@ -21,10 +21,11 @@ import {
   GET_ORDER_CONFIRMATION_ITEM,
   GET_PENDING_STATUS_VENUES,
   CREATE_FEEDBACK,
-  GET_FEEDBACKS
+  GET_FEEDBACKS,
+  GET_PENDING_BOOKING_STATUS,
+  GET_PENDING_BOOKING_APPROVAL
 } from "../constants";
 import { db } from "../../firebase/FireBase";
-import auth from "../../firebase/FireBase";
 
 /////////////////////////// Get location latitude and logitude
 
@@ -115,22 +116,24 @@ export default class venueEpic {
     action$.ofType(GET_FEEDBACKS).mergeMap(({ payload }) => {
       // const { vid } = payload;
       const feedbacks = [];
-      return db
-        .collection("feedback")
-        // .where("eventId", "==", vid)
-        .get()
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            feedbacks.push({ ...doc.data(), fid: doc.id });
-          });
-          console.log("event id with feedbacks: ", feedbacks);
-          return venueAction.getFeedbacksSuccess(feedbacks);
-        })
-        .catch(err => {
-          return venueAction.getArchiveVenuesFailure(
-            `Error in getting feedbacks! ${err}`
-          );
-        });
+      return (
+        db
+          .collection("feedback")
+          // .where("eventId", "==", vid)
+          .get()
+          .then(querySnapshot => {
+            querySnapshot.forEach(doc => {
+              feedbacks.push({ ...doc.data(), fid: doc.id });
+            });
+            console.log("event id with feedbacks: ", feedbacks);
+            return venueAction.getFeedbacksSuccess(feedbacks);
+          })
+          .catch(err => {
+            return venueAction.getArchiveVenuesFailure(
+              `Error in getting feedbacks! ${err}`
+            );
+          })
+      );
     });
 
   /////////////////////////// update or edit your form details
@@ -363,18 +366,18 @@ export default class venueEpic {
     action$.ofType(GET_BOOKING_ITEM).mergeMap(({ payload }) => {
       // let user = auth.currentUser.uid;
       const { userId, vid } = payload;
-      console.log(payload)
+      console.log(payload);
       const bookingItem = [];
       if (userId) {
         return db
           .collection("booking")
           .where("userId", "==", userId)
-          .where("bookingStatus", "==", 0)
+          .where("bookingStatus", "==", 1)
           .get()
           .then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
               // doc.data() is never undefined for query doc snapshots
-              bookingItem.push({ ...doc.data(), vid: doc.id });
+              bookingItem.push({ ...doc.data(), bid: doc.id });
               console.log(doc.id, " => ", doc.data());
               // props.getMyProducts(doc.data());
             });
@@ -382,8 +385,6 @@ export default class venueEpic {
             return venueAction.getBookingItemSuccess(bookingItem);
           })
           .catch(function(error) {
-            console.log("Error getting documents: ", error);
-            alert("ops no product Add some product");
             venueAction.getBookingItemFailure(
               `Error in getting venue! ${error}`
             );
@@ -397,22 +398,70 @@ export default class venueEpic {
           .then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
               // doc.data() is never undefined for query doc snapshots
-              bookingItem.push({ ...doc.data(), vid: doc.id });
-              console.log(doc.id, " => ", doc.data());
+              bookingItem.push({ ...doc.data(), bid: doc.id });
               // props.getMyProducts(doc.data());
             });
 
             return venueAction.getBookingItemSuccess(bookingItem);
           })
           .catch(function(error) {
-            console.log("Error getting documents: ", error);
-            alert("ops no product Add some product");
             venueAction.getBookingItemFailure(
               `Error in getting venue! ${error}`
             );
           });
       }
     });
+
+  /////////////////////////// get pending booking Status in dashboard section
+
+  static getPendingBookingStatus = action$ =>
+    action$.ofType(GET_PENDING_BOOKING_STATUS).mergeMap(({ payload }) => {
+      const { userId } = payload;
+      const pendingBooking = [];
+      return db
+        .collection("booking")
+        .where("userId", "==", userId)
+        .where("bookingStatus", "==", 0)
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            pendingBooking.push({...doc.data(),  bid: doc.id});
+          });
+          console.log(pendingBooking)
+          return venueAction.getPendingBookingStatusSuccess(pendingBooking);
+        })
+        .catch(error => {
+          venueAction.getPendingBookingStatusFailure(
+            `Error in getting pending status ${error}`
+          );
+        });
+    });
+
+      /////////////////////////// get pending booking Approval in dashboard section
+
+  static getPendingBookingApproval = action$ =>
+  action$.ofType(GET_PENDING_BOOKING_APPROVAL).mergeMap(({ payload }) => {
+    const { userId } = payload;
+    const bookingApproval = [];
+    return db
+      .collection("booking")
+      .where("eventCreatorId", "==", userId)
+      .where("bookingStatus", "==", 0)
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          bookingApproval.push({...doc.data(),  bookingApprovalID: doc.id});
+        });
+        console.log(bookingApproval)
+        return venueAction.getPendingBookingApprovalSuccess(bookingApproval);
+      })
+      .catch(error => {
+        venueAction.getPendingBookingApprovalFailure(
+          `Error in getting pending status ${error}`
+        );
+      });
+  });
+
 
   /////////////////////////// get pending status venues in dashboard section
 
@@ -421,7 +470,6 @@ export default class venueEpic {
       // let user = auth.currentUser.uid;
       const { userId } = payload;
       const ven = [];
-
       return db
         .collection("services")
         .where("userId", "==", userId)

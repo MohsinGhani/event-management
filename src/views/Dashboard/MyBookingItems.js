@@ -88,6 +88,7 @@ class MyBookingItems extends Component {
             My Booking Items
           </h4>
         </CardHeader>
+
         {bookingItem && bookingItem.length == 0 ? (
           <Card style={{ padding: "15px", margin: 0, marginTop: "20px" }}>
             <CardBody>

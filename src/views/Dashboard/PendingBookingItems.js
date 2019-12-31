@@ -1,236 +1,266 @@
-import React, { Fragment } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import withStyles from "@material-ui/core/styles/withStyles";
-import loginPageStyle from "assets/jss/material-kit-react/views/loginPage.jsx";
-import { authAction, venueAction } from "./../../store/actions";
+import { authAction, venueAction } from "../../store/actions";
+import GlobleLoader from "./GlobleLoader";
+import GridContainer from "components/Grid/GridContainer";
 import Card from "components/Card/Card";
 import CardHeader from "components/Card/CardHeader";
 import CardBody from "components/Card/CardBody";
-import GridContainer from "components/Grid/GridContainer";
-import GridItem from "components/Grid/GridItem";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
 import Button from "components/CustomButtons/Button.jsx";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Carousel } from "react-responsive-carousel";
-import GlobleLoader from "./GlobleLoader";
+import TableCell from "@material-ui/core/TableCell";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
+import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import Typography from "@material-ui/core/Typography";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import AuthenticatedNavbar from "../../components/common/AuthenticatedNavbar";
+import loginPageStyle from "assets/jss/material-kit-react/views/loginPage.jsx";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-import RatingSystem from "./RatingSystem";
+import CountDownTimer from "./CountDownTimer";
 
-class PendingBookingItems extends React.Component {
-    componentDidMount() {
-    }
-    goto = path => {
-      this.props.history.push(path);
-    };
-  
-    render() {
-      const {
-        classes,
-        pendingStatusVenues,
-        getPendingStatusVenuesLoader
-      } = this.props;
-      return (
-        <div style={{ margin: "auto 0" }}>
-          <CardHeader color="primary" style={{ marginTop: "2px" }}>
-            <h4
-              className={classes.cardTitleWhite}
-              style={{
-                textAlign: "center",
-                marginTop: "10px"
-              }}
-            >
-              Pending Booking Items
-            </h4>
-          </CardHeader>
-          {/* <GlobleLoader
-            getPendingStatusVenuesLoader={getPendingStatusVenuesLoader}
-          /> */}
-          <GridContainer
-            style={{
-              padding: "0 15px",
-              maxWidth: "1024px",
-              margin: "0 auto",
-              marginTop: "15px"
-            }}
-          >
-            {/* {pendingStatusVenues && pendingStatusVenues.length === 0 ? (
-              <Card style={{ padding: "15px", margin: 0, marginTop: "20px" }}>
-                <CardBody>
-                  <h1
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      color: "red"
-                    }}
-                  >
-                    No Pending Request For Venue
-                  </h1>
-                </CardBody>
-              </Card>
-            ) : (
-              pendingStatusVenues &&
-              pendingStatusVenues.map((pendingVenue, i) => {
-                return (
-                  <GridItem md={4} key={i}>
-                    <Card
-                      children={
-                        <Fragment>
-                          <CardHeader
-                            style={{
-                              position: "inherit",
-                              opacity: 0.9,
-                              display: "flex"
-                            }}
-                            color={"primary"}
-                          >
-                            <p
-                              title={pendingVenue.name}
-                              style={{
-                                width: "100%",
-                                overflow: "hidden",
-                                whiteSpace: "nowrap",
-                                textOverflow: "ellipsis",
-                                margin: "5px 0 5px 0"
-                              }}
-                            >
-                              {pendingVenue.name}
-                            </p>
-                          </CardHeader>
-                          <CardBody
-                            className="card-body"
-                            style={{ color: "gray" }}
-                          >
-                            <Carousel
-                              showThumbs={false}
-                              showIndicators={false}
-                              autoPlay={true}
-                              infiniteLoop={true}
-                            >
-                              {pendingVenue.url.map(source => (
-                                <img
-                                  src={source}
-                                  alt="some-img"
-                                  width="100%"
-                                  height="160px"
-                                  style={{
-                                    // marginTop: "-36px",
-                                    borderTopLeftRadius: 5,
-                                    borderTopRightRadius: 5
-                                  }}
-                                />
-                              ))}
-                            </Carousel>
-                            <div className="card-body-info">
-                              <div>
-                                <div
-                                  className="address"
-                                  style={{ display: "flex", paddingTop: "5px" }}
-                                >
-                                  <i
-                                    class="fas fa-map-marker-alt"
-                                    style={{ padding: "10px 5px 0 0" }}
-                                  ></i>
-                                  <p
-                                    title={pendingVenue.address}
-                                    style={{
-                                      width: "100%",
-                                      overflow: "hidden",
-                                      whiteSpace: "nowrap",
-                                      textOverflow: "ellipsis",
-                                      margin: "5px 0 0 0"
-                                    }}
-                                  >
-                                    {pendingVenue.address}
-                                  </p>
-                                </div>
-  
-                                <div className="contact">
-                                  <i
-                                    class="fas fa-phone"
-                                    style={{ padding: "10px 5px 0 0" }}
-                                  ></i>
-                                  {pendingVenue.phone}
-                                </div>
-                                <div className="email">
-                                  <i
-                                    class="fas fa-envelope"
-                                    style={{ padding: "10px 5px 0 0" }}
-                                  ></i>
-                                  {pendingVenue.email}
-                                </div>
-                                <div className="type">
-                                  <i
-                                    class="fas fa-list-ul"
-                                    style={{ padding: "10px 5px 0 0" }}
-                                  ></i>
-                                  {pendingVenue.objType.title}
-                                </div>
-                              </div>
-  
-                              <div className="right-panel">
-                                <div
-                                  className="dtl-btn-wrapper"
-                                  style={{
-                                    display: "flex",
-                                    justifyContent: "space-between"
-                                  }}
-                                >
-                                  <div style={{ marginTop: "8px" }}>
-                                    <RatingSystem />
-                                  </div>
-                                  <Button
-                                    color="warning"
-                                    size="sm"
-                                    round
-                                    onClick={() =>
-                                      this.goto(
-                                        `/venue-detail/${pendingVenue.vid}`
-                                      )
-                                    }
-                                  >
-                                    Detail
-                                  </Button>
-                                </div>
-                              </div>
-                            </div>
-                          </CardBody>
-                        </Fragment>
-                      }
-                    />
-                  </GridItem>
-                );
-              })
-            )} */}
-          </GridContainer>
-        </div>
-      );
+import { TinyButton as ScrollUpButton } from "react-scroll-up-button";
+
+const StyledTableCell = withStyles(theme => ({
+  head: {
+    backgroundColor: "#C9CDD1",
+    color: theme.palette.common.black
+  },
+  body: {
+    fontSize: 14
+  }
+}))(TableCell);
+
+const StyledTableRow = withStyles(theme => ({
+  root: {
+    "&:nth-of-type(odd)": {
+      backgroundColor: theme.palette.common.default
     }
   }
-  
-  const mapStateToProps = state => {
+}))(TableRow);
+
+class PendingBookingItems extends React.Component {
+  componentDidMount() {
+    const { user, getPendingBookingStatusAction } = this.props;
+    getPendingBookingStatusAction({ userId: user.uid });
+  }
+  goto = path => {
+    this.props.history.push(path);
+  };
+
+  viewVenueDetaile = event => {
+    this.props.getBookingItemDetails(event);
+  };
+
+  render() {
     const {
-      authReducer: {},
-      venueReducer: {
-      }
-    } = state;
-    return {
-      
-    };
+      classes,
+      pendingBookingStatus,
+      getPendingBookingStatusLoader
+    } = this.props;
+    return (
+      <div style={{ margin: "auto 0" }}>
+        <div>
+          {" "}
+          <ScrollUpButton
+            StopPosition={0}
+            ShowAtPosition={150}
+            EasingType="easeOutCubic"
+            AnimationDuration={1000}
+            style={{ zIndex: "1" }}
+          />
+        </div>
+
+        {/* <AuthenticatedNavbar /> */}
+        <CardHeader color="primary" style={{ marginTop: "2px" }}>
+          <h4
+            className={classes.cardTitleWhite}
+            style={{
+              textAlign: "center",
+              marginTop: "10px"
+            }}
+          >
+            Pending Bookings Request
+          </h4>
+        </CardHeader>
+        {pendingBookingStatus && pendingBookingStatus.length == 0 ? (
+          <Card style={{ padding: "15px", margin: 0, marginTop: "20px" }}>
+            <CardBody>
+              <h1
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  color: "red"
+                }}
+              >
+                No Pending Bookings Request
+              </h1>
+            </CardBody>
+          </Card>
+        ) : getPendingBookingStatusLoader ? (
+          <GlobleLoader
+            getPendingBookingStatusLoader={getPendingBookingStatusLoader}
+          />
+        ) : (
+          <ExpansionPanel style={{ margin: "0px 15px 0px 15px" }}>
+            <ExpansionPanelSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1bh-content"
+              id="panel1bh-header"
+              style={{
+                marginTop: "20px"
+              }}
+            >
+              <Typography
+                style={{
+                  fontSize: "larger",
+                  fontWeight: "500",
+                  width: "100%"
+                }}
+              >
+                Booked Details
+              </Typography>
+            </ExpansionPanelSummary>
+
+            {pendingBookingStatus ? (
+              pendingBookingStatus.map((item, index) => {
+                var options = {
+                  weekday: "long",
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                  hour: "numeric",
+                  minute: "numeric",
+                  second: "numeric",
+                  hour12: true
+                };
+                return (
+                  <div className={"table-class"} style={{ marginTop: "10px" }}>
+                    <Paper
+                      style={{
+                        width: "100%",
+                        overflowX: "auto"
+                      }}
+                    >
+                      <ExpansionPanelDetails>
+                        <Table style={{ minWidth: "700" }}>
+                          <TableHead>
+                            <TableRow>
+                              <StyledTableCell>Booking Date</StyledTableCell>
+                              <StyledTableCell>Custom Services</StyledTableCell>
+                              <StyledTableCell>Package Details</StyledTableCell>
+                              <StyledTableCell>Action</StyledTableCell>
+                            </TableRow>
+                          </TableHead>
+                          <TableBody>
+                            <StyledTableRow key={index}>
+                              <StyledTableCell>
+                                {new Intl.DateTimeFormat(
+                                  "en-US",
+                                  options
+                                ).format(item.bookingDate)}
+                              </StyledTableCell>
+                              <StyledTableCell>
+                                {item.servicesBookingPrice.length &&
+                                item.servicesBookingPrice ? (
+                                  item.servicesBookingPrice.map((ser, i) => {
+                                    return <li key={i}>{ser.title}</li>;
+                                  })
+                                ) : (
+                                  <span>No Custom Services</span>
+                                )}
+                              </StyledTableCell>
+                              <StyledTableCell>
+                                {item.packageArray.length &&
+                                item.packageArray ? (
+                                  item.packageArray.map((pack, i) => {
+                                    return (
+                                      <div>
+                                        <h5 key={i}>{pack.packageObj}</h5>
+                                        {pack.servicePackages ? (
+                                          pack.servicePackages.map(
+                                            (packSer, i) => {
+                                              return (
+                                                <li key={i}>{packSer.title}</li>
+                                              );
+                                            }
+                                          )
+                                        ) : (
+                                          <span>No Package</span>
+                                        )}
+                                      </div>
+                                    );
+                                  })
+                                ) : (
+                                  <span>No Package Select</span>
+                                )}
+                              </StyledTableCell>
+                              <StyledTableCell>
+                                <Button
+                                  color="primary"
+                                  size="sm"
+                                  round
+                                  onClick={() =>
+                                    this.goto(`/venue-detail/${item.eventId}`)
+                                  }
+                                >
+                                  View Event Details
+                                </Button>
+                              </StyledTableCell>
+                            </StyledTableRow>
+                          </TableBody>
+                        </Table>
+                      </ExpansionPanelDetails>
+                    </Paper>
+                  </div>
+                );
+              })
+            ) : (
+              <span></span>
+            )}
+          </ExpansionPanel>
+        )}
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = state => {
+  const {
+    authReducer: { user, isLoggedIn },
+    venueReducer: {
+      pendingBookingStatus,
+      getPendingBookingStatusLoader,
+      getPendingBookingStatusError
+    }
+  } = state;
+  return {
+    user,
+    isLoggedIn,
+    pendingBookingStatus,
+    getPendingBookingStatusLoader,
+    getPendingBookingStatusError
   };
-  
-  const mapDispatchToProps = dispatch => {
-    return {
-      
-    };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getPendingBookingStatusAction: payload =>
+      dispatch(venueAction.getPendingBookingStatus(payload)),
+    isLoggedInAction: payload => dispatch(authAction.isLoggedIn(payload)),
+    getBookingItemDetails: eventId => dispatch(venueAction.getVenue(eventId))
   };
-  
-  export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(withRouter(withStyles(loginPageStyle)(PendingBookingItems)));
+};
 
-
-
-
-
-
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(withStyles(loginPageStyle)(PendingBookingItems)));

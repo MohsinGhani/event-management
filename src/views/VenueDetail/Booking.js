@@ -20,6 +20,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import "flatpickr/dist/themes/material_green.css";
 import Flatpickr from "react-flatpickr";
 import PackageModal from "./PackageModal";
+import TextField from "@material-ui/core/TextField";
+
 
 class Booking extends Component {
   state = {
@@ -150,6 +152,31 @@ class Booking extends Component {
                                 fontSize: "20px"
                               }}
                             />
+                            <TextField
+                              id="Contact Number"
+                              label="Contact Number"
+                              multiline
+                              type="number"
+                              name="contactNumber"
+                              // value={"dkkdsklskdldsklds"}
+                              // onChange={handleDetailInput}
+                              margin="normal"
+                              fullWidth
+                              style={{ marginTop: "10px" }}
+                            />
+                            <TextField
+                              id="Address"
+                              label="Address"
+                              multiline
+                              type="text"
+                              name="address"
+                              // value={"ksjkdsjkdsjkdsds"}
+                              // onChange={handleDetailInput}
+                              margin="normal"
+                              fullWidth
+                              style={{ marginTop: "10px" }}
+                            />
+                        
                           </div>
                         </GridItem>
                       </GridContainer>
@@ -184,7 +211,6 @@ class Booking extends Component {
                         <div className="package-booking">
                           {packageArray
                             ? packageArray.map(pack => {
-                                
                                 return (
                                   <div>
                                     <li>{pack.packageObj}</li>

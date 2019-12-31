@@ -65,7 +65,7 @@ class FeedBackForm extends Component {
 
   handleOnSave = () => {
     const { feedbackDetails, user, eventId } = this.props;
-    console.log("eventId: ", eventId)
+    console.log("eventId: ", eventId);
     const {
       privateSuggestion,
       publicSuggestion,
@@ -142,7 +142,7 @@ class FeedBackForm extends Component {
           >
             <div>
               <h4 style={{ fontWeight: 500, fontSize: "xx-large" }}>
-                Feedback Form
+                Client Feedback Form
               </h4>
             </div>
           </DialogTitle>
@@ -158,7 +158,8 @@ class FeedBackForm extends Component {
               {" "}
               <div>
                 <div style={{ fontWeight: 500 }}>
-                  How organized was the event?
+                  Was it convenient to book venue online rather than your direct
+                  approach?
                 </div>
                 <div>
                   <RatingSystem
@@ -170,7 +171,8 @@ class FeedBackForm extends Component {
               </div>
               <div>
                 <div style={{ fontWeight: 500 }}>
-                  How likely are you to recommend this event to a friend?
+                  What about your experience regarding our Professional team
+                  attitude?
                 </div>
                 <div>
                   <RatingSystem
@@ -182,7 +184,8 @@ class FeedBackForm extends Component {
               </div>
               <div>
                 <div style={{ fontWeight: 500 }}>
-                  How likely are you to attend one of our future events?
+                  How would you rate the experience of venue confirmation
+                  call/customer service?
                 </div>
                 <div>
                   <RatingSystem
@@ -194,7 +197,7 @@ class FeedBackForm extends Component {
               </div>
               <div>
                 <div style={{ fontWeight: 500 }}>
-                  How friendly was the staff?
+                  Were our services as per your required budget or requirements?
                 </div>
                 <div>
                   <RatingSystem
@@ -206,7 +209,7 @@ class FeedBackForm extends Component {
               </div>
               <div>
                 <div style={{ fontWeight: 500 }}>
-                  Please rate your thoughts on the event as a whole.
+                  How about your overall experience?
                 </div>
                 <div>
                   <RatingSystem
@@ -220,9 +223,8 @@ class FeedBackForm extends Component {
 
             <div>
               <div style={{ fontWeight: 500 }}>
-                What would you suggest as future growth opportunities for this
-                event? OR Are there any other comments or suggestions you'd like
-                to make?
+                Would you suggest for change or addition for some
+                features/options?
               </div>
               <TextField
                 id="outlined-multiline-static"

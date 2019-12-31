@@ -50,6 +50,12 @@ import {
   GET_FEEDBACKS,
   GET_FEEDBACKS_SUCCESS,
   GET_FEEDBACKS_FAILURE,
+  GET_PENDING_BOOKING_STATUS,
+  GET_PENDING_BOOKING_STATUS_SUCCESS,
+  GET_PENDING_BOOKING_STATUS_FAILURE,
+  GET_PENDING_BOOKING_APPROVAL,
+  GET_PENDING_BOOKING_APPROVAL_SUCCESS,
+  GET_PENDING_BOOKING_APPROVAL_FAILURE
 } from "./../constants";
 // import { venues } from "./../../assets/venus";
 
@@ -120,7 +126,15 @@ const initialState = {
 
   changeObjStatus: null,
   changeObjStatusLoader: false,
-  changeObjStatusError: null
+  changeObjStatusError: null,
+
+  pendingBookingStatus: null,
+  getPendingBookingStatusLoader: false,
+  getPendingBookingStatusError: null,
+
+  pendingBookingApproval: null,
+  getPendingBookingApprovalLoader: false,
+  getPendingBookingApprovalError: null
 };
 
 export default function venueReducer(state = initialState, action) {
@@ -299,6 +313,58 @@ export default function venueReducer(state = initialState, action) {
         pendingStatusVenues: null,
         getPendingStatusVenuesLoader: false,
         getPendingStatusVenuesError: "Can not Get Pending Venue by id"
+      };
+
+         //////////////////////// Get Pending Booking Status ////////////////////////
+
+    case GET_PENDING_BOOKING_STATUS:
+      return {
+        ...state,
+        pendingBookingStatus: null,
+        getPendingBookingStatusLoader: true,
+        getPendingBookingStatusError: null
+      };
+
+    case GET_PENDING_BOOKING_STATUS_SUCCESS:
+      return {
+        ...state,
+        pendingBookingStatus: action.payload,
+        getPendingBookingStatusLoader: false,
+        getPendingBookingStatusError: null
+      };
+
+    case GET_PENDING_BOOKING_STATUS_FAILURE:
+      return {
+        ...state,
+        pendingBookingStatus: null,
+        getPendingBookingStatusLoader: false,
+        getPendingBookingStatusError: "Can not Get Pending Booking Status"
+      };
+
+               //////////////////////// Get Pending Booking Approval ////////////////////////
+
+    case GET_PENDING_BOOKING_APPROVAL:
+      return {
+        ...state,
+        pendingBookingApproval: null,
+        getPendingBookingApprovalLoader: true,
+        getPendingBookingApprovalError: null
+      };
+
+    case GET_PENDING_BOOKING_APPROVAL_SUCCESS:
+      return {
+        ...state,
+        pendingBookingApproval: action.payload,
+        getPendingBookingApprovalLoader: false,
+        getPendingBookingApprovalError: null
+      };
+
+    case GET_PENDING_BOOKING_APPROVAL_FAILURE:
+      return {
+        ...state,
+        pendingBookingApproval: null,
+        getPendingBookingApprovalLoader: false,
+        getPendingBookingApprovalError: "Can not Get Pending Booking Approval"
       };
 
     //////////////////////// Create Package ////////////////////////

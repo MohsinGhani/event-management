@@ -66,8 +66,8 @@ export default class CountDownTimer extends Component {
     return (
       <div>
         <Countdown
-          // date={new Date(1574573657000) + Date.now()}
-          date={new Date(remainingTime) + Date.now()}
+          date={new Date(1574573657000) + Date.now()}
+          // date={new Date(remainingTime) + Date.now()}
           renderer={this.renderer}
         />
       </div>
