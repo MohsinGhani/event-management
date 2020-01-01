@@ -84,12 +84,13 @@ class VenueDetail extends React.Component {
 
   handleDeleteStatus = () => {
     const { user, venue } = this.props;
-    const { objStatus, vid } = this.state;
+    const { vid } = this.state;
     const newObjStatus = {
       ...venue,
       objStatus: 3,
-      vid,
-      userId: user && user.uid
+      userId: user && user.uid, 
+      itemId: vid,
+      collectionName: "services"
     };
     this.props.changeObjStatus(newObjStatus);
     WarrningTostify("Successfully Deleted");
@@ -98,12 +99,13 @@ class VenueDetail extends React.Component {
 
   handleArchiveStatus = () => {
     const { user, venue } = this.props;
-    const { objStatus, vid } = this.state;
+    const { vid } = this.state;
     const newObjStatus = {
       ...venue,
       objStatus: 2,
-      vid,
-      userId: user && user.uid
+      userId: user && user.uid,
+      itemId: vid,
+      collectionName: "services"
     };
     this.props.changeObjStatus(newObjStatus);
     SuccessTostify("Archive Successfull");
@@ -114,7 +116,7 @@ class VenueDetail extends React.Component {
     this.props.history.push(path);
   };
 
-  saveCustomBooking = () => {
+  saveBooking = () => {
     const { vid } = this.props.match.params;
     let user = this.props.user;
 
@@ -134,14 +136,45 @@ class VenueDetail extends React.Component {
       createdTimestamp: new Date().getTime(),
       eventCreatorId: venue && venue.userId
     }
-    SuccessTostify("Booked Successfull")
-    this.props.saveCustomBooking(bookingDetail);
-    this.goto("/admin/my-booking-item");
+    this.props.saveBookingItemAction(bookingDetail);
+    this.goto(`/booking-step/${vid}`)
     this.setState({
       servicesBookingPrice: [],
       packageArray: []
     });
   };
+
+
+
+
+  // saveCustomBooking = () => {
+  //   const { vid } = this.props.match.params;
+  //   let user = this.props.user;
+
+  //   const { venue } = this.props;
+
+  //   const { servicesBookingPrice, bookingDate, packageArray } = this.state;
+  //   this.setState({
+  //     eventId: vid
+  //   });
+  //   const bookingDetail = {
+  //     userId: user && user.uid,
+  //     eventId: vid,
+  //     servicesBookingPrice,
+  //     bookingDate,
+  //     packageArray,
+  //     bookingStatus: 0,
+  //     createdTimestamp: new Date().getTime(),
+  //     eventCreatorId: venue && venue.userId
+  //   }
+  //   SuccessTostify("Booked Successfull")
+  //   this.props.saveCustomBooking(bookingDetail);
+  //   this.goto("/admin/pending-booking-item");
+  //   this.setState({
+  //     servicesBookingPrice: [],
+  //     packageArray: []
+  //   });
+  // };
 
   handleToggleOnService = value => {
     let { servicesBookingPrice } = this.state;
@@ -317,6 +350,7 @@ class VenueDetail extends React.Component {
             packageObj={packageObj}
             handleChangeEnabled={this.handleChangeEnabled}
             handleToggle={this.handleToggleOnService}
+            saveBooking={this.saveBooking}
             saveCustomBooking={this.saveCustomBooking}
             handleOnDateChange={this.handleOnDateChange}
             handleDeleteStatus={this.handleDeleteStatus}
@@ -403,7 +437,8 @@ const mapDispatchToProps = dispatch => {
     createCustomPackages: payload =>
       dispatch(venueAction.createPackages(payload)),
     getPackages: vid => dispatch(venueAction.getPackages(vid)),
-    allBookingItem: payload => dispatch(venueAction.getBookingItem(payload))
+    allBookingItem: payload => dispatch(venueAction.getBookingItem(payload)),
+    saveBookingItemAction: payload => dispatch(venueAction.saveBookingItem(payload))
   };
 };
 

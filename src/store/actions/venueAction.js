@@ -32,6 +32,7 @@ import {
   GET_PACKAGES,
   GET_PACKAGES_SUCCESS,
   GET_PACKAGES_FAILURE,
+  SAVE_BOOKING_ITEM,
   GET_BOOKING_ITEM,
   GET_BOOKING_ITEM_SUCCESS,
   GET_BOOKING_ITEM_FAILURE,
@@ -334,6 +335,15 @@ export class venueAction {
     };
   }
 
+    /////////////////////////// save booking item on redux
+
+    static saveBookingItem(payload) {
+      return {
+        type: SAVE_BOOKING_ITEM,
+        payload
+      };
+    }
+    
   /////////////////////////// get booking item on deshboard section
 
   static getBookingItem(payload) {

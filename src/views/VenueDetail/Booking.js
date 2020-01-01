@@ -22,6 +22,7 @@ import Flatpickr from "react-flatpickr";
 import PackageModal from "./PackageModal";
 import TextField from "@material-ui/core/TextField";
 
+import { withRouter } from "react-router-dom";
 
 class Booking extends Component {
   state = {
@@ -29,13 +30,11 @@ class Booking extends Component {
   };
 
   makeDateFormate = items => {
-    
     return items.map(item => {
       return makeFormate(item.bookingDate);
     });
 
     function makeFormate(date) {
-      
       return (
         new Date(date).getFullYear() +
         "-" +
@@ -48,7 +47,7 @@ class Booking extends Component {
 
   componentDidMount() {
     const { bookingItem } = this.props;
-    
+
     if (bookingItem && bookingItem.length) {
       const newData = this.makeDateFormate(bookingItem);
       this.setState({
@@ -59,7 +58,7 @@ class Booking extends Component {
 
   componentDidUpdate(prevProps) {
     const { bookingItem } = this.props;
-    
+
     if (bookingItem && bookingItem !== prevProps.bookingItem) {
       const newData = this.makeDateFormate(bookingItem);
       this.setState({
@@ -67,6 +66,10 @@ class Booking extends Component {
       });
     }
   }
+
+  goto = path => {
+    this.props.history.push(path);
+  };
 
   render() {
     const {
@@ -96,7 +99,8 @@ class Booking extends Component {
       packageArray,
       bookingItem,
       allBookingItem,
-      isBookingButtonDisable
+      isBookingButtonDisable,
+      saveBooking
     } = this.props;
     let totalPrice = 0;
     let packagePrice = 0;
@@ -105,11 +109,11 @@ class Booking extends Component {
     const { disableDates } = this.state;
     // let card = packageArray
     //   ? packageArray.map(p => {
-    //       
+    //
     //       p.servicePackages.map(s => {
-    //         
+    //
     //         packagePrice += (parseInt(s.price) / 100) * p.discountAmount;
-    //         
+    //
     //         return <li>{s.price}</li>;
     //       });
     //     })
@@ -152,7 +156,7 @@ class Booking extends Component {
                                 fontSize: "20px"
                               }}
                             />
-                            <TextField
+                            {/* <TextField
                               id="Contact Number"
                               label="Contact Number"
                               multiline
@@ -175,8 +179,7 @@ class Booking extends Component {
                               margin="normal"
                               fullWidth
                               style={{ marginTop: "10px" }}
-                            />
-                        
+                            /> */}
                           </div>
                         </GridItem>
                       </GridContainer>
@@ -249,20 +252,21 @@ class Booking extends Component {
                             variant="outlined"
                             color="success"
                             disabled={isBookingButtonDisable}
-                            onClick={() => {
-                              saveCustomBooking();
-                            }}
+                            // onClick={() => {
+                            //   saveCustomBooking();
+                            // }}
+                            onClick={saveBooking}
                           >
-                            {saveCustomBookingLoader ? (
+                            {/* {saveCustomBookingLoader ? (
                               <ReactLoading
                                 type={"spin"}
                                 color={"#ffff"}
                                 // height={'100px'}
                                 // width={'100px'}
                               />
-                            ) : (
-                              "Book Now"
-                            )}
+                            ) : ( */}
+                            Book Now
+                            {/* )} */}
                           </Button>
                         </div>
                       </div>
@@ -334,4 +338,4 @@ class Booking extends Component {
   }
 }
 
-export default withStyles(basicsStyle)(Booking);
+export default withRouter(withStyles(basicsStyle)(Booking));

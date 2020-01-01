@@ -162,12 +162,12 @@ export default class venueEpic {
 
   static changeObjStatus = action$ =>
     action$.ofType(CHANGE_OBJ_STATUS).switchMap(({ payload }) => {
-      const { vid } = payload;
+      const { itemId, collectionName } = payload;
 
       return Observable.fromPromise(
         db
-          .collection("services")
-          .doc(vid)
+          .collection(collectionName)
+          .doc(itemId)
           .set(payload)
       )
         .switchMap(() => {
@@ -288,7 +288,7 @@ export default class venueEpic {
   static getVenueForBookedDetails = action$ =>
     action$.ofType(GET_VENUE_FOR_BOOKED_DETAILS).mergeMap(({ payload }) => {
       const { vid } = payload;
-      let venue = [];
+      let venue = []; 
 
       return db
         .collection("services")
@@ -425,9 +425,9 @@ export default class venueEpic {
         .get()
         .then(querySnapshot => {
           querySnapshot.forEach(doc => {
-            pendingBooking.push({...doc.data(),  bid: doc.id});
+            pendingBooking.push({ ...doc.data(), bid: doc.id });
           });
-          console.log(pendingBooking)
+          console.log(pendingBooking);
           return venueAction.getPendingBookingStatusSuccess(pendingBooking);
         })
         .catch(error => {
@@ -437,31 +437,30 @@ export default class venueEpic {
         });
     });
 
-      /////////////////////////// get pending booking Approval in dashboard section
+  /////////////////////////// get pending booking Approval in dashboard section
 
   static getPendingBookingApproval = action$ =>
-  action$.ofType(GET_PENDING_BOOKING_APPROVAL).mergeMap(({ payload }) => {
-    const { userId } = payload;
-    const bookingApproval = [];
-    return db
-      .collection("booking")
-      .where("eventCreatorId", "==", userId)
-      .where("bookingStatus", "==", 0)
-      .get()
-      .then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-          bookingApproval.push({...doc.data(),  bookingApprovalID: doc.id});
+    action$.ofType(GET_PENDING_BOOKING_APPROVAL).mergeMap(({ payload }) => {
+      const { userId } = payload;
+      const bookingApproval = [];
+      return db
+        .collection("booking")
+        .where("eventCreatorId", "==", userId)
+        .where("bookingStatus", "==", 0)
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            bookingApproval.push({ ...doc.data(), bookingApprovalID: doc.id });
+          });
+          console.log(bookingApproval);
+          return venueAction.getPendingBookingApprovalSuccess(bookingApproval);
+        })
+        .catch(error => {
+          venueAction.getPendingBookingApprovalFailure(
+            `Error in getting pending status ${error}`
+          );
         });
-        console.log(bookingApproval)
-        return venueAction.getPendingBookingApprovalSuccess(bookingApproval);
-      })
-      .catch(error => {
-        venueAction.getPendingBookingApprovalFailure(
-          `Error in getting pending status ${error}`
-        );
-      });
-  });
-
+    });
 
   /////////////////////////// get pending status venues in dashboard section
 

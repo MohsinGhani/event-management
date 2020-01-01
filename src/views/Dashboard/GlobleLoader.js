@@ -3,10 +3,22 @@ import ReactLoading from "react-loading";
 
 export default class GlobleLoader extends Component {
   render() {
-    const { getVenuesByUserIdLoader, getBookingItemLoader, getArchiveVenuesLoader, getPendingStatusVenuesLoader, getPendingBookingStatusLoader } = this.props;
+    const {
+      getVenuesByUserIdLoader,
+      getBookingItemLoader,
+      getArchiveVenuesLoader,
+      getPendingStatusVenuesLoader,
+      getPendingBookingStatusLoader,
+      getPendingBookingApprovalLoader
+    } = this.props;
     return (
       <div>
-        {getVenuesByUserIdLoader || getBookingItemLoader || getArchiveVenuesLoader || getPendingStatusVenuesLoader || getPendingBookingStatusLoader ? (
+        {getVenuesByUserIdLoader ||
+        getBookingItemLoader ||
+        getArchiveVenuesLoader ||
+        getPendingStatusVenuesLoader ||
+        getPendingBookingStatusLoader ||
+        getPendingBookingApprovalLoader ? (
           <div
             style={{
               margin: "0 auto",

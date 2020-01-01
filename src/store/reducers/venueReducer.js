@@ -32,6 +32,7 @@ import {
   GET_PACKAGES,
   GET_PACKAGES_SUCCESS,
   GET_PACKAGES_FAILURE,
+  SAVE_BOOKING_ITEM,
   GET_BOOKING_ITEM,
   GET_BOOKING_ITEM_SUCCESS,
   GET_BOOKING_ITEM_FAILURE,
@@ -107,6 +108,8 @@ const initialState = {
   bookingItem: null,
   getBookingItemLoader: false,
   getBookingItemError: null,
+
+  saveBookingItem: null,
 
   bookedVenue: null,
   getVenueForBookedDetailsLoader: false,
@@ -442,6 +445,14 @@ export default function venueReducer(state = initialState, action) {
         saveCustomBooking: null,
         saveCustomBookingLoader: false,
         saveCustomBookingError: "Can Not Booked"
+      };
+
+          ////////////////////
+
+    case SAVE_BOOKING_ITEM:
+      return {
+        ...state,
+        saveBookingItem: action.payload,
       };
 
     ////////////////////

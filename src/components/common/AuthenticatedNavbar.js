@@ -32,7 +32,6 @@ class AuthenticatedNavbar extends React.Component {
 
   render() {
     const { classes } = this.props;
-    console.log(this.props.userMood, "mood")
     return (
       <div className={classes.section}>
         <div id="navbar" className={classes.navbar}>

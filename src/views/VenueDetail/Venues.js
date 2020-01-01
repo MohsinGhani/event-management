@@ -75,7 +75,8 @@ class Venues extends Component {
       packageArray,
       bookingItem,
       allBookingItem,
-      isBookingButtonDisable
+      isBookingButtonDisable,
+      saveBooking
     } = this.props;
     // let totalPrice = 0;
     return (
@@ -323,6 +324,7 @@ class Venues extends Component {
                 venue={venue}
                 user={user}
                 bookingPrice={bookingPrice}
+                saveBooking={saveBooking}
                 saveCustomBooking={saveCustomBooking}
                 bookingDate={bookingDate}
                 handleOnDateChange={handleOnDateChange}
