@@ -52,6 +52,16 @@ class BookingStepper extends Component {
   };
 
   getStepContent = stepIndex => {
+    const {
+      name,
+      email,
+      contactNumber,
+      countryName,
+      stateName,
+      cityName,
+      address,
+      handleOnChange
+    } = this.props;
     switch (stepIndex) {
       case 0:
         return (
@@ -59,6 +69,10 @@ class BookingStepper extends Component {
             activeStep={this.state.activeStep}
             handleBack={this.handleBack}
             handleNext={this.handleNext}
+            name={name}
+            email={email}
+            contactNumber={contactNumber}
+            handleOnChange={handleOnChange}
           />
         );
       case 1:
@@ -67,6 +81,10 @@ class BookingStepper extends Component {
             activeStep={this.state.activeStep}
             handleBack={this.handleBack}
             handleNext={this.handleNext}
+            countryName={countryName}
+            stateName={stateName}
+            cityName={cityName}
+            address={address}
           />
         );
       case 2:

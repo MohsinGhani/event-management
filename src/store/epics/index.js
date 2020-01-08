@@ -30,7 +30,10 @@ const rootEpic = combineEpics(
   venueEpic.createFeedback,
   venueEpic.getFeedbacks,
   venueEpic.getPendingBookingStatus,
-  venueEpic.getPendingBookingApproval
+  venueEpic.getPendingBookingApproval,
+  venueEpic.getCountry,
+  venueEpic.getState,
+  venueEpic.getCity
 );
 
 export default rootEpic;

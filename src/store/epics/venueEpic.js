@@ -23,7 +23,10 @@ import {
   CREATE_FEEDBACK,
   GET_FEEDBACKS,
   GET_PENDING_BOOKING_STATUS,
-  GET_PENDING_BOOKING_APPROVAL
+  GET_PENDING_BOOKING_APPROVAL,
+  GET_COUNTRY,
+  GET_STATE,
+  GET_CITY
 } from "../constants";
 import { db } from "../../firebase/FireBase";
 
@@ -288,7 +291,7 @@ export default class venueEpic {
   static getVenueForBookedDetails = action$ =>
     action$.ofType(GET_VENUE_FOR_BOOKED_DETAILS).mergeMap(({ payload }) => {
       const { vid } = payload;
-      let venue = []; 
+      let venue = [];
 
       return db
         .collection("services")
@@ -489,6 +492,67 @@ export default class venueEpic {
           alert("ops no product Add some product");
           venueAction.getPendingStatusVenuesFailure(
             `Error in getting venue! ${error}`
+          );
+        });
+    });
+
+  /////////////////////////////////////////////////
+
+  static getCountry = action$ =>
+    action$.ofType(GET_COUNTRY).switchMap(() => {
+      return HttpService.get(path.GET_COUNTRY)
+        .switchMap(({ response }) => {
+          let countries = [];
+          Object.keys(response.result).map((key, i) => {
+            countries.push({ name: response.result[key], code: key });
+          });
+          return Observable.of(venueAction.getCountrySuccess(countries));
+        })
+        .catch(err => {
+          return Observable.of(
+            venueAction.getCountryFailure({ error: err.message })
+          );
+        });
+    });
+
+  /////////////////////////////////////////////////
+
+  static getState = action$ =>
+    action$.ofType(GET_STATE).switchMap(({ payload }) => {
+      const { countryCode } = payload;
+      return HttpService.get(`${path.GET_STATE}${countryCode}`)
+        .switchMap(({ response }) => {
+          let states = [];
+          Object.keys(response.result).map((key, i) => {
+            states.push({ name: response.result[key], code: key.slice(1, -1) });
+          });
+          return Observable.of(venueAction.getStateSuccess(states));
+        })
+        .catch(err => {
+          return Observable.of(
+            venueAction.getStateFailure({ error: err.message })
+          );
+        });
+    });
+
+  /////////////////////////////////////////////////
+
+  static getCity = action$ =>
+    action$.ofType(GET_CITY).switchMap(({ payload }) => {
+      const { countryCode, stateCode } = payload;
+      return HttpService.get(
+        `${path.GET_CITY}${countryCode}${path.city1}${stateCode}`
+      )
+        .switchMap(({ response }) => {
+          let cities = [];
+          Object.keys(response.result).map((key, i) => {
+            cities.push({ name: response.result[key], code: key.slice(1, -1) });
+          });
+          return Observable.of(venueAction.getCitySuccess(cities));
+        })
+        .catch(err => {
+          return Observable.of(
+            venueAction.getCityFailure({ error: err.message })
           );
         });
     });

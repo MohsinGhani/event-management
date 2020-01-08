@@ -2,7 +2,7 @@ import { ajax } from 'rxjs/ajax';
 
 export class HttpService {
     //Get request HTTP service
-    static get(url, headers = {}, responseType = 'text/xml; charset=utf-8') {
+    static get(url, headers = {}, responseType = 'json') {
         return ajax({
             url,
             method: 'GET',

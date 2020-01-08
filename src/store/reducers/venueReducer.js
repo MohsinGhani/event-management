@@ -56,7 +56,16 @@ import {
   GET_PENDING_BOOKING_STATUS_FAILURE,
   GET_PENDING_BOOKING_APPROVAL,
   GET_PENDING_BOOKING_APPROVAL_SUCCESS,
-  GET_PENDING_BOOKING_APPROVAL_FAILURE
+  GET_PENDING_BOOKING_APPROVAL_FAILURE,
+  GET_COUNTRY,
+  GET_COUNTRY_SUCCESS,
+  GET_COUNTRY_FAILURE,
+  GET_STATE,
+  GET_STATE_SUCCESS,
+  GET_STATE_FAILURE,
+  GET_CITY,
+  GET_CITY_SUCCESS,
+  GET_CITY_FAILURE
 } from "./../constants";
 // import { venues } from "./../../assets/venus";
 
@@ -137,7 +146,19 @@ const initialState = {
 
   pendingBookingApproval: null,
   getPendingBookingApprovalLoader: false,
-  getPendingBookingApprovalError: null
+  getPendingBookingApprovalError: null,
+
+  country: [],
+  getCountryLoader: false,
+  getCountryError: null,
+
+  states: [],
+  getStateLoader: false,
+  getStateError: null,
+
+  city: [],
+  getCityLoader: false,
+  getCityError: null
 };
 
 export default function venueReducer(state = initialState, action) {
@@ -318,7 +339,7 @@ export default function venueReducer(state = initialState, action) {
         getPendingStatusVenuesError: "Can not Get Pending Venue by id"
       };
 
-         //////////////////////// Get Pending Booking Status ////////////////////////
+    //////////////////////// Get Pending Booking Status ////////////////////////
 
     case GET_PENDING_BOOKING_STATUS:
       return {
@@ -344,7 +365,7 @@ export default function venueReducer(state = initialState, action) {
         getPendingBookingStatusError: "Can not Get Pending Booking Status"
       };
 
-               //////////////////////// Get Pending Booking Approval ////////////////////////
+    //////////////////////// Get Pending Booking Approval ////////////////////////
 
     case GET_PENDING_BOOKING_APPROVAL:
       return {
@@ -447,12 +468,12 @@ export default function venueReducer(state = initialState, action) {
         saveCustomBookingError: "Can Not Booked"
       };
 
-          ////////////////////
+    ////////////////////
 
     case SAVE_BOOKING_ITEM:
       return {
         ...state,
-        saveBookingItem: action.payload,
+        saveBookingItem: action.payload
       };
 
     ////////////////////
@@ -576,14 +597,14 @@ export default function venueReducer(state = initialState, action) {
       };
 
     case CREATE_FEEDBACK_FAILURE:
-        return {
+      return {
         ...state,
         feedback: 0,
         createFeedbackLoader: false,
         createFeedbackError: "Can not Create Feedbacks"
       };
 
-       ///////////////////
+    ///////////////////
 
     case GET_FEEDBACKS:
       return {
@@ -602,11 +623,91 @@ export default function venueReducer(state = initialState, action) {
       };
 
     case GET_FEEDBACKS_FAILURE:
-        return {
+      return {
         ...state,
         feedbacked: 0,
         getFeedbackLoader: false,
         getFeedbackError: "Can not Get Feedbacks"
+      };
+
+    /////////////////////////////////////// ADDRESS /////////////////////////////
+
+    ///////////////////
+
+    case GET_COUNTRY:
+      return {
+        ...state,
+        country: [],
+        getCountryLoader: true,
+        getCountryError: null
+      };
+
+    case GET_COUNTRY_SUCCESS:
+      return {
+        ...state,
+        country: action.payload,
+        getCountryLoader: false,
+        getCountryError: null
+      };
+
+    case GET_COUNTRY_FAILURE:
+      return {
+        ...state,
+        country: [],
+        getCountryLoader: false,
+        getCountryError: "Can not Get Country"
+      };
+
+    ///////////////////
+
+    case GET_STATE:
+      return {
+        ...state,
+        states: [],
+        getStateLoader: true,
+        getStateError: null
+      };
+
+    case GET_STATE_SUCCESS:
+      return {
+        ...state,
+        states: action.payload,
+        getStateLoader: false,
+        getStateError: null
+      };
+
+    case GET_STATE_FAILURE:
+      return {
+        ...state,
+        states: [],
+        getStateLoader: false,
+        getStateError: "Can not Get State"
+      };
+
+    ///////////////////
+
+    case GET_CITY:
+      return {
+        ...state,
+        city: [],
+        getCityLoader: true,
+        getCityError: null
+      };
+
+    case GET_CITY_SUCCESS:
+      return {
+        ...state,
+        city: action.payload,
+        getCityLoader: false,
+        getCityError: null
+      };
+
+    case GET_CITY_FAILURE:
+      return {
+        ...state,
+        city: [],
+        getCityLoader: false,
+        getCityError: "Can not Get City"
       };
 
     default:

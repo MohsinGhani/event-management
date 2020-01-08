@@ -8,7 +8,7 @@ import LoginPage from "views/LoginPage/LoginPage.jsx";
 import VenueDetail from "./views/VenueDetail";
 import AddVenue from "./views/AddVenue";
 import UpdateVenue from "./views/UpdateVenue";
-import BookingStep from "./views/BookingStep"
+import BookingStep from "./views/BookingStep";
 
 import Admin from "layouts/Admin.jsx";
 
@@ -52,7 +52,11 @@ class App extends Component {
                 path="/update-venue/:vid"
                 component={UpdateVenue}
               />
-              <PrivateRoute exact path="/booking-step/:vid" component={BookingStep}/>
+              <PrivateRoute
+                exact
+                path="/booking-step/:vid"
+                component={BookingStep}
+              />
               <PrivateRoute path="/admin" component={Admin} />
               <Route path="/register" exact component={RegisterPage} />
               <Route path="/login" exact component={LoginPage} />

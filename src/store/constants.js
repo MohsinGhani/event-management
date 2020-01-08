@@ -114,6 +114,20 @@ export const GET_USER_BY_ID = "GET_USER_BY_ID";
 export const GET_USER_BY_ID_SUCCESS = "GET_USER_BY_ID_SUCCESS";
 export const GET_USER_BY_ID_FAILURE = "GET_USER_BY_ID_FAILURE";
 
+/*****************************  Get Address Constants  *************************************/
+
+export const GET_COUNTRY = "GET_COUNTRY";
+export const GET_COUNTRY_SUCCESS = "GET_COUNTRY_SUCCESS";
+export const GET_COUNTRY_FAILURE = "GET_COUNTRY_FAILURE";
+
+export const GET_STATE = "GET_STATE";
+export const GET_STATE_SUCCESS = "GET_STATE_SUCCESS";
+export const GET_STATE_FAILURE = "GET_STATE_FAILURE";
+
+export const GET_CITY = "GET_CITY";
+export const GET_CITY_SUCCESS = "GET_CITY_SUCCESS";
+export const GET_CITY_FAILURE = "GET_CITY_FAILURE";
+
 /*****************************  Extra Constants  *************************************/
 
 export const POST_SIGNUP = "POST_SIGNUP";

@@ -57,7 +57,15 @@ import {
   GET_PENDING_BOOKING_APPROVAL,
   GET_PENDING_BOOKING_APPROVAL_SUCCESS,
   GET_PENDING_BOOKING_APPROVAL_FAILURE,
-  
+  GET_COUNTRY,
+  GET_COUNTRY_SUCCESS,
+  GET_COUNTRY_FAILURE,
+  GET_STATE,
+  GET_STATE_SUCCESS,
+  GET_STATE_FAILURE,
+  GET_CITY,
+  GET_CITY_SUCCESS,
+  GET_CITY_FAILURE
 } from "./../constants";
 
 export class venueAction {
@@ -335,15 +343,15 @@ export class venueAction {
     };
   }
 
-    /////////////////////////// save booking item on redux
+  /////////////////////////// save booking item on redux
 
-    static saveBookingItem(payload) {
-      return {
-        type: SAVE_BOOKING_ITEM,
-        payload
-      };
-    }
-    
+  static saveBookingItem(payload) {
+    return {
+      type: SAVE_BOOKING_ITEM,
+      payload
+    };
+  }
+
   /////////////////////////// get booking item on deshboard section
 
   static getBookingItem(payload) {
@@ -367,52 +375,51 @@ export class venueAction {
     };
   }
 
-    /////////////////////////// get pending booking status on deshboard section
+  /////////////////////////// get pending booking status on deshboard section
 
-    static getPendingBookingStatus(payload) {
-      return {
-        type: GET_PENDING_BOOKING_STATUS,
-        payload
-      };
-    }
-  
-    static getPendingBookingStatusSuccess(payload) {
-      return {
-        type: GET_PENDING_BOOKING_STATUS_SUCCESS,
-        payload: payload
-      };
-    }
-  
-    static getPendingBookingStatusFailure(error) {
-      return {
-        type: GET_PENDING_BOOKING_STATUS_FAILURE,
-        payload: error
-      };
-    }
+  static getPendingBookingStatus(payload) {
+    return {
+      type: GET_PENDING_BOOKING_STATUS,
+      payload
+    };
+  }
 
-    
-    /////////////////////////// get Aproved booking item on deshboard section
+  static getPendingBookingStatusSuccess(payload) {
+    return {
+      type: GET_PENDING_BOOKING_STATUS_SUCCESS,
+      payload: payload
+    };
+  }
 
-    static getPendingBookingApproval(payload) {
-      return {
-        type: GET_PENDING_BOOKING_APPROVAL,
-        payload
-      };
-    }
-  
-    static getPendingBookingApprovalSuccess(payload) {
-      return {
-        type: GET_PENDING_BOOKING_APPROVAL_SUCCESS,
-        payload: payload
-      };
-    }
-  
-    static getPendingBookingApprovalFailure(error) {
-      return {
-        type: GET_PENDING_BOOKING_APPROVAL_FAILURE,
-        payload: error
-      };
-    }
+  static getPendingBookingStatusFailure(error) {
+    return {
+      type: GET_PENDING_BOOKING_STATUS_FAILURE,
+      payload: error
+    };
+  }
+
+  /////////////////////////// get Aproved booking item on deshboard section
+
+  static getPendingBookingApproval(payload) {
+    return {
+      type: GET_PENDING_BOOKING_APPROVAL,
+      payload
+    };
+  }
+
+  static getPendingBookingApprovalSuccess(payload) {
+    return {
+      type: GET_PENDING_BOOKING_APPROVAL_SUCCESS,
+      payload: payload
+    };
+  }
+
+  static getPendingBookingApprovalFailure(error) {
+    return {
+      type: GET_PENDING_BOOKING_APPROVAL_FAILURE,
+      payload: error
+    };
+  }
 
   /////////////////
 
@@ -479,6 +486,75 @@ export class venueAction {
   static getFeedbacksFailure(error) {
     return {
       type: GET_FEEDBACKS_FAILURE,
+      payload: error
+    };
+  }
+
+  ///////////////// Get Country
+
+  static getCountry(payload) {
+    return {
+      type: GET_COUNTRY,
+      payload
+    };
+  }
+
+  static getCountrySuccess(country) {
+    return {
+      type: GET_COUNTRY_SUCCESS,
+      payload: country
+    };
+  }
+
+  static getCountryFailure(error) {
+    return {
+      type: GET_COUNTRY_FAILURE,
+      payload: error
+    };
+  }
+
+  ///////////////// Get State
+
+  static getState(payload) {
+    return {
+      type: GET_STATE,
+      payload
+    };
+  }
+
+  static getStateSuccess(state) {
+    return {
+      type: GET_STATE_SUCCESS,
+      payload: state
+    };
+  }
+
+  static getStateFailure(error) {
+    return {
+      type: GET_STATE_FAILURE,
+      payload: error
+    };
+  }
+
+  ///////////////// Get City
+
+  static getCity(payload) {
+    return {
+      type: GET_CITY,
+      payload
+    };
+  }
+
+  static getCitySuccess(city) {
+    return {
+      type: GET_CITY_SUCCESS,
+      payload: city
+    };
+  }
+
+  static getCityFailure(error) {
+    return {
+      type: GET_CITY_FAILURE,
       payload: error
     };
   }
