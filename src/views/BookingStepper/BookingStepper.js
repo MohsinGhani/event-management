@@ -60,7 +60,9 @@ class BookingStepper extends Component {
       stateName,
       cityName,
       address,
-      handleOnChange
+      perHead,
+      handleOnChange,
+      childToParent
     } = this.props;
     switch (stepIndex) {
       case 0:
@@ -81,6 +83,8 @@ class BookingStepper extends Component {
             activeStep={this.state.activeStep}
             handleBack={this.handleBack}
             handleNext={this.handleNext}
+            handleOnChange={handleOnChange}
+            childToParent={childToParent}
             countryName={countryName}
             stateName={stateName}
             cityName={cityName}
@@ -93,6 +97,8 @@ class BookingStepper extends Component {
             activeStep={this.state.activeStep}
             handleBack={this.handleBack}
             handleNext={this.handleNext}
+            perHead={perHead}
+            handleOnChange={handleOnChange}
           />
         );
 

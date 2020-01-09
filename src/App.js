@@ -31,9 +31,9 @@ class App extends Component {
           <React.Fragment>
             <Switch>
               {/* <Route exact path="/" component={Components} /> */}
-              <PrivateRoute exact path="/" component={Home} />
+              {/* <PrivateRoute exact path="/" component={Home} /> */}
 
-              {/* <PrivateRoute exact path="/" component={BookingStep} /> */}
+              <PrivateRoute exact path="/" component={BookingStep} />
 
               <PrivateRoute exact path="/list-view" component={ListView} />
               <PrivateRoute
@@ -52,11 +52,11 @@ class App extends Component {
                 path="/update-venue/:vid"
                 component={UpdateVenue}
               />
-              <PrivateRoute
+              {/* <PrivateRoute
                 exact
                 path="/booking-step/:vid"
                 component={BookingStep}
-              />
+              /> */}
               <PrivateRoute path="/admin" component={Admin} />
               <Route path="/register" exact component={RegisterPage} />
               <Route path="/login" exact component={LoginPage} />

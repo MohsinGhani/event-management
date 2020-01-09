@@ -10,13 +10,23 @@ class BookingStep extends Component {
     countryName: "",
     stateName: "",
     cityName: "",
-    address: ""
+    address: "",
+    perHead: 100,
   };
 
   handleOnChange = event => {
     const { name, value } = event.target;
     this.setState({ [name]: value });
   };
+
+  childToParent = childData => {
+    this.setState({
+      countryName: childData.countryName,
+      stateName: childData.stateName,
+      cityName: childData.cityName
+    });
+  };
+
   render() {
     const {
       name,
@@ -25,7 +35,8 @@ class BookingStep extends Component {
       countryName,
       stateName,
       cityName,
-      address
+      address,
+      perHead
     } = this.state;
     return (
       <div>
@@ -38,6 +49,8 @@ class BookingStep extends Component {
           stateName={stateName}
           cityName={cityName}
           address={address}
+          perHead={perHead}
+          childToParent={this.childToParent}
           handleOnChange={this.handleOnChange}
         />
       </div>

@@ -29,18 +29,15 @@ import loginStyle from "assets/jss/material-kit-react/views/componentsSections/l
 import "./index.css";
 
 class Step2 extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      countryName: null,
-      stateName: null,
-      cityName: null,
-      countryCode: null,
-      stateCode: null,
-      cityCode: null,
-      address: ""
-    };
-  }
+  state = {
+    countryName: null,
+    stateName: null,
+    cityName: null,
+    countryCode: null,
+    stateCode: null,
+    cityCode: null
+  };
+
   componentDidMount() {
     this.props.getCountryAction();
   }
@@ -68,12 +65,19 @@ class Step2 extends Component {
     }
   }
 
+  sendDataToParent = event => {
+    this.props.childToParent(event);
+    this.props.handleNext();
+  };
+
   render() {
     const {
       classes,
       activeStep,
       handleNext,
       handleBack,
+      handleOnChange,
+      address,
       country,
       getCountryLoader,
       getCountryError,
@@ -90,8 +94,7 @@ class Step2 extends Component {
       cityName,
       countryCode,
       stateCode,
-      cityCode,
-      address
+      cityCode
     } = this.state;
     // const options =
     //   country &&
@@ -130,7 +133,7 @@ class Step2 extends Component {
                 <CardBody>
                   <Autocomplete
                     id="country"
-                    freesolo
+                    freeSolo
                     options={country && country}
                     getOptionLabel={option => option.name}
                     loading={getCountryLoader ? true : false}
@@ -409,7 +412,7 @@ class Step2 extends Component {
                       type: "text",
                       name: "address",
                       value: address,
-                      // onChange: handleDetailInput,
+                      onChange: handleOnChange,
                       endAdornment: (
                         <InputAdornment position="end">
                           <People className={classes.inputIconsColor} />
@@ -434,7 +437,10 @@ class Step2 extends Component {
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={handleNext}
+                  // onClick={handleNext}
+                  onClick={() => {
+                    this.sendDataToParent({ countryName, stateName, cityName });
+                  }}
                   className="next-button"
                 >
                   Next Step
