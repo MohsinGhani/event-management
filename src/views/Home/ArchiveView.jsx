@@ -43,7 +43,7 @@ class ArchiveView extends React.Component {
     const { getArchiveVenuesLoader, classes, archiveVenues, user } = this.props;
     return (
       <div>
-        <AuthenticatedNavbar />
+        <AuthenticatedNavbar  navBgColor={'rose'}/>
         <ToastContainer />
         <div
           style={{

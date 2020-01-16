@@ -52,7 +52,7 @@ class Dashboard extends React.Component {
     const { classes } = this.props;
     return (
       <div>
-        <AuthenticatedNavbar />
+        <AuthenticatedNavbar  navBgColor={'rose'}/>
 
         <GridContainer>
           <GridItem xs={12} sm={6} md={3}>

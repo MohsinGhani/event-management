@@ -83,7 +83,7 @@ class Venues extends Component {
       <div>
         <ImageCarousel venue={venue} />
 
-        {venue.userId === user.uid ? (
+        {venue.userId === user && user.uid ? (
           <div className="action-button">
             <div className="edit_button">
               <Button
@@ -118,8 +118,8 @@ class Venues extends Component {
             </div>
           </div>
         ) : (
-          <span></span>
-        )}
+            <span></span>
+          )}
         <GridContainer
           className={classes.section}
           style={{
@@ -251,57 +251,57 @@ class Venues extends Component {
                   tabs={
                     packages && packages.length
                       ? packages.map((pack, i) => {
-                          let totalPrice = 0;
-                          return {
-                            tabName: pack.packageObj,
-                            tabIcon: Description,
-                            tabContent: (
-                              <div className={classes.textCenter} key={i}>
-                                {pack.servicePackages &&
-                                  pack.servicePackages.map((service, index) => {
-                                    totalPrice += parseInt(service.price);
-                                    return (
-                                      <div
-                                        key={index}
-                                        style={{
-                                          display: "flex",
-                                          justifyContent: "space-between"
-                                        }}
-                                      >
-                                        <li>{service.title.toUpperCase()}</li>
-                                        Rs: {service.price}
-                                      </div>
-                                    );
-                                  })}
-                                <div>Total Amout: Rs: {totalPrice}</div>
-                                <div>
-                                  Discount Amount: Rs:
+                        let totalPrice = 0;
+                        return {
+                          tabName: pack.packageObj,
+                          tabIcon: Description,
+                          tabContent: (
+                            <div className={classes.textCenter} key={i}>
+                              {pack.servicePackages &&
+                                pack.servicePackages.map((service, index) => {
+                                  totalPrice += parseInt(service.price);
+                                  return (
+                                    <div
+                                      key={index}
+                                      style={{
+                                        display: "flex",
+                                        justifyContent: "space-between"
+                                      }}
+                                    >
+                                      <li>{service.title.toUpperCase()}</li>
+                                      Rs: {service.price}
+                                    </div>
+                                  );
+                                })}
+                              <div>Total Amout: Rs: {totalPrice}</div>
+                              <div>
+                                Discount Amount: Rs:
                                   {totalPrice -
-                                    (totalPrice / 100) * pack.discountAmount}
-                                </div>
-                                <div
-                                  style={{
-                                    display: "flex",
-                                    justifyContent: "flex-end"
-                                  }}
-                                >
-                                  <Button
-                                    onClick={() => handleToggleOnPackage(pack)}
-                                  >
-                                    Add/Remove Package
-                                  </Button>
-                                </div>
+                                  (totalPrice / 100) * pack.discountAmount}
                               </div>
-                            )
-                          };
-                        })
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "flex-end"
+                                }}
+                              >
+                                <Button
+                                  onClick={() => handleToggleOnPackage(pack)}
+                                >
+                                  Add/Remove Package
+                                  </Button>
+                              </div>
+                            </div>
+                          )
+                        };
+                      })
                       : []
                   }
                 />
               </GridContainer>
             ) : (
-              <span></span>
-            )}
+                <span></span>
+              )}
 
             <GridContainer style={{ marginRight: 0 }}>
               <CustomTabs
@@ -320,7 +320,7 @@ class Venues extends Component {
           </GridItem>
           <GridItem xs={12} sm={3} md={3} lg={3}>
             <GridContainer>
-              <Booking
+              {user && <Booking
                 venue={venue}
                 user={user}
                 bookingPrice={bookingPrice}
@@ -351,6 +351,7 @@ class Venues extends Component {
                 allBookingItem={allBookingItem}
                 isBookingButtonDisable={isBookingButtonDisable}
               />
+              }
             </GridContainer>
             <GridContainer
               style={{ display: "flex", justifyContent: "center" }}

@@ -47,7 +47,7 @@ class UpdateVenue extends Component {
     console.log("venue: ", venue);
     return (
       <div>
-        <AuthenticatedNavbar />
+        <AuthenticatedNavbar  navBgColor={'rose'}/>
         {venue ? (
           <GridContainer
             style={{ padding: "0", maxWidth: "1024px", margin: "0 auto" }}

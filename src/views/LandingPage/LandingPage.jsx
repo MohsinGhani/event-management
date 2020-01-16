@@ -12,7 +12,7 @@ import Footer from "components/Footer/Footer.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import Button from "components/CustomButtons/Button.jsx";
-import HeaderLinks from "components/Header/HeaderLinks.jsx";
+// import HeaderLinks from "components/Header/HeaderLinks.jsx";
 import Parallax from "components/Parallax/Parallax.jsx";
 
 import landingPageStyle from "assets/jss/material-kit-react/views/landingPage.jsx";
@@ -21,15 +21,15 @@ import landingPageStyle from "assets/jss/material-kit-react/views/landingPage.js
 import ProductSection from "./Sections/ProductSection.jsx";
 import TeamSection from "./Sections/TeamSection.jsx";
 import WorkSection from "./Sections/WorkSection.jsx";
-
-const dashboardRoutes = [];
+import AuthenticatedNavbar from "./../../components/common/AuthenticatedNavbar";
+// const dashboardRoutes = [];
 
 class LandingPage extends React.Component {
   render() {
     const { classes, ...rest } = this.props;
     return (
       <div>
-        <Header
+        {/* <Header
           color="transparent"
           routes={dashboardRoutes}
           brand="Material Kit React"
@@ -40,8 +40,13 @@ class LandingPage extends React.Component {
             color: "white"
           }}
           {...rest}
-        />
-        <Parallax filter image={require("assets/img/landing-bg.jpg")}>
+        /> */}
+        <AuthenticatedNavbar navBgColor={"transparent"} />
+        <Parallax
+          filter
+          image={require("assets/img/landing-bg.jpg")}
+          style={{ marginTop: "-70px" }}
+        >
           <div className={classes.container}>
             <GridContainer>
               <GridItem xs={12} sm={12} md={6}>

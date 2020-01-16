@@ -151,7 +151,6 @@ export class authAction {
 
   /////////////
   static getUserById(payload) {
-    debugger
     return {
       type: GET_USER_BY_ID,
       payload

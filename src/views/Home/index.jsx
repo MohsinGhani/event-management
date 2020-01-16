@@ -111,7 +111,7 @@ class Home extends React.Component {
 
     return (
       <div style={{ position: "fixed" }}>
-        <AuthenticatedNavbar />
+        <AuthenticatedNavbar  navBgColor={'rose'}/>
         <Map
           style={"mapbox://styles/mapbox/streets-v9"}
           containerStyle={{

@@ -9,6 +9,7 @@ import VenueDetail from "./views/VenueDetail";
 import AddVenue from "./views/AddVenue";
 import UpdateVenue from "./views/UpdateVenue";
 import BookingStep from "./views/BookingStep";
+import LandingPage from "./views/LandingPage/LandingPage";
 
 import Admin from "layouts/Admin.jsx";
 
@@ -31,17 +32,19 @@ class App extends Component {
           <React.Fragment>
             <Switch>
               {/* <Route exact path="/" component={Components} /> */}
-              <PrivateRoute exact path="/" component={Home} />
+              
+              <Route exact path="/map-view" component={Home} />
 
-              {/* <PrivateRoute exact path="/" component={BookingStep} /> */}
+              {/* <Route exact path="/" component={BookingStep} /> */}
 
-              <PrivateRoute exact path="/list-view" component={ListView} />
+              <Route exact path="/list-view" component={ListView} />
+
               <PrivateRoute
                 exact
                 path="/archive-view"
                 component={ArchiveView}
               />
-              <PrivateRoute
+              <Route
                 exact
                 path="/venue-detail/:vid"
                 component={VenueDetail}
@@ -58,6 +61,7 @@ class App extends Component {
                 component={BookingStep}
               />
               <PrivateRoute path="/admin" component={Admin} />
+              <Route exact path="/" component={LandingPage} />
               <Route path="/register" exact component={RegisterPage} />
               <Route path="/login" exact component={LoginPage} />
             </Switch>

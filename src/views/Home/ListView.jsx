@@ -42,7 +42,7 @@ class ListView extends React.Component {
     const { venues } = this.state;
     return (
       <div>
-        <AuthenticatedNavbar />
+        <AuthenticatedNavbar  navBgColor={'rose'}/>
 
         <GridContainer
           style={{

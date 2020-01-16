@@ -441,7 +441,7 @@ class UpdateVenue extends Component {
     const { updateVenueLoader, getVenueLoader } = this.props;
     return (
       <div>
-        <AuthenticatedNavbar />
+        <AuthenticatedNavbar  navBgColor={'rose'}/>
         <br />
 
         {getVenueLoader ? (

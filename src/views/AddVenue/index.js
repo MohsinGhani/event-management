@@ -400,7 +400,7 @@ class AddVenue extends Component {
     const { saveVenueLoader } = this.props;
     return (
       <div>
-        <AuthenticatedNavbar />
+        <AuthenticatedNavbar  navBgColor={'rose'}/>
         <br />
 
         <Selectbar

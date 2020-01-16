@@ -49,7 +49,7 @@ class VenueDetail extends React.Component {
     return (
       <div>
         <div>
-          <AuthenticatedNavbar />
+          <AuthenticatedNavbar  navBgColor={'rose'}/>
           <GlobleLoader getVenueLoader={getVenueLoader} />
         </div>
         {(() => {

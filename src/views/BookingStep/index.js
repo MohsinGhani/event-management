@@ -40,7 +40,7 @@ class BookingStep extends Component {
     } = this.state;
     return (
       <div>
-        <AuthenticatedNavbar />
+        <AuthenticatedNavbar  navBgColor={'rose'}/>
         <BookingStepper
           name={name}
           email={email}

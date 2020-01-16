@@ -31,17 +31,22 @@ class AuthenticatedNavbar extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, navBgColor, isLoggedIn } = this.props;
     return (
       <div className={classes.section}>
         <div id="navbar" className={classes.navbar}>
           <Header
-            fixed
-            color="rose"
             brand="Event Management"
+            color={navBgColor ? navBgColor : "rose"}
+            fixed
+            changeColorOnScroll={navBgColor !== "rose" ? {
+              height: 400,
+              color: "rose"
+            } : {}}
+
             rightLinks={
               <List className={classes.list}>
-                <ListItem className={classes.listItem}>
+                {isLoggedIn && <ListItem className={classes.listItem}>
                   <Button
                     className={"switch-button"}
                     variant="outline-success"
@@ -57,6 +62,7 @@ class AuthenticatedNavbar extends React.Component {
                       : "SWITCH TO CUSTOMER"}
                   </Button>
                 </ListItem>
+                }
                 {this.props.userMood === "customer" ? (
                   <ListItem className={classes.listItem}>
                     <CustomDropdown
@@ -79,7 +85,7 @@ class AuthenticatedNavbar extends React.Component {
                         <Button
                           className={classes.navLink}
                           // className={classes.navLink + " " + classes.navLinkActive}
-                          onClick={e => this.goto("/")}
+                          onClick={e => this.goto("/map-view")}
                           color="transparent"
                         >
                           <Icon className={classes.icons}>map</Icon> Map View
@@ -88,73 +94,77 @@ class AuthenticatedNavbar extends React.Component {
                     />
                   </ListItem>
                 ) : (
-                  <ListItem className={classes.listItem}>
-                    <CustomDropdown
-                      noLiPadding
-                      buttonText="Venue"
-                      buttonProps={{
-                        className: classes.navLink,
-                        color: "transparent"
-                      }}
-                      buttonIcon={Apps}
-                      dropdownList={[
-                        <Button
-                          className={classes.navLink}
-                          // className={classes.navLink + " " + classes.navLinkActive}
-                          onClick={e => this.goto("/add-venue")}
-                          color="transparent"
-                        >
-                          <Icon className={classes.icons}>add_rounded</Icon>
-                          Create
+                    <ListItem className={classes.listItem}>
+                      <CustomDropdown
+                        noLiPadding
+                        buttonText="Venue"
+                        buttonProps={{
+                          className: classes.navLink,
+                          color: "transparent"
+                        }}
+                        buttonIcon={Apps}
+                        dropdownList={[
+                          <Button
+                            className={classes.navLink}
+                            // className={classes.navLink + " " + classes.navLinkActive}
+                            onClick={e => this.goto("/add-venue")}
+                            color="transparent"
+                          >
+                            <Icon className={classes.icons}>add_rounded</Icon>
+                            Create
                         </Button>,
-                        // <Button
-                        //   className={classes.navLink}
-                        //   // className={classes.navLink + " " + classes.navLinkActive}
-                        //   onClick={e => this.goto("/archive-view")}
-                        //   color="transparent"
-                        // >
-                        //   <Archive className={classes.icons} />
-                        //   Archive List
-                        // </Button>,
-                        <Button
-                          className={classes.navLink}
-                          // className={classes.navLink + " " + classes.navLinkActive}
-                          onClick={e => this.goto("/list-view")}
-                          color="transparent"
-                        >
-                          <Icon className={classes.icons}>list</Icon> List View
+                          <Button
+                            className={classes.navLink}
+                            // className={classes.navLink + " " + classes.navLinkActive}
+                            onClick={e => this.goto("/list-view")}
+                            color="transparent"
+                          >
+                            <Icon className={classes.icons}>list</Icon> List View
                         </Button>,
 
-                        <Button
-                          className={classes.navLink}
-                          // className={classes.navLink + " " + classes.navLinkActive}
-                          onClick={e => this.goto("/")}
-                          color="transparent"
-                        >
-                          <Icon className={classes.icons}>map</Icon> Map View
+                          <Button
+                            className={classes.navLink}
+                            // className={classes.navLink + " " + classes.navLinkActive}
+                            onClick={e => this.goto("/")}
+                            color="transparent"
+                          >
+                            <Icon className={classes.icons}>map</Icon> Map View
                         </Button>
-                      ]}
-                    />
-                  </ListItem>
-                )}
+                        ]}
+                      />
+                    </ListItem>
+                  )}
 
+                {
+                  isLoggedIn && <ListItem className={classes.listItem}>
+                    <Button
+                      className={classes.navLink}
+                      onClick={e => this.goto("/admin/my-venues")}
+                      color="transparent"
+                    >
+                      <Icon className={classes.icons}>dashboard</Icon> Dashboard
+                    </Button>
+                  </ListItem>
+
+                }
                 <ListItem className={classes.listItem}>
-                  <Button
-                    className={classes.navLink}
-                    onClick={e => this.goto("/admin/my-venues")}
-                    color="transparent"
-                  >
-                    <Icon className={classes.icons}>dashboard</Icon> Dashboard
-                  </Button>
-                </ListItem>
-                <ListItem className={classes.listItem}>
-                  <Button
-                    className={classes.navLink}
-                    onClick={this.logout}
-                    color="transparent"
-                  >
-                    <Icon className={classes.icons}>logout</Icon> Logout
-                  </Button>
+                  {
+                    isLoggedIn ?
+                      <Button
+                        className={classes.navLink}
+                        onClick={this.logout}
+                        color="transparent"
+                      >
+                        <Icon className={classes.icons}>logout</Icon> Logout
+                      </Button> :
+                      <Button
+                        className={classes.navLink}
+                        onClick={e => this.goto("/login")}
+                        color="transparent"
+                      >
+                        <Icon className={classes.icons}>input</Icon> Login
+                    </Button>
+                  }
                 </ListItem>
               </List>
             }
