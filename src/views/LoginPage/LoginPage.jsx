@@ -68,8 +68,6 @@ class LoginPage extends React.Component {
   componentDidUpdate(prevProps) {
     const { isLoggedIn, location } = this.props;
     if (prevProps.isLoggedIn !== isLoggedIn && isLoggedIn) {
-      debugger;
-      this.goto("/");
       this.goto(location && location.search ? location.search.replace("?redirect=", "") : "/");
     }
   }

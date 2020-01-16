@@ -61,7 +61,10 @@ export default class authEpic {
           if (response.type && response.type === "SIGNIN_FAILURE") {
             return Observable.of(authAction.signInFailure(response.error));
           } else {
-            return Observable.of(authAction.signInSuccess(response));
+            return Observable.of(
+              authAction.signInSuccess(response),
+              authAction.getUserById({ uid: response.user.uid })
+            );
           }
         })
         .catch(({ message }) => {

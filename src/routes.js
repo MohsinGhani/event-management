@@ -1,24 +1,9 @@
-// @material-ui/icons
-import Dashboard from "@material-ui/icons/Dashboard";
-import Person from "@material-ui/icons/Person";
-import BubbleChart from "@material-ui/icons/BubbleChart";
-import LocationOn from "@material-ui/icons/LocationOn";
-import Notifications from "@material-ui/icons/Notifications";
-import Unarchive from "@material-ui/icons/Unarchive";
-import Language from "@material-ui/icons/Language";
 // core components/views for Admin layout
-import DashboardPage from "views/Dashboard/Dashboard.jsx";
-import UserProfile from "views/UserProfile/UserProfile.jsx";
-import TableList from "views/TableList/TableList.jsx";
 import MyVenues from "views/Dashboard/MyVenues.jsx";
 import MyBookingItems from "views/Dashboard/MyBookingItems.js";
 import PendingVenuesStatus from "views/Dashboard/PendingVenuesStatus.js";
 import ArchiveVenues from "views/Dashboard/ArchiveVenues.js";
 import PendingBookingItems from "./views/Dashboard/PendingBookingItems";
-import Typography from "views/Typography/Typography.jsx";
-import Icons from "views/Icons/Icons.jsx";
-import Maps from "views/Maps/Maps.jsx";
-import NotificationsPage from "views/Notifications/Notifications.jsx";
 import List from "@material-ui/icons/List";
 import BookingList from "@material-ui/icons/Event";
 import Feedback from "@material-ui/icons/Feedback";

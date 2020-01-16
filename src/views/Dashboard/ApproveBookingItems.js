@@ -75,7 +75,6 @@ class ApproveBookingItems extends Component {
   }
 
   handleApprovedStatus = (bookingApprovalID,index ) => {
-    debugger
     //   console.log(index, "index")
     //   console.log(bookingApprovalID, "ID")
       const { pendingBookingApproval } = this.props;
@@ -86,7 +85,6 @@ class ApproveBookingItems extends Component {
       itemId: bookingApprovalID,
       collectionName: "booking"
     };
-    debugger
     this.props.changeObjStatus(newObjStatus);
     console.log(newObjStatus, "=> new data")
     SuccessTostify("Archive Successfull");

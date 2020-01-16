@@ -211,22 +211,26 @@ export default class venueEpic {
       const { vid } = payload;
       let packages = [];
 
-      return db
-        .collection("packages")
-        .where("eventId", "==", vid)
-        .get()
-        .then(function(querySnapshot) {
-          querySnapshot.forEach(doc => {
-            packages.push({ ...doc.data(), pid: doc.id });
+      if (vid) {
+        return db
+          .collection("packages")
+          .where("eventId", "==", vid)
+          .get()
+          .then(function (querySnapshot) {
+            querySnapshot.forEach(doc => {
+              packages.push({ ...doc.data(), pid: doc.id });
+            });
+            console.log(packages);
+            return venueAction.getPackagesSuccess(packages);
+          })
+          .catch(function (err) {
+            return venueAction.getPackagesFailure(
+              `Error in getting packages! ${err}`
+            );
           });
-          console.log(packages);
-          return venueAction.getPackagesSuccess(packages);
-        })
-        .catch(function(err) {
-          return venueAction.getPackagesFailure(
-            `Error in getting packages! ${err}`
-          );
-        });
+      } else {
+        return venueAction.getPackagesFailure('venue is is not found');
+      }
     });
 
   /////////////////////////// get archive venue on archive section
@@ -238,27 +242,32 @@ export default class venueEpic {
       const { userId } = payload;
       let services = [];
 
-      return db
-        .collection("services")
-        .where("userId", "==", userId)
-        .where("objStatus", "==", 2)
-        .get()
-        .then(function(querySnapshot) {
-          querySnapshot.forEach(function(doc) {
-            // doc.data() is never undefined for query doc snapshots
-            services.push({ ...doc.data(), vid: doc.id });
-            // alert("venue get");
-            // console.log(doc.id, " => ", doc.data());
-            // props.getMyProducts(doc.data());
+      if (userId) {
+        return db
+          .collection("services")
+          .where("userId", "==", userId)
+          .where("objStatus", "==", 2)
+          .get()
+          .then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
+              // doc.data() is never undefined for query doc snapshots
+              services.push({ ...doc.data(), vid: doc.id });
+              // alert("venue get");
+              // console.log(doc.id, " => ", doc.data());
+              // props.getMyProducts(doc.data());
+            });
+            return venueAction.getArchiveVenuesSuccess(services);
+          })
+          .catch(function (error) {
+            console.log("Error getting documents: ", error);
+            return venueAction.getArchiveVenuesFailure(
+              `Error in getting archive venue! ${error}`
+            );
           });
-          return venueAction.getArchiveVenuesSuccess(services);
-        })
-        .catch(function(error) {
-          console.log("Error getting documents: ", error);
-          venueAction.getArchiveVenuesFailure(
-            `Error in getting archive venue! ${error}`
-          );
-        });
+      }
+      else {
+        return venueAction.getArchiveVenuesFailure('user id not found');
+      }
     });
 
   ///////////////////////////get venue if venue present in database
@@ -293,22 +302,27 @@ export default class venueEpic {
       const { vid } = payload;
       let venue = [];
 
-      return db
-        .collection("services")
-        .where("vid", "==", vid)
-        .get()
-        .then(function(querySnapshot) {
-          querySnapshot.forEach(doc => {
-            venue.push({ ...doc.data(), vid: doc.id });
+      if (vid) {
+        return db
+          .collection("services")
+          .where("vid", "==", vid)
+          .get()
+          .then(function (querySnapshot) {
+            querySnapshot.forEach(doc => {
+              venue.push({ ...doc.data(), vid: doc.id });
+            });
+            console.log(venue);
+            return venueAction.getVenueForBookedDetailsSuccess(venue);
+          })
+          .catch(function (err) {
+            return venueAction.getVenueForBookedDetailsFailure(
+              `Error in getting venue! ${err}`
+            );
           });
-          console.log(venue);
-          return venueAction.getVenueForBookedDetailsSuccess(venue);
-        })
-        .catch(function(err) {
-          return venueAction.getVenueForBookedDetailsFailure(
-            `Error in getting venue! ${err}`
-          );
-        });
+      }
+      else {
+        return venueAction.getVenueForBookedDetailsFailure('venue id is not define');
+      }
     });
 
   /////////////////////////// save booking in database
@@ -339,28 +353,35 @@ export default class venueEpic {
       const { userId } = payload;
       const ven = [];
 
-      return db
-        .collection("services")
-        .where("userId", "==", userId)
-        .where("objStatus", "==", 1)
-        .get()
-        .then(function(querySnapshot) {
-          querySnapshot.forEach(function(doc) {
-            // doc.data() is never undefined for query doc snapshots
-            ven.push({ ...doc.data(), vid: doc.id });
-            // alert("venue get");
-            // console.log(doc.id, " => ", doc.data());
-            // props.getMyProducts(doc.data());
+      if (userId) {
+        return db
+          .collection("services")
+          .where("userId", "==", userId)
+          .where("objStatus", "==", 1)
+          .get()
+          .then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
+              // doc.data() is never undefined for query doc snapshots
+              ven.push({ ...doc.data(), vid: doc.id });
+              // alert("venue get");
+              // console.log(doc.id, " => ", doc.data());
+              // props.getMyProducts(doc.data());
+            });
+            return venueAction.getVenuesByUserIdSuccess(ven);
+          })
+          .catch(function (error) {
+            console.log("Error getting documents: ", error);
+            alert("ops no product Add some product");
+            venueAction.getVenuesByUserIdFailure(
+              `Error in getting venue! ${error}`
+            );
           });
-          return venueAction.getVenuesByUserIdSuccess(ven);
-        })
-        .catch(function(error) {
-          console.log("Error getting documents: ", error);
-          alert("ops no product Add some product");
-          venueAction.getVenuesByUserIdFailure(
-            `Error in getting venue! ${error}`
-          );
-        });
+      }
+      else {
+        return venueAction.getVenuesByUserIdFailure(
+          `User id not found`
+        );
+      }
     });
 
   /////////////////////////// get booking item on deshboard section
@@ -369,7 +390,6 @@ export default class venueEpic {
     action$.ofType(GET_BOOKING_ITEM).mergeMap(({ payload }) => {
       // let user = auth.currentUser.uid;
       const { userId, vid } = payload;
-      console.log(payload);
       const bookingItem = [];
       if (userId) {
         return db
@@ -377,8 +397,8 @@ export default class venueEpic {
           .where("userId", "==", userId)
           .where("bookingStatus", "==", 1)
           .get()
-          .then(function(querySnapshot) {
-            querySnapshot.forEach(function(doc) {
+          .then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
               // doc.data() is never undefined for query doc snapshots
               bookingItem.push({ ...doc.data(), bid: doc.id });
               console.log(doc.id, " => ", doc.data());
@@ -387,7 +407,7 @@ export default class venueEpic {
 
             return venueAction.getBookingItemSuccess(bookingItem);
           })
-          .catch(function(error) {
+          .catch(function (error) {
             venueAction.getBookingItemFailure(
               `Error in getting venue! ${error}`
             );
@@ -398,8 +418,8 @@ export default class venueEpic {
           .where("eventId", "==", vid)
           .where("bookingStatus", "==", 1)
           .get()
-          .then(function(querySnapshot) {
-            querySnapshot.forEach(function(doc) {
+          .then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
               // doc.data() is never undefined for query doc snapshots
               bookingItem.push({ ...doc.data(), bid: doc.id });
               // props.getMyProducts(doc.data());
@@ -407,11 +427,16 @@ export default class venueEpic {
 
             return venueAction.getBookingItemSuccess(bookingItem);
           })
-          .catch(function(error) {
+          .catch(function (error) {
             venueAction.getBookingItemFailure(
               `Error in getting venue! ${error}`
             );
           });
+      }
+      else {
+        return venueAction.getBookingItemFailure(
+          `id not found`
+        );
       }
     });
 
@@ -421,23 +446,29 @@ export default class venueEpic {
     action$.ofType(GET_PENDING_BOOKING_STATUS).mergeMap(({ payload }) => {
       const { userId } = payload;
       const pendingBooking = [];
-      return db
-        .collection("booking")
-        .where("userId", "==", userId)
-        .where("bookingStatus", "==", 0)
-        .get()
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            pendingBooking.push({ ...doc.data(), bid: doc.id });
+
+      if (userId) {
+        return db
+          .collection("booking")
+          .where("userId", "==", userId)
+          .where("bookingStatus", "==", 0)
+          .get()
+          .then(querySnapshot => {
+            querySnapshot.forEach(doc => {
+              pendingBooking.push({ ...doc.data(), bid: doc.id });
+            });
+            console.log(pendingBooking);
+            return venueAction.getPendingBookingStatusSuccess(pendingBooking);
+          })
+          .catch(error => {
+            venueAction.getPendingBookingStatusFailure(
+              `Error in getting pending status ${error}`
+            );
           });
-          console.log(pendingBooking);
-          return venueAction.getPendingBookingStatusSuccess(pendingBooking);
-        })
-        .catch(error => {
-          venueAction.getPendingBookingStatusFailure(
-            `Error in getting pending status ${error}`
-          );
-        });
+      }
+      else {
+        return venueAction.getPendingBookingStatusFailure('user id is not found');
+      }
     });
 
   /////////////////////////// get pending booking Approval in dashboard section
@@ -446,23 +477,29 @@ export default class venueEpic {
     action$.ofType(GET_PENDING_BOOKING_APPROVAL).mergeMap(({ payload }) => {
       const { userId } = payload;
       const bookingApproval = [];
-      return db
-        .collection("booking")
-        .where("eventCreatorId", "==", userId)
-        .where("bookingStatus", "==", 0)
-        .get()
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            bookingApproval.push({ ...doc.data(), bookingApprovalID: doc.id });
+
+      if (userId) {
+        return db
+          .collection("booking")
+          .where("eventCreatorId", "==", userId)
+          .where("bookingStatus", "==", 0)
+          .get()
+          .then(querySnapshot => {
+            querySnapshot.forEach(doc => {
+              bookingApproval.push({ ...doc.data(), bookingApprovalID: doc.id });
+            });
+            console.log(bookingApproval);
+            return venueAction.getPendingBookingApprovalSuccess(bookingApproval);
+          })
+          .catch(error => {
+            venueAction.getPendingBookingApprovalFailure(
+              `Error in getting pending status ${error}`
+            );
           });
-          console.log(bookingApproval);
-          return venueAction.getPendingBookingApprovalSuccess(bookingApproval);
-        })
-        .catch(error => {
-          venueAction.getPendingBookingApprovalFailure(
-            `Error in getting pending status ${error}`
-          );
-        });
+      }
+      else {
+        return venueAction.getPendingBookingApprovalFailure('user id not found');
+      }
     });
 
   /////////////////////////// get pending status venues in dashboard section
@@ -472,28 +509,33 @@ export default class venueEpic {
       // let user = auth.currentUser.uid;
       const { userId } = payload;
       const ven = [];
-      return db
-        .collection("services")
-        .where("userId", "==", userId)
-        .where("objStatus", "==", 0)
-        .get()
-        .then(function(querySnapshot) {
-          querySnapshot.forEach(function(doc) {
-            // doc.data() is never undefined for query doc snapshots
-            ven.push({ ...doc.data(), vid: doc.id });
-            // alert("venue get");
-            // console.log(doc.id, " => ", doc.data());
-            // props.getMyProducts(doc.data());
+
+      if (userId) {
+        return db
+          .collection("services")
+          .where("userId", "==", userId)
+          .where("objStatus", "==", 0)
+          .get()
+          .then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
+              // doc.data() is never undefined for query doc snapshots
+              ven.push({ ...doc.data(), vid: doc.id });
+              // alert("venue get");
+              // console.log(doc.id, " => ", doc.data());
+              // props.getMyProducts(doc.data());
+            });
+            return venueAction.getPendingStatusVenuesSuccess(ven);
+          })
+          .catch(function (error) {
+            console.log("Error getting documents: ", error);
+            alert("ops no product Add some product");
+            venueAction.getPendingStatusVenuesFailure(
+              `Error in getting venue! ${error}`
+            );
           });
-          return venueAction.getPendingStatusVenuesSuccess(ven);
-        })
-        .catch(function(error) {
-          console.log("Error getting documents: ", error);
-          alert("ops no product Add some product");
-          venueAction.getPendingStatusVenuesFailure(
-            `Error in getting venue! ${error}`
-          );
-        });
+      } else {
+        return venueAction.getPendingStatusVenuesFailure('user id not found');
+      }
     });
 
   /////////////////////////////////////////////////

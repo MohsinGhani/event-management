@@ -17,6 +17,7 @@ import dashboardStyle from "dashboard-assets/jss/material-dashboard-react/layout
 import image from "dashboard-assets/img/sliderbg.jpg";
 import logo from "dashboard-assets/img/reactlogo.png";
 import AuthenticatedNavbar from './../components/common/AuthenticatedNavbar'
+
 const switchRoutes = (
   <Switch>
     {routes.map((prop, key) => {
