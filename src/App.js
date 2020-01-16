@@ -31,9 +31,9 @@ class App extends Component {
           <React.Fragment>
             <Switch>
               {/* <Route exact path="/" component={Components} /> */}
-              {/* <PrivateRoute exact path="/" component={Home} /> */}
+              <PrivateRoute exact path="/" component={Home} />
 
-              <PrivateRoute exact path="/" component={BookingStep} />
+              {/* <PrivateRoute exact path="/" component={BookingStep} /> */}
 
               <PrivateRoute exact path="/list-view" component={ListView} />
               <PrivateRoute
