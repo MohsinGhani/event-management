@@ -16,11 +16,12 @@ import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
-
+import CardPic from "./../../assets/img/Credit-Cards.jpg";
+import CardMedia from '@material-ui/core/CardMedia';
 import ReactStripeScriptLoader from "react-stripe-script-loader";
 import { StripeProvider, Elements, CardElement } from "react-stripe-elements";
 
-import PaymentInfo from "./PaymentInfo"
+import PaymentInfo from "./PaymentInfo";
 
 import loginStyle from "assets/jss/material-kit-react/views/componentsSections/loginStyle.jsx";
 
@@ -81,8 +82,17 @@ class Step3 extends Component {
                       )
                     }}
                   />
+                  {/* <div style={{ display: "flex", justifyContent: "center" }}>
+                    <img src={CardPic} width="460px" height="320px" />
+                  </div> */}
 
-               {/* <ReactStripeScriptLoader
+                  <CardMedia
+                    className={classes.media}
+                    image="E:\uni data\7th semester\fyp\project\event-management\src\assets\img\Credit-Cards.jpg"
+                    title="Cards"
+                  />
+
+                  {/* <ReactStripeScriptLoader
                     uniqueId="myUniqueId"
                     script="https://js.stripe.com/v3/"
                     loader="Loading..."
