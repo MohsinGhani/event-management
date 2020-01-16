@@ -50,8 +50,16 @@ const StyledTableRow = withStyles(theme => ({
 class PendingBookingItems extends React.Component {
   componentDidMount() {
     const { user, getPendingBookingStatusAction } = this.props;
-    getPendingBookingStatusAction({ userId: user.uid });
+    user && getPendingBookingStatusAction({ userId: user.uid });
   }
+
+  componentDidUpdate(prevProps) {
+    const { getPendingBookingStatusAction, user } = this.props;
+    if (prevProps.user !== user && user) {
+      getPendingBookingStatusAction({ userId: user.uid });
+    }
+  }
+
   goto = path => {
     this.props.history.push(path);
   };
@@ -110,124 +118,124 @@ class PendingBookingItems extends React.Component {
             getPendingBookingStatusLoader={getPendingBookingStatusLoader}
           />
         ) : (
-          <ExpansionPanel style={{ margin: "0px 15px 0px 15px" }}>
-            <ExpansionPanelSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1bh-content"
-              id="panel1bh-header"
-              style={{
-                marginTop: "20px"
-              }}
-            >
-              <Typography
-                style={{
-                  fontSize: "larger",
-                  fontWeight: "500",
-                  width: "100%"
-                }}
-              >
-                Booked Details
+              <ExpansionPanel style={{ margin: "0px 15px 0px 15px" }}>
+                <ExpansionPanelSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1bh-content"
+                  id="panel1bh-header"
+                  style={{
+                    marginTop: "20px"
+                  }}
+                >
+                  <Typography
+                    style={{
+                      fontSize: "larger",
+                      fontWeight: "500",
+                      width: "100%"
+                    }}
+                  >
+                    Booked Details
               </Typography>
-            </ExpansionPanelSummary>
+                </ExpansionPanelSummary>
 
-            {pendingBookingStatus ? (
-              pendingBookingStatus.map((item, index) => {
-                var options = {
-                  weekday: "long",
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                  hour: "numeric",
-                  minute: "numeric",
-                  second: "numeric",
-                  hour12: true
-                };
-                return (
-                  <div className={"table-class"} style={{ marginTop: "10px" }}>
-                    <Paper
-                      style={{
-                        width: "100%",
-                        overflowX: "auto"
-                      }}
-                    >
-                      <ExpansionPanelDetails>
-                        <Table style={{ minWidth: "700" }}>
-                          <TableHead>
-                            <TableRow>
-                              <StyledTableCell>Booking Date</StyledTableCell>
-                              <StyledTableCell>Custom Services</StyledTableCell>
-                              <StyledTableCell>Package Details</StyledTableCell>
-                              <StyledTableCell>Action</StyledTableCell>
-                            </TableRow>
-                          </TableHead>
-                          <TableBody>
-                            <StyledTableRow key={index}>
-                              <StyledTableCell>
-                                {new Intl.DateTimeFormat(
-                                  "en-US",
-                                  options
-                                ).format(item.bookingDate)}
-                              </StyledTableCell>
-                              <StyledTableCell>
-                                {item.servicesBookingPrice.length &&
-                                item.servicesBookingPrice ? (
-                                  item.servicesBookingPrice.map((ser, i) => {
-                                    return <li key={i}>{ser.title}</li>;
-                                  })
-                                ) : (
-                                  <span>No Custom Services</span>
-                                )}
-                              </StyledTableCell>
-                              <StyledTableCell>
-                                {item.packageArray.length &&
-                                item.packageArray ? (
-                                  item.packageArray.map((pack, i) => {
-                                    return (
-                                      <div>
-                                        <h5 key={i}>{pack.packageObj}</h5>
-                                        {pack.servicePackages ? (
-                                          pack.servicePackages.map(
-                                            (packSer, i) => {
-                                              return (
-                                                <li key={i}>{packSer.title}</li>
-                                              );
-                                            }
-                                          )
-                                        ) : (
-                                          <span>No Package</span>
-                                        )}
-                                      </div>
-                                    );
-                                  })
-                                ) : (
-                                  <span>No Package Select</span>
-                                )}
-                              </StyledTableCell>
-                              <StyledTableCell>
-                                <Button
-                                  color="primary"
-                                  size="sm"
-                                  round
-                                  onClick={() =>
-                                    this.goto(`/venue-detail/${item.eventId}`)
-                                  }
-                                >
-                                  View Event Details
+                {pendingBookingStatus ? (
+                  pendingBookingStatus.map((item, index) => {
+                    var options = {
+                      weekday: "long",
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                      hour: "numeric",
+                      minute: "numeric",
+                      second: "numeric",
+                      hour12: true
+                    };
+                    return (
+                      <div className={"table-class"} style={{ marginTop: "10px" }}>
+                        <Paper
+                          style={{
+                            width: "100%",
+                            overflowX: "auto"
+                          }}
+                        >
+                          <ExpansionPanelDetails>
+                            <Table style={{ minWidth: "700" }}>
+                              <TableHead>
+                                <TableRow>
+                                  <StyledTableCell>Booking Date</StyledTableCell>
+                                  <StyledTableCell>Custom Services</StyledTableCell>
+                                  <StyledTableCell>Package Details</StyledTableCell>
+                                  <StyledTableCell>Action</StyledTableCell>
+                                </TableRow>
+                              </TableHead>
+                              <TableBody>
+                                <StyledTableRow key={index}>
+                                  <StyledTableCell>
+                                    {new Intl.DateTimeFormat(
+                                      "en-US",
+                                      options
+                                    ).format(item.bookingDate)}
+                                  </StyledTableCell>
+                                  <StyledTableCell>
+                                    {item.servicesBookingPrice.length &&
+                                      item.servicesBookingPrice ? (
+                                        item.servicesBookingPrice.map((ser, i) => {
+                                          return <li key={i}>{ser.title}</li>;
+                                        })
+                                      ) : (
+                                        <span>No Custom Services</span>
+                                      )}
+                                  </StyledTableCell>
+                                  <StyledTableCell>
+                                    {item.packageArray.length &&
+                                      item.packageArray ? (
+                                        item.packageArray.map((pack, i) => {
+                                          return (
+                                            <div>
+                                              <h5 key={i}>{pack.packageObj}</h5>
+                                              {pack.servicePackages ? (
+                                                pack.servicePackages.map(
+                                                  (packSer, i) => {
+                                                    return (
+                                                      <li key={i}>{packSer.title}</li>
+                                                    );
+                                                  }
+                                                )
+                                              ) : (
+                                                  <span>No Package</span>
+                                                )}
+                                            </div>
+                                          );
+                                        })
+                                      ) : (
+                                        <span>No Package Select</span>
+                                      )}
+                                  </StyledTableCell>
+                                  <StyledTableCell>
+                                    <Button
+                                      color="primary"
+                                      size="sm"
+                                      round
+                                      onClick={() =>
+                                        this.goto(`/venue-detail/${item.eventId}`)
+                                      }
+                                    >
+                                      View Event Details
                                 </Button>
-                              </StyledTableCell>
-                            </StyledTableRow>
-                          </TableBody>
-                        </Table>
-                      </ExpansionPanelDetails>
-                    </Paper>
-                  </div>
-                );
-              })
-            ) : (
-              <span></span>
+                                  </StyledTableCell>
+                                </StyledTableRow>
+                              </TableBody>
+                            </Table>
+                          </ExpansionPanelDetails>
+                        </Paper>
+                      </div>
+                    );
+                  })
+                ) : (
+                    <span></span>
+                  )}
+              </ExpansionPanel>
             )}
-          </ExpansionPanel>
-        )}
       </div>
     );
   }

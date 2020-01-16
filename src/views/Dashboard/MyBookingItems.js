@@ -50,8 +50,14 @@ const StyledTableRow = withStyles(theme => ({
 class MyBookingItems extends Component {
   componentDidMount() {
     const { user, getBookingItemAction } = this.props;
+    user && getBookingItemAction({ userId: user.uid });
+  }
 
-    getBookingItemAction({ userId: user.uid });
+  componentDidUpdate(prevProps) {
+    const { getBookingItemAction, user } = this.props;
+    if (prevProps.user !== user && user) {
+      getBookingItemAction({ userId: user.uid });
+    }
   }
 
   goto = path => {

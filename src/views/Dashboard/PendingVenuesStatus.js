@@ -19,8 +19,16 @@ import RatingSystem from "./RatingSystem";
 class PendingVenuesStatus extends React.Component {
   componentDidMount() {
     const { getPendingStatusVenuesDetails, user } = this.props;
-    getPendingStatusVenuesDetails({ userId: user.uid });
+    user && getPendingStatusVenuesDetails({ userId: user.uid });
   }
+
+  componentDidUpdate(prevProps) {
+    const { getPendingStatusVenuesDetails, user } = this.props;
+    if (prevProps.user !== user && user) {
+      getPendingStatusVenuesDetails({ userId: user.uid });
+    }
+  }
+
   goto = path => {
     this.props.history.push(path);
   };

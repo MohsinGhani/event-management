@@ -19,8 +19,16 @@ import RatingSystem from "./RatingSystem";
 class MyVenues extends React.Component {
   componentDidMount() {
     const { getVenuesByUserIdDetails, user } = this.props;
-    getVenuesByUserIdDetails({ userId: user.uid });
+    user && getVenuesByUserIdDetails({ userId: user.uid });
   }
+  
+  componentDidUpdate(prevProps) {
+    const { getVenuesByUserIdDetails, user } = this.props;
+    if(prevProps.user !== user && user){
+      getVenuesByUserIdDetails({ userId: user.uid });
+    }
+  }
+  
   goto = path => {
     this.props.history.push(path);
   };

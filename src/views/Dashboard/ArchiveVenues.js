@@ -16,11 +16,17 @@ import GlobleLoader from "./GlobleLoader";
 import RatingSystem from "./RatingSystem";
 import SuccessTostify from "./../GlobleCompnenets/Tostify/SuccessTostify"
 
-
 class ArchiveView extends React.Component {
   componentDidMount() {
     const { getArchiveVenues, user } = this.props;
-    getArchiveVenues({ userId: user.uid });
+    user && getArchiveVenues({ userId: user.uid });
+  }
+
+  componentDidUpdate(prevProps) {
+    const { getArchiveVenues, user } = this.props;
+    if(prevProps.user !== user && user){
+      getArchiveVenues({ userId: user.uid });
+    }
   }
 
   handleUnArchiveStatus = venue => {

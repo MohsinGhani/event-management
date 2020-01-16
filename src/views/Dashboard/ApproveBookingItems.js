@@ -64,8 +64,16 @@ class ApproveBookingItems extends Component {
 //   }
   componentDidMount() {
     const { user, getPendingBookingApprovalAction } = this.props;
-    getPendingBookingApprovalAction({ userId: user.uid });
+    user && getPendingBookingApprovalAction({ userId: user.uid });
   }
+
+  componentDidUpdate(prevProps) {
+    const { getPendingBookingApprovalAction, user } = this.props;
+    if (prevProps.user !== user && user) {
+      getPendingBookingApprovalAction({ userId: user.uid });
+    }
+  }
+
   handleApprovedStatus = (bookingApprovalID,index ) => {
     debugger
     //   console.log(index, "index")
