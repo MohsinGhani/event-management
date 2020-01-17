@@ -11,6 +11,7 @@ import UpdateVenue from "./views/UpdateVenue";
 import BookingStep from "./views/BookingStep";
 import LandingPage from "./views/LandingPage/LandingPage";
 import Components from "./views/Components/Components";
+import { authAction } from "./store/actions";
 
 import Admin from "layouts/Admin.jsx";
 
@@ -24,6 +25,9 @@ import { ToastContainer } from "react-toastify";
 var hist = createBrowserHistory();
 
 class App extends Component {
+  componentWillMount() {
+    this.props.isLoggedInAction()
+  }
   render() {
     return (
       <div>
@@ -86,4 +90,10 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, null)(App);
+const mapDispatchToProps = dispatch => {
+  return {
+    isLoggedInAction: payload => dispatch(authAction.isLoggedIn(payload))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
