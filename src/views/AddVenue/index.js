@@ -42,7 +42,7 @@ class AddVenue extends Component {
       confirmModal: false,
       picked: null,
 
-      serviesFacilities: [{ title: "", price: "" }],
+      serviesFacilities: [],
       addSer: false,
 
       open: false,
@@ -58,7 +58,7 @@ class AddVenue extends Component {
       bookingPerDay: "",
 
       isDetailsButtonDisable: true,
-
+      newServices: [{ title: "", price: "" }],
       error: {
         categorySelect: null,
         name: null,
@@ -74,73 +74,6 @@ class AddVenue extends Component {
     };
   }
 
-  // validatesAddDetailsForm = () => {
-  //   let {
-  //     name,
-  //     phone,
-  //     email,
-  //     address,
-  //     description,
-  //     bookingPerDay,
-  //     error
-  //   } = this.state;
-
-  //   if (
-  //     name &&
-  //     name.length >= 3 &&
-  //     (phone && phone.length >= 7) &&
-  //     email &&
-  //     (address && address.length >= 10) &&
-  //     (description && description.length >= 10) &&
-  //     (bookingPerDay && bookingPerDay.length >= 1)
-  //   ) {
-  //     this.handleDetailInput()
-  //     this.setState({
-  //       isDetailsButtonDisable: false,
-  //       error
-  //     });
-  //   } else {
-  //     error = {
-  //       categorySelect: null,
-  //       name: null,
-  //       phone: null,
-  //       email: null,
-  //       address: null,
-  //       description: null,
-  //       bookingPerDay: null,
-  //       serviesFacilities: null,
-  //       files: null,
-  //       picked: null
-  //     };
-  //     this.setState({
-  //       isDetailsButtonDisable: true,
-  //       error
-  //     });
-  //   }
-  // };
-
-  // componentDidUpdate(prevProps, prevState) {
-  //   const {
-  //     name,
-  //     phone,
-  //     email,
-  //     address,
-  //     description,
-  //     bookingPerDay,
-  //   } = this.state;
-  //   if (
-  //     (prevState.name !=
-  //     name.length >= 3) &&
-  //     (prevState.phone != phone.length >= 7) &&
-  //     email &&
-  //     (prevState.address != address.length >= 10) &&
-  //     (prevState.description != description.length >= 10) &&
-  //     (prevState.bookingPerDay != bookingPerDay.length >= 1)
-  //   ) {
-  //     this.setState({isDetailsButtonDisable: false})
-  //   }
-  // }
-
   componentDidUpdate(prevProps, prevState) {
     const { saveVenueError, saveVenueLoader } = this.props;
     if (prevProps.saveVenueLoader !== saveVenueLoader && saveVenueLoader) {
@@ -151,9 +84,13 @@ class AddVenue extends Component {
   }
 
   handleClickOpen = modal => {
+    const { serviesFacilities } = this.state
     var x = [];
     x[modal] = true;
     this.setState(x);
+    if (serviesFacilities.length) {
+      this.setState({ newServices: [...this.state.serviesFacilities] });
+    }
   };
 
   handleClose = modal => {
@@ -254,18 +191,18 @@ class AddVenue extends Component {
   };
 
   handleChangeOnServiceFacilites = (event, i) => {
-    let service = this.state.serviesFacilities;
+    let service = this.state.newServices;
     service[i][event.target.name] = event.target.value;
     this.setState({
-      serviesFacilities: service,
+      newServices: service,
       isDetailsButtonDisable: false
     });
   };
 
   handlerServicesFieldAdd = () => {
     this.setState({
-      serviesFacilities: [
-        ...this.state.serviesFacilities,
+      newServices: [
+        ...this.state.newServices,
         {
           title: "",
           price: ""
@@ -274,10 +211,18 @@ class AddVenue extends Component {
     });
   };
 
-  handlerServicesFieldDelete = index => {
-    this.state.serviesFacilities.splice(index, 1);
+  doneServicesFieldAdd = () => {
     this.setState({
-      serviesFacilities: this.state.serviesFacilities
+      serviesFacilities: [
+        ...this.state.newServices
+      ]
+    });
+  };
+
+  handlerServicesFieldDelete = index => {
+    this.state.newServices.splice(index, 1);
+    this.setState({
+      newServices: this.state.newServices
     });
   };
 
@@ -385,7 +330,8 @@ class AddVenue extends Component {
       url,
       error,
       isDetailsButtonDisable,
-      localSaveVenueLoader
+      localSaveVenueLoader,
+      newServices
     } = this.state;
 
     const { saveVenueLoader } = this.props;
@@ -418,8 +364,10 @@ class AddVenue extends Component {
           classicModal={classicModal}
           handleClickOpen={this.handleClickOpen}
           handleClose={this.handleClose}
+          doneServicesFieldAdd={this.doneServicesFieldAdd}
           handlerServicesFieldDelete={this.handlerServicesFieldDelete}
           isDetailsButtonDisable={isDetailsButtonDisable}
+          newServices={newServices}
         />
         <ImageUploader
           open={open}

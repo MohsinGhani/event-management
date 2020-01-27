@@ -40,7 +40,9 @@ class CreateServiceFacilities extends Component {
       handleChangeOnServiceFacilites,
       handlerServicesFieldAdd,
       handlerServicesFieldDelete,
-      isDetailsButtonDisable
+      isDetailsButtonDisable,
+      newServices,
+      doneServicesFieldAdd
     } = this.props;
     return (
       <div>
@@ -74,6 +76,9 @@ class CreateServiceFacilities extends Component {
                     </GridContainer>
                   );
                 })}
+                {
+                  !serviesFacilities.length && <p style={{ display: "flex", justifyContent: "center" }}>No Service Added! Kindly Add Services</p>
+                }
               </div>
               <div style={{ display: "flex", justifyContent: "flex-end" }}>
                 <Button
@@ -117,7 +122,7 @@ class CreateServiceFacilities extends Component {
                     id="classic-modal-slide-description"
                     className={classes.modalBody}
                   >
-                    {serviesFacilities.map((ser, index) => {
+                    {newServices.map((ser, index) => {
                       return (
                         <div
                           style={{
@@ -171,17 +176,15 @@ class CreateServiceFacilities extends Component {
                       onClick={event => {
                         handlerServicesFieldAdd(event);
                       }}
-                      // disabled={!(serviesFacilities.title && serviesFacilities.price)}
-                      disabled={isDetailsButtonDisable}
                     >
                       Add another field
                     </Button>
                     <Button
-                      onClick={() => handleClose("classicModal")}
-                      color="danger"
+                      onClick={(e) => { doneServicesFieldAdd(); handleClose('classicModal') }}
+                      color="success"
                       simple
                     >
-                      Close
+                      Done
                     </Button>
                   </DialogActions>
                 </Dialog>
