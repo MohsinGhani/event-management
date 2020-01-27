@@ -136,7 +136,9 @@ class VenueDetail extends React.Component {
       createdTimestamp: new Date().getTime(),
       eventCreatorId: venue && venue.userId
     }
-    this.props.saveBookingItemAction(bookingDetail);
+
+    this.props.saveBookingData(bookingDetail);
+    // this.props.saveBookingItemAction(bookingDetail);
     this.goto(`/booking-step/${vid}`)
     this.setState({
       servicesBookingPrice: [],
@@ -438,7 +440,8 @@ const mapDispatchToProps = dispatch => {
       dispatch(venueAction.createPackages(payload)),
     getPackages: vid => dispatch(venueAction.getPackages(vid)),
     allBookingItem: payload => dispatch(venueAction.getBookingItem(payload)),
-    saveBookingItemAction: payload => dispatch(venueAction.saveBookingItem(payload))
+    saveBookingItemAction: payload => dispatch(venueAction.saveBookingItem(payload)),
+    saveBookingData: payload => dispatch(venueAction.saveBookingData(payload))
   };
 };
 
