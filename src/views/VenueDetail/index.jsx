@@ -228,29 +228,6 @@ class VenueDetail extends React.Component {
     }
   };
 
-  // handleToggleOnPackage = (value, index) => {
-  //
-  //   const {packageArray } =this.state
-  //   let { packages } = this.props;
-  //
-
-  //   // check the value in array thorugh filter
-
-  //   var isExist = packages.filter(service => {
-  //
-
-  //     return service.packageObj === value.packages[value.i].packageObj;
-  //   });
-
-  //   if (isExist.length) {
-  //
-  //     this.setState({
-  //       packageArray
-  //     });
-  //   }
-  //   console.log(packageArray)
-  // };
-
   handleToggleOnPackage = value => {
     let { packageArray } = this.state;
 
@@ -259,7 +236,6 @@ class VenueDetail extends React.Component {
     var isExist = packageArray.filter(pack => {
       return pack.packageObj === value.packageObj;
     });
-    console.log(isExist);
     if (isExist.length) {
       // remove array is exit through filter
       var removePrice = packageArray.filter(pack => {
@@ -271,13 +247,10 @@ class VenueDetail extends React.Component {
       });
     } else {
       packageArray.push(value);
-
       this.setState({
         packageArray
       });
-      console.log(packageArray);
     }
-    console.log(packageArray);
   };
 
   handleOnChange = event => {
@@ -298,7 +271,6 @@ class VenueDetail extends React.Component {
       userId: user && user.uid,
     };
     createCustomPackages(newPackage);
-    console.log(newPackage);
     this.setState({
       packageObj: "",
       servicePackages: "",

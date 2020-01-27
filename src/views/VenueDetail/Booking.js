@@ -105,20 +105,7 @@ class Booking extends Component {
     let totalPrice = 0;
     let packagePrice = 0;
 
-    console.log("bookingItem: ", bookingItem);
     const { disableDates } = this.state;
-    // let card = packageArray
-    //   ? packageArray.map(p => {
-    //
-    //       p.servicePackages.map(s => {
-    //
-    //         packagePrice += (parseInt(s.price) / 100) * p.discountAmount;
-    //
-    //         return <li>{s.price}</li>;
-    //       });
-    //     })
-    //   : null;
-    // console.log(card);
     return (
       <>
         {venue.userId !== user.uid ? (
@@ -156,30 +143,6 @@ class Booking extends Component {
                                 fontSize: "20px"
                               }}
                             />
-                            {/* <TextField
-                              id="Contact Number"
-                              label="Contact Number"
-                              multiline
-                              type="number"
-                              name="contactNumber"
-                              // value={"dkkdsklskdldsklds"}
-                              // onChange={handleDetailInput}
-                              margin="normal"
-                              fullWidth
-                              style={{ marginTop: "10px" }}
-                            />
-                            <TextField
-                              id="Address"
-                              label="Address"
-                              multiline
-                              type="text"
-                              name="address"
-                              // value={"ksjkdsjkdsjkdsds"}
-                              // onChange={handleDetailInput}
-                              margin="normal"
-                              fullWidth
-                              style={{ marginTop: "10px" }}
-                            /> */}
                           </div>
                         </GridItem>
                       </GridContainer>
@@ -252,9 +215,6 @@ class Booking extends Component {
                             variant="outlined"
                             color="success"
                             disabled={isBookingButtonDisable}
-                            // onClick={() => {
-                            //   saveCustomBooking();
-                            // }}
                             onClick={saveBooking}
                           >
                             {/* {saveCustomBookingLoader ? (
@@ -316,15 +276,6 @@ class Booking extends Component {
                           afterDiscountPrice={afterDiscountPrice}
                           saveCustomPackages={saveCustomPackages}
                         />
-                        {/* <Button
-                          variant="outlined"
-                          color="success"
-                          // onClick={() => {
-
-                          // }}
-                        >
-                          Create Package
-                        </Button> */}
                       </div>
                     </GridItem>
                   </GridContainer>
