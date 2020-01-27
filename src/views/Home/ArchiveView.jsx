@@ -93,7 +93,6 @@ class ArchiveView extends React.Component {
           ) : (
             archiveVenues &&
             archiveVenues.map((archiveVenue, i) => {
-              console.log("archiveVenues=>", archiveVenue);
               return (
                 <GridItem md={4} key={i}>
                   <Card

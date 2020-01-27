@@ -128,7 +128,6 @@ export default class venueEpic {
             querySnapshot.forEach(doc => {
               feedbacks.push({ ...doc.data(), fid: doc.id });
             });
-            console.log("event id with feedbacks: ", feedbacks);
             return venueAction.getFeedbacksSuccess(feedbacks);
           })
           .catch(err => {
@@ -220,7 +219,6 @@ export default class venueEpic {
             querySnapshot.forEach(doc => {
               packages.push({ ...doc.data(), pid: doc.id });
             });
-            console.log(packages);
             return venueAction.getPackagesSuccess(packages);
           })
           .catch(function (err) {
@@ -237,8 +235,6 @@ export default class venueEpic {
 
   static getArchiveVenues = action$ =>
     action$.ofType(GET_ARCHIVE_VENUES).mergeMap(({ payload }) => {
-      // let user = auth.currentUser.uid;
-
       const { userId } = payload;
       let services = [];
 
@@ -250,11 +246,7 @@ export default class venueEpic {
           .get()
           .then(function (querySnapshot) {
             querySnapshot.forEach(function (doc) {
-              // doc.data() is never undefined for query doc snapshots
               services.push({ ...doc.data(), vid: doc.id });
-              // alert("venue get");
-              // console.log(doc.id, " => ", doc.data());
-              // props.getMyProducts(doc.data());
             });
             return venueAction.getArchiveVenuesSuccess(services);
           })
@@ -311,7 +303,6 @@ export default class venueEpic {
             querySnapshot.forEach(doc => {
               venue.push({ ...doc.data(), vid: doc.id });
             });
-            console.log(venue);
             return venueAction.getVenueForBookedDetailsSuccess(venue);
           })
           .catch(function (err) {
@@ -349,7 +340,6 @@ export default class venueEpic {
 
   static getVenuesByUserId = action$ =>
     action$.ofType(GET_VENUES_BY_USER_ID).mergeMap(({ payload }) => {
-      // let user = auth.currentUser.uid;
       const { userId } = payload;
       const ven = [];
 
@@ -363,9 +353,6 @@ export default class venueEpic {
             querySnapshot.forEach(function (doc) {
               // doc.data() is never undefined for query doc snapshots
               ven.push({ ...doc.data(), vid: doc.id });
-              // alert("venue get");
-              // console.log(doc.id, " => ", doc.data());
-              // props.getMyProducts(doc.data());
             });
             return venueAction.getVenuesByUserIdSuccess(ven);
           })
@@ -388,7 +375,6 @@ export default class venueEpic {
 
   static getBookingItem = action$ =>
     action$.ofType(GET_BOOKING_ITEM).mergeMap(({ payload }) => {
-      // let user = auth.currentUser.uid;
       const { userId, vid } = payload;
       const bookingItem = [];
       if (userId) {
@@ -401,8 +387,6 @@ export default class venueEpic {
             querySnapshot.forEach(function (doc) {
               // doc.data() is never undefined for query doc snapshots
               bookingItem.push({ ...doc.data(), bid: doc.id });
-              console.log(doc.id, " => ", doc.data());
-              // props.getMyProducts(doc.data());
             });
 
             return venueAction.getBookingItemSuccess(bookingItem);
@@ -457,7 +441,6 @@ export default class venueEpic {
             querySnapshot.forEach(doc => {
               pendingBooking.push({ ...doc.data(), bid: doc.id });
             });
-            console.log(pendingBooking);
             return venueAction.getPendingBookingStatusSuccess(pendingBooking);
           })
           .catch(error => {
@@ -488,7 +471,6 @@ export default class venueEpic {
             querySnapshot.forEach(doc => {
               bookingApproval.push({ ...doc.data(), bookingApprovalID: doc.id });
             });
-            console.log(bookingApproval);
             return venueAction.getPendingBookingApprovalSuccess(bookingApproval);
           })
           .catch(error => {
@@ -506,7 +488,6 @@ export default class venueEpic {
 
   static getPendingStatusVenues = action$ =>
     action$.ofType(GET_PENDING_STATUS_VENUES).mergeMap(({ payload }) => {
-      // let user = auth.currentUser.uid;
       const { userId } = payload;
       const ven = [];
 
@@ -520,9 +501,6 @@ export default class venueEpic {
             querySnapshot.forEach(function (doc) {
               // doc.data() is never undefined for query doc snapshots
               ven.push({ ...doc.data(), vid: doc.id });
-              // alert("venue get");
-              // console.log(doc.id, " => ", doc.data());
-              // props.getMyProducts(doc.data());
             });
             return venueAction.getPendingStatusVenuesSuccess(ven);
           })
@@ -599,76 +577,3 @@ export default class venueEpic {
         });
     });
 }
-
-// static getVenuesByUserId = action$ =>
-//     action$.ofType(GET_VENUES_BY_USER_ID).mergeMap(({ payload }) => {
-//       // const { userId, getVenue } = payload;
-// const { user } = auth.currentUser;
-//
-//       return (
-//         db
-//           .collection("services")
-//           // .where(userId.uid, "==",getVenue.userId )
-//           // .doc(payload)
-//           .where("userId", "==", user.uid)
-//           .get()
-//           .then(doc => {
-//
-//             console.log(payload);
-//             if (doc.exists) {
-//               console.log(doc.data());
-//
-//               console.log(doc.data());
-//               return venueAction.getVenuesByUserIdSuccess({
-//                 ...doc.data()
-//               });
-//             } else {
-//               return venueAction.getVenuesByUserIdFailure(`No such document!`);
-//             }
-//           })
-//           .catch(error => {
-//
-//             return venueAction.getVenuesByUserIdFailure(
-//               `Error in getting venue! ${error}`
-//             );
-//           })
-//       );
-
-// static getDeletedVenues = action$ =>
-// action$.ofType(GET_DELETED_VENUES).mergeMap(async () => {
-//   try {
-//     const querySnapshot = await db
-//       .collection("services")
-//       .where("objStatus", "==", 0)
-//       .get();
-//     let services = [];
-//     querySnapshot.forEach(doc => {
-//       services.push({ ...doc.data(), vid: doc.id });
-//     });
-//     return venueAction.getDeletedVenuesSuccess(services);
-//   } catch (err) {
-//     return venueAction.getDeletedVenuesFailure(
-//       `Error in getting services! ${err}`
-//     );
-//   }
-// });
-
-// static getArchiveVenues = action$ =>
-// action$.ofType(GET_ARCHIVE_VENUES).mergeMap(async () => {
-//   try {
-//     const querySnapshot = await db
-//       .collection("services")
-//       .where("objStatus", "==", 2)
-//       .get();
-//     let services = [];
-//     querySnapshot.forEach(doc => {
-//       services.push({ ...doc.data(), vid: doc.id });
-//     });
-//
-//     return venueAction.getArchiveVenuesSuccess(services);
-//   } catch (err) {
-//     return venueAction.getArchiveVenuesFailure(
-//       `Error in getting services! ${err}`
-//     );
-//   }
-// });

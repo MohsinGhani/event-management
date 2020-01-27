@@ -75,10 +75,7 @@ class ApproveBookingItems extends Component {
   }
 
   handleApprovedStatus = (bookingApprovalID,index ) => {
-    //   console.log(index, "index")
-    //   console.log(bookingApprovalID, "ID")
       const { pendingBookingApproval } = this.props;
-    //   console.log(pendingBookingApproval, "approval")
     const newObjStatus = {
       ...pendingBookingApproval[index],
       bookingStatus: 1,

@@ -35,7 +35,6 @@ class SelectBar extends React.Component {
                     onChange={categoryHandler}
                     inputProps={{
                       name: "categorySelect",
-                      id: "age-simple"
                     }}
                   >
                     {categories.map((cat, i) => {
