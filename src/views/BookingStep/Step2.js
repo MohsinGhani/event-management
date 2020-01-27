@@ -42,20 +42,8 @@ class Step2 extends Component {
     this.props.getCountryAction();
   }
 
-  // handleInputForCountry = event => {
-  //   const { name, value } = event.target;
-  //   this.setState({
-  //     [name]: value
-  //   });
-
-  //   if (name === "countryName") {
-  //     this.props.getCountryAction({ countryName: value });
-  //   }
-  // };
-
   componentDidUpdate(prevProps, prevState) {
     const { countryCode, stateCode, cityCode } = this.state;
-    console.log(countryCode);
     const { states, city, getStateAction, getCityAction } = this.props;
     if (prevState.countryCode !== countryCode && countryCode) {
       getStateAction({ countryCode: countryCode });
@@ -96,15 +84,6 @@ class Step2 extends Component {
       stateCode,
       cityCode
     } = this.state;
-    // const options =
-    //   country &&
-    //   country.map(option => {
-    //     const firstLetter = option.name[0].toUpperCase();
-    //     return {
-    //       firstLetter: /[0-9]/.test(firstLetter) ? "0-9" : firstLetter,
-    //       ...option
-    //     };
-    //   });
     return (
       <div>
         <div className={classes.container}>
@@ -245,163 +224,6 @@ class Step2 extends Component {
                       );
                     }}
                   />
-                  {/* 
-                  <Autocomplete
-                    id="countryName"
-                    freeSolo
-                    onChange={(event, value) =>
-                      this.setState({
-                        countryName: value.name,
-                        countryCode: value.code
-                      })
-                    }
-                    options={
-                      options &&
-                      options.sort(
-                        (a, b) => -b.firstLetter.localeCompare(a.firstLetter)
-                      )
-                    }
-                    groupBy={option => option.firstLetter}
-                    getOptionLabel={option => option.name}
-                    loading={getCountryLoader ? true : false}
-                    renderInput={params => (
-                      <div style={{ display: "flex" }}>
-                        <TextField
-                          {...params}
-                          label="Country"
-                          fullWidth
-                          margin="normal"
-                        />
-                        {getCountryLoader ? (
-                          <CircularProgress
-                            className={classes.loader}
-                            size={20}
-                          />
-                        ) : (
-                          ""
-                        )}
-                      </div>
-                    )}
-                    renderOption={(option, { inputValue }) => {
-                      const matches = match(option.name, inputValue);
-                      const parts = parse(option.name, matches);
-                      return (
-                        <div>
-                          {parts.map((part, index) => (
-                            <span
-                              key={index}
-                              style={{ fontWeight: part.highlight ? 700 : 400 }}
-                            >
-                              {part.text}
-                            </span>
-                          ))}
-                        </div>
-                      );
-                    }}
-                  />
-                  <Autocomplete
-                    id="stateName"
-                    freeSolo
-                    // onChange={
-                    //   (event, value) =>
-                    //   this.setState({ countryName: value })
-                    // }
-                    options={
-                      options &&
-                      options.sort(
-                        (a, b) => -b.firstLetter.localeCompare(a.firstLetter)
-                      )
-                    }
-                    groupBy={option => option.firstLetter}
-                    getOptionLabel={option => option.name}
-                    loading={getCountryLoader ? true : false}
-                    renderInput={params => (
-                      <div style={{ display: "flex" }}>
-                        <TextField
-                          {...params}
-                          label="State"
-                          fullWidth
-                          margin="normal"
-                        />
-                        {getCountryLoader ? (
-                          <CircularProgress
-                            className={classes.loader}
-                            size={20}
-                          />
-                        ) : (
-                          ""
-                        )}
-                      </div>
-                    )}
-                    renderOption={(option, { inputValue }) => {
-                      const matches = match(option.name, inputValue);
-                      const parts = parse(option.name, matches);
-                      return (
-                        <div>
-                          {parts.map((part, index) => (
-                            <span
-                              key={index}
-                              style={{ fontWeight: part.highlight ? 700 : 400 }}
-                            >
-                              {part.text}
-                            </span>
-                          ))}
-                        </div>
-                      );
-                    }}
-                  />
-                  <Autocomplete
-                    id="cityName"
-                    freeSolo
-                    // onChange={
-                    //   (event, value) =>
-                    //   this.setState({ countryName: value })
-                    // }
-                    options={
-                      options &&
-                      options.sort(
-                        (a, b) => -b.firstLetter.localeCompare(a.firstLetter)
-                      )
-                    }
-                    groupBy={option => option.firstLetter}
-                    getOptionLabel={option => option.name}
-                    loading={getCountryLoader ? true : false}
-                    renderInput={params => (
-                      <div style={{ display: "flex" }}>
-                        <TextField
-                          {...params}
-                          label="City"
-                          fullWidth
-                          margin="normal"
-                        />
-                        {getCountryLoader ? (
-                          <CircularProgress
-                            className={classes.loader}
-                            size={20}
-                          />
-                        ) : (
-                          ""
-                        )}
-                      </div>
-                    )}
-                    renderOption={(option, { inputValue }) => {
-                      const matches = match(option.name, inputValue);
-                      const parts = parse(option.name, matches);
-                      return (
-                        <div>
-                          {parts.map((part, index) => (
-                            <span
-                              key={index}
-                              style={{ fontWeight: part.highlight ? 700 : 400 }}
-                            >
-                              {part.text}
-                            </span>
-                          ))}
-                        </div>
-                      );
-                    }}
-                  /> */}
-
                   <CustomInput
                     labelText="Address"
                     id="forth"
@@ -492,40 +314,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(withStyles(loginStyle)(Step2));
-
-/* <Autocomplete
-                    id="country"
-                    freeSolo
-                    onChange={(event, value) =>
-                      this.setState({ countryName: value })
-                    }
-                    options={
-                      ["Pak","ind","afg"]
-                    }
-                    loading={getCountryLoader ? true : false}
-                    renderInput={params => (
-                      <div style={{ display: "flex" }}>
-                        <TextField
-                          {...params}
-                          label="Country"
-                          margin="normal"
-                          style={{ marginTop: "0px" }}
-                          fullWidth
-                          InputProps={{
-                            type: "text",
-                            name: "countryName",
-                            value: countryName,
-                            onChange: this.handleInputForCountry
-                          }}
-                        />
-                        {getCountryLoader ? (
-                          <CircularProgress
-                            className={classes.loader}
-                            size={20}
-                          />
-                        ) : (
-                          ""
-                        )}
-                      </div>
-                    )}
-    /> */
