@@ -11,13 +11,18 @@ import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 
 import workStyle from "assets/jss/material-kit-react/views/landingPageSections/workStyle.jsx";
+import { db } from "./../../../firebase/FireBase";
+import SnackbarContent from "components/Snackbar/SnackbarContent.jsx";
+import Warning from "@material-ui/icons/Warning";
 
 class WorkSection extends React.Component {
   state = {
     name: "",
     email: "",
     msg: "",
-    error: ""
+    error: "",
+    loading: false,
+    sendMsgSuccess: false
   };
 
   inputHandler = e => {
@@ -27,7 +32,7 @@ class WorkSection extends React.Component {
 
   sendMessage = () => {
     const { name, email, msg } = this.state;
-
+    this.setState({ loading: true });
     if (!name) {
       return this.setState({ error: "Name is Required" });
     }
@@ -37,23 +42,35 @@ class WorkSection extends React.Component {
     if (!msg) {
       return this.setState({ error: "Message is Required" });
     }
-
-    
+    let payload = { name, email, msg };
+    db.collection("adminFeedback")
+      .doc()
+      .set(payload)
+      .then(data => {
+        this.setState({
+          loading: false,
+          sendMsgSuccess: true,
+          name: "",
+          email: "",
+          msg: ""
+        });
+      })
+      .catch(error => {
+        this.setState({ loading: false, error: error.message });
+      });
   };
 
   render() {
     const { classes } = this.props;
-    const { name, email, msg } = this.state;
+    const { name, email, msg, loading, sendMsgSuccess } = this.state;
     return (
       <div className={classes.section}>
         <GridContainer justify="center">
           <GridItem cs={12} sm={12} md={8}>
-            <h2 className={classes.title}>Work with us</h2>
+            <h2 className={classes.title}>Contact Us</h2>
             <h4 className={classes.description}>
-              Divide details about your product or agency work into parts. Write
-              a few lines about each one and contact us about any further
-              collaboration. We will responde get back to you in a couple of
-              hours.
+              Our Team is Ready to Resolve your Queries. Kindly Feel Free to ask
+              Anything Regarding Event On Services
             </h4>
             <form>
               <GridContainer>
@@ -108,7 +125,7 @@ class WorkSection extends React.Component {
                     className={classes.textCenter}
                   >
                     <Button color="primary" onClick={this.sendMessage}>
-                      Send Message
+                      {loading ? "...sending" : "Send Message"}
                     </Button>
                   </GridItem>
                 </GridContainer>
@@ -116,6 +133,21 @@ class WorkSection extends React.Component {
             </form>
           </GridItem>
         </GridContainer>
+
+        {sendMsgSuccess && (
+          <div style={{ height: 50, width: "100%" }}>
+            <SnackbarContent
+              message={
+                <span>
+                  <b>SUCCESS:</b> Your Message has been successfully sent...
+                </span>
+              }
+              color="success"
+              icon={Warning}
+              close
+            />
+          </div>
+        )}
       </div>
     );
   }

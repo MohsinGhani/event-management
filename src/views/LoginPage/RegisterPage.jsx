@@ -97,7 +97,7 @@ class RegisterPage extends React.Component {
         <Header
           absolute
           color="transparent"
-          brand="Event Management"
+          brand="Event On"
           {...rest}
         />
         <div

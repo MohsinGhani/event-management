@@ -36,7 +36,7 @@ class AuthenticatedNavbar extends React.Component {
       <div className={classes.section}>
         <div id="navbar" className={classes.navbar}>
           <Header
-            brand="Event Management"
+            brand="Event On"
             color={navBgColor ? navBgColor : "rose"}
             fixed
             changeColorOnScroll={navBgColor !== "rose" ? {
