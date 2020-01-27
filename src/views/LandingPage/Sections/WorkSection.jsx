@@ -13,8 +13,37 @@ import Button from "components/CustomButtons/Button.jsx";
 import workStyle from "assets/jss/material-kit-react/views/landingPageSections/workStyle.jsx";
 
 class WorkSection extends React.Component {
+  state = {
+    name: "",
+    email: "",
+    msg: "",
+    error: ""
+  };
+
+  inputHandler = e => {
+    const { value, name } = e.target;
+    this.setState({ [name]: value, error: "" });
+  };
+
+  sendMessage = () => {
+    const { name, email, msg } = this.state;
+
+    if (!name) {
+      return this.setState({ error: "Name is Required" });
+    }
+    if (!email) {
+      return this.setState({ error: "Email is Required" });
+    }
+    if (!msg) {
+      return this.setState({ error: "Message is Required" });
+    }
+
+    
+  };
+
   render() {
     const { classes } = this.props;
+    const { name, email, msg } = this.state;
     return (
       <div className={classes.section}>
         <GridContainer justify="center">
@@ -35,6 +64,11 @@ class WorkSection extends React.Component {
                     formControlProps={{
                       fullWidth: true
                     }}
+                    inputProps={{
+                      onChange: this.inputHandler,
+                      value: name,
+                      name: "name"
+                    }}
                   />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={6}>
@@ -43,6 +77,11 @@ class WorkSection extends React.Component {
                     id="email"
                     formControlProps={{
                       fullWidth: true
+                    }}
+                    inputProps={{
+                      onChange: this.inputHandler,
+                      value: email,
+                      name: "email"
                     }}
                   />
                 </GridItem>
@@ -55,7 +94,10 @@ class WorkSection extends React.Component {
                   }}
                   inputProps={{
                     multiline: true,
-                    rows: 5
+                    rows: 5,
+                    onChange: this.inputHandler,
+                    name: "msg",
+                    value: msg
                   }}
                 />
                 <GridContainer justify="center">
@@ -65,7 +107,9 @@ class WorkSection extends React.Component {
                     md={4}
                     className={classes.textCenter}
                   >
-                    <Button color="primary">Send Message</Button>
+                    <Button color="primary" onClick={this.sendMessage}>
+                      Send Message
+                    </Button>
                   </GridItem>
                 </GridContainer>
               </GridContainer>
