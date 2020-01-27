@@ -44,7 +44,6 @@ class UpdateVenue extends Component {
   }
   render() {
     const { classes, venue } = this.props;
-    console.log("venue: ", venue);
     return (
       <div>
         <AuthenticatedNavbar  navBgColor={'rose'}/>
