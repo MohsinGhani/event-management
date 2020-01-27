@@ -16,9 +16,10 @@ import CardFooter from "components/Card/CardFooter.jsx";
 
 import teamStyle from "assets/jss/material-kit-react/views/landingPageSections/teamStyle.jsx";
 
-import team1 from "assets/img/faces/avatar.jpg";
-import team2 from "assets/img/faces/christian.jpg";
-import team3 from "assets/img/faces/kendall.jpg";
+import team1 from "assets/img/aftab.jpeg";
+import team2 from "assets/img/mohsin.jpeg";
+import team3 from "assets/img/soban.jpeg";
+import team4 from "assets/img/faran.jpeg";
 
 class TeamSection extends React.Component {
   render() {
@@ -30,25 +31,23 @@ class TeamSection extends React.Component {
     );
     return (
       <div className={classes.section}>
-        <h2 className={classes.title}>Here is our team</h2>
+        <h2 className={classes.title}>Here is Event On team</h2>
         <div>
           <GridContainer>
-            <GridItem xs={12} sm={12} md={4}>
+            <GridItem xs={12} sm={12} md={3}>
               <Card plain>
                 <GridItem xs={12} sm={12} md={6} className={classes.itemGrid}>
                   <img src={team1} alt="..." className={imageClasses} />
                 </GridItem>
                 <h4 className={classes.cardTitle}>
-                  Gigi Hadid
+                  Muhammad Aftab
                   <br />
-                  <small className={classes.smallTitle}>Model</small>
+                  <small className={classes.smallTitle}>Developer</small>
                 </h4>
                 <CardBody>
                   <p className={classes.description}>
-                    You can write here details about one of your team members.
-                    You can give more details about what they do. Feel free to
-                    add some <a href="#pablo">links</a> for people to be able to
-                    follow them outside the site.
+                    I have managed this product on the development side and
+                    developed it's Front-End and Back-End.
                   </p>
                 </CardBody>
                 <CardFooter className={classes.justifyCenter}>
@@ -57,41 +56,55 @@ class TeamSection extends React.Component {
                     color="transparent"
                     className={classes.margin5}
                   >
-                    <i className={classes.socials + " fab fa-twitter"} />
+                    <a
+                      href="https://www.linkedin.com/in/aftab-umer-b79b7b194/"
+                      target="_blank"
+                    >
+                      <i className={classes.socials + " fab fa-linkedin"} />
+                    </a>
                   </Button>
                   <Button
                     justIcon
                     color="transparent"
                     className={classes.margin5}
                   >
-                    <i className={classes.socials + " fab fa-instagram"} />
+                    <a
+                      href="https://www.facebook.com/profile.php?id=100005655731921"
+                      target="_blank"
+                    >
+                      <i className={classes.socials + " fab fa-facebook"} />
+                    </a>
                   </Button>
                   <Button
                     justIcon
                     color="transparent"
                     className={classes.margin5}
                   >
-                    <i className={classes.socials + " fab fa-facebook"} />
+                    <a
+                      href="https://github.com/aftabumer"
+                      target="_blank"
+                    >
+                      <i className={classes.socials + " fab fa-github"} />
+                    </a>
                   </Button>
                 </CardFooter>
               </Card>
             </GridItem>
-            <GridItem xs={12} sm={12} md={4}>
+
+            <GridItem xs={12} sm={12} md={3}>
               <Card plain>
                 <GridItem xs={12} sm={12} md={6} className={classes.itemGrid}>
                   <img src={team2} alt="..." className={imageClasses} />
                 </GridItem>
                 <h4 className={classes.cardTitle}>
-                  Christian Louboutin
+                  Mohsin Ghani
                   <br />
-                  <small className={classes.smallTitle}>Designer</small>
+                  <small className={classes.smallTitle}>Developer</small>
                 </h4>
                 <CardBody>
                   <p className={classes.description}>
-                    You can write here details about one of your team members.
-                    You can give more details about what they do. Feel free to
-                    add some <a href="#pablo">links</a> for people to be able to
-                    follow them outside the site.
+                    I am Technical Lead at EventOn, I have technically managed
+                    this product and make it bug-free and smooth.
                   </p>
                 </CardBody>
                 <CardFooter className={classes.justifyCenter}>
@@ -100,34 +113,55 @@ class TeamSection extends React.Component {
                     color="transparent"
                     className={classes.margin5}
                   >
-                    <i className={classes.socials + " fab fa-twitter"} />
+                    <a
+                      href="https://www.linkedin.com/in/mohsin-ghani-17535011b/"
+                      target="_blank"
+                    >
+                      <i className={classes.socials + " fab fa-linkedin"} />
+                    </a>
                   </Button>
                   <Button
                     justIcon
                     color="transparent"
                     className={classes.margin5}
                   >
-                    <i className={classes.socials + " fab fa-linkedin"} />
+                    <a
+                      href="https://www.facebook.com/mohsinghani.777"
+                      target="_blank"
+                    >
+                      <i className={classes.socials + " fab fa-facebook"} />
+                    </a>
+                  </Button>
+                  <Button
+                    justIcon
+                    color="transparent"
+                    className={classes.margin5}
+                  >
+                    <a
+                      href="https://github.com/mohsinghani"
+                      target="_blank"
+                    >
+                      <i className={classes.socials + " fab fa-github"} />
+                    </a>
                   </Button>
                 </CardFooter>
               </Card>
             </GridItem>
-            <GridItem xs={12} sm={12} md={4}>
+
+            <GridItem xs={12} sm={12} md={3}>
               <Card plain>
                 <GridItem xs={12} sm={12} md={6} className={classes.itemGrid}>
                   <img src={team3} alt="..." className={imageClasses} />
                 </GridItem>
                 <h4 className={classes.cardTitle}>
-                  Kendall Jenner
+                  Muhammad Soban
                   <br />
-                  <small className={classes.smallTitle}>Model</small>
+                  <small className={classes.smallTitle}>Developer</small>
                 </h4>
                 <CardBody>
                   <p className={classes.description}>
-                    You can write here details about one of your team members.
-                    You can give more details about what they do. Feel free to
-                    add some <a href="#pablo">links</a> for people to be able to
-                    follow them outside the site.
+                    I utilized my expertise of firebase admin sdk and node js to
+                    develop admin portal for this project
                   </p>
                 </CardBody>
                 <CardFooter className={classes.justifyCenter}>
@@ -136,23 +170,56 @@ class TeamSection extends React.Component {
                     color="transparent"
                     className={classes.margin5}
                   >
-                    <i className={classes.socials + " fab fa-twitter"} />
+                    <a
+                      href="https://www.linkedin.com/in/mohammed-soban-aa6264135/"
+                      target="_blank"
+                    >
+                      <i className={classes.socials + " fab fa-linkedin"} />
+                    </a>
                   </Button>
                   <Button
                     justIcon
                     color="transparent"
                     className={classes.margin5}
                   >
-                    <i className={classes.socials + " fab fa-instagram"} />
+                    <a
+                      href="https://www.facebook.com/mohammed.soban.1"
+                      target="_blank"
+                    >
+                      <i className={classes.socials + " fab fa-facebook"} />
+                    </a>
                   </Button>
                   <Button
                     justIcon
                     color="transparent"
                     className={classes.margin5}
                   >
-                    <i className={classes.socials + " fab fa-facebook"} />
+                    <a
+                      href="https://github.com/MohammedSoban"
+                      target="_blank"
+                    >
+                      <i className={classes.socials + " fab fa-github"} />
+                    </a>
                   </Button>
                 </CardFooter>
+              </Card>
+            </GridItem>
+
+            <GridItem xs={12} sm={12} md={3}>
+              <Card plain>
+                <GridItem xs={12} sm={12} md={6} className={classes.itemGrid}>
+                  <img src={team4} alt="..." className={imageClasses} />
+                </GridItem>
+                <h4 className={classes.cardTitle}>
+                  Syed Faran-ul-Haq
+                  <br />
+                  <small className={classes.smallTitle}>Tester</small>
+                </h4>
+                <CardBody>
+                  <p className={classes.description}>
+                    I am lead tester of this product.
+                  </p>
+                </CardBody>
               </Card>
             </GridItem>
           </GridContainer>
