@@ -2,10 +2,8 @@ import React, { Component } from "react";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import Icon from "@material-ui/core/Icon";
 // @material-ui/icons
 import People from "@material-ui/icons/People";
-import Email from "@material-ui/icons/Email";
 // core components
 import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
@@ -13,7 +11,6 @@ import Card from "components/Card/Card.jsx";
 // import CardHeader from "components/Card/CardHeader.jsx";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardBody from "components/Card/CardBody.jsx";
-import CardFooter from "components/Card/CardFooter.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
 import TextField from "@material-ui/core/TextField";
@@ -21,9 +18,8 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import parse from "autosuggest-highlight/parse";
 import match from "autosuggest-highlight/match";
 import { connect } from "react-redux";
-import { authAction, venueAction } from "./../../store/actions";
-import CircularProgress from "@material-ui/core/CircularProgress";
-
+import { venueAction } from "./../../store/actions";
+import Summary from './Summary'
 import loginStyle from "assets/jss/material-kit-react/views/componentsSections/loginStyle.jsx";
 
 import "./index.css";
@@ -41,17 +37,6 @@ class Step2 extends Component {
   componentDidMount() {
     this.props.getCountryAction();
   }
-
-  // handleInputForCountry = event => {
-  //   const { name, value } = event.target;
-  //   this.setState({
-  //     [name]: value
-  //   });
-
-  //   if (name === "countryName") {
-  //     this.props.getCountryAction({ countryName: value });
-  //   }
-  // };
 
   componentDidUpdate(prevProps, prevState) {
     const { countryCode, stateCode, cityCode } = this.state;
@@ -96,15 +81,6 @@ class Step2 extends Component {
       stateCode,
       cityCode
     } = this.state;
-    // const options =
-    //   country &&
-    //   country.map(option => {
-    //     const firstLetter = option.name[0].toUpperCase();
-    //     return {
-    //       firstLetter: /[0-9]/.test(firstLetter) ? "0-9" : firstLetter,
-    //       ...option
-    //     };
-    //   });
     return (
       <div>
         <div className={classes.container}>
@@ -424,7 +400,7 @@ class Step2 extends Component {
               </Card>
             </GridItem>
             <GridItem xs={12} sm={12} md={4}>
-              <Card>Booking Details</Card>
+              <Summary />
               <div className="button">
                 <Button
                   disabled={activeStep === 0}
@@ -488,44 +464,8 @@ const mapDispatchToProps = dispatch => {
     getCityAction: payload => dispatch(venueAction.getCity(payload))
   };
 };
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(withStyles(loginStyle)(Step2));
-
-/* <Autocomplete
-                    id="country"
-                    freeSolo
-                    onChange={(event, value) =>
-                      this.setState({ countryName: value })
-                    }
-                    options={
-                      ["Pak","ind","afg"]
-                    }
-                    loading={getCountryLoader ? true : false}
-                    renderInput={params => (
-                      <div style={{ display: "flex" }}>
-                        <TextField
-                          {...params}
-                          label="Country"
-                          margin="normal"
-                          style={{ marginTop: "0px" }}
-                          fullWidth
-                          InputProps={{
-                            type: "text",
-                            name: "countryName",
-                            value: countryName,
-                            onChange: this.handleInputForCountry
-                          }}
-                        />
-                        {getCountryLoader ? (
-                          <CircularProgress
-                            className={classes.loader}
-                            size={20}
-                          />
-                        ) : (
-                          ""
-                        )}
-                      </div>
-                    )}
-    /> */

@@ -9,6 +9,7 @@ import Card from "components/Card/Card.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
+import Summary from './Summary'
 
 class PaymentInfo extends Component {
   state = {
@@ -98,6 +99,7 @@ class PaymentInfo extends Component {
             </Card>
           </GridItem>
           <GridItem xs={12} sm={12} md={4}>
+          <Summary />
             <Card>Booking Details</Card>
             <div className="button">
               <Button
