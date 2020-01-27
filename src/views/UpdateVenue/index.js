@@ -151,9 +151,7 @@ class UpdateVenue extends Component {
     }
 
     if (prevProps.venue !== venue && venue) {
-      console.log(venue);
       const { vid } = this.props.match.params;
-      console.log(vid);
 
       this.setState({
         name: venue.name,
@@ -170,7 +168,6 @@ class UpdateVenue extends Component {
         picked: venue.picked
       });
     }
-    console.log(this.state.vid);
   }
 
   componentDidMount() {
