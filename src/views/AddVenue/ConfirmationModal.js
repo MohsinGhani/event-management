@@ -37,6 +37,7 @@ class ConfirmationModal extends Component {
       goto,
       isDetailsButtonDisable,
       handelOnSaveAndUpload,
+      localSaveVenueLoader,
       saveVenueLoader,
       confirmModal,
       handleAddVenueClose
@@ -49,7 +50,7 @@ class ConfirmationModal extends Component {
           disabled={isDetailsButtonDisable}
           onClick={() => handelOnSaveAndUpload()}
         >
-          {saveVenueLoader ? (
+          {saveVenueLoader || localSaveVenueLoader ? (
             <ReactLoading
               type={"spin"}
               color={"#ffff"}
@@ -57,11 +58,11 @@ class ConfirmationModal extends Component {
               width={"20px"}
             />
           ) : (
-            <>
-              <LibraryBooks className={classes.icon} />
-              Submit
+              <>
+                <LibraryBooks className={classes.icon} />
+                Submit
             </>
-          )}
+            )}
         </Button>
         <Dialog
           classes={{

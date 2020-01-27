@@ -285,7 +285,7 @@ class AddVenue extends Component {
     var storageRef = storage.ref();
     var urls = [];
     let user = this.props.user;
-
+    this.setState({ localSaveVenueLoader: true })
     this.state.files.map((file, index) => {
       return storageRef
         .child(`events images/${file.name}`)
@@ -296,28 +296,16 @@ class AddVenue extends Component {
               response.task.snapshot.totalBytes) *
             100;
 
-          console.log("Upload is " + this.state.progress + "% done");
-          console.log(progresss);
-
           response.task.snapshot.ref
             .getDownloadURL()
             .then(downloadURL => {
               urls.push(downloadURL);
-
-              console.log(urls);
             })
             .then(() => {
               this.setState({
                 url: urls
               });
-
-              console.log("file.length", this.state.files.length);
-              console.log("index=", index);
               var sum = index + 1;
-
-              console.log("sum=", sum);
-
-              console.log("second iteration");
 
               if (this.state.files.length === sum) {
                 const {
@@ -350,6 +338,7 @@ class AddVenue extends Component {
                 };
                 this.props.saveVenue(newDetails);
                 this.handleClickAddVenueOpen("confirmModal");
+
                 this.setState({
                   name: "",
                   phone: "",
@@ -361,7 +350,8 @@ class AddVenue extends Component {
                   categorySelect: [],
                   files: [],
                   serviesFacilities: [],
-                  picked: null
+                  picked: null,
+                  localSaveVenueLoader: false
                 });
               }
             })
@@ -394,13 +384,14 @@ class AddVenue extends Component {
       files,
       url,
       error,
-      isDetailsButtonDisable
+      isDetailsButtonDisable,
+      localSaveVenueLoader
     } = this.state;
 
     const { saveVenueLoader } = this.props;
     return (
       <div>
-        <AuthenticatedNavbar  navBgColor={'rose'}/>
+        <AuthenticatedNavbar navBgColor={'rose'} />
         <br />
 
         <Selectbar
@@ -462,6 +453,7 @@ class AddVenue extends Component {
             goto={this.goto}
             isDetailsButtonDisable={isDetailsButtonDisable}
             handelOnSaveAndUpload={this.handelOnSaveAndUpload}
+            localSaveVenueLoader={localSaveVenueLoader}
             saveVenueLoader={saveVenueLoader}
             successNotifiy={this.successNotifiy}
             confirmModal={confirmModal}
