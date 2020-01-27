@@ -83,7 +83,7 @@ class Venues extends Component {
       <div>
         <ImageCarousel venue={venue} />
 
-        {venue.userId === user && user.uid ? (
+        {user && venue.userId === user.uid ? (
           <div className="action-button">
             <div className="edit_button">
               <Button
