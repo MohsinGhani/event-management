@@ -62,7 +62,6 @@ class SearchView extends React.Component {
                 const rate = feedbacked.filter(
                   feed => venue.vid === feed.eventId
                 );
-                console.log("rate: ", rate);
 
                 combineRating = rate.length ? rate[0].combineRating : 0;
               }
