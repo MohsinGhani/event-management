@@ -65,7 +65,8 @@ import {
   GET_STATE_FAILURE,
   GET_CITY,
   GET_CITY_SUCCESS,
-  GET_CITY_FAILURE
+  GET_CITY_FAILURE,
+  SAVE_BOOKING_DATA
 } from "./../constants";
 // import { venues } from "./../../assets/venus";
 
@@ -158,11 +159,20 @@ const initialState = {
 
   city: [],
   getCityLoader: false,
-  getCityError: null
+  getCityError: null,
+
+  savedBookingData: null
 };
 
 export default function venueReducer(state = initialState, action) {
   switch (action.type) {
+    ///////////////////////
+    case SAVE_BOOKING_DATA:
+      return {
+        ...state,
+        savedBookingData: action.payload
+      };
+
     ///////////////////////
     case REVERSE_GEOCODING:
       return {

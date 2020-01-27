@@ -65,11 +65,20 @@ import {
   GET_STATE_FAILURE,
   GET_CITY,
   GET_CITY_SUCCESS,
-  GET_CITY_FAILURE
+  GET_CITY_FAILURE,
+  SAVE_BOOKING_DATA
 } from "./../constants";
 
 export class venueAction {
   /////////////////////////// Get location latitude and logitude
+
+  static saveBookingData(payload) {
+    return {
+      type: SAVE_BOOKING_DATA,
+      payload
+    };
+  }
+  /////////////////////////// 
 
   static reverseGeoCoding(payload) {
     return {

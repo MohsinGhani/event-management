@@ -105,7 +105,20 @@ class Booking extends Component {
     let totalPrice = 0;
     let packagePrice = 0;
 
+    console.log("bookingItem: ", bookingItem);
     const { disableDates } = this.state;
+    // let card = packageArray
+    //   ? packageArray.map(p => {
+    //
+    //       p.servicePackages.map(s => {
+    //
+    //         packagePrice += (parseInt(s.price) / 100) * p.discountAmount;
+    //
+    //         return <li>{s.price}</li>;
+    //       });
+    //     })
+    //   : null;
+    // console.log(card);
     return (
       <>
         {venue.userId !== user.uid ? (
@@ -143,6 +156,30 @@ class Booking extends Component {
                                 fontSize: "20px"
                               }}
                             />
+                            {/* <TextField
+                              id="Contact Number"
+                              label="Contact Number"
+                              multiline
+                              type="number"
+                              name="contactNumber"
+                              // value={"dkkdsklskdldsklds"}
+                              // onChange={handleDetailInput}
+                              margin="normal"
+                              fullWidth
+                              style={{ marginTop: "10px" }}
+                            />
+                            <TextField
+                              id="Address"
+                              label="Address"
+                              multiline
+                              type="text"
+                              name="address"
+                              // value={"ksjkdsjkdsjkdsds"}
+                              // onChange={handleDetailInput}
+                              margin="normal"
+                              fullWidth
+                              style={{ marginTop: "10px" }}
+                            /> */}
                           </div>
                         </GridItem>
                       </GridContainer>
@@ -152,9 +189,9 @@ class Booking extends Component {
                         <div className="custom-booking">
                           {bookingPrice
                             ? bookingPrice.map(p => {
-                                totalPrice += parseInt(p.price);
-                                return <li>Rs: {p.price}</li>;
-                              })
+                              totalPrice += parseInt(p.price);
+                              return <li>Rs: {p.price}</li>;
+                            })
                             : null}
 
                           <div
@@ -177,30 +214,30 @@ class Booking extends Component {
                         <div className="package-booking">
                           {packageArray
                             ? packageArray.map(pack => {
-                                return (
-                                  <div>
-                                    <li>{pack.packageObj}</li>
-                                    {pack.servicePackages.map(service => {
-                                      packagePrice += parseInt(service.price);
-                                    })}
-                                    <div
-                                      className="totalPrice"
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        borderTop: "2px solid #727272",
-                                        borderBottom: "2px solid #727272",
-                                        margin: "5px 0px 10px 0px"
-                                      }}
-                                    >
-                                      Package Price: Rs:{" "}
-                                      {packagePrice -
-                                        (packagePrice / 100) *
-                                          pack.discountAmount}
-                                    </div>
+                              return (
+                                <div>
+                                  <li>{pack.packageObj}</li>
+                                  {pack.servicePackages.map(service => {
+                                    packagePrice += parseInt(service.price);
+                                  })}
+                                  <div
+                                    className="totalPrice"
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "space-between",
+                                      borderTop: "2px solid #727272",
+                                      borderBottom: "2px solid #727272",
+                                      margin: "5px 0px 10px 0px"
+                                    }}
+                                  >
+                                    Package Price: Rs:{" "}
+                                    {packagePrice -
+                                      (packagePrice / 100) *
+                                      pack.discountAmount}
                                   </div>
-                                );
-                              })
+                                </div>
+                              );
+                            })
                             : null}
                         </div>
 
@@ -217,16 +254,7 @@ class Booking extends Component {
                             disabled={isBookingButtonDisable}
                             onClick={saveBooking}
                           >
-                            {/* {saveCustomBookingLoader ? (
-                              <ReactLoading
-                                type={"spin"}
-                                color={"#ffff"}
-                                // height={'100px'}
-                                // width={'100px'}
-                              />
-                            ) : ( */}
                             Book Now
-                            {/* )} */}
                           </Button>
                         </div>
                       </div>
@@ -237,53 +265,62 @@ class Booking extends Component {
             ]}
           />
         ) : (
-          <CustomTabs
-            headerColor="danger"
-            tabs={[
-              {
-                tabName: "Create Packages",
-                tabIcon: Book,
-                tabContent: (
-                  <GridContainer>
-                    <GridItem xs={12} sm={12} md={12}>
-                      <h6>You can Create multiple pacakges from here...!</h6>
+            <CustomTabs
+              headerColor="danger"
+              tabs={[
+                {
+                  tabName: "Create Packages",
+                  tabIcon: Book,
+                  tabContent: (
+                    <GridContainer>
+                      <GridItem xs={12} sm={12} md={12}>
+                        <h6>You can Create multiple pacakges from here...!</h6>
 
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "flex-end",
-                          height: "50px"
-                        }}
-                      >
-                        <PackageModal
-                          venue={venue}
-                          ConfirmModal={ConfirmModal}
-                          handleClickCreatePackageOpen={
-                            handleClickCreatePackageOpen
-                          }
-                          handleCreatePackageClose={handleCreatePackageClose}
-                          handleChangeEnabled={handleChangeEnabled}
-                          packageCategories={packageCategories}
-                          handleToggle={handleToggle}
-                          packageObj={packageObj}
-                          servicePackages={servicePackages}
-                          handleToggleOnServicePackages={
-                            handleToggleOnServicePackages
-                          }
-                          discountAmount={discountAmount}
-                          handleOnChange={handleOnChange}
-                          packagePrice={packagePrice}
-                          afterDiscountPrice={afterDiscountPrice}
-                          saveCustomPackages={saveCustomPackages}
-                        />
-                      </div>
-                    </GridItem>
-                  </GridContainer>
-                )
-              }
-            ]}
-          />
-        )}
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "flex-end",
+                            height: "50px"
+                          }}
+                        >
+                          <PackageModal
+                            venue={venue}
+                            ConfirmModal={ConfirmModal}
+                            handleClickCreatePackageOpen={
+                              handleClickCreatePackageOpen
+                            }
+                            handleCreatePackageClose={handleCreatePackageClose}
+                            handleChangeEnabled={handleChangeEnabled}
+                            packageCategories={packageCategories}
+                            handleToggle={handleToggle}
+                            packageObj={packageObj}
+                            servicePackages={servicePackages}
+                            handleToggleOnServicePackages={
+                              handleToggleOnServicePackages
+                            }
+                            discountAmount={discountAmount}
+                            handleOnChange={handleOnChange}
+                            packagePrice={packagePrice}
+                            afterDiscountPrice={afterDiscountPrice}
+                            saveCustomPackages={saveCustomPackages}
+                          />
+                          {/* <Button
+                          variant="outlined"
+                          color="success"
+                          // onClick={() => {
+
+                          // }}
+                        >
+                          Create Package
+                        </Button> */}
+                        </div>
+                      </GridItem>
+                    </GridContainer>
+                  )
+                }
+              ]}
+            />
+          )}
       </>
     );
   }
