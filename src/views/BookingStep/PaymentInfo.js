@@ -10,6 +10,8 @@ import GridItem from "components/Grid/GridItem.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import Summary from './Summary'
+import { connect } from "react-redux";
+import { venueAction } from "./../../store/actions";
 
 class PaymentInfo extends Component {
   state = {
@@ -21,24 +23,22 @@ class PaymentInfo extends Component {
     let { token } = await this.props.stripe.createToken({
       name: "muhammad soban"
     });
-    debugger
     this.setState({ loading: true })
     if (token && token.id) {
       fetch("https://admin-server-2.herokuapp.com/charge", {
         method: "POST",
-        headers: { "Content-Type": "text/plain" },
-        body: token.id
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ tknId: token.id, amount: 100 })
       })
         .then(data => {
           return data.json();
         })
         .then(data => {
-          debugger
           this.props.handleNext()
+          this.props.saveCustomBooking({ ...this.props.savedBookingData, email: this.props.email, stripeInfo: data })
           console.log(data);
         })
         .catch(err => {
-          debugger
           console.log(err);
         });
 
@@ -99,8 +99,7 @@ class PaymentInfo extends Component {
             </Card>
           </GridItem>
           <GridItem xs={12} sm={12} md={4}>
-          <Summary />
-            <Card>Booking Details</Card>
+            <Summary />
             <div className="button">
               <Button
                 disabled={activeStep === 0}
@@ -127,4 +126,25 @@ class PaymentInfo extends Component {
   }
 }
 
-export default injectStripe(PaymentInfo);
+// export default injectStripe(PaymentInfo);
+
+const mapStateToProps = state => {
+  const {
+    venueReducer: {
+      savedBookingData
+    }
+  } = state;
+  return {
+    savedBookingData
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    saveCustomBooking: payload => dispatch(venueAction.saveCustomBooking(payload))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(injectStripe(PaymentInfo));

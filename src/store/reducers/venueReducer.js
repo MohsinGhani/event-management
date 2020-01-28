@@ -161,7 +161,10 @@ const initialState = {
   getCityLoader: false,
   getCityError: null,
 
-  savedBookingData: null
+  savedBookingData: {
+    servicesBookingPrice: [],
+    packageArray: []
+  }
 };
 
 export default function venueReducer(state = initialState, action) {

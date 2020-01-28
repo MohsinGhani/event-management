@@ -3,18 +3,83 @@ import Card from "components/Card/Card.jsx";
 import { venueAction } from "./../../store/actions";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import CardHeader from "components/Card/CardHeader";
+import CardBody from "components/Card/CardBody";
 
 class Summary extends Component {
     componentDidMount() {
-        if (!this.props.savedBookingData) {
-            // this.props.history.goBack()
+        const { servicesBookingPrice, packageArray } = this.props.savedBookingData
+
+        if (!servicesBookingPrice.length && !packageArray.length) {
+            this.props.history.goBack()
             alert('Booking Data is Required to continue Booking Steps')
         }
     }
 
     render() {
+        const { servicesBookingPrice, packageArray } = this.props.savedBookingData
         return (
-            <Card>Booking Details</Card>
+            <Card>
+                <CardHeader
+                    style={{
+                        position: "inherit",
+                        opacity: 0.9,
+                        display: "flex"
+                    }}
+                    color={"primary"}
+                >
+                    <p
+                        title={'Booking Details'}
+                        style={{
+                            width: "100%",
+                            overflow: "hidden",
+                            whiteSpace: "nowrap",
+                            textOverflow: "ellipsis",
+                            margin: "5px 0 5px 0"
+                        }}
+                    >
+                        Booking Details
+                    </p>
+                </CardHeader>
+
+                <CardBody>
+                    {
+                        (() => {
+                            if (servicesBookingPrice && servicesBookingPrice.length) {
+                                return (
+                                    <div>
+                                        <h5>Services</h5>
+                                        {
+                                            servicesBookingPrice && servicesBookingPrice.map((service) => {
+                                                const { title, price } = service
+                                                return (
+                                                    <ul><li>{title} - (Rs.{price})</li></ul>
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                )
+                            }
+
+                            if (packageArray && packageArray.length) {
+                                return (
+                                    <div>
+                                        <h5>Packages</h5>
+                                        {
+                                            packageArray[0].servicePackages && packageArray[0].servicePackages.map((service) => {
+                                                const { title, price } = service
+                                                return (
+                                                    <ul><li>{title} - (Rs.{price})</li></ul>
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                )
+                            }
+                        })()
+                    }
+                </CardBody>
+            </Card>
         )
     }
 }

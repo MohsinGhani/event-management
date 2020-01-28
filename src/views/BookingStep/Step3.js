@@ -26,7 +26,8 @@ class Step3 extends Component {
       handleNext,
       handleBack,
       perHead,
-      handleOnChange
+      handleOnChange,
+      email
     } = this.props;
 
     return (
@@ -40,6 +41,7 @@ class Step3 extends Component {
                 activeStep={activeStep}
                 handleBack={handleBack}
                 handleNext={handleNext}
+                email={email}
               />
             </Elements>
           </StripeProvider>

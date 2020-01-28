@@ -99,6 +99,7 @@ class BookingStepper extends Component {
             handleNext={this.handleNext}
             perHead={perHead}
             handleOnChange={handleOnChange}
+            email={email}
           />
         );
 
