@@ -438,7 +438,7 @@ class UpdateVenue extends Component {
     const { updateVenueLoader, getVenueLoader } = this.props;
     return (
       <div>
-        <AuthenticatedNavbar  navBgColor={'rose'}/>
+        <AuthenticatedNavbar navBgColor={"rose"} />
         <br />
 
         {getVenueLoader ? (
@@ -517,6 +517,12 @@ class UpdateVenue extends Component {
                 }}
               >
                 {updateVenueLoader ? (
+                  <GlobleLoader updateVenueLoader={updateVenueLoader} />
+                ) : (
+                  "Update"
+                )}
+
+                {/* {updateVenueLoader ? (
                   <ReactLoading
                     type={"spin"}
                     color={"#ffff"}
@@ -525,7 +531,7 @@ class UpdateVenue extends Component {
                   />
                 ) : (
                   "Update"
-                )}
+                )} */}
               </Button>
             </div>
           </>
