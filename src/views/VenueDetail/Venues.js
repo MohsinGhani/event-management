@@ -139,7 +139,7 @@ class Venues extends Component {
                         {venue.name}
                       </h2>
                       <p style={{ display: "flex", alignItems: "center" }}>
-                        <RatingSystem />
+                        <RatingSystem vid={venue.vid}/>
                       </p>
 
                       <p style={{ display: "flex", alignItems: "center" }}>

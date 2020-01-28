@@ -117,12 +117,12 @@ export default class venueEpic {
 
   static getFeedbacks = action$ =>
     action$.ofType(GET_FEEDBACKS).mergeMap(({ payload }) => {
-      // const { vid } = payload;
+      const { vid } = payload;
       const feedbacks = [];
       return (
         db
           .collection("feedback")
-          // .where("eventId", "==", vid)
+          .where("eventId", "==", vid)
           .get()
           .then(querySnapshot => {
             querySnapshot.forEach(doc => {

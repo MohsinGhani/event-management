@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react';
-import RatingSystem from "./RatingSystem";
+// import RatingSystem from "./RatingSystem";
 import { Carousel } from "react-responsive-carousel";
 import GridItem from "components/Grid/GridItem";
 import Button from "components/CustomButtons/Button.jsx";
 import Card from "components/Card/Card";
 import CardHeader from "components/Card/CardHeader";
 import CardBody from "components/Card/CardBody";
-
+import RatingSystem from './../VenueDetail/RatingSystem'
 const VenueCard = ({ venue, i, combineRating, goto, isPopup }) => {
     return (
         <GridItem md={isPopup ? 12 : 4} key={i}>
@@ -114,7 +114,8 @@ const VenueCard = ({ venue, i, combineRating, goto, isPopup }) => {
                                         }}
                                     >
                                         <div style={{ marginTop: "8px" }}>
-                                            <RatingSystem combineRating={combineRating} />
+                                            {/* <RatingSystem combineRating={combineRating} /> */}
+                                            <RatingSystem vid={venue.vid} />
                                             {/* <Feedback vid={venue.vid} getRating={getRating} feedbacked={feedbacked} /> */}
                                         </div>
 
