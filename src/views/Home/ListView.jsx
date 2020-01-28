@@ -34,7 +34,7 @@ class ListView extends React.Component {
   componentDidMount() {
     const { getRating, getVenues } = this.props;
     getVenues();
-    getRating();
+    // getRating();
   }
 
   render() {
