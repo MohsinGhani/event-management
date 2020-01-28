@@ -289,7 +289,8 @@ class VenueDetail extends React.Component {
       saveCustomBookingLoader,
       packages,
       bookingItem,
-      allBookingItem
+      allBookingItem,
+      userMood
     } = this.props;
     const {
       servicesBookingPrice,
@@ -345,6 +346,7 @@ class VenueDetail extends React.Component {
             bookingItem={bookingItem}
             allBookingItem={allBookingItem}
             isBookingButtonDisable={isBookingButtonDisable}
+            userMood={userMood}
           />
         ) : null}
       </div>
@@ -354,7 +356,7 @@ class VenueDetail extends React.Component {
 
 const mapStateToProps = state => {
   const {
-    authReducer: { user, isLoggedIn },
+    authReducer: { user, isLoggedIn, userMood },
     venueReducer: {
       venue,
       getVenueLoader,
@@ -397,7 +399,8 @@ const mapStateToProps = state => {
     getBookingItemError,
 
     user,
-    isLoggedIn
+    isLoggedIn,
+    userMood
   };
 };
 

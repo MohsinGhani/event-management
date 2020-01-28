@@ -76,14 +76,15 @@ class Venues extends Component {
       bookingItem,
       allBookingItem,
       isBookingButtonDisable,
-      saveBooking
+      saveBooking,
+      userMood
     } = this.props;
     // let totalPrice = 0;
     return (
       <div>
         <ImageCarousel venue={venue} />
 
-        {user && venue.userId === user.uid ? (
+        {user && venue.userId === user.uid && userMood !== 'customer'? (
           <div className="action-button">
             <div className="edit_button">
               <Button
