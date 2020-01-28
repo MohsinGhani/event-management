@@ -220,6 +220,44 @@ class TeamSection extends React.Component {
                     I am lead tester of this product.
                   </p>
                 </CardBody>
+                <CardFooter className={classes.justifyCenter}>
+                  <Button
+                    justIcon
+                    color="transparent"
+                    className={classes.margin5}
+                  >
+                    <a
+                      href="https://www.linkedin.com/in/syed-faran-701350154/"
+                      target="_blank"
+                    >
+                      <i className={classes.socials + " fab fa-linkedin"} />
+                    </a>
+                  </Button>
+                  <Button
+                    justIcon
+                    color="transparent"
+                    className={classes.margin5}
+                  >
+                    <a
+                      href="https://web.facebook.com/syedfaranulhaq"
+                      target="_blank"
+                    >
+                      <i className={classes.socials + " fab fa-facebook"} />
+                    </a>
+                  </Button>
+                  <Button
+                    justIcon
+                    color="transparent"
+                    className={classes.margin5}
+                  >
+                    <a
+                      href="https://github.com/syedfaran"
+                      target="_blank"
+                    >
+                      <i className={classes.socials + " fab fa-github"} />
+                    </a>
+                  </Button>
+                </CardFooter>
               </Card>
             </GridItem>
           </GridContainer>

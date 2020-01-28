@@ -65,7 +65,7 @@ class FeedBackForm extends Component {
 
   handleOnSave = () => {
     const { feedbackDetails, user, eventId } = this.props;
-    console.log("eventId: ", eventId);
+
     const {
       privateSuggestion,
       publicSuggestion,
@@ -98,8 +98,15 @@ class FeedBackForm extends Component {
     feedbackDetails(newFeedback);
   };
 
+  componentDidUpdate(prevProps) {
+    const { createFeedbackLoader } = this.props
+    if (prevProps.createFeedbackLoader !== createFeedbackLoader && !createFeedbackLoader) {
+      this.handleClose("feedBackModal")
+    }
+  }
+
   render() {
-    const { classes, user, eventId } = this.props;
+    const { classes, user, eventId, createFeedbackLoader, feedback } = this.props;
     const {
       feedBackModal,
 
@@ -114,15 +121,17 @@ class FeedBackForm extends Component {
     } = this.state;
     return (
       <div>
-        <Button
-          color="info"
-          size="sm"
-          round
-          // disabled={isDetailsButtonDisable}
-          onClick={() => this.handleClickOpen("feedBackModal")}
-        >
-          FeedBack
+        {
+          !feedback && <Button
+            color="info"
+            size="sm"
+            round
+            // disabled={isDetailsButtonDisable}
+            onClick={() => this.handleClickOpen("feedBackModal")}
+          >
+            FeedBack
         </Button>
+        }
         <Dialog
           classes={{
             root: classes.center,
@@ -269,7 +278,7 @@ class FeedBackForm extends Component {
               color="transparent"
               simple
             >
-              Submit
+              {createFeedbackLoader ? '...loading' : 'Submit'}
             </Button>
           </DialogActions>
         </Dialog>
