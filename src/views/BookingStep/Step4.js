@@ -1,25 +1,16 @@
 import React, { Component } from "react";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import Icon from "@material-ui/core/Icon";
-// @material-ui/icons
-import People from "@material-ui/icons/People";
-import Email from "@material-ui/icons/Email";
 // core components
 import GridContainer from "components/Grid/GridContainer.jsx";
-import GridItem from "components/Grid/GridItem.jsx";
 import Card from "components/Card/Card.jsx";
 // import CardHeader from "components/Card/CardHeader.jsx";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardBody from "components/Card/CardBody.jsx";
-import CardFooter from "components/Card/CardFooter.jsx";
 import Button from "components/CustomButtons/Button.jsx";
-import CustomInput from "components/CustomInput/CustomInput.jsx";
-import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import loginStyle from "assets/jss/material-kit-react/views/componentsSections/loginStyle.jsx";
-
+import { withRouter } from "react-router-dom";
 import "./index.css";
 
 class Step4 extends Component {
@@ -67,7 +58,7 @@ class Step4 extends Component {
                   <Box fontFamily="Signika" fontSize="1.5rem" fontWeight="bold">
                     Have any questions?
                   </Box>
-                  <Button variant="contained" color="secondary">
+                  <Button variant="contained" color="secondary" onClick={() => this.props.history.push('/')}>
                     Contact Customer Care
                   </Button>
                 </div>
@@ -79,4 +70,4 @@ class Step4 extends Component {
     );
   }
 }
-export default withStyles(loginStyle)(Step4);
+export default withStyles(loginStyle)(withRouter(Step4));

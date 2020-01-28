@@ -74,7 +74,7 @@ class PaymentInfo extends Component {
                 }}
               />
               <CardBody>
-                <CustomInput
+                {/* <CustomInput
                   labelText="Per-Head"
                   id="perHead"
                   formControlProps={{
@@ -91,7 +91,7 @@ class PaymentInfo extends Component {
                       </InputAdornment>
                     )
                   }}
-                />
+                /> */}
                 <p>Would you like to complete the purchase?</p>
                 <CardElement />
                 {/* <button onClick={this.submit}>Purchase</button> */}
